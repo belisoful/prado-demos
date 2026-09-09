@@ -1,4 +1,4 @@
-vendor
+vendor/
 
 time-tracker/protected/App_Data/SQLite/time-tracker.db
 
@@ -8,5 +8,8 @@ blog/protected/Data/Blog.db
 
 quickstart/protected/index/quickstart/*
 !quickstart/protected/index/quickstart/.gitkeep
+
+# MacOS files
+*.DS_Store
 
 local/
