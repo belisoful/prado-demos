@@ -61,6 +61,86 @@ $object->MainContent->SubmitButton->buttonClicked($sender, $param);
 </li>
 </ul>
 
+<h2>Closure event handlers</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+An event handler can be a <tt>Closure</tt>. Assign the closure to the event, or add it
+with <tt>attachEventHandler</tt>. The closure receives the sender and the parameter
+like any other handler.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$component->OnClick = function ($sender, $param) {
+    // handle the event
+};
+
+$component->attachEventHandler('OnClick', function ($sender, $param) {
+    // handle the event
+});
+</com:TTextHighlighter>
+
+<h2>Event handlers with embedded data</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TEventHandler</tt> attaches a handler together with a piece of data. The data is
+passed to the handler as a third argument after the sender and the parameter. One
+handler method serves several attachments, and each attachment carries its own data.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$handler = new TEventHandler([$object, 'handleClick'], ['id' => 42]);
+$component->attachEventHandler('OnClick', $handler);
+
+// in the $object class:
+public function handleClick($sender, $param, $data = null)
+{
+    // $data === ['id' => 42]
+}
+</com:TTextHighlighter>
+<p class="block-content">
+The <tt>$data</tt> argument defaults to null, so the same method also works when it is
+attached directly without a <tt>TEventHandler</tt>.
+</p>
+
+<h2>Temporary event handlers</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TEventSubscription</tt> attaches a handler for a limited time. Constructing a
+subscription attaches the handler to the event. Releasing the subscription detaches the
+handler, which happens automatically when the subscription goes out of scope.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$subscription = new TEventSubscription($component, 'OnClick', function ($sender, $param) {
+    // handles the event while the subscription is in scope
+});
+// unset($subscription), or leaving the scope, detaches the handler
+</com:TTextHighlighter>
+
+<h2>Raising events in reverse</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>raiseEvent</tt> calls the attached handlers in priority order. Passing the
+<tt>TEventResults::EVENT_REVERSE</tt> flag as the response type calls the handlers in
+reverse priority order.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$component->raiseEvent('OnClick', $this, $param, TEventResults::EVENT_REVERSE);
+</com:TTextHighlighter>
+
+<h2>Event parameters</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TEventParameter</tt> carries the data of an event. A handler reads the data with
+<tt>getParameter</tt> and reads the name of the event with <tt>getEventName</tt>.
+</p>
+<p class="block-content">
+<com:SinceVersion Version="4.3.3" />
+A <tt>TEventParameter</tt> is set read-only through its <tt>ReadOnly</tt> property. A
+read-only parameter throws <tt>TInvalidOperationException</tt> on any attempt to change
+its data, and reads are always permitted. When the parameter data is an array, a handler
+reads and writes it through array access on the parameter. A parameter class implements
+<tt>IEventCycleParameter</tt> to run code before and after the handlers through its
+<tt>preRaiseEvent</tt> and <tt>postRaiseEvent</tt> methods.
+</p>
+
 <h2>Global events</h2>
 <p class="block-content">
 With the addition of behaviors, a more expansive event model is needed.  There
