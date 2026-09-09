@@ -1,0 +1,120 @@
+<com:TContent ID="body" >
+<h1>Extensions (Composer Plugins)</h1>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+A PRADO extension adds functionality to an application through a Composer package. An
+extension provides new controls, services, behaviors, command-line actions, or pages.
+Extensions are Composer packages of the type <tt>prado4-extension</tt>, and the
+community publishes them on Packagist.
+</p>
+
+<h2>What an extension is</h2>
+<p class="block-content">
+An extension is a Composer package that names a bootstrap module in the
+<tt>extra.bootstrap</tt> field of its <tt>composer.json</tt>. The application loads the
+package as a module whose id is the package name. The bootstrap module is the entry
+point of the extension, and it registers whatever the extension provides.
+</p>
+<com:TTextHighlighter Language="json" CssClass="source block-content">
+{
+  "name": "myvendor/myplugin",
+  "type": "prado4-extension",
+  "keywords": ["prado", "framework", "extension"],
+  "require": {
+    "php": ">=8.1.0",
+    "pradosoft/prado": "^4.3"
+  },
+  "repositories": [
+    { "type": "composer", "url": "https://asset-packagist.org" }
+  ],
+  "autoload": {
+    "psr-4": { "MyVendor\\MyPlugin\\": "src/" }
+  },
+  "extra": {
+    "bootstrap": "MyVendor\\MyPlugin\\TMyPluginModule"
+  }
+}
+</com:TTextHighlighter>
+<p class="block-content">
+The extension's classes load through Composer's PSR-4 autoloading. The
+<tt>autoload.psr-4</tt> field maps a namespace prefix to a directory, so a class such as
+<tt>MyVendor\MyPlugin\TMyPluginModule</tt> loads from <tt>src/TMyPluginModule.php</tt>.
+Give the extension its own vendor and package namespace, so its fully qualified class
+names do not collide with the application or with another extension.
+</p>
+<p class="block-content">
+The <tt>require</tt> field sets the PHP version and the <tt>pradosoft/prado</tt> version
+the extension needs, along with any other packages it uses. The <tt>type</tt> is
+<tt>prado4-extension</tt>, and the <tt>keywords</tt> help others find the extension on
+Packagist, where PRADO extensions are listed by that type.
+</p>
+<p class="block-content">
+PRADO depends on front-end asset packages, such as jQuery, that are distributed through
+the asset-packagist repository. A project that installs PRADO adds this repository so
+Composer resolves the assets, and an extension adds it as well to install on its own.
+</p>
+
+<h2>Installing and enabling an extension</h2>
+<p class="block-content">
+Install an extension with Composer. The application reads the installed packages and
+finds the extensions among them.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+composer require myvendor/myplugin
+</com:TTextHighlighter>
+<p class="block-content">
+Enable the extension by declaring a module whose id is the package name. The module has
+no <tt>class</tt> attribute, because the class comes from the package's
+<tt>extra.bootstrap</tt> field.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="myvendor/myplugin" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+<h2>The plugin module</h2>
+<p class="block-content">
+<tt>TPluginModule</tt> is the base class for an extension's bootstrap module. It serves
+the pages found in a <tt>Pages</tt> directory inside the package, and it registers the
+package's <tt>errorMessages.txt</tt> file with the exception system. A subclass gains
+these capabilities by extending <tt>TPluginModule</tt>.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+namespace MyVendor\MyPlugin;
+
+class TMyPluginModule extends \Prado\Util\TPluginModule
+{
+    // pages under the package's Pages/ directory are served automatically
+}
+</com:TTextHighlighter>
+<p class="block-content">
+A plugin page sets its content id from the <tt>PluginContentId</tt> application
+parameter, so the page adapts to the application's master template. The application sets
+the parameter, and the plugin page reads it.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TContent ID=&lt;%$ PluginContentId %&gt;&gt;
+  ...
+&lt;/com:TContent&gt;
+</com:TTextHighlighter>
+
+<h2>Database extensions</h2>
+<p class="block-content">
+<tt>TDbPluginModule</tt> extends <tt>TPluginModule</tt> for an extension that needs a
+database connection. The <tt>ConnectionID</tt> property names a <tt>TDataSourceConfig</tt>
+module for the connection. The connection cannot change after the module initializes, so
+a single application parameter configures every database extension the same way.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="db" class="Prado\Data\TDataSourceConfig"&gt;
+    &lt;database ConnectionString="mysql:host=localhost;dbname=mydb"
+              Username="dbuser" Password="dbpass" /&gt;
+  &lt;/module&gt;
+  &lt;module id="myvendor/mydbplugin" ConnectionID="db" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+</com:TContent>

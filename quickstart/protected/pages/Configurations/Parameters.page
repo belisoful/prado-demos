@@ -1,0 +1,108 @@
+<com:TContent ID="body" >
+<h1>Database Parameters</h1>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+<tt>TDbParameterModule</tt> stores application parameters in a database table. The
+parameters load into the application on start, and a change to a parameter is written
+back to the table. Application parameters and the <tt>parameter</tt> configuration tag
+are described on the
+<a href="?page=Configurations.AppConfig">Application Configurations</a> page. This page
+describes the database parameter module.
+</p>
+
+<h2>Configuration</h2>
+<p class="block-content">
+The module is registered with a database connection. The <tt>ConnectionID</tt> property
+names a <tt>TDataSourceConfig</tt> module. The <tt>TableName</tt>, <tt>KeyField</tt>, and
+<tt>ValueField</tt> properties name the table and its key and value columns. The
+<tt>Serializer</tt> property selects how a value is stored, either <tt>php</tt> or
+<tt>json</tt>.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="db" class="Prado\Data\TDataSourceConfig"&gt;
+    &lt;database ConnectionString="mysql:host=localhost;dbname=mydb"
+              Username="dbuser" Password="dbpass" /&gt;
+  &lt;/module&gt;
+  &lt;module id="dbparams" class="Prado\Util\TDbParameterModule"
+          ConnectionID="db" TableName="prado_params"
+          KeyField="param_key" ValueField="param_value" Serializer="php" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The same configuration is written in the PHP application configuration style.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+'modules' => [
+    'dbparams' => [
+        'class' => 'Prado\Util\TDbParameterModule',
+        'properties' => [
+            'ConnectionID' => 'db', 'TableName' => 'prado_params',
+            'KeyField' => 'param_key', 'ValueField' => 'param_value', 'Serializer' => 'php',
+        ],
+    ],
+],
+</com:TTextHighlighter>
+
+<h2>Reading and setting parameters</h2>
+<p class="block-content">
+A database parameter is read like any application parameter, through the application's
+<tt>Parameters</tt> collection. When <tt>CaptureParameterChanges</tt> is on, which is the
+default, setting a parameter in the application parameters collection writes the value 
+to the database table.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$params = $this->getApplication()->getParameters();
+
+$title = $params['SiteTitle'];   // read a parameter
+$params['SiteTitle'] = 'My Site';  // written to the database
+</com:TTextHighlighter>
+<p class="block-content">
+The capture is activated at <tt>TPageService::onPreRunPage</tt>, after the module has
+loaded its parameters from the database. Loading a parameter into the application
+therefore does not write it back to the database. The application sets a captured change
+only after the page begins to run.
+</p>
+<p class="block-content">
+A captured change writes the value to the database table and does not write it back into
+the application parameters. This breaks the route between the two. Without it, writing a
+parameter would route to the database, the database write would set the application
+parameter, and that change would route to the database again, without end.
+</p>
+<img src="<%~parameters-routeback.svg%>" class="figure" alt="Route-back between the application parameters and the database table. A change to a parameter is captured at TPageService::onPreRunPage and written to the database table. The database write is not written back into the application parameters, so the change does not loop between the two. On start the module loads the parameters from the database into the application, before the capture is attached."/>
+
+<h2>Auto-loading</h2>
+<p class="block-content">
+The <tt>AutoLoadField</tt> property names a column that marks a parameter to load on
+start. A parameter whose auto-load column equals <tt>AutoLoadValue</tt> loads with the
+application. The module attaches <tt>TMapLazyLoadBehavior</tt> to the parameters, so a
+parameter that is not auto-loaded reads from the database on first access.
+</p>
+
+<h2>Compatible schemas</h2>
+<p class="block-content">
+The field and table names are configurable, so modules read existing tables. A
+WordPress options table works by naming its columns.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;module id="dbparams" class="Prado\Util\TDbParameterModule"
+        ConnectionID="db" TableName="wp_options"
+        KeyField="option_name" ValueField="option_value"
+        AutoLoadField="autoload" AutoLoadValue="'yes'" AutoLoadValueFalse="'no'"
+        Serializer="php" /&gt;
+</com:TTextHighlighter>
+
+<h2>Command line</h2>
+<p class="block-content">
+The module registers a <tt>param</tt> command-line action that reads and writes the
+parameters in the database.
+</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli param</tt></td><td>Displays all the parameters in the database. The same as <tt>param/index</tt>.</td></tr>
+<tr><td><tt>prado-cli param/get &lt;param-key&gt;</tt></td><td>Gets a parameter by its key.</td></tr>
+<tr><td><tt>prado-cli param/set &lt;param-key&gt; &lt;param-value&gt;</tt></td><td>Sets a parameter to a value.</td></tr>
+</table>
+
+</com:TContent>

@@ -50,6 +50,7 @@
     <li><a href="?page=Configurations.PageConfig">Page Configurations</a></li>
     <li><a href="?page=Configurations.UrlMapping">URL Mapping (Friendly URLs)</a></li>
     <li><a href="?page=Configurations.BehaviorsConfig">Behaviors Configuration</a></li>
+    <li><a href="?page=Configurations.Parameters">Database Parameters</a></li>
 </ul>
 </div>
 
@@ -100,6 +101,7 @@
     <li><a href="?page=Advanced.State">Persistent State</a></li>
     <li><a href="?page=Advanced.Logging">Logging</a></li>
     <li><a href="?page=Advanced.Cron">Scheduled Tasks (Cron)</a></li>
+    <li><a href="?page=Advanced.Plugins">Extensions (Plugins)</a></li>
     <li><a href="?page=Advanced.Error">Error Handling and Reporting</a></li>
     <li><a href="?page=Advanced.I18N">Internationalization</a></li>
     <li><a href="?page=Advanced.Performance">Performance Tuning</a></li>

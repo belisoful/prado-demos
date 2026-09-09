@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 725 498" width="725" height="498" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0.6" dy="0.9" stdDeviation="0.7" flood-color="#000" flood-opacity="0.20"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f2f2f"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="725" height="498" fill="#fff"/>
+  <line x1="122.4" y1="60.0" x2="154.4" y2="60.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <line x1="276.4" y1="60.0" x2="308.4" y2="60.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="20.0" y="40.0" width="102.4" height="40.0" rx="8" ry="8" fill="#d4e3f4" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="71.2" y="60.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">Prado::log()</text>
+  <rect x="156.4" y="40.0" width="120.0" height="40.0" rx="8" ry="8" fill="#e7eef7" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="216.4" y="56.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TLogger</text>
+  <text x="216.4" y="69.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central">in memory</text>
+  <rect x="310.4" y="40.0" width="120.0" height="40.0" rx="8" ry="8" fill="#cfe0d4" stroke="#3d7a55" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="60.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TLogRouter</text>
+  <path d="M370.4,80.0 L370.4,88.0 L249.4,88.0 L249.4,449.0" fill="none" stroke="#2f2f2f" stroke-width="1.3"/>
+  <line x1="249.4" y1="127.0" x2="273.4" y2="127.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="173.0" x2="273.4" y2="173.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="219.0" x2="273.4" y2="219.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="265.0" x2="273.4" y2="265.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="311.0" x2="273.4" y2="311.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="357.0" x2="273.4" y2="357.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="403.0" x2="273.4" y2="403.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="249.4" y1="449.0" x2="273.4" y2="449.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <rect x="275.4" y="110.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="127.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TFileLogRoute</text>
+  <line x1="465.4" y1="127.0" x2="553.4" y2="127.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="110.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="127.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">log file (runtime dir)</text>
+  <rect x="275.4" y="156.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="173.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TDbLogRoute</text>
+  <line x1="465.4" y1="173.0" x2="553.4" y2="173.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="156.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="173.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">database table</text>
+  <rect x="275.4" y="202.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="219.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TEmailLogRoute</text>
+  <line x1="465.4" y1="219.0" x2="553.4" y2="219.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="202.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="219.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">email</text>
+  <rect x="275.4" y="248.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="265.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TBrowserLogRoute</text>
+  <line x1="465.4" y1="265.0" x2="553.4" y2="265.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="248.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="265.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">browser console</text>
+  <rect x="275.4" y="294.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="311.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TFirebugLogRoute</text>
+  <line x1="465.4" y1="311.0" x2="553.4" y2="311.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="294.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="311.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">Firebug console</text>
+  <rect x="275.4" y="340.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="357.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TFirePhpLogRoute</text>
+  <line x1="465.4" y1="357.0" x2="553.4" y2="357.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="340.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="357.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">FirePHP console</text>
+  <rect x="275.4" y="386.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="399.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TSysLogRoute</text>
+  <text x="370.4" y="412.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central">since 4.3.0</text>
+  <line x1="465.4" y1="403.0" x2="553.4" y2="403.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="386.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="403.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">system log (syslog)</text>
+  <rect x="275.4" y="432.0" width="190.0" height="34.0" rx="8" ry="8" fill="#eef4fb" stroke="#3f6fa0" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="370.4" y="445.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">TStdOutLogRoute</text>
+  <text x="370.4" y="458.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central">since 4.3.0</text>
+  <line x1="465.4" y1="449.0" x2="553.4" y2="449.0" stroke="#2f2f2f" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="555.4" y="432.0" width="150.0" height="34.0" rx="8" ry="8" fill="#f4efe2" stroke="#a98a3f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="630.4" y="449.0" font-size="10.5" fill="#1a1a1a" font-weight="600" text-anchor="middle" dominant-baseline="central">standard output</text>
+  <text x="275.4" y="102.0" font-size="9" fill="#555" text-anchor="start" font-style="italic">each route applies its own Levels + Categories filter, then sends &#8212; routes run in parallel</text>
+</svg>

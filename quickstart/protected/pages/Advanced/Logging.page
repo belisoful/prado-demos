@@ -1,61 +1,199 @@
 <com:TContent ID="body" >
-
 <h1>Logging</h1>
 <p class="block-content">
-PRADO provides a highly flexible and extensible logging functionality. Messages logged can be classified according to log levels, message categories and originating control. Using level, category, control or timestamp filters, the messages can be further routed to different destinations, such as files, emails, browser windows, etc. The following diagram shows the basic architecture of PRADO logging mechanism,
+PRADO records log messages while a request runs. A log message has a level, a category,
+and text. A log router sends the collected messages to destinations such as files, a
+database, the browser, or the system log. The core framework logs its own messages, and
+an application adds its own.
 </p>
-<img src="<%~ logrouter.gif %>" alt="Log router" />
 
-<h2>Using Logging Functions</h2>
+<h2>Logging a message</h2>
 <p class="block-content">
-The following two methods are provided for logging messages in PRADO,
+<tt>Prado::log</tt> records a message with a level and a category.
 </p>
 <com:TTextHighlighter CssClass="source block-content">
-Prado::log($message, $logLevel, $category, $control);
-Prado::trace($message, $category, $control);
+Prado::log('Order saved', TLogger::INFO, 'app.orders');
 </com:TTextHighlighter>
 <p class="block-content">
-The difference between <tt>Prado::log()</tt> and <tt>Prado::trace()</tt> is  that the latter automatically selects the log level according to the application mode. If the application is in <tt>Debug</tt> mode, stack trace information is appended to the messages. <tt>Prado::trace()</tt> is widely used in the core code of the PRADO framework.
+<com:SinceVersion Version="4.3.0" />
+Each log level also has a method that records a message at that level. When the category
+is omitted, PRADO uses the name of the calling class.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+Prado::info('Order saved');       // category is the calling class
+Prado::warning('Low stock');
+Prado::error('Payment failed');
+</com:TTextHighlighter>
+<p class="block-content">
+The log levels are <tt>DEBUG</tt>, <tt>INFO</tt>, <tt>NOTICE</tt>, <tt>WARNING</tt>,
+<tt>ERROR</tt>, <tt>ALERT</tt>, and <tt>FATAL</tt>. The methods <tt>Prado::debug</tt>,
+<tt>Prado::info</tt>, <tt>Prado::notice</tt>, <tt>Prado::warning</tt>,
+<tt>Prado::error</tt>, <tt>Prado::alert</tt>, <tt>Prado::fatal</tt>, and
+<tt>Prado::trace</tt> each record a message at their level.
 </p>
 
-<h2>Message Routing</h2>
+<h2>Profiling</h2>
+<com:SinceVersion Version="4.3.0" />
 <p class="block-content">
-Messages logged using the above two functions are kept in memory. To make use of the messages, developers need to route them to specific destinations, such as files, emails, or browser windows. The message routing is managed by <tt>System.Util.TLogRouter</tt> module. When plugged into an application, it can route the messages to different destination in parallel. Currently, PRADO provides four types of routes:
+<tt>Prado::profileBegin</tt> and <tt>Prado::profileEnd</tt> measure the time between two
+points. Both take a token that pairs the begin with the end. <tt>profileEnd</tt> returns
+the elapsed time and logs it.
 </p>
-<ul id="u1" class="block-content">
-  <li><tt>TFileLogRoute</tt> - filtered messages are stored in a specified log file. By default, this file is named <tt>prado.log</tt> under the runtime directory of the application. File rotation is provided.</li>
-  <li><tt>TEmailLogRoute</tt> - filtered messages are sent to pre-specified email addresses.</li>
-  <li><tt>TBrowserLogRoute</tt> - filtered messages are appended to the end of the current page output.</li>
-  <li><tt>TFirebugLogRoute</tt> - filtered messages are sent to the <a href="http://www.getfirebug.com">Firebug</a> console</li>
-</ul>
+<com:TTextHighlighter CssClass="source block-content">
+Prado::profileBegin('render');
+// ... work ...
+Prado::profileEnd('render');
+</com:TTextHighlighter>
+
+<h2>Routing messages</h2>
 <p class="block-content">
-To enable message routing, plug in and configure the <tt>TLogRouter</tt> module in application configuration,
+Messages are held in memory until a route sends them to a destination. The
+<tt>TLogRouter</tt> module holds the routes. Each <tt>route</tt> element sends the
+messages to one destination, and the routes run in parallel.
+</p>
+<img src="<%~logging-routes.svg%>" class="figure" alt="Logging fan-out. Prado::log records a message into the in-memory TLogger. The TLogRouter passes the collected messages to each route. Each route applies its own Levels and Categories filter, then sends the messages that pass to its own destination, and the routes run in parallel. The routes and their destinations are TFileLogRoute to a log file in the runtime directory, TDbLogRoute to a database table, TEmailLogRoute to email, TBrowserLogRoute to the browser console, TFirebugLogRoute to the Firebug console, TFirePhpLogRoute to the FirePHP console, TSysLogRoute to the system log, and TStdOutLogRoute to standard output. TSysLogRoute and TStdOutLogRoute are since 4.3.0."/>
+
+<h2>Log routes</h2>
+<p class="block-content">
+A route is a <tt>route</tt> element inside the <tt>TLogRouter</tt> module. Each route has
+its own properties for its destination. PRADO provides these routes.
+</p>
+<table class="parameters">
+<tr><th>Route</th><th>Destination and properties</th></tr>
+<tr><td><tt>TFileLogRoute</tt></td><td>A log file under the runtime directory. <tt>LogPath</tt>, <tt>LogFile</tt>, <tt>MaxFileSize</tt>, and <tt>MaxLogFiles</tt> set the file and its rotation.</td></tr>
+<tr><td><tt>TBrowserLogRoute</tt></td><td>The browser's debug console. <tt>ColorizeDelta</tt> colors the time between messages.</td></tr>
+<tr><td><tt>TFirebugLogRoute</tt></td><td>The Firebug browser console. A subclass of <tt>TBrowserLogRoute</tt>.</td></tr>
+<tr><td><tt>TDbLogRoute</tt></td><td>A database table, named by <tt>ConnectionID</tt> and <tt>LogTableName</tt>.</td></tr>
+<tr><td><tt>TEmailLogRoute</tt></td><td>An email to the addresses in <tt>Emails</tt>, with <tt>Subject</tt> and <tt>SentFrom</tt>.</td></tr>
+<tr><td><tt>TFirePhpLogRoute</tt></td><td>The FirePHP browser console.</td></tr>
+<tr><td><tt>TSysLogRoute</tt> (since 4.3.0)</td><td>The operating system's log, under a <tt>Facility</tt>.</td></tr>
+<tr><td><tt>TStdOutLogRoute</tt> (since 4.3.0)</td><td>Standard output, for a command-line process.</td></tr>
+</table>
+<p class="block-content">
+This router writes the warning, error, and fatal messages to a file, emails the fatal
+messages, and stores every message in a database table.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
-&lt;module id="log" class="System.Util.TLogRouter"&gt;
-  &lt;route class="TBrowserLogRoute"
-      Levels="Info"
-      Categories="System.Web.UI.TPage, System.Web.UI.WebControls" /&gt;
-  &lt;route class="TFileLogRoute"
-      Levels="Warning, Error"
-      Categories="System.Web" /&gt;
-&lt;/module&gt;
+&lt;modules&gt;
+  &lt;module id="log" class="Prado\Util\TLogRouter"&gt;
+    &lt;route class="Prado\Util\TFileLogRoute" Levels="Warning, Error, Fatal"
+           LogFile="app.log" MaxFileSize="1024" MaxLogFiles="10" /&gt;
+    &lt;route class="Prado\Util\TEmailLogRoute" Levels="Fatal"
+           Emails="ops@example.com" SentFrom="prado@example.com" Subject="Fatal error" /&gt;
+    &lt;route class="Prado\Util\TDbLogRoute" ConnectionID="db" RetainPeriod="604800" /&gt;
+  &lt;/module&gt;
+&lt;/modules&gt;
 </com:TTextHighlighter>
 <p class="block-content">
-In the above, the <tt>Levels</tt> and <tt>Categories</tt> specify the log and category filters to selectively retrieve the messages to the corresponding destinations.
+An example of each route follows. Each is a <tt>route</tt> element inside the
+<tt>TLogRouter</tt> module.
+</p>
+<p class="block-content">
+<tt>TFileLogRoute</tt> writes to a file under the runtime directory and rotates it by
+size.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TFileLogRoute" LogFile="app.log" MaxFileSize="1024" MaxLogFiles="10" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TBrowserLogRoute</tt> writes to the browser's debug console and colors the time
+between messages.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TBrowserLogRoute" ColorizeDelta="true" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TFirebugLogRoute</tt> writes to the Firebug console. It is a subclass of
+<tt>TBrowserLogRoute</tt>.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TFirebugLogRoute" Levels="Warning, Error" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TDbLogRoute</tt> writes to a database table, creates the table when it is missing,
+and removes rows older than the retain period in seconds.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TDbLogRoute" ConnectionID="db"
+       LogTableName="prado_log" AutoCreateLogTable="true" RetainPeriod="604800" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TEmailLogRoute</tt> emails the messages to one or more addresses.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TEmailLogRoute" Levels="Fatal"
+       Emails="ops@example.com" SentFrom="prado@example.com" Subject="Fatal error" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TFirePhpLogRoute</tt> writes to the FirePHP browser console under a group label.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TFirePhpLogRoute" GroupLabel="PRADO" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TSysLogRoute</tt> writes to the operating system's log under a facility, with a
+prefix on each line. <com:SinceVersion Version="4.3.0" />
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TSysLogRoute" Facility="LOG_LOCAL0" SysLogPrefix="myapp" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TStdOutLogRoute</tt> writes to standard output, and limits itself to the development
+web server when <tt>OnlyDevServer</tt> is set. <com:SinceVersion Version="4.3.0" />
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TStdOutLogRoute" OnlyDevServer="true" /&gt;
+</com:TTextHighlighter>
+
+<h2>Log levels and categories</h2>
+<p class="block-content">
+A route sends only the messages that pass its filters. The <tt>Levels</tt> and
+<tt>Categories</tt> properties set the filters. A route with no filters sends every
+message, and the two filters combine, so a message passes only when it matches both.
+</p>
+<p class="block-content">
+The log levels are <tt>Debug</tt>, <tt>Info</tt>, <tt>Notice</tt>, <tt>Warning</tt>,
+<tt>Error</tt>, <tt>Alert</tt>, and <tt>Fatal</tt>. The <tt>Levels</tt> property lists the
+levels the route sends.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TFileLogRoute" Levels="Warning, Error, Fatal" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+Categories are hierarchical. A category is an ancestor of another when its name is a
+prefix of the other. The category <tt>Prado\Web</tt> is an ancestor of
+<tt>Prado\Web\UI</tt>. A route that filters on <tt>Prado\Web</tt> sends the messages of
+that category and of its descendant categories. The core framework categorizes a message
+by the namespace of the class that logs it, so a message logged in <tt>TPage</tt> has the
+category <tt>Prado\Web\UI\TPage</tt>.
+</p>
+<p class="block-content">
+<com:SinceVersion Version="4.3.0" />
+A category in the <tt>Categories</tt> property is excluded when it begins with <tt>!</tt>
+or <tt>~</tt>. The route then sends every category except that one, so the filter is set
+by what to leave out instead of what to include.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;route class="Prado\Util\TBrowserLogRoute" Categories="!Prado\Web\UI\WebControls" /&gt;
+</com:TTextHighlighter>
+
+<h2>Flushing large logs</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+The router flushes the messages to the routes at the end of the request, and again when
+the process shuts down. A long-running process fills memory with messages, so the router
+flushes in batches through the <tt>onFlushLogs</tt> event. The routes send each batch and
+free the memory, and the process continues.
 </p>
 
-<h2>Message Filtering</h2>
+<h2>Database logs</h2>
 <p class="block-content">
-Messages can be filtered according to their log levels and categories. Each log message is associated with a log level and a category. With levels and categories, developers can selectively retrieve messages that they are interested on.
+<tt>TDbLogRoute</tt> writes the messages to a database table, which a
+<tt>ConnectionID</tt> names.
+<com:SinceVersion Version="4.3.0" />
+The <tt>RetainPeriod</tt> property removes log rows that are older than a number of
+seconds, so the table does not grow without bound. The route reads and deletes the
+stored logs by level, category, and time.
 </p>
-<p class="block-content">
-Log levels defined in <tt>System.Util.TLogger</tt> include : <tt>DEBUG</tt>, <tt>INFO</tt>, <tt>NOTICE</tt>, <tt>WARNING</tt>, <tt>ERROR</tt>, <tt>ALERT</tt>, <tt>FATAL</tt>. Messages can be filtered according log level criteria. For example, if a filter specifies <tt>WARNING</tt> and <tt>ERROR</tt> levels, then only those messages that are of <tt>WARNING</tt> and <tt>ERROR</tt> will be returned.
-</p>
-<p class="block-content">
-Message categories are hierarchical. A category whose name is the prefix of another is said to be the ancestor category of the other category. For example, <tt>System.Web</tt> category is the ancestor of <tt>System.Web.UI</tt> and <tt>System.Web.UI.WebControls</tt> categories. Messages can be selectively retrieved using such hierarchical category filters. For example, if the category filter is <tt>System.Web</tt>, then all messages in the <tt>System.Web</tt> are returned. In addition, messages in the child categories, such as <tt>System.Web.UI.WebControls</tt>, are also returned.
-</p>
-<p class="block-content">
-By convention, the messages logged in the core code of PRADO are categorized according to the namespace of the corresponding classes. For example, messages logged in <tt>TPage</tt> will be of category <tt>System.Web.UI.TPage</tt>.
-</p>
+
 </com:TContent>
