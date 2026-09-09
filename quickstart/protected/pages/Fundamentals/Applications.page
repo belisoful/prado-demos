@@ -7,9 +7,9 @@ An application is an instance of <tt>TApplication</tt> or its derived class. It 
 <p class="block-content">
 Applications are configured via <a href="?page=Configurations.AppConfig">application configurations</a>. They are usually created in entry scripts like the following,
 <com:TTextHighlighter CssClass="source block-content">
-require 'protected/vendor/autoload.php';
+require 'vendor/autoload.php';
 
-$application = new \Prado\TApplication;
+$application = new \Prado\TApplication();
 $application->run();
 </com:TTextHighlighter>
 where the method <tt>run()</tt> starts the application to handle user requests.
@@ -44,13 +44,77 @@ Deploying a PRADO application mainly involves copying directories. For example, 
 <li>Remove all content under <tt>assets</tt> and <tt>runtime</tt> directories and make sure both directories are writable by the Web server process.</li>
 </ol>
 
-<h2>Application Lifecycles</h2>
+<h2>Application Lifecycle</h2>
 <p class="block-content">
-Like page lifecycles, an application also has lifecycles. Application modules can register for the lifecycle events. When the application reaches a particular lifecycle and raises the corresponding event, the registered module methods are invoked automatically. Modules included in the PRADO release, such as <tt>TAuthManager</tt>, are using this way to accomplish their goals.
+An application runs through a lifecycle of stages. Modules and services attach their
+methods to the lifecycle events. When the application reaches a stage and raises the
+corresponding event, the attached methods run in priority order. Modules included in
+the PRADO release, such as <tt>TAuthManager</tt>, use the lifecycle events to do their
+work. The <tt>run</tt> method drives the lifecycle.
+</p>
+
+<h3>Initialization</h3>
+<p class="block-content">
+<tt>run</tt> first initializes the application. Initialization loads and applies the
+application configuration in order: path aliases and usings, application properties,
+services, parameters, modules, and external configuration files. Each module is
+instantiated, its properties are set, it receives the <tt>dyPreInit</tt> dynamic event,
+and its <tt>init</tt> method runs.
 </p>
 <p class="block-content">
-The application lifecycles can be depicted as follows,
+<com:SinceVersion Version="4.3.3" />
+The application then raises <tt>onConfiguration</tt>. At this point the configuration is
+fully applied and the modules are loaded, the request is not yet resolved, and no
+service has started. A handler of this event registers additional services before the
+request is routed.
 </p>
-<img src="<%~applifecycles.gif%>" />
+<p class="block-content">
+<com:SinceVersion Version="4.2.0" />
+The application resolves the request and loads and initializes the corresponding
+service. It then raises <tt>onInitComplete</tt>. At this point the modules are loaded,
+the request is resolved, and the service is initialized. <tt>TShellApplication</tt>
+attaches command-line argument processing to this event.
+</p>
+
+<h3>Request handling</h3>
+<p class="block-content">
+After initialization, the application runs the request steps in order. Each step raises
+its event, and the attached module and service methods run.
+</p>
+<table class="parameters">
+<tr><th>Step</th><th>Reached when</th></tr>
+<tr><td><tt>onBeginRequest</tt></td><td>Application initialization has completed.</td></tr>
+<tr><td><tt>onLoadState</tt></td><td>State loading has begun.</td></tr>
+<tr><td><tt>onLoadStateComplete</tt></td><td>Application state has been loaded.</td></tr>
+<tr><td><tt>onAuthentication</tt></td><td>User authentication has begun.</td></tr>
+<tr><td><tt>onAuthenticationComplete</tt></td><td>The request has been authenticated.</td></tr>
+<tr><td><tt>onAuthorization</tt></td><td>User authorization has begun and applies the authorization rules.</td></tr>
+<tr><td><tt>onAuthorizationComplete</tt></td><td>The request has been authorized.</td></tr>
+<tr><td><tt>onPreRunService</tt></td><td>The application has prepared to run the requested service.</td></tr>
+<tr><td><tt>runService</tt></td><td>The requested service runs.</td></tr>
+<tr><td><tt>onSaveState</tt></td><td>State saving has begun.</td></tr>
+<tr><td><tt>onSaveStateComplete</tt></td><td>Application state has been saved.</td></tr>
+<tr><td><tt>onPreFlushOutput</tt></td><td>The application has prepared to flush output.</td></tr>
+<tr><td><tt>flushOutput</tt></td><td>Output has been flushed to the client.</td></tr>
+</table>
+
+<h3>Completion</h3>
+<p class="block-content">
+The application raises <tt>onEndRequest</tt> after the steps complete. A call to
+<tt>completeRequest</tt> ends the request early, and the remaining steps are skipped.
+</p>
+<p class="block-content">
+When an exception is raised during the lifecycle, the application raises
+<tt>onError</tt>, handles the error, and then raises <tt>onEndRequest</tt>.
+</p>
+<p class="block-content">
+<com:SinceVersion Version="4.3.0" />
+Throwing a <tt>TExitException</tt> terminates the application gracefully from anywhere in
+the lifecycle. The application raises <tt>onEndRequest</tt> and then exits with the exit
+code carried by the exception, which <tt>getExitCode</tt> returns. A
+<tt>TExitException</tt> does not raise <tt>onError</tt>. A handler leaves a
+<tt>TExitException</tt> uncaught, because catching it interferes with the graceful
+termination.
+</p>
 
 </com:TContent>
