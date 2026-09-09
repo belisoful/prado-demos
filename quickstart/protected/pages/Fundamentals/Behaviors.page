@@ -1,0 +1,233 @@
+<com:TContent ID="body" >
+<h1>Behaviors</h1>
+<com:SinceVersion Version="3.2.3" />
+
+<p class="block-content">
+A behavior is an object that adds properties, methods, and event responses to a
+<tt>TComponent</tt> at runtime. The component keeps its own class, and the behavior
+supplies the additional functionality. Any class derived from <tt>TComponent</tt>
+accepts behaviors, so behaviors extend controls, modules, services, and the
+application itself. Behaviors are attached and detached while the application runs,
+which allows a component's capabilities to change without changing its class.
+</p>
+<p class="block-content">
+PRADO provides two kinds of behavior. An object behavior attaches to one component
+instance. A class behavior attaches to every instance of a class. Both derive from
+the shared base class <tt>TBaseBehavior</tt> and share the same attach, enable, and
+priority model.
+</p>
+
+<h2>Object behaviors</h2>
+<p class="block-content">
+An object behavior extends <tt>TBehavior</tt> and implements <tt>IBehavior</tt>. Each
+<tt>TBehavior</tt> instance has one owner. Object behaviors hold per-instance state,
+so a behavior may store data that belongs to its single owner. The behavior refers to
+its owner through a weak reference, so the behavior does not prevent the owner from
+being garbage-collected. A behavior reads its owner with <tt>getOwner</tt>.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+class TExtraPropertyBehavior extends TBehavior
+{
+    private $_extra = '';
+
+    public function getExtra()
+    {
+        return $this->_extra;
+    }
+
+    public function setExtra($value)
+    {
+        $this->_extra = $value;
+    }
+}
+</com:TTextHighlighter>
+<p class="block-content">
+Once attached, the owner exposes the behavior's public properties and methods as its
+own. The owner reads <tt>$component->Extra</tt> and the call resolves to the attached
+behavior.
+</p>
+
+<h2>Class behaviors</h2>
+<p class="block-content">
+A class behavior extends <tt>TClassBehavior</tt> and implements <tt>IClassBehavior</tt>.
+One <tt>TClassBehavior</tt> instance serves every instance of a class at the same time,
+so a class behavior is written to be stateless. When a component calls a class-behavior
+method, PRADO prepends the calling component to the argument list. The method receives
+the owner as its first parameter and therefore knows which instance is involved.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+class TAuditBehavior extends TClassBehavior
+{
+    // the owner is always the first parameter of a class-behavior method
+    public function logSave($owner)
+    {
+        Prado::log('Saving ' . get_class($owner), TLogger::INFO, 'app.audit');
+    }
+}
+</com:TTextHighlighter>
+<p class="block-content">
+Class behaviors are registered with the static method <tt>attachClassBehavior</tt> and
+removed with <tt>detachClassBehavior</tt>.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+// attach to every current and future instance of TArticleRecord
+TComponent::attachClassBehavior('audit', new TAuditBehavior(), TArticleRecord::class);
+
+// remove the class behavior
+TComponent::detachClassBehavior('audit', TArticleRecord::class);
+</com:TTextHighlighter>
+<p class="block-content">
+A class behavior applies to instances created after it is registered. It also applies
+to instances that already exist and listen to global events. Registering a class
+behavior raises the global event <tt>fxAttachClassBehavior</tt>, and every listening
+instance attaches the new behavior. Removing a class behavior raises
+<tt>fxDetachClassBehavior</tt>, and every listening instance detaches it. An instance
+begins listening after <tt>listen</tt> is called on it. The
+<a href="?page=Fundamentals.Components2">Components: Events</a> page describes global
+events.
+</p>
+
+<h2>Attaching and detaching behaviors</h2>
+<p class="block-content">
+An object behavior is attached to a component with <tt>attachBehavior</tt>, which takes
+a name and the behavior. The name identifies the behavior for later enabling, disabling,
+and detachment.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$component->attachBehavior('extra', new TExtraPropertyBehavior());
+$component->detachBehavior('extra');
+</com:TTextHighlighter>
+<p class="block-content">
+Whole sets of behaviors are attached with <tt>attachBehaviors</tt> and removed with
+<tt>detachBehaviors</tt>. <tt>clearBehaviors</tt> removes every behavior from a
+component. Behavior names are case-insensitive.
+</p>
+
+<h2>Enabling and disabling behaviors</h2>
+<p class="block-content">
+A single behavior is turned on and off by name with <tt>enableBehavior</tt> and
+<tt>disableBehavior</tt>. A disabled behavior stays attached, and its added properties,
+methods, and event responses do not run until it is enabled again.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$component->disableBehavior('extra');
+$component->enableBehavior('extra');
+</com:TTextHighlighter>
+<p class="block-content">
+Every behavior on a component is turned on and off together with
+<tt>enableBehaviors</tt> and <tt>disableBehaviors</tt>. <tt>getBehaviorsEnabled</tt>
+reports whether behaviors are currently enabled on the component.
+</p>
+
+<h2>Behavior priority</h2>
+<p class="block-content">
+Behaviors are stored in priority order. A lower priority number runs earlier, and the
+default priority is 10. The priority is given as the third argument to
+<tt>attachBehavior</tt> or as the fourth argument to <tt>attachClassBehavior</tt>. When
+several behaviors respond to the same method or event, PRADO calls them in priority
+order.
+</p>
+
+<h2>Identifying behaviors: asa and isa</h2>
+<p class="block-content">
+<tt>asa</tt> returns an attached behavior. The name reads as "as a". Given a behavior
+name, <tt>asa</tt> returns that behavior or null.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$behavior = $component->asa('extra');
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>isa</tt> reports whether a component is an instance of a class. The name reads as
+"is a". <tt>isa</tt> returns true when the component itself is an instance of the class,
+and also when any attached behavior is an instance of the class. A behavior implements
+<tt>IInstanceCheck</tt> to answer <tt>isa</tt> for a class the behavior represents. In
+that case the host component reports itself as an instance of the class the behavior
+supplies.
+</p>
+<p class="block-content">
+<com:SinceVersion Version="4.3.0" />
+When <tt>asa</tt> is called with a class name and no behavior of that name is found,
+<tt>asa</tt> returns the first attached behavior that is an instance of the class.
+<tt>getBehaviors</tt> returns the attached behaviors, and it accepts an optional class
+name to return only the behaviors of that class.
+</p>
+
+<h2>Behaviors and dynamic events</h2>
+<p class="block-content">
+A behavior responds to a component's dynamic events by defining a method whose name
+starts with <tt>dy</tt>. When the component calls a dynamic event, PRADO invokes the
+matching method on each attached, enabled behavior in priority order through a
+<tt>TCallChain</tt>. Each behavior returns a value and may pass a value to the next
+behavior in the chain. Dynamic events let a behavior observe the component, filter
+data, and decide whether a step runs. The
+<a href="?page=Fundamentals.Components2">Components: Events</a> page describes global
+events, dynamic events, and the call chain in full.
+</p>
+
+<h2>Loading behaviors from configuration</h2>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">
+Behaviors are attached from the application configuration with
+<tt>TBehaviorsModule</tt>. Each <tt>behavior</tt> entry names the behavior, its class,
+the target it attaches to, a priority, and any behavior properties. The
+<tt>AttachTo</tt> attribute attaches the behavior to an application component such as
+the application, a module, or the page. The <tt>AttachToClass</tt> attribute attaches
+the behavior to every instance of a class.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="behaviors" class="Prado\Util\TBehaviorsModule"&gt;
+    &lt;behavior Name="pagetheme"
+              Class="Prado\Util\Behaviors\TParameterizeBehavior"
+              AttachTo="Page" Priority="10"
+              Parameter="ThemeName" Property="Theme" /&gt;
+  &lt;/module&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The same configuration is written in the PHP application configuration style.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+'modules' => [
+    'behaviors' => [
+        'class' => 'Prado\Util\TBehaviorsModule',
+        'behaviors' => [
+            ['name' => 'pagetheme', 'class' => 'Prado\Util\Behaviors\TParameterizeBehavior',
+             'attachto' => 'page', 'priority' => '10',
+             'Parameter' => 'ThemeName', 'Property' => 'Theme'],
+        ],
+    ],
+],
+</com:TTextHighlighter>
+<p class="block-content">
+PRADO ships ready-made behaviors under the <tt>Prado\Util\Behaviors</tt> namespace.
+<tt>TParameterizeBehavior</tt> sets a component property from an application parameter.
+Other ready-made behaviors set the page charset, add no-cache headers to a page, and
+set the default timezone.
+</p>
+
+<h2>Behaviors update in 4.3.0</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+Behaviors are carried through cloning and serialization. When a component is cloned,
+its behaviors are cloned and attached to the new instance. When a component is
+serialized and unserialized, its behaviors are restored. On unserialize, a component
+also gains any named class behaviors that were registered for its class while it was
+stored.
+</p>
+<p class="block-content">
+<tt>IBaseBehavior</tt> defines an <tt>init</tt> method that receives the behavior's
+configuration, which a behavior overrides to read complex configuration. A behavior
+declares its event handlers by returning name-to-handler pairs from <tt>events</tt>,
+and a handler in that list may be a <tt>Closure</tt>. Registered event handlers attach
+at the behavior's priority. Handlers are attached and detached automatically as the
+behavior is enabled and disabled.
+</p>
+<p class="block-content">
+A behavior may be attached without a name, in which case PRADO assigns it a numeric
+name. A behavior that implements <tt>IBehavior</tt> is attached class-wide by cloning
+one instance for each owner. Class behaviors attach to a class through its parents,
+interfaces, and first-level traits, which <tt>getClassHierarchy</tt> reports.
+</p>
+
+</com:TContent>

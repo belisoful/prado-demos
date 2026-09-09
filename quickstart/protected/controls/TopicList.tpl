@@ -30,6 +30,7 @@
     <li><a href="?page=Fundamentals.Architecture">Architecture</a></li>
     <li><a href="?page=Fundamentals.Components1">Components: Introduction</a></li>
     <li><a href="?page=Fundamentals.Components2">Components: Events</a></li>
+    <li><a href="?page=Fundamentals.Behaviors">Behaviors</a></li>
     <li><a href="?page=Fundamentals.Controls">Controls</a></li>
     <li><a href="?page=Fundamentals.Pages">Pages</a></li>
     <li><a href="?page=Fundamentals.Modules">Modules</a></li>

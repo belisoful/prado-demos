@@ -137,60 +137,38 @@ events will be sent to <tt>__dycall</tt>.  In the case of global events, all
 global events will trigger this method.  In the case of behaviors, all undefined
 dynamic events  which are called will be passed through to this method.
 </p>
-<p class="block-content">
 <h2>Behaviors</h2>
 <p class="block-content">
-There are two types of behaviors.  There are individual object behaviors and
-there are class wide behaviors.  Class behaviors depend upon object behaviors.
+A behavior is an object that adds properties, methods, and event responses to a
+component at runtime. Behaviors let a component's capabilities change while the
+application runs, without changing the component's class. PRADO provides two kinds. An
+object behavior attaches to one component instance and holds per-instance state. A
+class behavior attaches to every instance of a class and is written to be stateless.
 </p>
 <p class="block-content">
-When a new class implements <tt>IBehavior</tt> or <tt>IClassBehavior</tt> or
-extends <tt>TBehavior</tt> or <tt>TClassBehavior</tt>, it may be attached to an
-object by calling the object's <tt>attachBehavior</tt>.  The behaviors associated
-name can then be used to <tt>enableBehavior</tt> or <tt>disableBehavior</tt>
-the specific behavior.
+A behavior responds to a component's events. It responds to a dynamic
+(<tt>dy</tt>) event by defining a method of the same name. When the component calls
+the dynamic event, PRADO invokes that method on each attached, enabled behavior in
+priority order through a <tt>TCallChain</tt>, so a behavior may filter the value and
+pass it to the next behavior. A behavior also responds to <tt>on</tt> events by
+registering event handlers, and those handlers attach at the behavior's priority.
 </p>
 <p class="block-content">
-All behaviors may be turned on and off via <tt>enableBehaviors</tt> and
-<tt>disableBehaviors</tt>, respectively.  To check if behaviors are on or off
-a call to <tt>getBehaviorsEnabled</tt> will provide the variable.
+A class behavior receives the owner component as the first parameter of each of its
+methods. One stateless instance serves every owner and still knows which instance
+called it. A class behavior applies to instances created after it is registered. It
+also applies to instances that already exist and listen to the global
+<tt>fxAttachClassBehavior</tt> event described above. Removing a class behavior raises
+<tt>fxDetachClassBehavior</tt>, and every listening instance detaches it.
 </p>
 <p class="block-content">
-Attaching and detaching whole sets of behaviors is done using
-<tt>attachBehaviors</tt> and <tt>detachBehaviors</tt>.  <tt>clearBehaviors</tt>
-removes all of an object's behaviors.
-</p>
-<p class="block-content">
-<tt>asa</tt> returns a behavior of a specific name.  <tt>isa</tt> is the
-behavior inclusive function that acts as the PHP operator <tt>instanceof</tt>.
-A behavior could provide the functionality of a specific class thus causing
-the host object to act similarly to a completely different class.  A behavior
-would then implement <tt>IInstanceCheck</tt> to provide the identity of the
-different class.
-</p>
-<p class="block-content">
-Class behaviors are similar to object behaviors except that the class behavior
-is the implementation for all instances of the class.  A class behavior
-will have the object upon which is being called be prepended to the parameter
-list.  This way the object is known across the class behavior implementation.
-</p>
-<p class="block-content">
-Class behaviors are attached using <tt>attachClassBehavior</tt> and detached
-using <tt>detachClassBehavior</tt>.  Class behaviors are important in that
-they will be applied to all new instances of a particular class.  In this way
-class behaviors become default behaviors to a new instances of a class in
-<tt>__construct</tt>.  Detaching a class behavior will remove the behavior
-from the default set of behaviors created for an object when the object
-is instanced.
-</p>
-<p class="block-content">
-Class behaviors are also added to all existing instances via the global <tt>fx</tt>
-event mechanism.  When a new class behavior is added, the event
-<tt>fxAttachClassBehavior</tt> is raised and all existing instances that are
-listening to this global event (primarily after <tt>listen</tt> is called)
-will have this new behavior attached.  A similar process is used when
-detaching class behaviors.  Any objects listening to the global <tt>fx</tt> event
-<tt>fxDetachClassBehavior</tt> will have a class behavior removed.
+A behavior is attached under a name, which identifies it for later enabling, disabling,
+and detachment. A disabled behavior stays attached, and its added properties, methods,
+and event responses do not run until it is enabled again. The
+<a href="?page=Fundamentals.Behaviors">Behaviors</a> page covers attaching and
+detaching behaviors, enabling and disabling them, behavior priority, <tt>asa</tt> and
+<tt>isa</tt>, <tt>IInstanceCheck</tt>, class behaviors, and loading behaviors from
+configuration.
 </p>
 <h2>Dynamic Intra-Object Events</h2>
 <p class="block-content">
