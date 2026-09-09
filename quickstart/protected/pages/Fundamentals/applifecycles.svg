@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 632 975" width="632" height="975" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.7" dy="1.0" stdDeviation="0.8" flood-color="#000" flood-opacity="0.22"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f2f2f"/>
+    </marker>
+    <marker id="arrowr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b23b3b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="632" height="975" fill="#fff"/>
+  <rect x="300" y="10" width="320" height="58" rx="6" fill="#fbfbf7" stroke="#8a8a8a" stroke-width="1" filter="url(#ds)"/>
+  <text x="311" y="24" font-size="10.5" font-weight="600" fill="#333">Legend</text>
+  <g font-size="9.2" fill="#333">
+    <rect x="313" y="36" width="17" height="10" rx="5" fill="#d4e3f4" stroke="#2f2f2f" stroke-width="0.9"/>
+    <text x="337" y="41" dominant-baseline="central">stage</text>
+    <line x1="468" y1="41" x2="485" y2="41" stroke="#b23b3b" stroke-width="1.3" marker-end="url(#arrowr)"/>
+    <text x="492" y="41" fill="#b23b3b" dominant-baseline="central">exception path</text>
+    <rect x="313" y="53" width="17" height="10" rx="5" fill="#fff" stroke="#2f2f2f" stroke-width="0.9"/>
+    <text x="337" y="58" dominant-baseline="central">event</text>
+    <rect x="468" y="53" width="17" height="10" rx="5" fill="#f7d1d1" stroke="#b23b3b" stroke-width="0.9"/>
+    <text x="492" y="58" dominant-baseline="central">onError</text>
+  </g>
+  <circle cx="210" cy="70.0" r="8" fill="#222"/>
+  <line x1="210" y1="78.0" x2="210" y2="90.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="116.0" x2="210" y2="137.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="230.0" x2="210" y2="251.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="275.0" x2="210" y2="296.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="320.0" x2="210" y2="341.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="365.0" x2="210" y2="386.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="410.0" x2="210" y2="431.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="455.0" x2="210" y2="476.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="500.0" x2="210" y2="521.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="545.0" x2="210" y2="566.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="590.0" x2="210" y2="611.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="635.0" x2="210" y2="656.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="680.0" x2="210" y2="701.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="725.0" x2="210" y2="746.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="770.0" x2="210" y2="791.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="815.0" x2="210" y2="896.0" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <line x1="210" y1="920.0" x2="210" y2="942.5" stroke="#2f2f2f" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <circle cx="210" cy="951.0" r="8.5" fill="none" stroke="#222" stroke-width="1.6"/>
+  <circle cx="210" cy="951.0" r="4.3" fill="#222"/>
+  <g stroke="#b23b3b" stroke-width="1.1" fill="none" stroke-dasharray="3 2.5">
+    <path d="M135,263.0 H58"/>
+    <path d="M135,803.0 H58"/>
+    <path d="M58,263.0 V833.0"/>
+  </g>
+  <path d="M58,827.0 V834.0" stroke="#b23b3b" stroke-width="1.2" marker-end="url(#arrowr)" fill="none"/>
+  <text transform="translate(49.0,533.0) rotate(-90)" font-size="9" fill="#b23b3b" text-anchor="middle">on exception (any step)</text>
+  <polygon points="58,834.0 106,854.0 58,874.0 10,854.0" fill="#fff3e0" stroke="#b23b3b" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="58" y="854.0" font-size="8.4" fill="#7a1f1f" text-anchor="middle" dominant-baseline="central">TExitException?</text>
+  <path d="M58,874.0 V896.0" stroke="#b23b3b" stroke-width="1.2" marker-end="url(#arrowr)" fill="none"/>
+  <text x="63.0" y="885.0" font-size="8.6" fill="#b23b3b">No</text>
+  <rect x="14.0" y="896.0" width="88" height="24" rx="12.0" ry="12.0" fill="#f7d1d1" stroke="#b23b3b" stroke-width="1.3" filter="url(#ds)"/>
+  <text x="58" y="908.0" font-size="9.5" fill="#7a1f1f" font-weight="600" text-anchor="middle" dominant-baseline="central">onError</text>
+  <path d="M102.0,908.0 H135.0" fill="none" stroke="#b23b3b" stroke-width="1.3" marker-end="url(#arrowr)"/>
+  <path d="M106.0,854.0 L135.0,902.0" fill="none" stroke="#b23b3b" stroke-width="1.3" marker-end="url(#arrowr)"/>
+  <text x="120.0" y="854.0" font-size="8.6" fill="#b23b3b" text-anchor="middle" dominant-baseline="central">Yes</text>
+  <rect x="135.0" y="90.0" width="150" height="26" rx="13.0" ry="13.0" fill="#d4e3f4" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="103.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Application construction</text>
+  <line x1="285.0" y1="103.0" x2="300" y2="103.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,84.9 H610 L620,94.9 V121.1 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,84.9 V94.9 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="96.7" font-size="10" fill="#333" dominant-baseline="central">Register the application singleton. Set the base, runtime,</text>
+  <text x="308" y="109.3" font-size="10" fill="#333" dominant-baseline="central">and configuration paths.</text>
+  <rect x="135.0" y="137.0" width="150" height="93.0" rx="10" ry="10" fill="#d4e3f4" stroke="#2f2f2f" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="210" y="148.0" font-size="10" font-weight="600" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">initApplication</text>
+  <line x1="141.0" y1="157.0" x2="279.0" y2="157.0" stroke="#a9b7c9" stroke-width="0.8"/>
+  <rect x="150.0" y="161.0" width="120" height="22" rx="11.0" ry="11.0" fill="#fff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="172.0" font-size="9" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onConfiguration</text>
+  <rect x="150.0" y="199.0" width="120" height="22" rx="11.0" ry="11.0" fill="#fff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="210.0" font-size="9" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onInitComplete</text>
+  <line x1="210" y1="158.0" x2="210" y2="161.0" stroke="#5a6472" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="210" y1="183.0" x2="210" y2="199.0" stroke="#5a6472" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="285.0" y1="172.0" x2="300" y2="166.6" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,142.2 H610 L620,152.2 V191.0 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,142.2 V152.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="154.0" font-size="10" fill="#333" dominant-baseline="central">The configuration is fully applied and the modules are</text>
+  <text x="308" y="166.6" font-size="10" fill="#333" dominant-baseline="central">loaded. No service has started. Register additional</text>
+  <text x="308" y="179.2" font-size="10" fill="#333" dominant-baseline="central">services here.</text>
+  <line x1="285.0" y1="210.0" x2="300" y2="224.2" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,206.1 H610 L620,216.1 V242.3 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,206.1 V216.1 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="217.9" font-size="10" fill="#333" dominant-baseline="central">The requested service is loaded and initialized. The</text>
+  <text x="308" y="230.5" font-size="10" fill="#333" dominant-baseline="central">request is about to begin.</text>
+  <rect x="135.0" y="251.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="263.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onBeginRequest</text>
+  <line x1="285.0" y1="263.0" x2="300" y2="263.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,251.2 H610 L620,261.2 V274.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,251.2 V261.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="263.0" font-size="10" fill="#333" dominant-baseline="central">The application starts to process the user request.</text>
+  <rect x="135.0" y="296.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="308.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onLoadState</text>
+  <line x1="285.0" y1="308.0" x2="300" y2="308.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,289.9 H610 L620,299.9 V326.1 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,289.9 V299.9 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="301.7" font-size="10" fill="#333" dominant-baseline="central">Load the application state from persistent storage under</text>
+  <text x="308" y="314.3" font-size="10" fill="#333" dominant-baseline="central">the runtime directory.</text>
+  <rect x="135.0" y="341.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="353.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onLoadStateComplete</text>
+  <line x1="285.0" y1="353.0" x2="300" y2="353.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,341.2 H610 L620,351.2 V364.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,341.2 V351.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="353.0" font-size="10" fill="#333" dominant-baseline="central">The application state is restored.</text>
+  <rect x="135.0" y="386.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="398.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onAuthentication</text>
+  <line x1="285.0" y1="398.0" x2="300" y2="398.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,379.9 H610 L620,389.9 V416.1 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,379.9 V389.9 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="391.7" font-size="10" fill="#333" dominant-baseline="central">Determine the request user&#x27;s identity. The user becomes a</text>
+  <text x="308" y="404.3" font-size="10" fill="#333" dominant-baseline="central">guest or a registered user.</text>
+  <rect x="135.0" y="431.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="443.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onAuthenticationComplete</text>
+  <line x1="285.0" y1="443.0" x2="300" y2="443.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,431.2 H610 L620,441.2 V454.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,431.2 V441.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="443.0" font-size="10" fill="#333" dominant-baseline="central">User authentication is complete.</text>
+  <rect x="135.0" y="476.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="488.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onAuthorization</text>
+  <line x1="285.0" y1="488.0" x2="300" y2="488.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,469.9 H610 L620,479.9 V506.1 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,469.9 V479.9 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="481.7" font-size="10" fill="#333" dominant-baseline="central">Determine whether the user may access the requested</text>
+  <text x="308" y="494.3" font-size="10" fill="#333" dominant-baseline="central">resource.</text>
+  <rect x="135.0" y="521.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="533.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onAuthorizationComplete</text>
+  <line x1="285.0" y1="533.0" x2="300" y2="533.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,521.2 H610 L620,531.2 V544.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,521.2 V531.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="533.0" font-size="10" fill="#333" dominant-baseline="central">Authorization is complete.</text>
+  <rect x="135.0" y="566.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="578.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onPreRunService</text>
+  <line x1="285.0" y1="578.0" x2="300" y2="578.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,566.2 H610 L620,576.2 V589.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,566.2 V576.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="578.0" font-size="10" fill="#333" dominant-baseline="central">Prepare to run the requested service.</text>
+  <rect x="135.0" y="611.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="623.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">runService</text>
+  <line x1="285.0" y1="623.0" x2="300" y2="623.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,611.2 H610 L620,621.2 V634.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,611.2 V621.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="623.0" font-size="10" fill="#333" dominant-baseline="central">The requested service runs and produces the response.</text>
+  <rect x="135.0" y="656.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="668.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onSaveState</text>
+  <line x1="285.0" y1="668.0" x2="300" y2="668.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,649.9 H610 L620,659.9 V686.1 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,649.9 V659.9 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="661.7" font-size="10" fill="#333" dominant-baseline="central">Save the application state to persistent storage under the</text>
+  <text x="308" y="674.3" font-size="10" fill="#333" dominant-baseline="central">runtime directory.</text>
+  <rect x="135.0" y="701.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="713.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onSaveStateComplete</text>
+  <line x1="285.0" y1="713.0" x2="300" y2="713.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,701.2 H610 L620,711.2 V724.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,701.2 V711.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="713.0" font-size="10" fill="#333" dominant-baseline="central">The application state is stored.</text>
+  <rect x="135.0" y="746.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="758.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onPreFlushOutput</text>
+  <line x1="285.0" y1="758.0" x2="300" y2="758.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,746.2 H610 L620,756.2 V769.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,746.2 V756.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="758.0" font-size="10" fill="#333" dominant-baseline="central">Prepare to flush the buffered output.</text>
+  <rect x="135.0" y="791.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="803.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">flushOutput</text>
+  <line x1="285.0" y1="803.0" x2="300" y2="803.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,791.2 H610 L620,801.2 V814.8 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,791.2 V801.2 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="803.0" font-size="10" fill="#333" dominant-baseline="central">Flush the buffered output to the client.</text>
+  <rect x="135.0" y="896.0" width="150" height="24" rx="12.0" ry="12.0" fill="#ffffff" stroke="#2f2f2f" stroke-width="1.15" filter="url(#ds)"/>
+  <text x="210" y="908.0" font-size="9.5" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">onEndRequest</text>
+  <line x1="285.0" y1="908.0" x2="300" y2="908.0" stroke="#8a8a8a" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+  <path d="M300,889.9 H610 L620,899.9 V926.1 H300 Z" fill="#fffdf3" stroke="#9a9a8f" stroke-width="0.9" filter="url(#ds)"/>
+  <path d="M610,889.9 V899.9 H620" fill="none" stroke="#9a9a8f" stroke-width="0.9"/>
+  <text x="308" y="901.7" font-size="10" fill="#333" dominant-baseline="central">The request is processed. Modules do end-of-request work</text>
+  <text x="308" y="914.3" font-size="10" fill="#333" dominant-baseline="central">such as logging.</text>
+</svg>

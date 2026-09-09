@@ -18,7 +18,7 @@ where the method <tt>run()</tt> starts the application to handle user requests.
 <h2>Directory Organization</h2>
 <p class="block-content">
 A minimal PRADO application contains two files: an entry file and a page template file. They must be organized as follows,
-<img src="<%~directory.gif%>" class="figure"/>
+<img src="<%~directory.svg%>" class="figure" alt="Directory tree: wwwroot contains assets, protected, and index.php; protected contains pages and runtime; pages contains Home.page."/>
 </p>
 <ul id="u2" class="block-content">
 <li><tt>wwwroot</tt> - Web document root or sub-directory.</li>
@@ -52,6 +52,7 @@ corresponding event, the attached methods run in priority order. Modules include
 the PRADO release, such as <tt>TAuthManager</tt>, use the lifecycle events to do their
 work. The <tt>run</tt> method drives the lifecycle.
 </p>
+<img src="<%~applifecycles.svg%>" class="figure" alt="Application lifecycle diagram. Application construction runs first. The initApplication stage raises the onConfiguration and onInitComplete events. The application then runs the request steps onBeginRequest, onLoadState, onLoadStateComplete, onAuthentication, onAuthenticationComplete, onAuthorization, onAuthorizationComplete, onPreRunService, runService, onSaveState, onSaveStateComplete, onPreFlushOutput, and flushOutput, then onEndRequest, and ends. An exception in any step raises onError, which then reaches onEndRequest. A TExitException in any step reaches onEndRequest without onError, then exits with a code."/>
 
 <h3>Initialization</h3>
 <p class="block-content">
@@ -78,25 +79,25 @@ attaches command-line argument processing to this event.
 
 <h3>Request handling</h3>
 <p class="block-content">
-After initialization, the application runs the request steps in order. Each step raises
-its event, and the attached module and service methods run.
+After initialization, the application runs the request steps in order, as the diagram
+shows. Each step raises its event, and the attached module and service methods run. The
+steps run in this order:
 </p>
-<table class="parameters">
-<tr><th>Step</th><th>Reached when</th></tr>
-<tr><td><tt>onBeginRequest</tt></td><td>Application initialization has completed.</td></tr>
-<tr><td><tt>onLoadState</tt></td><td>State loading has begun.</td></tr>
-<tr><td><tt>onLoadStateComplete</tt></td><td>Application state has been loaded.</td></tr>
-<tr><td><tt>onAuthentication</tt></td><td>User authentication has begun.</td></tr>
-<tr><td><tt>onAuthenticationComplete</tt></td><td>The request has been authenticated.</td></tr>
-<tr><td><tt>onAuthorization</tt></td><td>User authorization has begun and applies the authorization rules.</td></tr>
-<tr><td><tt>onAuthorizationComplete</tt></td><td>The request has been authorized.</td></tr>
-<tr><td><tt>onPreRunService</tt></td><td>The application has prepared to run the requested service.</td></tr>
-<tr><td><tt>runService</tt></td><td>The requested service runs.</td></tr>
-<tr><td><tt>onSaveState</tt></td><td>State saving has begun.</td></tr>
-<tr><td><tt>onSaveStateComplete</tt></td><td>Application state has been saved.</td></tr>
-<tr><td><tt>onPreFlushOutput</tt></td><td>The application has prepared to flush output.</td></tr>
-<tr><td><tt>flushOutput</tt></td><td>Output has been flushed to the client.</td></tr>
-</table>
+<ol class="block-content">
+<li><tt>onBeginRequest</tt></li>
+<li><tt>onLoadState</tt></li>
+<li><tt>onLoadStateComplete</tt></li>
+<li><tt>onAuthentication</tt></li>
+<li><tt>onAuthenticationComplete</tt></li>
+<li><tt>onAuthorization</tt></li>
+<li><tt>onAuthorizationComplete</tt></li>
+<li><tt>onPreRunService</tt></li>
+<li><tt>runService</tt></li>
+<li><tt>onSaveState</tt></li>
+<li><tt>onSaveStateComplete</tt></li>
+<li><tt>onPreFlushOutput</tt></li>
+<li><tt>flushOutput</tt></li>
+</ol>
 
 <h3>Completion</h3>
 <p class="block-content">
