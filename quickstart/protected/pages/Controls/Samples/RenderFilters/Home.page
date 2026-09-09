@@ -1,0 +1,28 @@
+<com:TContent ID="body">
+
+<h1>Render Filters Samples</h1>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+A string filter. The <tt>OnRenderFilter</tt> handler wraps the panel's rendered HTML in a
+highlighted box with <tt>setFilterText</tt>.
+</td><td class="sampleaction">
+<com:TPanel OnRenderFilter="wrapInBox">
+  Hello <b>world</b>. This is the panel's own content.
+</com:TPanel>
+</td></tr>
+
+<tr><td class="samplenote">
+A DOM filter. The handler reads the DOM with <tt>getFilterDOM</tt>, walks every element
+with <tt>walkElements</tt>, and adds a red outline to each. The DOM is serialized back to
+HTML automatically.
+</td><td class="sampleaction">
+<com:TPanel OnRenderFilter="outlineElements">
+  <span>one</span> <span>two</span> <span>three</span>
+</com:TPanel>
+</td></tr>
+
+</table>
+
+</com:TContent>

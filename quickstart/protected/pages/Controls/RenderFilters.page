@@ -1,0 +1,105 @@
+<com:TContent ID="body" >
+
+<h1>Render Filters</h1>
+<com:SinceVersion Version="4.3.3" />
+<com:DocLink ClassPath="Prado.Web.UI.TRenderFilterParameter" />
+
+<p class="block-content">
+A render filter rewrites the HTML that a control produces, after the control renders and
+before the output is written to the page. Every control raises an <tt>onRenderFilter</tt>
+event for this purpose. A handler reads the rendered HTML, changes it, and returns the
+result. A control with no handler renders as usual, so the filter adds no cost until a
+handler is attached.
+</p>
+
+<h2>How it works</h2>
+<p class="block-content">
+When a control finishes rendering, the framework captures its HTML and raises the
+<tt>onRenderFilter</tt> event. The event carries a <tt>TRenderFilterParameter</tt> that
+holds the captured HTML. Each handler reads and changes the HTML through the parameter.
+The framework then writes the filtered HTML to the output.
+</p>
+<p class="block-content">
+Every control supports this event. <tt>TControl</tt> implements the
+<tt>IFilterRenderable</tt> interface with the <tt>TFilterRenderableTrait</tt>, and
+<tt>renderControl</tt> raises the event when a handler is present.
+</p>
+
+<h2>Attaching a filter</h2>
+<p class="block-content">
+A template attaches a handler with the <tt>OnRenderFilter</tt> attribute, which names a
+method on the page or control.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TPanel OnRenderFilter="wrapInBox"&gt;
+  ...
+&lt;/com:TPanel&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The page's code attaches a handler with the <tt>onRenderFilter</tt> event list.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$panel->onRenderFilter[] = [$this, 'wrapInBox'];
+</com:TTextHighlighter>
+
+<h2>The filter parameter</h2>
+<p class="block-content">
+The handler receives a <tt>TRenderFilterParameter</tt>. It exposes the output as an HTML
+string and as a DOM document, and it keeps the two in sync.
+</p>
+<table class="parameters">
+<tr><th>Member</th><th>Purpose</th></tr>
+<tr><td><tt>getFilterText()</tt></td><td>Returns the current HTML string.</td></tr>
+<tr><td><tt>setFilterText($html)</tt></td><td>Replaces the HTML string.</td></tr>
+<tr><td><tt>getFilterDOM()</tt></td><td>Returns a <tt>DOMDocument</tt> parsed from the HTML, or <tt>false</tt> when the HTML does not parse.</td></tr>
+<tr><td><tt>setFilterDOM($dom)</tt></td><td>Replaces the document.</td></tr>
+<tr><td><tt>walkElements($callback)</tt></td><td>Calls the callback for every element in the document, depth first.</td></tr>
+<tr><td><tt>getFilterErrors()</tt> / <tt>getHasFilterError()</tt></td><td>The parse errors from the last DOM parse, and whether there were any.</td></tr>
+</table>
+<p class="block-content">
+Reading the DOM makes it the current form, and reading the text serializes the DOM back
+to a string. After the handlers run, the parameter serializes the DOM to HTML on its own,
+so a DOM handler does not call <tt>getFilterText</tt> to commit its changes. The keys
+<tt>html</tt>, <tt>dom</tt>, and <tt>errors</tt> reach the same values through array
+access.
+</p>
+
+<h2>Filtering the HTML string</h2>
+<p class="block-content">
+This handler wraps the control's output in a box.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+public function wrapInBox($sender, $param)
+{
+    $html = $param->getFilterText();
+    $param->setFilterText('&lt;div class="box"&gt;' . $html . '&lt;/div&gt;');
+}
+</com:TTextHighlighter>
+
+<h2>Filtering the DOM</h2>
+<p class="block-content">
+This handler reads the DOM and adds a missing <tt>alt</tt> attribute to every image. The
+parameter serializes the DOM back to HTML after the handler returns.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+public function addAltText($sender, $param)
+{
+    if ($param->getFilterDOM() === false) {
+        return;
+    }
+    $param->walkElements(function ($el, $p) {
+        if ($el->tagName === 'img' &amp;&amp; !$el->hasAttribute('alt')) {
+            $el->setAttribute('alt', '');
+        }
+    });
+}
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>getFilterDOM</tt> returns <tt>false</tt> when the HTML does not parse. The handler
+returns in that case, so the output passes through unchanged. <tt>getHasFilterError</tt>
+reports whether the parse produced errors.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.RenderFilters.Home" />
+
+</com:TContent>

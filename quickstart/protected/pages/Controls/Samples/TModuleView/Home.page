@@ -1,0 +1,42 @@
+<com:TContent ID="body">
+
+<h1>TModuleView Samples</h1>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+The <tt>globalization</tt> module is present in this application, so the child controls
+render.
+</td><td class="sampleaction">
+<com:TModuleView ModuleId="globalization">
+  The <tt>globalization</tt> module is available, so this content renders.
+</com:TModuleView>
+</td></tr>
+
+<tr><td class="samplenote">
+The <tt>payments</tt> module is not present, so the fallback template renders instead of
+the child controls.
+</td><td class="sampleaction">
+<com:TModuleView ModuleId="payments">
+  <com:THyperLink Text="Manage payments" NavigateUrl="#" />
+  <prop:FallbackTemplate>
+    Payments are not enabled.
+  </prop:FallbackTemplate>
+</com:TModuleView>
+</td></tr>
+
+<tr><td class="samplenote">
+The <tt>globalization</tt> module is present, but the condition is false, so the fallback
+template renders.
+</td><td class="sampleaction">
+<com:TModuleView ModuleId="globalization" Condition="1 > 2">
+  This content is hidden because the condition is false.
+  <prop:FallbackTemplate>
+    The condition is false.
+  </prop:FallbackTemplate>
+</com:TModuleView>
+</td></tr>
+
+</table>
+
+</com:TContent>

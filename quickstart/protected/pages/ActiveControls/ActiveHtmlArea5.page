@@ -1,7 +1,8 @@
 <com:TContent ID="body" >
 
 <h1>TActiveHtmlArea5</h1>
-<com:DocLink ClassPath="Prado.Web.UI.WebControls.TActiveHtmlArea5" />
+<com:SinceVersion Version="4.2.0" />
+<com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveHtmlArea5" />
 
 <p class="block-content">
 <tt>TActiveHtmlArea5</tt> is a newer version of the <tt>TActiveHtmlArea</tt> component, based on TinyMCE version 5. Please refer to <tt>TActiveHtmlArea</tt> for basic usage.

@@ -164,6 +164,25 @@ in combination with wildcard patterns. In fact, this feature only is available i
 </ul>
 </p>
 
+<h2>Matching by HTTP verb</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+The <tt>Verbs</tt> property restricts a pattern to specific HTTP methods. A request matches
+the pattern only when its method is in the list. The value is a comma-separated list of
+methods, such as <tt>GET</tt> or <tt>POST</tt>. A pattern with no <tt>Verbs</tt> matches
+any method.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+<url ServiceParameter="Api.Item" pattern="items/{id}" parameters.id="\d+" Verbs="GET" />
+<url ServiceParameter="Api.SaveItem" pattern="items/{id}" parameters.id="\d+" Verbs="POST,PUT" />
+</com:TTextHighlighter>
+<p class="block-content">
+The two rules share a URL pattern and separate by method. A <tt>GET</tt> request for
+<tt>items/5</tt> maps to <tt>Api.Item</tt>, and a <tt>POST</tt> or <tt>PUT</tt> request for
+the same path maps to <tt>Api.SaveItem</tt>. The rules are evaluated in order, so the first
+pattern whose URL and method both match is used.
+</p>
+
 <h2>Constructing Customized URLs</h2>
 <p class="block-content">
 Since version 3.1.1, <tt>TUrlMapping</tt> starts to support constructing customized URLs based on the provided patterns. To enable this feature, set <tt>TUrlMapping.EnableCustomUrl</tt> to true. When <tt>THttpRequest.constrcutUrl()</tt> is invoked, the actual URL construction work will be delegated to a matching <tt>TUrlMappingPattern</tt> instance. It replaces the parameters in the pattern with the corresponding GET variables passed to <tt>constructUrl()</tt>.

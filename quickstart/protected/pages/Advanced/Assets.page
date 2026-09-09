@@ -34,6 +34,41 @@ Asset publishing is managed by the <tt>System.Web.TAssetManager</tt> module. By 
 &lt;/modules&gt;
 </com:TTextHighlighter>
 
+<h2>Publishing options</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+The asset manager copies a published file into the assets directory. Several properties
+of the <tt>TAssetManager</tt> module change how it publishes.
+</p>
+<table class="parameters">
+<tr><th>Property</th><th>Effect</th></tr>
+<tr><td><tt>LinkAssets</tt></td><td>Publishes a symbolic link to the source instead of a copy. The web server has to follow symbolic links to serve the asset.</td></tr>
+<tr><td><tt>ForceCopy</tt></td><td>Publishes again even when the target already exists. It refreshes a copy or a link.</td></tr>
+<tr><td><tt>AppendTimestamp</tt></td><td>Adds the source file's modification time to the published URL as a query parameter, so a browser loads the new file after the source changes.</td></tr>
+<tr><td><tt>TimestampVar</tt></td><td>The name of the query parameter that carries the timestamp. The default is <tt>v</tt>.</td></tr>
+<tr><td><tt>Only</tt></td><td>A list of patterns. When it is set, the manager publishes only the files in a directory that match a pattern.</td></tr>
+<tr><td><tt>Except</tt></td><td>A list of patterns. The manager does not publish a file or directory that matches a pattern.</td></tr>
+</table>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+    &lt;module id="asset" class="Prado\Web\TAssetManager"
+            AppendTimestamp="true" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>LinkAssets</tt> publishes a link that shares the source file. Editing the source
+changes the served asset, and deleting the source leaves a link that does not serve. A
+stale link is refreshed with <tt>ForceCopy</tt>, which removes the link and creates it
+again. The web server follows symbolic links only when it is configured to, such as with
+the Apache <tt>FollowSymLinks</tt> option. Following links widens what the server reads
+from the assets directory, so <tt>LinkAssets</tt> suits a trusted source tree.
+</p>
+<p class="block-content">
+<tt>AppendTimestamp</tt> adds a value to a published URL to break a browser cache. The
+value is the source file's modification time, so the URL changes when the file changes and
+the browser loads the new file. The parameter name comes from <tt>TimestampVar</tt>.
+</p>
+
 <h2>Performance</h2>
 <p class="block-content">
 PRADO uses caching techniques to ensure the efficiency of asset publishing. Publishing an asset essentially requires file copy operation, which is expensive. To save unnecessary file copy operations, <tt>System.Web.TAssetManager</tt> only publishes an asset when it has a newer file modification time than the published file. When an application runs under the <tt>Performance</tt> mode, such timestamp checking is also omitted.

@@ -66,6 +66,7 @@
     <li><a href="?page=ActiveControls.Home">Active Controls (AJAX)</a></li>
     <li><a href="?page=JuiControls.Home">Jui Controls (jQuery UI)</a></li>
     <li><a href="?page=Controls.NewControl">Writing New Controls</a></li>
+    <li><a href="?page=Controls.RenderFilters">Render Filters</a></li>
 </ul>
 </div>
 

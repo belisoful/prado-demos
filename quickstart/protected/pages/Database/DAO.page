@@ -161,4 +161,52 @@ while($dataReader->read()!==false)
 }
 </com:TTextHighlighter>
 
+<h2>Character set</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+The connection's <tt>Charset</tt> property sets the character set of the connection.
+<tt>TDataCharset</tt> holds the IANA-registered charset names as constants, such as
+<tt>TDataCharset::UTF8</tt> for <tt>UTF-8</tt>. The active driver resolves the IANA name to
+its own name.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Data\TDataCharset;
+
+$connection->setCharset(TDataCharset::UTF8);   // 'UTF-8'
+</com:TTextHighlighter>
+<p class="block-content">
+The application configuration sets the same property on a <tt>TDataSourceConfig</tt>
+database.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;database ConnectionString="pgsql:host=localhost;dbname=mydb"
+          Username="dbuser" Password="dbpass" Charset="UTF-8" /&gt;
+</com:TTextHighlighter>
+
+<h2>Data-store interfaces</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+PRADO defines a set of interfaces for a data-store connection, so an extension supplies
+its own connection behind one API. <tt>IDataConnection</tt> is the connection,
+<tt>IDataCommand</tt> is a command, <tt>IDataReader</tt> reads the rows, and
+<tt>IDataTransaction</tt> is a transaction. <tt>TDbConnection</tt> implements
+<tt>IDbConnection</tt>, which extends <tt>IDataConnection</tt> for a PDO connection.
+</p>
+<p class="block-content">
+<tt>IDbConnection</tt> adds <tt>getPdoInstance</tt>, which returns the underlying
+<tt>PDO</tt> handle. Code that needs a driver feature the framework does not wrap reaches
+the handle through this method.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$pdo = $connection->getPdoInstance();
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TDbDriver</tt> names the supported PDO drivers as constants, which include MySQL,
+PostgreSQL, SQLite, SQL Server, Oracle, IBM DB2, and Firebird. PRADO includes database
+metadata for these drivers, so an application reads a table's columns and keys.
+<tt>TDbPropertiesTrait</tt> adds connection management to a class through a
+<tt>ConnectionID</tt>, and it creates a SQLite database in the runtime directory when no
+connection is configured.
+</p>
+
 </com:TContent>

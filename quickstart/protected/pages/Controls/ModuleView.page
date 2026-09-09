@@ -1,0 +1,74 @@
+<com:TContent ID="body" >
+
+<h1>TModuleView</h1>
+<com:SinceVersion Version="4.3.3" />
+<com:DocLink ClassPath="Prado.Web.UI.TModuleView" />
+
+<p class="block-content">
+<tt>TModuleView</tt> renders its child controls only when a named application module is
+present and a condition is true. When the module is absent or the condition is false, the
+control renders an optional fallback template in place of its children. A page uses it to
+show content that depends on a module, such as an extension, without failing when the
+module is not installed.
+</p>
+
+<h2>Properties</h2>
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr><td><tt>ModuleId</tt></td><td>The id of the application module to check for. The control is active when the application has a module with this id.</td></tr>
+<tr><td><tt>Condition</tt></td><td>A PHP expression that is evaluated in the template control. The control is active when the expression is true. The default is <tt>true</tt>.</td></tr>
+<tr><td><tt>FallbackTemplate</tt></td><td>A template that is rendered when the control is not active. It is optional.</td></tr>
+<tr><td><tt>IsActive</tt></td><td>Read-only. True when the module is present and the condition is true.</td></tr>
+<tr><td><tt>ModuleAvailable</tt></td><td>Read-only. True when the application has a module with the id in <tt>ModuleId</tt>.</td></tr>
+<tr><td><tt>Module</tt></td><td>Read-only. The module instance, or null when the module is absent.</td></tr>
+</table>
+
+<h2>Showing content for a module</h2>
+<p class="block-content">
+The child controls of a <tt>TModuleView</tt> render when the module named by
+<tt>ModuleId</tt> is present. This example shows a link only when the application has a
+<tt>payments</tt> module. When the module is absent, the control creates none of its child
+controls.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TModuleView ModuleId="payments"&gt;
+  &lt;com:THyperLink Text="Manage payments" NavigateUrl="?page=Payments" /&gt;
+&lt;/com:TModuleView&gt;
+</com:TTextHighlighter>
+
+<h2>A fallback template</h2>
+<p class="block-content">
+The <tt>FallbackTemplate</tt> renders when the control is not active. It is written as a
+<tt>prop:FallbackTemplate</tt> tag inside the control. This example shows the module
+content when the module is present, and a message when it is absent.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TModuleView ModuleId="payments"&gt;
+  &lt;com:THyperLink Text="Manage payments" NavigateUrl="?page=Payments" /&gt;
+  &lt;prop:FallbackTemplate&gt;
+    Payments are not enabled.
+  &lt;/prop:FallbackTemplate&gt;
+&lt;/com:TModuleView&gt;
+</com:TTextHighlighter>
+
+<h2>A condition</h2>
+<p class="block-content">
+The <tt>Condition</tt> property adds an expression that also has to be true for the
+control to be active. The expression is evaluated in the template control, so it reads the
+page's properties. This example shows the child controls only when the module is present
+and the user is an administrator.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TModuleView ModuleId="payments" Condition="$this->User->isInRole('admin')"&gt;
+  &lt;com:THyperLink Text="Refund" NavigateUrl="?page=Refund" /&gt;
+&lt;/com:TModuleView&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The control is active only when it has a <tt>ModuleId</tt> and the module is present. A
+control with no <tt>ModuleId</tt> is not active, and it renders the fallback template. To
+show content on a condition alone, use <a href="?page=Controls.Conditional">TConditional</a>.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.TModuleView.Home" />
+
+</com:TContent>
