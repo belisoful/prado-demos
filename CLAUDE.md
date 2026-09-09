@@ -12,8 +12,11 @@ apply framework build/lint/test workflows here.
 The star app is `quickstart` — the framework's end-user documentation (267 `.page`
 files). Bringing it current to **PRADO 4.3.3** is the active task.
 
-- Target PRADO version: **4.3.3**. Installed in `vendor/`: **4.3.2**. 4.3.3
-  source-of-truth for verification: `../prado.master` (symlink `../prado`).
+- Target PRADO version: **4.3.3**. `vendor/pradosoft/prado` is symlinked to the local
+  4.3.3 checkout `../prado.prado-4.3` (branch `prado-4.3`) so 4.3.3-only controls render;
+  the original pre-4.3.3 vendor dir is backed up at `vendor/pradosoft/prado.pre433.bak`.
+  4.3.3 source-of-truth for verification: `../prado.prado-4.3` (NOT `../prado.master`,
+  which is 4.4.0-dev).
 - Session scope: **prado-demos only**. Do not modify the framework repo or its `agents/`
   knowledge base.
 
@@ -23,6 +26,8 @@ files). Bringing it current to **PRADO 4.3.3** is the active task.
 - `local/quickstart-doc-history-research.md` — the forensic baseline.
 - `local/framework-agents-kb-inaccuracies.md` — log of framework Working-Knowledge
   errors for later batch review on that repo.
+- `local/framework-code-bugs.md` — log of behavioral **code** bugs found in the 4.3.3
+  framework while verifying quickstart examples (distinct from KB errors); same reviewer.
 
 ## Commands
 

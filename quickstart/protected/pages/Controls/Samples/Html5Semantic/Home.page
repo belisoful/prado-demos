@@ -1,0 +1,65 @@
+<com:TContent ID="body">
+
+<h1>HTML5 Semantic Controls Samples</h1>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+A page region built from the semantic controls. Each control renders its HTML5 element,
+shown here with a light border.
+</td><td class="sampleaction">
+<com:TMain Style="border:1px solid #bbb; padding:8px; display:block">
+  <com:THeader Style="border:1px solid #ddd; padding:6px; display:block">
+    <strong>Site title</strong>
+  </com:THeader>
+  <com:TNav Style="border:1px solid #ddd; padding:6px; margin-top:6px; display:block">
+    <com:THyperLink Text="Home" NavigateUrl="#" /> |
+    <com:THyperLink Text="About" NavigateUrl="#" />
+  </com:TNav>
+  <com:TArticle Style="border:1px solid #ddd; padding:6px; margin-top:6px; display:block">
+    <strong>An article</strong>
+    <p>TArticle renders an &lt;article&gt; element around this content.</p>
+    <com:TAside Style="border:1px dashed #ccc; padding:6px; display:block">
+      An aside related to the article.
+    </com:TAside>
+  </com:TArticle>
+  <com:TSection Style="border:1px solid #ddd; padding:6px; margin-top:6px; display:block">
+    <strong>A section</strong>
+    <p>A thematic grouping of content.</p>
+  </com:TSection>
+  <com:TFooter Style="border:1px solid #ddd; padding:6px; margin-top:6px; display:block">
+    Copyright.
+  </com:TFooter>
+</com:TMain>
+</td></tr>
+
+<tr><td class="samplenote">
+Highlighted text with <tt>TMark</tt>:
+</td><td class="sampleaction">
+The report found a match on the word <com:TMark>revenue</com:TMark> in the third paragraph.
+</td></tr>
+
+<tr><td class="samplenote">
+The <tt>TagName</tt> property renders a different element. This <tt>TSection</tt> renders
+an <tt>&lt;article&gt;</tt> element.
+</td><td class="sampleaction">
+<com:TSection TagName="article" Style="border:1px solid #bbb; padding:6px; display:block">
+  Rendered with TagName="article".
+</com:TSection>
+</td></tr>
+
+<tr><td class="samplenote">
+Two navigation regions, each named with an <tt>aria-label</tt> so a screen reader tells
+them apart. The labels are set in the page's code with the <tt>Attributes</tt> collection.
+</td><td class="sampleaction">
+<com:TNav ID="PrimaryNav" Style="border:1px solid #ddd; padding:6px; display:block">
+  Primary navigation.
+</com:TNav>
+<com:TNav ID="FooterNav" Style="border:1px solid #ddd; padding:6px; margin-top:6px; display:block">
+  Footer navigation.
+</com:TNav>
+</td></tr>
+
+</table>
+
+</com:TContent>

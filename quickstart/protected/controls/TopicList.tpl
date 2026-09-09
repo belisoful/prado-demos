@@ -58,6 +58,7 @@
 <div>Control Reference</div>
 <ul>
     <li><a href="?page=Controls.Standard">Standard Controls</a></li>
+    <li><a href="?page=Controls.Html5Semantic">HTML5 Semantic Controls</a></li>
     <li><a href="?page=Controls.Validation">Validation Controls</a></li>
     <li><a href="?page=Controls.List">List Controls</a></li>
     <li><a href="?page=Controls.Data">Data Controls</a></li>

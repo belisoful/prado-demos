@@ -1,0 +1,94 @@
+<com:TContent ID="body" >
+
+<h1>HTML5 Semantic Controls</h1>
+<com:SinceVersion Version="4.3.3" />
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.THtmlElement" />
+
+<p class="block-content">
+The HTML5 semantic controls render the HTML5 sectioning and text-level semantic elements.
+Each control renders one element and holds body content. A page uses them to give a
+document a structure that a browser, a search engine, and assistive technology read.
+</p>
+
+<h2>The controls</h2>
+<p class="block-content">
+Each control renders the element named in the table. Each control is a container control,
+so it holds other controls and markup as its body content.
+</p>
+<table class="parameters">
+<tr><th>Control</th><th>Element</th><th>Represents</th></tr>
+<tr><td><tt>TArticle</tt></td><td><tt>&lt;article&gt;</tt></td><td>A self-contained composition, such as a blog post or a news story.</td></tr>
+<tr><td><tt>TSection</tt></td><td><tt>&lt;section&gt;</tt></td><td>A thematic grouping of content, usually with a heading.</td></tr>
+<tr><td><tt>TNav</tt></td><td><tt>&lt;nav&gt;</tt></td><td>A section of navigation links.</td></tr>
+<tr><td><tt>THeader</tt></td><td><tt>&lt;header&gt;</tt></td><td>Introductory content for a page or a section, such as a title or a logo.</td></tr>
+<tr><td><tt>TFooter</tt></td><td><tt>&lt;footer&gt;</tt></td><td>Closing content for a page or a section, such as authorship or copyright.</td></tr>
+<tr><td><tt>TMain</tt></td><td><tt>&lt;main&gt;</tt></td><td>The main content of the document. A page has one main element.</td></tr>
+<tr><td><tt>TAside</tt></td><td><tt>&lt;aside&gt;</tt></td><td>Content related to the surrounding content, such as a sidebar or a pull quote.</td></tr>
+<tr><td><tt>TMark</tt></td><td><tt>&lt;mark&gt;</tt></td><td>A run of text highlighted for reference, such as a search match.</td></tr>
+</table>
+
+<h2>Using a semantic control</h2>
+<p class="block-content">
+A semantic control is written as a component tag, and its body content sits between the
+open and close tags. This example lays out a page region with a header, a navigation
+block, the main content, and a footer.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:THeader&gt;
+  &lt;h1&gt;Site title&lt;/h1&gt;
+&lt;/com:THeader&gt;
+&lt;com:TNav&gt;
+  &lt;com:THyperLink Text="Home" NavigateUrl="?page=Home" /&gt;
+&lt;/com:TNav&gt;
+&lt;com:TMain&gt;
+  &lt;com:TArticle&gt;
+    &lt;p&gt;The article body.&lt;/p&gt;
+  &lt;/com:TArticle&gt;
+&lt;/com:TMain&gt;
+&lt;com:TFooter&gt;
+  &lt;p&gt;Copyright.&lt;/p&gt;
+&lt;/com:TFooter&gt;
+</com:TTextHighlighter>
+
+<h2>The element base</h2>
+<p class="block-content">
+Each control extends <tt>THtmlElement</tt>, which renders a generic HTML element and
+carries the properties of <tt>TWebControl</tt>. The <tt>TagName</tt> property sets the
+element, and each semantic control sets a default tag name. Setting <tt>TagName</tt>
+renders a different element, so a theme or a template repurposes the control.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TSection TagName="article" /&gt;
+</com:TTextHighlighter>
+
+<h2>Common properties</h2>
+<p class="block-content">
+Each control inherits the properties of <tt>TWebControl</tt>. The <tt>CssClass</tt> and
+<tt>Style</tt> properties style the element, and the <tt>Visible</tt> property renders or
+hides it. The <tt>Attributes</tt> collection carries any HTML attribute. A template sets
+an attribute with the <tt>Attributes</tt> property.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TSection Attributes.role="region" /&gt;
+</com:TTextHighlighter>
+
+<h2>Accessibility</h2>
+<p class="block-content">
+A semantic element gives its content a role. A screen reader announces a
+<tt>&lt;nav&gt;</tt> as a navigation landmark and a <tt>&lt;main&gt;</tt> as the main
+landmark, so a user moves between the landmarks of a page. A page uses one
+<tt>TMain</tt> for its main content.
+</p>
+<p class="block-content">
+A page that repeats a landmark gives each one a name, so a screen reader tells them apart.
+The <tt>aria-label</tt> attribute holds the name. The page's code adds the attribute to
+the control's <tt>Attributes</tt> collection.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$this->PrimaryNav->getAttributes()->add('aria-label', 'Primary');
+$this->FooterNav->getAttributes()->add('aria-label', 'Footer');
+</com:TTextHighlighter>
+
+<com:RunBar PagePath="Controls.Samples.Html5Semantic.Home" />
+
+</com:TContent>
