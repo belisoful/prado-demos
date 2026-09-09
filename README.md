@@ -1,4 +1,4 @@
-# Prado PHP Framework - Demos
+# Prado PHP Framework v4.3.3 - Demos
 
 PRADO is a component-based and event-driven programming framework for developing Web applications in PHP.
 PRADO stands for PHP Rapid Application Development Object-oriented.
