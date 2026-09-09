@@ -8,3 +8,5 @@ blog/protected/Data/Blog.db
 
 quickstart/protected/index/quickstart/*
 !quickstart/protected/index/quickstart/.gitkeep
+
+local/
