@@ -168,42 +168,13 @@ events, dynamic events, and the call chain in full.
 <com:SinceVersion Version="4.2.0" />
 <p class="block-content">
 Behaviors are attached from the application configuration with
-<tt>TBehaviorsModule</tt>. Each <tt>behavior</tt> entry names the behavior, its class,
-the target it attaches to, a priority, and any behavior properties. The
-<tt>AttachTo</tt> attribute attaches the behavior to an application component such as
-the application, a module, or the page. The <tt>AttachToClass</tt> attribute attaches
-the behavior to every instance of a class.
-</p>
-<com:TTextHighlighter Language="xml" CssClass="source block-content">
-&lt;modules&gt;
-  &lt;module id="behaviors" class="Prado\Util\TBehaviorsModule"&gt;
-    &lt;behavior Name="pagetheme"
-              Class="Prado\Util\Behaviors\TParameterizeBehavior"
-              AttachTo="Page" Priority="10"
-              Parameter="ThemeName" Property="Theme" /&gt;
-  &lt;/module&gt;
-&lt;/modules&gt;
-</com:TTextHighlighter>
-<p class="block-content">
-The same configuration is written in the PHP application configuration style.
-</p>
-<com:TTextHighlighter CssClass="source block-content">
-'modules' => [
-    'behaviors' => [
-        'class' => 'Prado\Util\TBehaviorsModule',
-        'behaviors' => [
-            ['name' => 'pagetheme', 'class' => 'Prado\Util\Behaviors\TParameterizeBehavior',
-             'attachto' => 'page', 'priority' => '10',
-             'Parameter' => 'ThemeName', 'Property' => 'Theme'],
-        ],
-    ],
-],
-</com:TTextHighlighter>
-<p class="block-content">
-PRADO ships ready-made behaviors under the <tt>Prado\Util\Behaviors</tt> namespace.
-<tt>TParameterizeBehavior</tt> sets a component property from an application parameter.
-Other ready-made behaviors set the page charset, add no-cache headers to a page, and
-set the default timezone.
+<tt>TBehaviorsModule</tt>, without writing code. A behavior element names the behavior,
+its class, the target it attaches to, a priority, and the behavior's properties. PRADO
+also ships ready-made behaviors under the <tt>Prado\Util\Behaviors</tt> namespace, such
+as <tt>TParameterizeBehavior</tt>, which sets an owner property from an application
+parameter. The <a href="?page=Configurations.BehaviorsConfig">Behaviors
+Configuration</a> page covers the module, the behavior attributes, the ready-made
+behaviors, and loading behaviors from parameters.
 </p>
 
 <h2>Behaviors update in 4.3.0</h2>

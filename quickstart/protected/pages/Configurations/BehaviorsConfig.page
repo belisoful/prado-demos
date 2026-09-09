@@ -1,0 +1,135 @@
+<com:TContent ID="body" >
+<h1>Behaviors Configuration</h1>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+Behaviors are attached to components from the application configuration, without
+writing code. <tt>TBehaviorsModule</tt> reads behavior definitions from the module
+configuration and attaches them to the application, to modules, to the page, or to
+every instance of a class. <tt>TBehaviorParameterLoader</tt> attaches behaviors that
+are defined in application parameters. The
+<a href="?page=Fundamentals.Behaviors">Behaviors</a> page describes the behavior model
+that this configuration drives.
+</p>
+
+<h2>The behaviors module</h2>
+<p class="block-content">
+<tt>TBehaviorsModule</tt> is registered as a module. Each <tt>behavior</tt> element
+inside the module defines one behavior. A behavior element names the behavior, its
+class, the target it attaches to, an optional priority, and the behavior's own
+properties.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="behaviors" class="Prado\Util\TBehaviorsModule"&gt;
+    &lt;behavior Name="pagetheme"
+              Class="Prado\Util\Behaviors\TParameterizeBehavior"
+              AttachTo="Page" Priority="10"
+              Parameter="ThemeName" Property="Theme" /&gt;
+    &lt;behavior Name="auditRecords"
+              Class="Application.behaviors.TAuditBehavior"
+              AttachToClass="Application.data.TArticleRecord" /&gt;
+  &lt;/module&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The same configuration is written in the PHP application configuration style.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+'modules' => [
+    'behaviors' => [
+        'class' => 'Prado\Util\TBehaviorsModule',
+        'behaviors' => [
+            ['name' => 'pagetheme', 'class' => 'Prado\Util\Behaviors\TParameterizeBehavior',
+             'attachto' => 'page', 'priority' => '10',
+             'Parameter' => 'ThemeName', 'Property' => 'Theme'],
+        ],
+    ],
+],
+</com:TTextHighlighter>
+
+<h2>Behavior attributes</h2>
+<p class="block-content">
+Each behavior element accepts these attributes. Any remaining attributes are set as
+properties on the behavior.
+</p>
+<table class="parameters">
+<tr><th>Attribute</th><th>Purpose</th></tr>
+<tr><td><tt>Name</tt></td><td>The name that identifies the behavior on its owner.</td></tr>
+<tr><td><tt>Class</tt></td><td>The behavior class.</td></tr>
+<tr><td><tt>AttachTo</tt></td><td>The application component to attach to. One of <tt>AttachTo</tt> or <tt>AttachToClass</tt> is required.</td></tr>
+<tr><td><tt>AttachToClass</tt></td><td>The class whose every instance receives the behavior. One of <tt>AttachTo</tt> or <tt>AttachToClass</tt> is required.</td></tr>
+<tr><td><tt>Priority</tt></td><td>The behavior priority. A lower number runs earlier. The default is 10.</td></tr>
+</table>
+<p class="block-content">
+The <tt>AttachTo</tt> attribute names an application component.
+</p>
+<table class="parameters">
+<tr><th><tt>AttachTo</tt> value</th><th>Target</th></tr>
+<tr><td><tt>Application</tt></td><td>The <tt>TApplication</tt> instance.</td></tr>
+<tr><td><tt>Page</tt></td><td>Each <tt>TPage</tt> of the page service.</td></tr>
+<tr><td><tt>Module:<i>id</i></tt></td><td>The module registered under that id.</td></tr>
+<tr><td><tt>Behavior:<i>name</i></tt></td><td>A behavior that a previous element loaded, so a behavior may carry its own behavior.</td></tr>
+</table>
+<p class="block-content">
+Page behaviors are attached only when the running service is <tt>TPageService</tt>.
+Under another service, page behaviors are ignored.
+</p>
+
+<h2>Ready-made behaviors</h2>
+<p class="block-content">
+PRADO ships behaviors under the <tt>Prado\Util\Behaviors</tt> namespace. Each attaches
+through <tt>TBehaviorsModule</tt> or programmatically.
+</p>
+<table class="parameters">
+<tr><th>Behavior</th><th>Purpose</th></tr>
+<tr><td><tt>TParameterizeBehavior</tt></td><td>Sets a property on the owner from an application parameter.</td></tr>
+<tr><td><tt>TTimeZoneParameterBehavior</tt></td><td>Sets the default timezone from a property or an application parameter.</td></tr>
+<tr><td><tt>TPageGlobalizationCharsetBehavior</tt></td><td>Sets the page charset from the globalization settings.</td></tr>
+<tr><td><tt>TPageNoCacheBehavior</tt></td><td>Adds no-cache headers to the page response.</td></tr>
+<tr><td><tt>TPageTopAnchorBehavior</tt></td><td>Adds a top anchor element to the page.</td></tr>
+<tr><td><tt>TMapLazyLoadBehavior</tt></td><td>Lazy-loads a <tt>TMap</tt> item on first access.</td></tr>
+<tr><td><tt>TMapRouteBehavior</tt></td><td>Routes <tt>TMap</tt> reads and writes through a handler.</td></tr>
+</table>
+
+<h2>Setting properties from parameters</h2>
+<p class="block-content">
+<tt>TParameterizeBehavior</tt> sets one property on its owner from an application
+parameter. The <tt>Parameter</tt> attribute names the parameter, and the
+<tt>Property</tt> attribute names the owner property to set. The <tt>DefaultValue</tt>
+attribute supplies a value when the parameter is absent. The <tt>Localize</tt>
+attribute translates the value before it is set. The <tt>RouteBehaviorName</tt>
+attribute installs a behavior on the parameter, so a later change to the parameter is
+routed to the property.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;behavior Name="pagetheme"
+          Class="Prado\Util\Behaviors\TParameterizeBehavior"
+          AttachTo="Page" Parameter="ThemeName" Property="Theme"
+          DefaultValue="Basic" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The <tt>Parameter</tt> attribute reads a property of another component when its value
+begins with <tt>prop:</tt>. For example, <tt>Parameter="prop:TSecurityManager.ValidationKey"</tt>
+reads the validation key from the security manager.
+</p>
+
+<h2>Loading behaviors from a parameter</h2>
+<p class="block-content">
+<tt>TBehaviorParameterLoader</tt> attaches a behavior that is defined as an application
+parameter. A parameter names the behavior, its class, the target, a priority, and the
+behavior's properties. This attaches behaviors from the application parameters and from
+the per-directory configuration files.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;parameters&gt;
+  &lt;parameter id="pagethemeloader"
+             class="Prado\Util\Behaviors\TBehaviorParameterLoader"
+             BehaviorName="pagetheme"
+             BehaviorClass="Prado\Util\Behaviors\TParameterizeBehavior"
+             Priority="10" AttachToClass="Prado\Web\UI\TPage"
+             Parameter="ThemeName" Property="Theme" DefaultValue="Basic" /&gt;
+&lt;/parameters&gt;
+</com:TTextHighlighter>
+
+</com:TContent>

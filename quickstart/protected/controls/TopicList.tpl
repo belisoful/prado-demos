@@ -49,6 +49,7 @@
     <li><a href="?page=Configurations.AppConfig">Application Configurations</a></li>
     <li><a href="?page=Configurations.PageConfig">Page Configurations</a></li>
     <li><a href="?page=Configurations.UrlMapping">URL Mapping (Friendly URLs)</a></li>
+    <li><a href="?page=Configurations.BehaviorsConfig">Behaviors Configuration</a></li>
 </ul>
 </div>
 
