@@ -109,7 +109,9 @@ cont_h = HEAD_H + 4 + 2*SUBH + SUB_GAP + PAD_B
 head_cy = cont_top + HEAD_H/2 + 1
 sub1_cy = cont_top + HEAD_H + 4 + SUBH/2
 sub2_cy = sub1_cy + SUBH + SUB_GAP
-cur = cont_top + cont_h + GAP
+cont_bottom = cont_top + cont_h
+SEP_Y = cont_bottom + 22          # divider between initialization and the request lifecycle
+cur = SEP_Y + 24
 EVH = 24
 step_cy = []
 for _ in STEPS:
@@ -151,6 +153,10 @@ out.append(f'''  <defs>
     </marker>
   </defs>''')
 out.append(f'  <rect x="0" y="0" width="{W}" height="{H:.0f}" fill="#fff"/>')
+
+# request-lifecycle divider: separates initialization from the request lifecycle
+out.append(f'  <line x1="8" y1="{SEP_Y:.1f}" x2="{W-8}" y2="{SEP_Y:.1f}" stroke="#9aa0a6" stroke-width="1" stroke-dasharray="6 4"/>')
+out.append(f'  <text x="10" y="{SEP_Y+13:.1f}" font-size="9.5" font-style="italic" fill="#5a6472">Request Lifecycle</text>')
 
 # Legend box (top, aligned with the note column)
 LGW = NOTE_W; LGX = NOTE_X; LGY = 10; LGH = 58
