@@ -18,7 +18,7 @@ the command line.
 Inside you application's protected directory, If you type <tt>./vendor/bin/prado-cli</tt>,
 you should see the following information.</p>
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
-  Command line tools for Prado 4.2.0.
+  Command line tools for Prado <com:CurrentVersion />.
 usage: php prado-cli.php command[/action] <parameter> [optional]
 
 example: php prado-cli.php cache/flush-all
@@ -68,7 +68,7 @@ $: php bin/prado-cli.php shell demos/blog
 </com:TTextHighlighter>
 The output should be
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
-  Command line tools for Prado 4.2.0.
+  Command line tools for Prado <com:CurrentVersion />.
 Psy Shell v0.11.2 (PHP 7.4.28 — cli) by Justin Hileman
 >>>
 </com:TTextHighlighter>

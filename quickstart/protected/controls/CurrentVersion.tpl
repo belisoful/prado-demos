@@ -1,0 +1,1 @@
+<%= Prado::getVersion() %>
