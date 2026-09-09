@@ -21,31 +21,24 @@ you should see the following information.</p>
   Command line tools for Prado <com:CurrentVersion />.
 usage: php prado-cli.php command[/action] <parameter> [optional]
 
-example: php prado-cli.php cache/flush-all
+example: prado-cli http
 example: prado-cli help
 example: prado-cli cron/tasks
 
 The following options are available:
-  -d=<folder>       Loads the configuration.xml/php from <folder>
-  -q=<level>        Quiets the output to <level> [1..3]
+  -d=<folder>        Loads the configuration.xml/php from <folder>
+ --quiet=<level>     Quiets the output to <level> [1..3], default 1 (when specified)
+  -q=<level>         is an alias for --quiet
 
 The following commands are available:
- - cache                       Allows you to flush the cache(s).
-     cache/index               Displays the cache modules that can be flushed.
-     cache/flush               Flushes the specified ICache modules.
-     cache/flush-all           Flushes all application ICache modules.
-
- - help                        Provides help information about shell commands.
+  help                         Provides help information about shell commands.
      help/index                Displays available commands or detailed command information.
 
- - shell                       Provides PHP Interactive Shell Interpreter.
+  shell                        Provides PHP Interactive Shell Interpreter.
      shell/index               Runs a PHP interactive interpreter after Initializing the Prado application.
 
- - activerecord                Provides Active Record skeleton generation.
-     activerecord/generate     Generate Active Record skeleton for <table> to <output>. May also generate [soap] properties.
-     activerecord/generate-all Generate Active Record skeleton for all Tables to <output>. May also generate [soap] properties.
-                               Generated Classes are named like the Table with optional [Prefix] and/or [Suffix].
-                               [Overwrite] is used to overwrite existing Files.
+  http                         Provides a Test PHP Web Server to serve the application.
+     http/serve                Runs a PHP Web Server after Initializing the Application.
 
 To see the help of each command, enter:
 
@@ -54,6 +47,115 @@ To see the help of each command, enter:
 
 <p class="block-content">The <b>&lt;parameter&gt;</b> are required parameters and <b>[optional]</b>
 are optional parameters. </p>
+<p class="block-content">
+A module adds its own commands when the application loads it. The cache modules add
+<tt>cache/flush-all</tt>, and the Active Record configuration adds
+<tt>activerecord/generate</tt>. The cron, permissions, and database parameter modules add
+the commands below. Run <tt>prado-cli help</tt> in the application to list the commands it
+has, and <tt>prado-cli help &lt;command&gt;</tt> for one command.
+</p>
+
+<h3>Cron commands</h3>
+<p class="block-content">
+The <a href="?page=Advanced.Cron">cron</a> module (<tt>TCronModule</tt>) adds the
+<tt>cron</tt> command to run and inspect the scheduled tasks.</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli cron</tt></td><td>Displays the registered cron task information. The same as <tt>cron/index</tt>.</td></tr>
+<tr><td><tt>prado-cli cron/run</tt></td><td>Runs the cron tasks that are due. The system cron runs this once a minute.</td></tr>
+<tr><td><tt>prado-cli cron/tasks</tt></td><td>Displays the cron tasks that the application configures.</td></tr>
+</table>
+<p class="block-content">
+When the module is a <tt>TDbCronManager</tt>, the <tt>cron</tt> command also manages the
+tasks stored in the database.</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli cron/add &lt;task-name&gt; &lt;task-id&gt; &lt;schedule&gt; [parameters...]</tt></td><td>Adds a cron task to the database.</td></tr>
+<tr><td><tt>prado-cli cron/update &lt;task-name&gt; [parameters...]</tt></td><td>Updates a cron task in the database.</td></tr>
+<tr><td><tt>prado-cli cron/remove &lt;task-name&gt;</tt></td><td>Removes a cron task from the database.</td></tr>
+</table>
+
+<h3>Permissions commands</h3>
+<p class="block-content">
+The <a href="?page=Advanced.Permissions">permissions</a> manager
+(<tt>TPermissionsManager</tt>) adds the <tt>perm</tt> command to read and change the roles
+and rules stored in the database.</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli perm</tt></td><td>Displays the database permission information. Add <tt>-a</tt> for all. The same as <tt>perm/index</tt>.</td></tr>
+<tr><td><tt>prado-cli perm/role &lt;role-name&gt; [[+-]child ...]</tt></td><td>Adds and removes children of a role in the database. A child with a <tt>+</tt> is added, and a child with a <tt>-</tt> is removed.</td></tr>
+<tr><td><tt>prado-cli perm/add-rule &lt;permission-name&gt; &lt;action&gt; [users] [roles] [verb] [ips] [priority] [class]</tt></td><td>Adds a rule for a permission to the database.</td></tr>
+<tr><td><tt>prado-cli perm/remove-rule &lt;permission-name&gt; &lt;db-rule-index&gt;</tt></td><td>Removes a rule for a permission from the database.</td></tr>
+</table>
+
+<h3>Database parameter commands</h3>
+<p class="block-content">
+The <a href="?page=Configurations.Parameters">database parameter</a> module
+(<tt>TDbParameterModule</tt>) adds the <tt>param</tt> command to read and write the
+parameters in the database.</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli param</tt></td><td>Displays all the parameters in the database. The same as <tt>param/index</tt>.</td></tr>
+<tr><td><tt>prado-cli param/get &lt;param-key&gt;</tt></td><td>Gets a parameter by its key.</td></tr>
+<tr><td><tt>prado-cli param/set &lt;param-key&gt; &lt;param-value&gt;</tt></td><td>Sets a parameter to a value.</td></tr>
+</table>
+
+<h2>Requiring a login for commands</h2>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">
+A command runs without a login by default. <tt>TShellLoginBehavior</tt> requires a username
+and password before any command runs. It is a <a href="?page=Configurations.BehaviorsConfig">behavior</a>
+that attaches to the <tt>TAuthManager</tt> module, so a command has an authenticated
+application user, the same way a page request does.
+</p>
+<p class="block-content">
+Attach the behavior to the <tt>auth</tt> module in the application configuration.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;behavior name="shellLoginAuth" Class="Prado\Shell\TShellLoginBehavior" AttachTo="module:auth" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+With the behavior attached, a command asks for a username and password. The
+<tt>--user</tt> option, aliased <tt>-u</tt>, and the <tt>--password</tt> option, aliased
+<tt>-p</tt>, supply them on the command line.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+prado-cli --user=admin --password=secret cron/run
+</com:TTextHighlighter>
+<p class="block-content">
+When the options are absent, the command prompts for the username and the password, and it
+hides the password while it is typed. The behavior calls the <tt>login</tt> method of
+<tt>TAuthManager</tt> to validate the credentials against the user manager, which the
+<a href="?page=Advanced.Auth">Authentication and Authorization</a> page describes. A failed
+login stops the command.
+</p>
+<p class="block-content">
+The commands a user may run depend on the user's roles. The
+<a href="?page=Advanced.Permissions">permissions</a> manager grants a role the permission
+for a command, such as the cron or the permissions commands, so different users run
+different commands.
+</p>
+
+<h2>Built-in web server</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+The <tt>http/serve</tt> command runs the application with PHP's built-in web server. It
+initializes the application and serves it, so the application runs without a separate web
+server. It suits development and testing.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+prado-cli http/serve
+</com:TTextHighlighter>
+<p class="block-content">
+The server listens on <tt>127.0.0.1</tt> and port <tt>8080</tt> by default, so the
+application is at <tt>http://127.0.0.1:8080/</tt>. The <tt>--address</tt> option sets the
+address, with an optional port, and the <tt>--port</tt> option sets the port. The
+<tt>--all</tt> option serves on every network address, and the <tt>--ipv6</tt> option uses
+IPv6.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+prado-cli http/serve --address=localhost --port=8777
+</com:TTextHighlighter>
 
 <h2>Interactive Shell</h2>
 <p class="block-content">

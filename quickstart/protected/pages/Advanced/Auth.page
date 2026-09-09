@@ -83,9 +83,59 @@ Since version 3.1.1, the <tt>pages</tt> attribute in the authorization rules can
 Also introduced in version 3.1.1 are IP rules. They are specified by a new attribute <tt>ips</tt> in authorization rules. The IP rules are used to determine if an authorization rule aplies to an end-user according to his IP address. One can list a few IPs together, separated by comma ','. Wildcard '*' can be used in the rules. For example, <tt>ips="192.168.0.2, 192.168.1.*"</tt> means the rule applies to users whose IP address is 192.168.0.2 or 192.168.1.*. The latter matches any host in the subnet 192.168.1. If the attribute 'ips' is empty, not set or wildcard '*', the corresponding rule will apply to requests coming from any host address.
 </p>
 
+<h2>Users and passwords</h2>
+<p class="block-content">
+The <tt>login</tt> method signs a user in. It takes a username and a password, and it
+returns whether the sign-in succeeds. The method asks the user manager to validate the
+username and password. When they match, it sets the current user of the application and
+raises <tt>onLogin</tt>. When they do not match, it raises <tt>onLoginFailed</tt> and
+returns false. The <tt>logout</tt> method clears the current user.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$auth = $this->getApplication()->getModule('auth');
+
+if ($auth->login($username, $password)) {
+    // the user is signed in
+}
+// ...
+$auth->logout();
+</com:TTextHighlighter>
+<p class="block-content">
+The <tt>PasswordMode</tt> property of the user manager sets how a password is stored and
+compared. It is <tt>Clear</tt> for clear text, <tt>MD5</tt> for an MD5 hash, or
+<tt>SHA1</tt> for a SHA1 hash. The default is <tt>MD5</tt>. The user manager hashes the
+submitted password in the same mode before it compares the password to the stored value,
+so a stored password is a hash and not clear text when the mode is <tt>MD5</tt> or
+<tt>SHA1</tt>.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;module id="users" class="Prado\Security\TUserManager" PasswordMode="MD5" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The password parameter of <tt>login</tt> and of the user manager's <tt>validateUser</tt>
+method is marked as a sensitive parameter, so PHP hides its value from a stack trace and
+from an error report. A password does not appear in the logs when an exception is thrown
+during a sign-in.
+</p>
+<p class="block-content">
+A third argument to <tt>login</tt> is the number of seconds to keep the user signed in
+through a cookie. When it is greater than zero, the method writes an auto-login cookie, and
+the user manager reads it on a later request to sign the user in again. The
+<tt>AllowAutoLogin</tt> property of <tt>TAuthManager</tt> has to be true for the cookie to
+be used. When auto-login is on, the <tt>AuthExpire</tt> timeout has no effect, because the
+cookie signs the user in again after the timeout.
+</p>
+<p class="block-content">
+<tt>TAuthManager</tt> also provides a behavior for command-line login. Attaching
+<tt>TShellLoginBehavior</tt> to the auth module makes a command prompt for a username and
+password, or take them from the <tt>--user</tt> and <tt>--password</tt> options. The
+<a href="?page=GettingStarted.CommandLine">Command Line Tool</a> page describes the
+configuration and the behavior.
+</p>
+
 <h2>Using <tt>TUserManager</tt></h2>
 <p class="block-content">
-As aforementioned, <tt>TUserManager</tt> implements a read-only user database. The user information are specified in either application configuration or an external XML file.
+As aforementioned, <tt>TUserManager</tt> implements a read-only user database. The user information are specified in either application configuration or an external XML or PHP file.
 </p>
 <p class="block-content">
 We have seen in the above example that two users are specified in the application configuration. Complete syntax of specifying the user and role information is as follows,

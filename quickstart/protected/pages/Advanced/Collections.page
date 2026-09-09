@@ -132,4 +132,106 @@ Because of the above new features, when dealing with the <tt>Attributes</tt> pro
 <p class="block-content">
 which adds an attribute named <tt>onclick</tt> to the <tt>TButton</tt> control.
 </p>
+
+<h2>Weak collections</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+A weak collection holds an object as a weak reference, so the collection does not keep the
+object from being garbage-collected. A list or map holds a strong reference to its items,
+so an item stays alive while the collection holds it. A weak collection is useful for a
+registry of objects that other code owns, such as event handlers, where the collection
+follows the objects instead of keeping them alive.
+</p>
+<p class="block-content">
+<tt>TWeakList</tt> is an integer-indexed list that stores its objects as weak references.
+When an object is collected, the list either removes the entry or replaces it with
+<tt>null</tt>, which the constructor mode selects. The default mode removes the entry, so
+the list holds only live objects. A list item that is not an object is stored directly.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Collections\TWeakList;
+
+$list = new TWeakList();
+$list->add($object);   // stored as a weak reference
+</com:TTextHighlighter>
+<p class="block-content">
+<com:SinceVersion Version="4.3.3" />
+<tt>TWeakMap</tt> is a key-value map that stores its object values as weak references. The
+keys are held directly. A non-object value, and a <tt>Closure</tt>, are stored directly.
+The <tt>DiscardInvalid</tt> property sets what happens when a value is collected. When it
+is true, the entry is removed. When it is false, the entry stays and the value reads as
+<tt>null</tt>.
+</p>
+
+<h2>The null object</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+<tt>TNull</tt> is an object that stands for nothing. It fills a place in a container that
+does not allow <tt>null</tt>, so the container holds a value that behaves like
+<tt>null</tt>. <tt>TNull</tt> is a singleton, so one instance exists for the process. The
+<tt>TNull::null()</tt> and <tt>TNull::singleton()</tt> methods return the instance.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Collections\TNull;
+
+$nothing = TNull::null();
+TNull::is_null($nothing);   // true for a TNull instance or PHP null
+TNull::empty($nothing);     // true for TNull, null, false, 0, '', or []
+</com:TTextHighlighter>
+
+<h2>Subscriptions</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+A subscription adds something to a target and removes it later. The <tt>subscribe</tt>
+method adds it, and the <tt>unsubscribe</tt> method removes it. A subscription also
+unsubscribes when it is dereferenced, so what it added is removed when the subscription
+goes out of scope. This ties the lifetime of an addition to the lifetime of an object. The
+three subscription classes add to an array, to a collection, and to an event.
+</p>
+
+<h3><tt>TArraySubscription</tt></h3>
+<p class="block-content">
+<tt>TArraySubscription</tt> adds an item to an array. It works on a PHP array by reference,
+an <tt>ArrayAccess</tt> object, a <tt>TList</tt>, or a <tt>TMap</tt>. When the array is
+associative, the subscription saves the original value and restores it on unsubscribe. A
+subscription to a priority collection keeps the item's priority, and restores the original
+priority on unsubscribe.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Collections\TArraySubscription;
+use Prado\Collections\TPriorityMap;
+
+$map = new TPriorityMap(['key' => 'original value']);
+$subscription = new TArraySubscription($map, 'key', 'new value', priority: 5);
+// $map['key'] is now 'new value'
+$subscription->unsubscribe();
+// $map['key'] is 'original value' again
+</com:TTextHighlighter>
+
+<h3><tt>TCollectionSubscription</tt></h3>
+<p class="block-content">
+<tt>TCollectionSubscription</tt> extends <tt>TArraySubscription</tt> and does the same
+thing without passing the target by reference. It works on an <tt>ArrayAccess</tt> object,
+such as a <tt>TList</tt> or a <tt>TMap</tt>, and it does not work on a PHP array. Its
+<tt>Collection</tt> property reads the target without a reference. Use it when the target
+is an object rather than a PHP array.
+</p>
+
+<h3><tt>TEventSubscription</tt></h3>
+<p class="block-content">
+<tt>TEventSubscription</tt> extends <tt>TCollectionSubscription</tt> and adds an event
+handler to a component's event. The handler stays attached while the subscription exists,
+and it detaches when the subscription unsubscribes or is dereferenced. This attaches a
+handler for a limited time, such as within a loop or a single operation.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\TEventSubscription;
+
+$subscription = new TEventSubscription($component, 'onChange', function ($sender, $param) {
+    // runs while the subscription is alive
+});
+// ...
+$subscription->unsubscribe();   // the handler is detached
+</com:TTextHighlighter>
+
 </com:TContent>

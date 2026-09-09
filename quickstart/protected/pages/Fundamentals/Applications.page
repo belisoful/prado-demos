@@ -115,7 +115,8 @@ the lifecycle. The application raises <tt>onEndRequest</tt> and then exits with 
 code carried by the exception, which <tt>getExitCode</tt> returns. A
 <tt>TExitException</tt> does not raise <tt>onError</tt>. A handler leaves a
 <tt>TExitException</tt> uncaught, because catching it interferes with the graceful
-termination.
+termination. The <a href="?page=Advanced.Utilities">Utilities</a> page describes
+<tt>TExitException</tt>.
 </p>
 
 </com:TContent>

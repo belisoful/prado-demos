@@ -413,6 +413,62 @@ represents ordinal values in English such as: "0th", "1st", "2nd", "3rd", "4th",
 &lt;/com:TChoiceFormat&gt;
 </com:TTextHighlighter>
 
+<h2>CultureInfo</h2>
+<p class="block-content">The <tt>CultureInfo</tt> class holds the information for a culture, such as its language,
+its country, and its cultural conventions. The formatting components read this information
+to format a value for a culture. The <tt>getCultureInfo</tt> method returns the object for
+a culture name.</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\I18N\core\CultureInfo;
 
+$culture = CultureInfo::getCultureInfo('fr_FR');
+$culture->getName();          // 'fr_FR'
+$culture->getEnglishName();   // 'French (France)'
+$culture->getNativeName();    // 'français (France)'
+</com:TTextHighlighter>
+<p class="block-content">A culture name follows the POSIX format, which joins a lowercase language code and an
+uppercase country code with an underscore, such as <tt>en_AU</tt>. This differs from the
+BCP 47 format that a browser sends, which joins them with a hyphen, such as
+<tt>en-AU</tt>. <tt>TGlobalization</tt> converts an incoming hyphen form to the underscore
+form, so resource files, page templates, and configuration all use the underscore form.</p>
+<p class="block-content">A neutral culture names a language without a country, such as <tt>en</tt>. The
+<tt>getIsNeutralCulture</tt> method reports whether a culture is neutral.</p>
+<p class="block-content">The object also reads the reference data for a culture. The <tt>getCultures</tt> method
+lists the available culture names. The <tt>getCountries</tt>, <tt>getLanguages</tt>, and
+<tt>getCurrencies</tt> methods return the names in the culture's language.</p>
+<com:TTextHighlighter CssClass="source block-content">
+$culture = CultureInfo::getCultureInfo('en_US');
+
+$culture->getCountries()['AU'];    // 'Australia'
+$culture->getLanguages()['fr'];    // 'French'
+$culture->getCurrencies()['EUR'];  // ['€', 'Euro']
+</com:TTextHighlighter>
+
+<h2>TDataSize</h2>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">The <tt>TDataSize</tt> component shows a number of bytes as a human-readable size. The
+<tt>Size</tt> property is the number of bytes. The output word is localized, so it reads in
+the current culture.</p>
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TDataSize Size="475837458" UseMarketingSize="true" Abbreviate="true" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The <tt>UseMarketingSize</tt> property sets the size of a kilobyte. When it is true, a
+kilobyte is 1000 bytes and the units are the decimal units, such as <tt>KB</tt> and
+<tt>MB</tt>. When it is false, a kilobyte is 1024 bytes and the units are the binary units,
+such as <tt>KiB</tt> and <tt>MiB</tt>. The <tt>Abbreviate</tt> property selects the short
+unit or the full word.</p>
+<p class="block-content">The three examples format the same size of <tt>475837458</tt> bytes.</p>
+<com:TTextHighlighter Language="text" CssClass="source block-content">
+UseMarketingSize   Abbreviate   Output
+----------------   ----------   ------
+true               true         476 MB
+false              true         454 MiB
+true               false        476 megabytes
+</com:TTextHighlighter>
+<p class="block-content">The units cover the full range of SI prefixes. The decimal units run from
+<tt>B</tt> through <tt>KB</tt>, <tt>MB</tt>, <tt>GB</tt>, <tt>TB</tt>, <tt>PB</tt>,
+<tt>EB</tt>, <tt>ZB</tt>, <tt>YB</tt>, and the ronna and quetta units <tt>RB</tt> and
+<tt>QB</tt>. The binary units run the matching range from <tt>KiB</tt> through
+<tt>RiB</tt> and <tt>QiB</tt>.</p>
 
 </com:TContent>

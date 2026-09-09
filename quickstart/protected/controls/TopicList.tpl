@@ -106,6 +106,7 @@
     <li><a href="?page=Advanced.Plugins">Extensions (Plugins)</a></li>
     <li><a href="?page=Advanced.Error">Error Handling and Reporting</a></li>
     <li><a href="?page=Advanced.I18N">Internationalization</a></li>
+    <li><a href="?page=Advanced.Utilities">Utilities</a></li>
     <li><a href="?page=Advanced.Performance">Performance Tuning</a></li>
 </ul>
 </div>

@@ -1,0 +1,115 @@
+<com:TContent ID="body" >
+
+<h1>Utilities</h1>
+<p class="block-content">
+PRADO includes utility classes for common tasks. This page describes the ones an
+application uses directly.
+</p>
+
+<h2>Graceful exit</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TExitException</tt> ends the application from anywhere in the request. The application
+raises <tt>onEndRequest</tt> and exits with the exit code that the exception carries, and
+it does not raise <tt>onError</tt>. The
+<a href="?page=Fundamentals.Applications">application lifecycle</a> page describes the
+behavior.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Exceptions\TExitException;
+
+throw new TExitException(0, 'Done.');
+</com:TTextHighlighter>
+
+<h2>Web color names</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TWebColor</tt> defines the extended web color names and their hex values.
+<tt>TPropertyValue::ensureHexColor</tt> converts a color name to its hex value, so a
+property accepts a name or a hex value. The name is not case-sensitive.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\TPropertyValue;
+
+TPropertyValue::ensureHexColor('RebeccaPurple');   // '#663399'
+TPropertyValue::ensureHexColor('SteelBlue');       // '#4682B4'
+</com:TTextHighlighter>
+
+<h2>Processes and signals</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TProcessHelper</tt> provides static methods for a command-line process. It forks a
+process with <tt>fork</tt>, tests whether a process is running with <tt>isRunning</tt>,
+escapes a shell argument with <tt>escapeShellArg</tt>, and reports the operating system
+with <tt>isSystemLinux</tt> and <tt>isSystemMacOS</tt>. A long-running process, such as the
+<a href="?page=Advanced.Cron">cron</a> scheduler, uses these methods.
+</p>
+<h3>Handling signals</h3>
+<p class="block-content">
+<tt>TSignalsDispatcher</tt> turns an operating-system signal into a PRADO global event.
+When a signal arrives, the dispatcher raises the matching <tt>fx</tt> event, and the
+attached handlers run. A long-running process, such as the
+<a href="?page=Advanced.Cron">cron</a> scheduler, handles a signal so it shuts down in
+order. Signal handling requires the PHP process-control extension.
+</p>
+<p class="block-content">
+The dispatcher is a singleton. The <tt>singleton</tt> method returns it, and the
+<tt>attach</tt> method installs it as the handler of the signals. The <tt>detach</tt>
+method removes it and restores the handlers that were in place before.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Util\TSignalsDispatcher;
+
+$dispatcher = TSignalsDispatcher::singleton();
+$dispatcher->attach();   // install the signal handlers
+
+$dispatcher->attachEventHandler('fxSignalInterrupt', function ($sender, $param) {
+    $param->setExit(false);   // do not exit on this signal
+    // stop the work in an orderly way
+});
+</com:TTextHighlighter>
+<p class="block-content">
+Each signal maps to an event. The common signals map as the table shows. The less common signals are not shown here.
+</p>
+<table class="parameters">
+<tr><th>Signal</th><th>Event</th><th>Exits by default</th></tr>
+<tr><td><tt>SIGINT</tt></td><td><tt>fxSignalInterrupt</tt></td><td>yes</td></tr>
+<tr><td><tt>SIGTERM</tt></td><td><tt>fxSignalTerminate</tt></td><td>yes</td></tr>
+<tr><td><tt>SIGHUP</tt></td><td><tt>fxSignalHangUp</tt></td><td>yes</td></tr>
+<tr><td><tt>SIGQUIT</tt></td><td><tt>fxSignalQuit</tt></td><td>yes</td></tr>
+<tr><td><tt>SIGUSR1</tt></td><td><tt>fxSignalUser1</tt></td><td>no</td></tr>
+<tr><td><tt>SIGUSR2</tt></td><td><tt>fxSignalUser2</tt></td><td>no</td></tr>
+<tr><td><tt>SIGALRM</tt></td><td><tt>fxSignalAlarm</tt></td><td>no</td></tr>
+<tr><td><tt>SIGCHLD</tt></td><td><tt>fxSignalChild</tt></td><td>no</td></tr>
+</table>
+<p class="block-content">
+A signal that exits by default ends the process after the handlers run. A handler stops
+the exit by calling <tt>setExit(false)</tt> on the event parameter, so the process
+continues. This lets a process treat a stop request as a request to finish its current
+work first.
+</p>
+<p class="block-content">
+The dispatcher also schedules alarms and tracks child processes. The static <tt>alarm</tt>
+method adds a timed callback that raises <tt>fxSignalAlarm</tt> when it is due, and
+<tt>disarm</tt> removes it. A handler attached with <tt>attachPidHandler</tt> runs when a
+specific child process ends, which the dispatcher routes from <tt>SIGCHLD</tt>.
+</p>
+
+<h2>One-time initialization</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+<tt>TInitializedTrait</tt> gives a class a one-time initialization guard. The
+<tt>getIsInitialized</tt> method reports whether initialization has run, and
+<tt>markInitialized</tt> records that it has. The <tt>assertUninitialized</tt> method
+throws when a property is set after initialization, so a module rejects a configuration
+change that comes too late. The parameter and cron modules use the trait.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+public function setConnectionID($value)
+{
+    $this->assertUninitialized('ConnectionID');   // throws if already initialized
+    $this->_connectionID = $value;
+}
+</com:TTextHighlighter>
+
+</com:TContent>

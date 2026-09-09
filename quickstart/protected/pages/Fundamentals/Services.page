@@ -34,4 +34,18 @@ where the first example takes advantage of the fact that the page service is the
 More advanced url routes, like masking real page names and permitting the use of dynamic parameters can be created using the <a href="?page=Configurations.UrlMapping">Url mapping</a> module.
 </p>
 
+<h2>Accessing the active service</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+The static <tt>getInstance</tt> method returns the active service. It is called on a service
+class and returns the instance when the active service is of that class, or <tt>null</tt>
+otherwise. Code reads the active service directly, without reaching through the
+application.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Web\Services\TPageService;
+
+$service = TPageService::getInstance();   // the page service, or null
+</com:TTextHighlighter>
+
 </com:TContent>
