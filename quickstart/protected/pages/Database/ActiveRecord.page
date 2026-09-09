@@ -227,7 +227,7 @@ class MyDb2Record extends TActiveRecord
     or <a href="?page=Configurations.PageConfig">config.xml</a> as follows.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
-  <module class="System.Data.ActiveRecord.TActiveRecordConfig" EnableCache="true">
+  <module class="Prado\Data\ActiveRecord\TActiveRecordConfig" EnableCache="true">
     <database ConnectionString="pgsql:host=localhost;dbname=test"
         Username="dbuser" Password="dbpass" />
   </module>
@@ -247,15 +247,15 @@ class MyDb2Record extends TActiveRecord
     the same database connection to be used in other modules such as <a href="?page=Database.SqlMap">SqlMap</a>.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
-  <module class="System.Data.TDataSourceConfig" id="db1">
+  <module class="Prado\Data\TDataSourceConfig" id="db1">
     <database ConnectionString="pgsql:host=localhost;dbname=test"
         Username="dbuser" Password="dbpass" />
   </module>
 
-  <module class="System.Data.ActiveRecord.TActiveRecordConfig"
+  <module class="Prado\Data\ActiveRecord\TActiveRecordConfig"
         ConnectionID="db1" EnableCache="true"  />
 
-  <module class="System.Data.SqlMap.TSqlMapConfig"
+  <module class="Prado\Data\SqlMap\TSqlMapConfig"
         ConnectionID="db1"  ... />
 </modules>
 </com:TTextHighlighter>

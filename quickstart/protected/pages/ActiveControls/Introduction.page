@@ -58,7 +58,7 @@ Most active control that can perform callback request have a similar structure.
 <p class="block-content"><tt>TActiveButton</tt> is an extension of <a href="?page=Controls.Button">TButton</a>
 and implements two additional interfaces <tt>ICallbackEventHandler</tt> and
 <tt>IActiveControl</tt>. The <tt>TActiveButton</tt> contains an instance of
-<a href="?page=ActiveControls.BaseActiveControl">TBaseActiveCallbackControl</a>
+<a href="#TBaseActiveControl">TBaseActiveCallbackControl</a>
 available through the <tt>ActiveControl</tt> property of <tt>TActiveButton</tt>.
 The following example set the callback parameter of the <tt>TActiveButton</tt> when
 a callback request is dispatched.
@@ -147,7 +147,7 @@ to use them.</p>
 	</li>
 
 	<li>
-	<h3>TBaseActiveControl</h3>
+	<h3 id="TBaseActiveControl">TBaseActiveControl</h3>
 	<com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TBaseActiveControl" />
 	<p class="block-content">
 		<tt>TBaseActiveControl</tt> class provided additional basic properties common for every

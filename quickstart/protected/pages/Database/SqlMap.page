@@ -99,7 +99,7 @@ $sqlmap = $manager->getSqlMapGateway();
     or <a href="?page=Configurations.PageConfig">config.xml</a> as follows.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
-  <module id="my-sqlmap" class="System.Data.SqlMap.TSqlMapConfig"
+  <module id="my-sqlmap" class="Prado\Data\SqlMap\TSqlMapConfig"
         EnableCache="true" ConfigFile="my-sqlmap.xml" >
     <database ConnectionString="pgsql:host=localhost;dbname=test"
         Username="dbuser" Password="dbpass" />

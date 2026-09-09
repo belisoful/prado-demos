@@ -14,7 +14,7 @@ To use <tt>TRpcService</tt>, configure it in the application specification like 
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <services>
-  <service id="rpc" class="System.Web.Services.TRpcService">
+  <service id="rpc" class="Prado\Web\Services\TRpcService">
     <rpcapi id="stockquote" class="path.to.StockQuote" />
     <!--
     <rpcapi...other api... />

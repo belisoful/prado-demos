@@ -34,13 +34,13 @@ It is possible to specify media types of CSS files contained in a theme. By defa
 
 <h2>Theme Storage</h2>
 <p class="block-content">
-All themes by default must be placed under the <tt>[AppEntryPath]/themes</tt> directory, where <tt>AppEntryPath</tt> refers to the directory containing the application entry script. If you want to use a different directory, configure the <tt>BasePath</tt> and <tt>BaseUrl</tt> properties of the <tt>System.Web.UI.TThemeManager</tt> module in application configuration,
+All themes by default must be placed under the <tt>[AppEntryPath]/themes</tt> directory, where <tt>AppEntryPath</tt> refers to the directory containing the application entry script. If you want to use a different directory, configure the <tt>BasePath</tt> and <tt>BaseUrl</tt> properties of the <tt>Prado\Web\UI\TThemeManager</tt> module in application configuration,
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;service id="page" class="TPageService"&gt;
     &lt;modules&gt;
         &lt;module id="theme"
-                class="System.Web.UI.TThemeManager"
+                class="Prado\Web\UI\TThemeManager"
                 BasePath="mythemes"
                 BaseUrl="mythemes" /&gt;
     &lt;/modules&gt;

@@ -26,9 +26,9 @@ To enable PRADO auth framework, add the <tt>TAuthManager</tt> module and <tt>TUs
 <com:TTextHighlighter Language="xml" CssClass="source block-content" id="code1">
 &lt;service id="page" class="TPageService"&gt;
   &lt;modules&gt;
-    &lt;module id="auth" class="System.Security.TAuthManager"
+    &lt;module id="auth" class="Prado\Security\TAuthManager"
                UserManager="users" LoginPage="UserLogin" /&gt;
-    &lt;module id="users" class="System.Security.TUserManager"
+    &lt;module id="users" class="Prado\Security\TUserManager"
                PasswordMode="Clear"&gt;
       &lt;user name="demo" password="demo" /&gt;
       &lt;user name="admin" password="admin" /&gt;
@@ -157,13 +157,13 @@ To use <tt>TDbUserManager</tt>, configure it in the application configuration li
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content" id="code4">
 <module id="db"
-     class="System.Data.TDataSourceConfig" ..../>
+     class="Prado\Data\TDataSourceConfig" ..../>
 <module id="users"
-     class="System.Security.TDbUserManager"
+     class="Prado\Security\TDbUserManager"
      UserClass="Path.To.MyUserClass"
      ConnectionID="db" />
 <module id="auth"
-     class="System.Security.TAuthManager"
+     class="Prado\Security\TAuthManager"
      UserManager="users" LoginPage="Path.To.LoginPage" />
 </com:TTextHighlighter>
 

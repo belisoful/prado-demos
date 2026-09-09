@@ -23,12 +23,12 @@ BE AWARE: Be very careful with assets publishing, because it gives Web users acc
 
 <h2>Customization</h2>
 <p class="block-content">
-Asset publishing is managed by the <tt>System.Web.TAssetManager</tt> module. By default, all published asset files are stored under the <tt>[AppEntryPath]/assets</tt> directory, where <tt>AppEntryPath</tt> refers to the directory containing the application entry script. Make sure the <tt>assets</tt> directory is writable by the Web server process. You may change this directory to another by configuring the <tt>BasePath</tt> and <tt>BaseUrl</tt> properties of the <tt>TAssetManager</tt> module in application configuration,
+Asset publishing is managed by the <tt>Prado\Web\TAssetManager</tt> module. By default, all published asset files are stored under the <tt>[AppEntryPath]/assets</tt> directory, where <tt>AppEntryPath</tt> refers to the directory containing the application entry script. Make sure the <tt>assets</tt> directory is writable by the Web server process. You may change this directory to another by configuring the <tt>BasePath</tt> and <tt>BaseUrl</tt> properties of the <tt>TAssetManager</tt> module in application configuration,
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content" id="code1">
 &lt;modules&gt;
     &lt;module id="asset"
-            class="System.Web.TAssetManager"
+            class="Prado\Web\TAssetManager"
             BasePath="Web.images"
             BaseUrl="images" /&gt;
 &lt;/modules&gt;

@@ -47,9 +47,9 @@ class UserRecord extends TActiveRecord
 }
 </com:TTextHighlighter>
 
-<p class="block-content">The scaffold view classes are in the <tt>System.Data.ActiveRecord.Scaffold.*</tt>
-<a href="?page=Fundamentals.Components#704">namespace</a>.
-This <a href="?page=Fundamentals.Components#704">namespace</a> can be "imported" in the
+<p class="block-content">The scaffold view classes are in the <tt>Prado\Data\ActiveRecord\Scaffold</tt>
+<a href="?page=Fundamentals.Components1">namespace</a>.
+This <a href="?page=Fundamentals.Components1">namespace</a> can be "imported" in the
 <a href="?page=Configurations.AppConfig">Application Configuration</a>
 using the <tt>application.xml</tt> file or through the php code using the <tt>Prado::using()</tt>
 method. To start using the
