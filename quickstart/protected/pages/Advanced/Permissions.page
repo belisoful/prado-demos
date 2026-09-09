@@ -1,0 +1,211 @@
+<com:TContent ID="body" >
+<h1>Permissions and Role-Based Access Control</h1>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+<tt>TPermissionsManager</tt> adds role-based access control (RBAC) to an application. A
+permission is a named action. A role is a set of permissions and other roles. A user
+holds a set of roles, and a permission check asks whether the user's roles grant a
+named permission. <tt>TPermissionsManager</tt> works alongside the authentication and
+authorization described on the
+<a href="?page=Advanced.Auth">Authentication and Authorization</a> page. Authentication
+establishes the user, and the permissions manager decides which named actions that user
+may perform.
+</p>
+
+<h2>The permissions manager</h2>
+<p class="block-content">
+<tt>TPermissionsManager</tt> is registered as a module. Register it after
+<tt>TAuthManager</tt>, so the user is established before permission checks run. The
+module holds the role hierarchy and the permission rules. It attaches
+<tt>TPermissionsBehavior</tt> to every class that implements <tt>IPermissions</tt>,
+which is how a module, control, or service registers its own permissions.
+</p>
+
+<h2>Roles and permissions</h2>
+<p class="block-content">
+A <tt>role</tt> element names a role and lists its children. A child is another role or
+a permission, so a permission is a role with no children. A role grants every permission
+reachable through its children, and the hierarchy is resolved recursively. A role named
+<tt>All</tt> is created automatically and contains every permission. Listing <tt>all</tt>
+as a child of a role makes that role a super role.
+</p>
+<p class="block-content">
+The <tt>DefaultRoles</tt> property lists roles that every user holds, including a guest
+user. The <tt>SuperRoles</tt> property lists roles that pass every permission check. A
+super role bypasses the rules, so reserve it for administrators.
+</p>
+<p class="block-content">
+The following hierarchy shows the <tt>Editor</tt> role containing the <tt>author</tt>
+role, which in turn contains permissions. A permission is a leaf of the hierarchy. The
+<tt>Default</tt> role is held by every user, and <tt>Administrator</tt> is a super role.
+</p>
+<img src="<%~permissions-roles.svg%>" class="figure" alt="Role hierarchy. The Editor role contains the author role, which contains the post_read, post_update, and post_new permissions; Editor also contains the post_publish and post_delete permissions. The Default role, held by every user, contains the register_user and blog_comment permissions. Administrator is a super role that bypasses all permission checks."/>
+
+<h2>Permission rules</h2>
+<p class="block-content">
+A <tt>permissionrule</tt> element attaches a <tt>TAuthorizationRule</tt> to a permission.
+Each rule sets an <tt>action</tt> of <tt>allow</tt> or <tt>deny</tt>, and matches on
+<tt>users</tt>, <tt>roles</tt>, <tt>verb</tt>, and <tt>IPs</tt>. A rule name that ends
+with <tt>*</tt> applies to every matching permission name. Rules run in configuration
+order unless a rule sets a <tt>Priority</tt>; a lower priority number runs earlier.
+</p>
+<p class="block-content">
+The manager adds three rules automatically. A user whose roles include a permission is
+allowed that permission by default, at the priority of
+<tt>getAutoRulePriority</tt> (5). Modules may add preset rules, such as an owner rule.
+A final rule denies every permission that no earlier rule allowed. The automatic
+allow-with-permission and deny-all rules are each controllable through the manager's
+properties.
+</p>
+
+<h2>Configuration example</h2>
+<p class="block-content">
+The roles and rules are defined in the module configuration, or in a separate file named
+by the <tt>PermissionsFile</tt> property.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="permissions" class="Prado\Security\Permissions\TPermissionsManager"
+          DefaultRoles="Default" SuperRoles="Administrator"&gt;
+    &lt;role name="Editor" children="blog_read_posts, blog_update_posts, blog_publish" /&gt;
+    &lt;role name="Default" children="register_user, blog_read_posts, blog_comment"&gt;
+      &lt;permissionrule name="register_user" action="allow" users="?" /&gt;
+      &lt;permissionrule name="blog_update_posts"
+                      class="Prado\Security\Permissions\TUserOwnerRule" Priority="5" /&gt;
+      &lt;permissionrule name="blog_*" action="allow" roles="Editor" /&gt;
+      &lt;permissionrule name="*" action="deny" Priority="1000" /&gt;
+    &lt;/role&gt;
+  &lt;/module&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The same configuration is written in the PHP application configuration style.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+'modules' => [
+    'permissions' => [
+        'class' => 'Prado\Security\Permissions\TPermissionsManager',
+        'properties' => ['DefaultRoles' => 'Default', 'SuperRoles' => 'Administrator'],
+        'roles' => [
+            'Editor' => ['blog_read_posts', 'blog_update_posts', 'blog_publish'],
+            'Default' => ['register_user', 'blog_read_posts', 'blog_comment'],
+        ],
+        'permissionRules' => [
+            ['name' => 'register_user', 'action' => 'allow', 'users' => '?'],
+            ['name' => 'blog_update_posts', 'class' => 'Prado\Security\Permissions\TUserOwnerRule', 'priority' => '5'],
+            ['name' => 'blog_*', 'action' => 'allow', 'roles' => 'Editor'],
+            ['name' => '*', 'action' => 'deny', 'priority' => 1000],
+        ],
+    ],
+],
+</com:TTextHighlighter>
+
+<h2>Checking a permission</h2>
+<p class="block-content">
+The permissions manager attaches a behavior to the user that adds the <tt>can</tt>
+method. A handler asks whether the current user may perform a named action. The second
+argument passes extra data to the rules, such as the object being acted on.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+if ($this->User->can('blog_update_posts', $post)) {
+    // the user may update this post
+}
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>can</tt> reads the rules for the permission and returns whether the rules allow the
+user. When a permission has no rules, the manager allows it.
+</p>
+
+<h2>Declaring permissions in code</h2>
+<p class="block-content">
+A module, control, or service declares its permissions by implementing
+<tt>IPermissions</tt>. The <tt>getPermissions</tt> method returns
+<tt>TPermissionEvent</tt> objects. Each event names a permission, describes it, and lists
+the dynamic (<tt>dy</tt>) events that trigger a check. <tt>TPermissionsBehavior</tt>
+attaches to the class and checks the permission before the listed event proceeds.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+public function getPermissions($manager)
+{
+    return [
+        new TPermissionEvent('blog_update_posts', 'Update a blog post', ['dyUpdatePost']),
+    ];
+}
+</com:TTextHighlighter>
+
+<h2>Example: gating a module's action</h2>
+<p class="block-content">
+Framework modules use this pattern to protect an action behind a permission. The module
+declares a permission constant, returns a <tt>TPermissionEvent</tt> that ties the
+permission to a dynamic event, and calls that dynamic event as a guard around the
+protected step. Because the module implements <tt>IPermissions</tt>, the permissions
+manager attaches <tt>TPermissionsBehavior</tt> to it. The behavior answers the dynamic
+event by checking whether the current user holds the permission, and it returns
+<tt>true</tt> when the user is not allowed. The guard runs the protected step only when
+the call does not return <tt>true</tt>.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Security\Permissions\IPermissions;
+use Prado\Security\Permissions\TPermissionEvent;
+
+class TMyModule extends \Prado\TModule implements IPermissions
+{
+    public const PERM_MY_ACTION = 'my_action';
+
+    public function getPermissions($manager)
+    {
+        return [
+            new TPermissionEvent(static::PERM_MY_ACTION, 'Runs the protected action.', 'dyRunAction'),
+        ];
+    }
+
+    public function runAction()
+    {
+        if ($this->dyRunAction(false) !== true) {
+            // the current user holds PERM_MY_ACTION; run the protected step
+        }
+    }
+}
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TCronModule</tt> uses this pattern to gate its command-line action behind the
+<tt>cron_shell</tt> permission, and <tt>TDbParameterModule</tt> gates its command-line
+action behind <tt>param_shell</tt>. Each declares the permission in
+<tt>getPermissions</tt> and guards <tt>registerShellAction</tt> with the
+<tt>dyRegisterShellAction</tt> event. A role in the permissions configuration then grants
+the permission to the users who may run the action.
+</p>
+
+<h2>The owner rule</h2>
+<p class="block-content">
+<tt>TUserOwnerRule</tt> is a <tt>TAuthorizationRule</tt> that allows the action when the
+current user owns the object being acted on. The ownership test is answered by the
+<tt>dyIsOwner</tt> dynamic event or a configured callback. An owner rule grants access
+to a user's own data without granting a role over all data.
+</p>
+
+<h2>Command line</h2>
+<p class="block-content">
+The permissions manager registers a <tt>perm</tt> command-line action that reads and
+edits the roles and rules stored in the database.
+</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli perm</tt></td><td>Shows permission information. Add <tt>-a</tt> for all. The same as <tt>perm/index</tt>.</td></tr>
+<tr><td><tt>prado-cli perm/role &lt;role-name&gt; [[+-]child ...]</tt></td><td>Shows a role, and adds or removes its child roles and permissions in the database.</td></tr>
+<tr><td><tt>prado-cli perm/add-rule &lt;permission&gt; &lt;action&gt; [users roles verb ips priority class]</tt></td><td>Adds an authorization rule for a permission to the database.</td></tr>
+<tr><td><tt>prado-cli perm/remove-rule &lt;permission&gt; &lt;db-rule-index&gt;</tt></td><td>Removes a database rule from a permission.</td></tr>
+</table>
+
+<h2>Related authentication events</h2>
+<p class="block-content">
+<tt>TAuthManager</tt> raises <tt>onLogin</tt>, <tt>onLogout</tt>, and
+<tt>onLoginFailed</tt> around authentication. <tt>TUser</tt> reports its roles through
+the <tt>dyDefaultRoles</tt> and <tt>dyIsInRole</tt> dynamic events, which the permissions
+manager answers so that the default and hierarchical roles are included. The
+<a href="?page=Advanced.Auth">Authentication and Authorization</a> page describes the
+authentication manager and the authorization rules.
+</p>
+
+</com:TContent>

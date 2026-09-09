@@ -92,12 +92,14 @@
 <ul>
 	<li><a href="?page=Advanced.Collections">Collections</a></li>
     <li><a href="?page=Advanced.Auth">Authentication and Authorization</a></li>
+    <li><a href="?page=Advanced.Permissions">Permissions (RBAC)</a></li>
     <li><a href="?page=Advanced.Security">Security</a></li>
     <li><a href="?page=Advanced.Assets">Assets</a></li>
     <li><a href="?page=Advanced.MasterContent">Master and Content</a></li>
     <li><a href="?page=Advanced.Themes">Themes and Skins</a></li>
     <li><a href="?page=Advanced.State">Persistent State</a></li>
     <li><a href="?page=Advanced.Logging">Logging</a></li>
+    <li><a href="?page=Advanced.Cron">Scheduled Tasks (Cron)</a></li>
     <li><a href="?page=Advanced.Error">Error Handling and Reporting</a></li>
     <li><a href="?page=Advanced.I18N">Internationalization</a></li>
     <li><a href="?page=Advanced.Performance">Performance Tuning</a></li>

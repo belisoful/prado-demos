@@ -1,0 +1,223 @@
+<com:TContent ID="body" >
+<h1>Scheduled Tasks (Cron)</h1>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+<tt>TCronModule</tt> runs time-based tasks on a schedule. Each task has a schedule
+expression and an action. A scheduler evaluates the schedules and runs the tasks that
+are due. The module is designed to be invoked at a regular interval by the operating
+system's cron service, through the <tt>cron</tt> command-line action.
+</p>
+
+<h2>The cron module</h2>
+<p class="block-content">
+<tt>TCronModule</tt> is registered as a module. Each <tt>job</tt> element defines a task
+with a name, a schedule, the action to run, and an optional user. The module tracks
+the last run time of each task, so a task runs no more often than its schedule allows.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="cron" class="Prado\Util\Cron\TCronModule" DefaultUserName="cron"&gt;
+    &lt;job Name="dbcacheclean" Schedule="* * * * *" Task="dbcache-&gt;flushCacheExpired(true)" /&gt;
+    &lt;job Name="reindex" Schedule="0 3 * * *" Task="search-&gt;reindex" UserName="admin" /&gt;
+  &lt;/module&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The same configuration is written in the PHP application configuration style.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+'modules' => [
+    'cron' => [
+        'class' => 'Prado\Util\Cron\TCronModule',
+        'properties' => ['DefaultUserName' => 'cron'],
+        'jobs' => [
+            ['Name' => 'dbcacheclean', 'Schedule' => '* * * * *', 'Task' => 'dbcache->flushCacheExpired(true)'],
+            ['Name' => 'reindex', 'Schedule' => '0 3 * * *', 'Task' => 'search->reindex', 'UserName' => 'admin'],
+        ],
+    ],
+],
+</com:TTextHighlighter>
+
+<h2>Running the scheduler</h2>
+<p class="block-content">
+<tt>TCronModule</tt> does not run tasks by itself. The system cron service must run the
+<tt>cron</tt> command-line action, which evaluates the schedules and runs the tasks that
+are due. Running the action once a minute is ideal. Each run costs no more than a normal
+page request, plus the work of any task that is due.
+</p>
+<img src="<%~cron-flow.svg%>" class="figure" alt="Cron run cycle. The operating system's cron runs prado-cli cron every minute. TCronModule checks each job's schedule. When a job's schedule is due, it runs the task as its user and logs the run; when it is not due, it skips the job."/>
+<p class="block-content">
+On Linux, add a crontab entry that runs the action once a minute.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+* * * * * cd /path/to/app && php vendor/bin/prado-cli cron >/dev/null 2>&1
+</com:TTextHighlighter>
+<p class="block-content">
+On Windows, create a Task Scheduler task that runs once a minute.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+schtasks /create /tn PradoCron /sc minute /mo 1 /tr "cmd /c cd /d C:\path\to\app && php vendor\bin\prado-cli cron"
+</com:TTextHighlighter>
+<p class="block-content">
+For building and checking schedule expressions,
+<a href="https://crontab.guru/">crontab.guru</a> explains any expression,
+<a href="https://crontab-generator.org/">crontab-generator.org</a> builds one from a
+form, and the <a href="https://cronitor.io/guides/cron-jobs">cron guide at cronitor.io</a>
+covers the syntax in depth.
+</p>
+
+<h2>Schedule expressions</h2>
+<p class="block-content">
+A schedule is a crontab-style expression. It has fields for the minute, hour, day of the
+month, month, and day of the week, and an optional year field. Each field accepts a
+value, a list of values, a range, or a step. The special expressions <tt>@yearly</tt>,
+<tt>@monthly</tt>, <tt>@weekly</tt>, <tt>@daily</tt>, <tt>@hourly</tt>, and
+<tt>@midnight</tt> stand for common schedules. Month and day-of-week names are accepted
+in eight languages.
+</p>
+<table class="parameters">
+<tr><th>Schedule</th><th>Runs</th></tr>
+<tr><td><tt>* * * * *</tt></td><td>Every minute.</td></tr>
+<tr><td><tt>0 3 * * *</tt></td><td>At 03:00 every day.</td></tr>
+<tr><td><tt>*/15 * * * *</tt></td><td>Every fifteen minutes.</td></tr>
+<tr><td><tt>0 0 1 * *</tt></td><td>At midnight on the first of every month.</td></tr>
+<tr><td><tt>@daily</tt></td><td>Once a day at midnight.</td></tr>
+</table>
+
+<h2>Jobs and tasks</h2>
+<p class="block-content">
+The <tt>Task</tt> attribute of a job is either a method call or a task class. A method
+call is written as <tt>moduleid-&gt;method</tt> with optional arguments, and the module
+wraps it in a <tt>TCronMethodTask</tt>, which is the default task class. A task class is
+the name of a <tt>TCronTask</tt> subclass, which the module instantiates. The
+<tt>UserName</tt> attribute runs the task as a named user, and falls back to the module's
+<tt>DefaultUserName</tt>.
+</p>
+<p class="block-content">
+PRADO provides these task classes.
+</p>
+<table class="parameters">
+<tr><th>Task class</th><th>Purpose</th></tr>
+<tr><td><tt>TCronMethodTask</tt></td><td>The default. Calls a method on a module or class, with optional arguments, as the <tt>moduleid-&gt;method</tt> form of the <tt>Task</tt> attribute names.</td></tr>
+<tr><td><tt>TDbCronCleanLogTask</tt></td><td>Removes old cron log entries from the database.</td></tr>
+</table>
+<p class="block-content">
+A custom task extends <tt>TCronTask</tt>, as the next section shows.
+</p>
+
+<h2>Writing a task</h2>
+<p class="block-content">
+A task class extends <tt>TCronTask</tt> and implements <tt>execute</tt>, which receives
+the cron module. The task reads its own <tt>Name</tt>, <tt>Schedule</tt>, and
+<tt>UserName</tt> properties.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+class TReindexTask extends \Prado\Util\Cron\TCronTask
+{
+    public function execute($cronModule)
+    {
+        $this->getApplication()->getModule('search')->reindex();
+    }
+}
+</com:TTextHighlighter>
+
+<h2>Database-backed cron</h2>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">
+<tt>TDbCronManager</tt> does everything <tt>TCronModule</tt> does, and it stores its
+tasks and their run data in a database table. The application adds, updates, and removes
+tasks while it runs, and the manager logs each task's execution. The
+<tt>ConnectionID</tt> property names a <tt>TDataSourceConfig</tt> module for the database
+connection. The <tt>LogCronTasks</tt> property turns execution logging on.
+</p>
+<p class="block-content">
+Database-backed cron was named <tt>TDbCronModule</tt> before 4.3.3. Version 4.3.3 renamed
+the class to <tt>TDbCronManager</tt> and kept <tt>TDbCronModule</tt> as a deprecated
+subclass, so an existing configuration continues to work.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="db" class="Prado\Data\TDataSourceConfig"&gt;
+    &lt;database ConnectionString="mysql:host=localhost;dbname=mydb"
+              Username="dbuser" Password="dbpass" /&gt;
+  &lt;/module&gt;
+  &lt;module id="cron" class="Prado\Util\Cron\TDbCronManager"
+          ConnectionID="db" DefaultUserName="cron" LogCronTasks="true"&gt;
+    &lt;job Name="dbcacheclean" Schedule="0 0 * * *" Task="dbcache-&gt;flushCacheExpired(true)" /&gt;
+  &lt;/module&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+<h3>Registering and managing tasks</h3>
+<p class="block-content">
+The manager registers a new task with <tt>addTask</tt>, which stores the task in the
+table. <tt>updateTask</tt> changes a stored task, <tt>removeTask</tt> deletes one, and
+<tt>getTask</tt> and <tt>getTasks</tt> read them. A registered task has a name and a
+schedule, and the manager runs it on schedule like a configured job.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$cron = $this->getModule('cron');  // the TDbCronManager
+
+$task = new \Prado\Util\Cron\TCronMethodTask('search', 'reindex');
+$task->setName('nightly_reindex');
+$task->setSchedule('0 3 * * *');
+$cron->addTask($task);             // stored in the table; runs on schedule
+</com:TTextHighlighter>
+
+<h3>Runtime tasks</h3>
+<p class="block-content">
+A runtime task runs at the end of the current request. Passing <tt>true</tt> as the
+second argument to <tt>addTask</tt> stores the task and also queues it for the
+<tt>onEndRequest</tt> event. The manager attaches its runner to <tt>onEndRequest</tt>,
+and the task runs after the response is sent. This suits work that should happen now
+without making the user wait, such as sending a queued email.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$cron = $this->getModule('cron');  // the TDbCronManager
+
+$task = new \Prado\Util\Cron\TCronMethodTask('mailer', 'sendQueued');
+$task->setName('send_queued_mail');
+$task->setSchedule('* * * * *');
+$cron->addTask($task, true);       // run at onEndRequest, with cron as the backup
+</com:TTextHighlighter>
+<p class="block-content">
+The task is stored in the table before the request ends. When the request completes, the
+task runs at <tt>onEndRequest</tt>. When the request does not complete, such as when the
+user stops the page, the next system cron runs the stored task. The database record makes
+cron the backup.
+</p>
+<img src="<%~cron-runtime.svg%>" class="figure" alt="Runtime task flow. A web request adds a runtime task with addTask(task, true). The task is persisted in the cron table. If the request completes, the task runs at onEndRequest, for example sending the email now. If the request does not complete, the next system cron runs the task as a backup."/>
+
+<h3>Running cron without a system crontab</h3>
+<p class="block-content">
+The <tt>EnableRequestCron</tt> property lets the cron run during web requests. When it is
+on, a fraction of web requests evaluate the schedules and run the due tasks, set by
+<tt>RequestCronProbability</tt>. This runs the cron without a system crontab, at the cost
+of the cron work on those requests.
+</p>
+
+<h2>Command line</h2>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">
+The cron module registers a <tt>cron</tt> command-line action. Running <tt>cron</tt> with
+no subcommand runs the pending tasks, which is what the system cron calls. The other
+subcommands report the tasks.
+</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli cron</tt></td><td>Runs the pending tasks. The same as <tt>cron/run</tt>.</td></tr>
+<tr><td><tt>prado-cli cron/tasks</tt></td><td>Lists the configured tasks with their schedule, last run, and next run.</td></tr>
+<tr><td><tt>prado-cli cron/index</tt></td><td>Lists the registered task information.</td></tr>
+</table>
+<p class="block-content">
+<tt>TDbCronManager</tt> adds subcommands that manage the tasks in the database.
+</p>
+<table class="parameters">
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><tt>prado-cli cron/add &lt;task-name&gt; &lt;task&gt; &lt;schedule&gt;</tt></td><td>Adds a task to the database.</td></tr>
+<tr><td><tt>prado-cli cron/update &lt;task-name&gt;</tt></td><td>Updates a task in the database.</td></tr>
+<tr><td><tt>prado-cli cron/remove &lt;task-name&gt;</tt></td><td>Removes a task from the database.</td></tr>
+</table>
+
+</com:TContent>
