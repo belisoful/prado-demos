@@ -105,6 +105,27 @@ indistinguishable from the existing body.
 - Intra-doc links: `?page=Section.PageName` (same scheme as `TopicList.tpl`); a page
   enters navigation only by being listed in `TopicList.tpl`.
 
+### Diagrams (evaluate for every page)
+
+Evaluate whether a diagram would help, as a step in planning and researching each page —
+new pages and pages being updated alike:
+
+- **New pages:** add an SVG when the subject is structural (a hierarchy, a graph, a
+  state/flow, a lifecycle) and a picture shows the mechanism better than prose. Skip it
+  when the content is linear or a table already carries it. Record the decision (add /
+  skip, and why) in the plan while researching the page.
+- **Existing pages:** when updating a page, evaluate its diagrams too — a legacy
+  Visio-exported GIF may be stale or inaccurate for 4.3.3 and need conversion to SVG
+  with corrected content, or the updated content may now warrant a new diagram.
+- **GIF → SVG conversion:** the quickstart's diagrams are Visio exports saved as GIF
+  (`.vsd` sources beside them). Convert to SVG using the original GIF as the visual
+  reference (same structure, text placement, text inside every shape border), correct
+  the content to 4.3.3 while converting, and apply minimal flair only.
+- **Feedback loop:** render the SVG to pixels, view it, and fix until it matches; then
+  incorporate review feedback and iterate (re-render, re-check) until it is approved.
+  Generate large/repetitive diagrams with a committed script under `tools/diagrams/`.
+- Full procedure and renderer notes: `local/quickstart-doc-update-plan-4.3.3.md` §4a.
+
 ### Badge policy — true introduction version
 
 Badge content at the version the feature actually shipped, not a blanket 4.3.3 (mirrors
