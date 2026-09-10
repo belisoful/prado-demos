@@ -113,7 +113,7 @@ Dynamic component instantiation means creating component instances in PHP code. 
 $component = new ComponentClassName;
 $component = Prado::createComponent('ComponentType');
 </com:TTextHighlighter>
-where <tt>ComponentType</tt> refers to a class name or a type name in namespace format (e.g. <tt>System.Web.UI.TControl</tt>). The second approach is introduced to permit the creation of classes using Prado's namespace format and ther automatic configuration of new classes via configuration directives.
+where <tt>ComponentType</tt> refers to a class name or a type name in Prado3 namespace format (e.g. <tt>Prado.Web.UI.TControl</tt>). The second approach is introduced to permit the creation of classes using Prado's namespace format and ther automatic configuration of new classes via configuration directives.
 </p>
 
 <h3>Static Component Instantiation</h3>

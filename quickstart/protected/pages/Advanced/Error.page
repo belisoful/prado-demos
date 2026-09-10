@@ -39,7 +39,7 @@ Raising exceptions in PRADO has no difference than raising a normal PHP exceptio
 
 <h2>Error Capturing and Reporting</h2>
 <p class="block-content">
-Exceptions raised during the runtime of PRADO applications are captured by <tt>System.Exceptions.TErrorHandler</tt> module. Different output templates are used to display the captured exceptions. <tt>THttpException</tt> is assumed to contain error messages that are meant for application end users and thus uses a specific group of templates. For all other exceptions, a common template shown as follows is used for presenting the exceptions.
+Exceptions raised during the runtime of PRADO applications are captured by <tt>Prado\Exceptions\TErrorHandler</tt> module. Different output templates are used to display the captured exceptions. <tt>THttpException</tt> is assumed to contain error messages that are meant for application end users and thus uses a specific group of templates. For all other exceptions, a common template shown as follows is used for presenting the exceptions.
 </p>
 <a href="<%~ exception2.gif %>" target="_blank"><img src="<%~ exception.gif %>" alt="exception page" style="border:0px"/></a>
 

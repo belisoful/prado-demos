@@ -18,7 +18,7 @@ The format of a component tag is as follows,
 body content
 &lt;/com:ComponentType&gt;
 </com:TTextHighlighter>
-<tt>ComponentType</tt> can be either the class name or the dotted type name (e.g. <tt>System.Web.UI.TControl</tt>) of the component. <tt>PropertyName</tt> and <tt>EventName</tt> are both case-insensitive. <tt>PropertyName</tt> can be a property or subproperty name (e.g. <tt>Font.Name</tt>). Note, <tt>PropertyValue</tt> will be HTML-decoded when assigned to the corresponding property. Content enclosed between the opening and closing component tag are normally treated the body of the component.
+<tt>ComponentType</tt> can be either the class name or the dotted type name (e.g. <tt>Prado.Web.UI.TControl</tt>) of the component. <tt>PropertyName</tt> and <tt>EventName</tt> are both case-insensitive. <tt>PropertyName</tt> can be a property or subproperty name (e.g. <tt>Font.Name</tt>). Note, <tt>PropertyValue</tt> will be HTML-decoded when assigned to the corresponding property. Content enclosed between the opening and closing component tag are normally treated the body of the component.
 </p>
 <p class="block-content">
 It is required that component tags nest properly with each other and an opening component tag be paired with a closing tag, similar to that in XML.
