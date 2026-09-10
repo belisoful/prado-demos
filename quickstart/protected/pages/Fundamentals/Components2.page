@@ -99,6 +99,30 @@ public function handleClick($sender, $param, $data = null)
 The <tt>$data</tt> argument defaults to null, so the same method also works when it is
 attached directly without a <tt>TEventHandler</tt>.
 </p>
+<p class="block-content">
+The <tt>getData</tt> and <tt>setData</tt> methods read and change the data, and
+<tt>getHandler</tt> returns the managed handler. A <tt>TEventHandler</tt> is invokable, so
+calling it runs the handler with the data.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$handler->setData(['id' => 43]);
+$data = $handler->getData();
+$handler($sender, $param);   // runs handleClick with the data
+</com:TTextHighlighter>
+<p class="block-content">
+A <tt>TEventHandler</tt> is attached at a priority through the third argument of
+<tt>attachEventHandler</tt>, the same as any handler. The default priority is 10, and a
+lower number runs earlier.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+$component->attachEventHandler('OnClick', $handler, 12);
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>TEventHandler</tt> holds the handler's object as a weak reference, so the handler does
+not keep the object from being garbage-collected. A closure is held directly. This is the
+same weak-reference approach as the
+<a href="?page=Advanced.Collections">weak collections</a>.
+</p>
 
 <h2>Temporary event handlers</h2>
 <com:SinceVersion Version="4.3.0" />
