@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 592 418" width="592" height="418" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.7" dy="1.0" stdDeviation="0.8" flood-color="#000" flood-opacity="0.22"/>
+    </filter>
+    <marker id="fill" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="592" height="418" fill="#fff"/>
+  <rect x="12.0" y="14.0" width="104.0" height="291.0" rx="9" fill="#eaf2fb" stroke="#4a78a8" stroke-width="1.4" filter="url(#ds)"/>
+  <text x="64.0" y="28.0" font-size="10" font-weight="700" fill="#4a78a8" text-anchor="middle" dominant-baseline="central">Base Master</text>
+  <text x="64.0" y="40.0" font-size="10" font-weight="700" fill="#4a78a8" text-anchor="middle" dominant-baseline="central">Control</text>
+  <text x="64.0" y="52.0" font-size="7.8" font-style="italic" fill="#5a6b7a" text-anchor="middle" dominant-baseline="central">(base — no master)</text>
+  <rect x="160.0" y="14.0" width="216.0" height="291.0" rx="9" fill="#eef7ea" stroke="#5a8f45" stroke-width="1.4" filter="url(#ds)"/>
+  <text x="268.0" y="29.0" font-size="10.5" font-weight="700" fill="#5a8f45" text-anchor="middle" dominant-baseline="central">Child Master Control</text>
+  <text x="268.0" y="43.0" font-size="8.0" font-style="italic" fill="#4f6b45" text-anchor="middle" dominant-baseline="central">MasterClass = Base Master Control</text>
+  <rect x="420.0" y="14.0" width="160.0" height="291.0" rx="9" fill="#fdf7ec" stroke="#b9992e" stroke-width="1.4" filter="url(#ds)"/>
+  <text x="500.0" y="28.0" font-size="10" font-weight="700" fill="#b9992e" text-anchor="middle" dominant-baseline="central">Template Control</text>
+  <text x="500.0" y="40.0" font-size="10" font-weight="700" fill="#b9992e" text-anchor="middle" dominant-baseline="central">(TPage)</text>
+  <text x="500.0" y="52.0" font-size="7.6" font-style="italic" fill="#8a7326" text-anchor="middle" dominant-baseline="central">MasterClass = Child Master Control</text>
+  <rect x="21.0" y="67.0" width="86.0" height="38.0" rx="6" fill="#ffffff" stroke="#2f8f6f" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="64.0" y="80.0" font-size="8.6" font-weight="700" fill="#2f8f6f" text-anchor="middle" dominant-baseline="central">Placeholder</text>
+  <text x="64.0" y="92.0" font-size="9.2" font-weight="700" fill="#2f8f6f" text-anchor="middle" dominant-baseline="central">ID=&quot;head&quot;</text>
+  <rect x="21.0" y="117.0" width="86.0" height="124.0" rx="6" fill="#ffffff" stroke="#3f6fa0" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="64.0" y="127.0" font-size="8.6" font-weight="700" fill="#3f6fa0" text-anchor="middle" dominant-baseline="central">Placeholder</text>
+  <text x="64.0" y="139.0" font-size="9.2" font-weight="700" fill="#3f6fa0" text-anchor="middle" dominant-baseline="central">ID=&quot;body&quot;</text>
+  <rect x="21.0" y="253.0" width="86.0" height="38.0" rx="6" fill="#ffffff" stroke="#c05a3a" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="64.0" y="266.0" font-size="8.6" font-weight="700" fill="#c05a3a" text-anchor="middle" dominant-baseline="central">Placeholder</text>
+  <text x="64.0" y="278.0" font-size="9.2" font-weight="700" fill="#c05a3a" text-anchor="middle" dominant-baseline="central">ID=&quot;footer&quot;</text>
+  <rect x="170.0" y="67.0" width="196.0" height="38.0" rx="6" fill="#ffffff" stroke="#2f8f6f" stroke-width="1.3"/>
+  <text x="268.0" y="86.0" font-size="9.2" font-weight="600" fill="#2f8f6f" text-anchor="middle" dominant-baseline="central">Content  ID=&quot;head&quot;</text>
+  <rect x="170.0" y="117.0" width="196.0" height="124.0" rx="7" fill="#ffffff" stroke="#3f6fa0" stroke-width="1.4"/>
+  <text x="268.0" y="130.0" font-size="9.2" font-weight="600" fill="#3f6fa0" text-anchor="middle" dominant-baseline="central">Content  ID=&quot;body&quot;</text>
+  <rect x="182.0" y="141.0" width="172.0" height="38.0" rx="6" fill="#ffffff" stroke="#a8548a" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="268.0" y="160.0" font-size="8.8" font-weight="600" fill="#a8548a" text-anchor="middle" dominant-baseline="central">Placeholder  ID=&quot;sidebar&quot;</text>
+  <rect x="182.0" y="191.0" width="172.0" height="38.0" rx="6" fill="#ffffff" stroke="#b8862a" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="268.0" y="210.0" font-size="8.8" font-weight="600" fill="#b8862a" text-anchor="middle" dominant-baseline="central">Placeholder  ID=&quot;main&quot;</text>
+  <rect x="432.0" y="141.0" width="136.0" height="38.0" rx="6" fill="#ffffff" stroke="#a8548a" stroke-width="1.3"/>
+  <text x="500.0" y="160.0" font-size="9.2" font-weight="600" fill="#a8548a" text-anchor="middle" dominant-baseline="central">Content  ID=&quot;sidebar&quot;</text>
+  <rect x="432.0" y="191.0" width="136.0" height="38.0" rx="6" fill="#ffffff" stroke="#b8862a" stroke-width="1.3"/>
+  <text x="500.0" y="210.0" font-size="9.2" font-weight="600" fill="#b8862a" text-anchor="middle" dominant-baseline="central">Content  ID=&quot;main&quot;</text>
+  <rect x="432.0" y="253.0" width="136.0" height="38.0" rx="6" fill="#ffffff" stroke="#c05a3a" stroke-width="1.3"/>
+  <text x="500.0" y="272.0" font-size="9.2" font-weight="600" fill="#c05a3a" text-anchor="middle" dominant-baseline="central">Content  ID=&quot;footer&quot;</text>
+  <line x1="170.0" y1="86.0" x2="108.0" y2="86.0" stroke="#2f8f6f" stroke-width="2.1" marker-end="url(#fill)"/>
+  <line x1="170.0" y1="130.0" x2="108.0" y2="130.0" stroke="#3f6fa0" stroke-width="2.1" marker-end="url(#fill)"/>
+  <line x1="432.0" y1="160.0" x2="355.0" y2="160.0" stroke="#a8548a" stroke-width="2.1" marker-end="url(#fill)"/>
+  <line x1="432.0" y1="210.0" x2="355.0" y2="210.0" stroke="#b8862a" stroke-width="2.1" marker-end="url(#fill)"/>
+  <line x1="432.0" y1="272.0" x2="108.0" y2="272.0" stroke="#c05a3a" stroke-width="2.1" marker-end="url(#fill)"/>
+  <text x="268.0" y="259.0" font-size="7.8" font-style="italic" fill="#c05a3a" text-anchor="middle" dominant-baseline="central">forwarded through Child</text>
+  <line x1="420.0" y1="30.0" x2="377.0" y2="30.0" stroke="#7a4fb5" stroke-width="2.3" marker-end="url(#fill)"/>
+  <line x1="160.0" y1="30.0" x2="117.0" y2="30.0" stroke="#7a4fb5" stroke-width="2.3" marker-end="url(#fill)"/>
+  <rect x="12.0" y="319.0" width="215.0" height="91.5" rx="6" fill="#fafafa" stroke="#c8c8c8" stroke-width="1.0"/>
+  <text x="24.0" y="335.0" font-size="9" font-weight="700" fill="#444" text-anchor="start" dominant-baseline="central">Legend</text>
+  <line x1="52.0" y1="354.0" x2="24.0" y2="354.0" stroke="#7a4fb5" stroke-width="2.3" marker-end="url(#fill)"/>
+  <text x="62.0" y="354.0" font-size="8.3" fill="#555" text-anchor="start" dominant-baseline="central">MasterClass — declared master</text>
+  <rect x="24.0" y="366.5" width="28.0" height="13.0" rx="4" fill="#ffffff" stroke="#7a7a7a" stroke-width="1.1" stroke-dasharray="4 2"/>
+  <text x="62.0" y="373.0" font-size="8.3" fill="#555" text-anchor="start" dominant-baseline="central">Placeholder — TContentPlaceHolder</text>
+  <rect x="24.0" y="385.5" width="28.0" height="13.0" rx="4" fill="#ffffff" stroke="#7a7a7a" stroke-width="1.3"/>
+  <text x="62.0" y="392.0" font-size="8.3" fill="#555" text-anchor="start" dominant-baseline="central">Content — TContent</text>
+  <text x="409.5" y="357.8" font-size="8.4" font-style="italic" fill="#888" text-anchor="middle" dominant-baseline="central">Contents fill the master&#x27;s matching Placeholders.</text>
+  <text x="409.5" y="372.8" font-size="8.4" font-style="italic" fill="#888" text-anchor="middle" dominant-baseline="central">No match in the immediate master → forwarded up the chain.</text>
+</svg>

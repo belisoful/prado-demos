@@ -18,8 +18,8 @@ content A
 &lt;com:TContent ID="B" &gt;
 content B
 &lt;/com:TContent &gt;
-&lt;com:TContent ID="B" &gt;
-content B
+&lt;com:TContent ID="C" &gt;
+content C
 &lt;/com:TContent &gt;
 </com:TTextHighlighter>
 <p class="block-content">
@@ -37,8 +37,23 @@ other stuff
 <p class="block-content">
 Then, the contents are inserted into the master control according to the following diagram, while the resulting parent-child relationship can be shown in the next diagram. Note, the template control discards everything in the template other than the contents, while the master control keeps everything and replaces the content placeholders with the contents according to ID matching.
 </p>
-<img src=<%~ mastercontent.gif %> alt="Master and Content" />
-<img src=<%~ pcrelation.gif %> alt="Parent-child relationship between master and content" />
+<img src="<%~mastercontent.svg%>" class="figure" alt="Each TContent is inserted into the TContentPlaceHolder with the matching ID. Content A, Content B, and Content C fill placeholders A, B, and C in the master control, while the master control keeps its other static content."/>
+<img src="<%~pcrelation.svg%>" class="figure" alt="The resulting parent-child tree. The template control keeps the master control as its only child, and the master control keeps its static content with the content placeholders replaced by the matched contents."/>
+
+<h2>Nested masters</h2>
+<p class="block-content">
+A master control is itself a template control, so it can declare its own master. Setting <tt>MasterClass</tt> on a master chains it to a further master. The result is a chain of template controls that runs from the most derived control to the base master.
+</p>
+<p class="block-content">
+Each control in the chain contributes its <tt>TContent</tt> controls to its master. The master replaces each <tt>TContentPlaceHolder</tt> with the <tt>TContent</tt> that has the matching ID. A master carries its own template content as well, so it fills its master's placeholders and declares new placeholders of its own. A placeholder may sit inside one of those contents, which lets the next control in the chain fill it.
+</p>
+<p class="block-content">
+A content is forwarded up the chain when its ID matches no placeholder in the immediate master and that master declares its own master. The content travels to the next master and stops at the first master whose template declares a placeholder with that ID.
+</p>
+<img src="<%~master-nesting.svg%>" class="figure" alt="Nested master controls. The base master control declares head, body, and footer placeholders. The child master control sets MasterClass to the base master control; its Content head and Content body fill the base head and body placeholders, and its body content embeds sidebar and main placeholders. The template control sets MasterClass to the child master control; its Content sidebar and Content main fill the child placeholders, and its Content footer has no placeholder in the child, so the framework forwards it to the base footer placeholder."/>
+<p class="block-content">
+The diagram nests three controls. The template control fills the <tt>sidebar</tt> and <tt>main</tt> placeholders that the child master control embeds in its body content. The template control also supplies a <tt>footer</tt> content. The child master control declares no <tt>footer</tt> placeholder, so the framework forwards that content to the base master control, which declares the <tt>footer</tt> placeholder.
+</p>
 
 <h2>Master vs. External Template</h2>
 <p class="block-content">

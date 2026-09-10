@@ -30,8 +30,54 @@ A callback is handled as a normal postback but, instead of re-rendering the enti
 
 <h2>Page Lifecycles</h2>
 <p class="block-content">
-Understanding the page lifecycles is crucial to grasp PRADO programming. Page lifecycles refer to the state transitions of a page when serving this page to end-users. They can be depicted in the following statechart,
-<img src="<%~lifecycles.gif %>" />
+Understanding the page lifecycle is crucial to grasp PRADO programming. The page
+lifecycle is the ordered sequence of steps that a page runs through to serve a request.
+Each step raises an event, and application and control code attaches handlers to these
+events. The diagram shows the sequence.
+</p>
+<img src="<%~page-lifecycle.svg%>" class="figure" alt="The PRADO page lifecycle. TPageService raises onPreRunPage before the page runs, where modules attach handlers to reach the page and its request. The page then runs its own steps in order: onPreInit; onInit, which creates the child controls and the page hierarchy; onInitComplete; then for a postback loadPageState and processPostData; onPreLoad; onLoad, the main request handling; then for a postback processPostData, raiseChangedEvents, and raisePostBackEvent; onLoadComplete; onPreRender, the final preparation before rendering; onPreRenderComplete; onSaveState, which saves the view state and control state; onSaveStateComplete; renderControl, which renders the page hierarchy; and onUnload, which releases resources. The steps colored for all controls are raised on every control in the hierarchy, and the steps marked postback only run for a postback or callback request."/>
+<p class="block-content">
+The steps read from top to bottom. A step shown for all controls raises its event on every
+control in the page hierarchy, so a control handles it by overriding the matching method,
+such as <tt>onLoad</tt>. A step marked postback only runs when the request is a postback or
+a callback, not for the first request for the page.
+</p>
+
+<h3>The onPreRunPage event</h3>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">
+<tt>TPageService</tt> raises the <tt>onPreRunPage</tt> event just before it runs the page,
+after the page is created and its initial properties are set. A module attaches a handler
+to this event to reach the page and its request as each page is created and processed.
+This is a central extension point, because it gives a module the page instance for every
+page request in the application.
+</p>
+<p class="block-content">
+A module attaches the handler on the page service, usually in the module's <tt>init</tt>
+method. The event sends the service as the sender and the page as the parameter.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+use Prado\Web\Services\TPageService;
+
+// in the module's init():
+$service = $this->getApplication()->getService();
+if ($service instanceof TPageService) {
+    $service->attachEventHandler('onPreRunPage', [$this, 'handlePage']);
+}
+
+// the handler receives the service and the page:
+public function handlePage($sender, $page)
+{
+    // $page is the TPage that is about to run.
+	// TPage is created but is at the start of its lifecycle
+	//	without anything initialized.
+}
+</com:TTextHighlighter>
+<p class="block-content">
+Several core modules use this event. The
+<a href="?page=Configurations.Parameters">database parameter</a> module attaches its
+capture at <tt>onPreRunPage</tt>, so a change to an application parameter is written to the
+database only after the page begins to run.
 </p>
 
 </com:TContent>

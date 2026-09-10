@@ -13,11 +13,11 @@ There are many approaches that can achieve the above goal. One can submit the pa
 </div>
 <p class="block-content">
 PRADO promotes component-based and event-driven Web programming. The button is represented by a <tt>TButton</tt> object. It encapsulates the button caption as the <tt>Text</tt> property and associates the user button click action with a server-side <tt>OnClick</tt> event. To respond to the user clicking on the button, one simply needs to attach a function to the button's <tt>OnClick</tt> event. Within the function, the button's <tt>Text</tt> property is modified as "Hello World". The following diagram shows the above sequence,
-<img src="<%~sequence.gif%>" class="figure"/>
+<img src="<%~sequence.svg%>" class="figure"/>
 </p>
 <p class="block-content">
 Our PRADO application consists of three files, <tt>index.php</tt>, <tt>Home.page</tt> and <tt>Home.php</tt>, which are organized as follows,
-<img src="<%~directory.gif%>" class="figure"/>
+<img src="<%~directory.svg%>" class="figure" alt="Directory tree: the helloworld application contains assets, protected, and index.php; protected contains pages, runtime, and vendor; pages contains Home.page and Home.php."/>
 
 where each directory is explained as follows. Note, the above directory structure can be customized. For example, one can move the <tt>protected</tt> directory out of Web directories. You will know how to do this after you go through this tutorial.
 </p>
