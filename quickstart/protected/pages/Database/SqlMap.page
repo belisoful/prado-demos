@@ -189,7 +189,7 @@ $user = $sqlmap->queryForObject("SelectUsers");
 
 <p class="block-content">The above example shows demonstrates only a fraction of the capabilities
     of the SqlMap Data Mapper. Further details can be found in the
-    <a href="http://www.pradoframework.net/demos/sqlmap/">SqlMap Manual</a>.
+    <a href="https://www.pradoframework.net/demos/sqlmap/">SqlMap Manual</a>.
 </p>
 
 <h2>Combining SqlMap with Active Records</h2>

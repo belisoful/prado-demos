@@ -1,7 +1,7 @@
 <com:TContent ID="body" >
 <h1>Introduction to Javascript</h1>
-This guide is based on the <a href="http://www.sergiopereira.com/articles/advjs.html">
-Quick guide to somewhat advanced JavaScript tour of some OO features</a> by Sergio Pereira.
+This guide is based on the "Quick guide to somewhat advanced JavaScript tour of some OO
+features" by Sergio Pereira.
 
 <h2>Hey, I didn't know you could do that</h2>
 <p class="block-content">
@@ -30,10 +30,10 @@ Quick guide to somewhat advanced JavaScript tour of some OO features</a> by Serg
     a heck lot more proficiency to write applications for the new Web and we need to improve
     our Javascript skills to get there.
     If you try to use many of the existing javascript libraries out there, like
-    <a href="http://prototypejs.org/">Prototype.js</a>,
-    <a href="http://script.aculo.us/">Scriptaculous</a>,
-    <a href="https://yuilibrary.com/">YUI</a>,
-    <a href="https://jquery.com/">jQuery</a>
+    <a href="https://jquery.com/">jQuery</a>,
+    <a href="https://react.dev/">React</a>,
+    <a href="https://vuejs.org/">Vue</a>,
+    <a href="https://d3js.org/">D3</a>
     etc you'll eventually find yourself reading the JS code. Maybe because you want
     to learn how they do it, or because you're curious, or more often because that's the
     only way to figure out how to use it, since documentation does not seem to be highly
@@ -50,7 +50,7 @@ Quick guide to somewhat advanced JavaScript tour of some OO features</a> by Serg
 
 <h2>JSON (JavaScript Object Notation)</h2>
 <p class="block-content">
-    JavaScript Object Notation (<a href="http://www.json.org/">JSON</a>,) is one of the new
+    JavaScript Object Notation (<a href="https://www.json.org/">JSON</a>,) is one of the new
     buzzwords popping up around the AJAX theme. JSON, simply put, is a way of
     declaring an object in Javascript. Let's see an example right away and note
     how simple it is.
@@ -239,8 +239,8 @@ Pet.prototype.communicate = function()
 };
 </com:TTextHighlighter>
 <p class="block-content">
-    That's when a library like <a href="http://www.sergiopereira.com/articles/prototype.js.html">prototype.js</a> comes in
-    handy. If we are using prototype.js, we can make our code look cleaner (at least in my opinion.)
+    That's when a helper library comes in
+    handy. Such a library can make our code look cleaner (at least in my opinion.)
 </p>
 <com:TTextHighlighter Language="javascript" CssClass="source block-content">
 var Pet = Class.create();
@@ -278,7 +278,7 @@ myArray.each( function(item, index)
     far and navigate to a better article than this one.
 </p>
 <p class="block-content">
-    First of all, in the above example we are using the prototype.js library, which
+    First of all, in the above example we are using a helper library, which
     adds the each function to the Array class. The each function accepts one
     argument that is a function object. This function, in turn, will be called once
     for each item in the array, passing two arguments when called, the item and the index

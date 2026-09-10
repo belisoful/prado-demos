@@ -11,18 +11,18 @@
 		relative to the dollar. The completed application is shown bellow.
 		<img src=<%~ example2.png %> class="figure" />
 		You can try the application <a href="../currency-converter/index.php">locally</a> or at the
-		<a href="http://www.pradoframework.net/demos/currency-converter/">Prado website</a>.
+		<a href="https://www.pradoframework.net/demos/currency-converter/">Prado website</a>.
 		Notice that the application still functions exactly the same if javascript
 		is not available on the user's browser.
 	</p>
 
 	<h1 id="download">Downloading and Installing Prado</h1>
 	<p class="block-content">
-	The best way to install PRADO is <a href="http://getcomposer.org/">through composer</a>
+	The best way to install PRADO is <a href="https://getcomposer.org/">through composer</a>
 	<br/>If you don't use composer yet, first install it:
 	</p>
 	<com:TTextHighlighter CssClass="source block-content">
-	curl -s http://getcomposer.org/installer | php
+	curl -s https://getcomposer.org/installer | php
 	php composer.phar install
 	</com:TTextHighlighter>
 

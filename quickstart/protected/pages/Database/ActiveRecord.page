@@ -36,7 +36,7 @@
         Active Record objects can be used to update the database.
         The "relationship" between Active Records and <a href="?page=Database.SqlMap">SqlMap</a> is illustrated in the
     following diagram. More details regarding the SqlMap Data Mapper can be found in
-    the <a href="http://www.pradoframework.net/demos/sqlmap/">SqlMap Manual</a>.
+    the <a href="https://www.pradoframework.net/demos/sqlmap/">SqlMap Manual</a>.
     <img src=<%~ sqlmap_active_record.png %> alt="Active Records and SqlMap DataMapper" id="fig:diagram.png" class="figure"/>
     </p>
 
@@ -75,11 +75,11 @@ The Active Record implementation utilizes the <a href="?page=Database.DAO">Prado
 The current Active Record implementation supports the following database.
 </p>
 <ul>
-    <li><a href="http://www.mysql.com">MySQL 4.1 or later</a></li>
-    <li><a href="http://www.postgres.com">Postgres SQL 7.3 or later</a></li>
-    <li><a href="http://www.sqlite.org">SQLite 2 and 3</a></li>
+    <li><a href="https://www.mysql.com">MySQL 4.1 or later</a></li>
+    <li><a href="https://www.postgresql.org">PostgreSQL 7.3 or later</a></li>
+    <li><a href="https://www.sqlite.org">SQLite 2 and 3</a></li>
     <li><a href="#">MS SQL 2000 or later</a></li>
-    <li><a href="http://www.oracle.com">Oracle Database (alpha)</a></li>
+    <li><a href="https://www.oracle.com">Oracle Database (alpha)</a></li>
 </ul>
 <p class="block-content">Support for other databases can be provided when there are sufficient demands.</p>
 
@@ -1189,7 +1189,7 @@ instead of <tt>$userRecord->first_name</tt>. This helps separation of logic and 
 <ul id="u3" class="block-content">
     <li>Fowler et. al. <i>Patterns of Enterprise Application Architecture</i>,
     Addison Wesley, 2002.</li>
-	<li>B. Venners with B. Eckel. <i><a href="http://www.artima.com/intv/abstract3.html">Inappropriate Abstractions - A Conversation with Anders Hejlsberg, Part VI.</a></i>
+	<li>B. Venners with B. Eckel. <i><a href="https://www.artima.com/intv/abstract3.html">Inappropriate Abstractions - A Conversation with Anders Hejlsberg, Part VI.</a></i>
 	Artima Developer, 2003.
 	</li>
 

@@ -61,7 +61,7 @@ TRegularExpressionValidator verifies the user input against a regular pattern. T
 </ul>
 <p class="block-content">
 More regular expression patterns can be found on the Internet, e.g.
-<a href="http://regexlib.com/">http://regexlib.com/</a>.
+<a href="https://regexlib.com/">https://regexlib.com/</a>.
 </p>
 <p class="block-content">
 Note, TRegularExpressionValidator only checks for nonempty user input. Use a TRequiredFieldValidator to ensure the user input is not empty.

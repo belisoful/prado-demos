@@ -2,7 +2,7 @@
 
 <h1>Error Handling and Reporting</h1>
 <p class="block-content">
-PRADO provides a complete error handling and reporting framework based on the PHP 5 exception mechanism.
+PRADO provides a complete error handling and reporting framework based on the PHP exception mechanism.
 </p>
 
 <h2>Exception Classes</h2>

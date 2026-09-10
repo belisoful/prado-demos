@@ -2,15 +2,15 @@
 <h1>Jui interactions controls</h1>
 <p class="block-content">
 Jui interactions adds basic mouse-based interactions to elements like moving, resizing or sorting. PRADO Jui interactions controls applies these interactions to a <a href="?page=ActiveControls.ActivePanel">TActivePanel</a>
-For informations of the specific options of each interaction, follow jQuery-UI Interaction <a href="http://api.jqueryui.com/category/interactions/">API Documentation</a> for the specific interaction.
+For informations of the specific options of each interaction, follow jQuery-UI Interaction <a href="https://api.jqueryui.com/category/interactions/">API Documentation</a> for the specific interaction.
 </p>
 
 <a name="TJuiDraggable"></a>
 <h2>TJuiDraggable</h2>
-<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiDraggable" /> - <a href="http://api.jqueryui.com/draggable/">jQuery UI API</a>
+<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiDraggable" /> - <a href="https://api.jqueryui.com/draggable/">jQuery UI API</a>
 
 <p class="block-content">
-<tt>TJuiDraggable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="http://jqueryui.com/draggable/">Draggable</a> interaction.
+<tt>TJuiDraggable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="https://jqueryui.com/draggable/">Draggable</a> interaction.
 </p>
 
 <p class="block-content">
@@ -23,10 +23,10 @@ The panel can be moved using the mouse, and eventually dropped over a <a href="?
 
 <a name="TJuiDroppable"></a>
 <h2>TJuiDroppable</h2>
-<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiDroppable" /> - <a href="http://api.jqueryui.com/droppable/">jQuery UI API</a>
+<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiDroppable" /> - <a href="https://api.jqueryui.com/droppable/">jQuery UI API</a>
 
 <p class="block-content">
-<tt>TJuiDroppable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="http://jqueryui.com/draggable/">Draggable</a> interaction.
+<tt>TJuiDroppable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="https://jqueryui.com/draggable/">Draggable</a> interaction.
 </p>
 
 <p class="block-content">
@@ -38,9 +38,9 @@ When a <a href="?page=JuiControls.Interactions#TJuiDroppable">TJuiDraggable</a> 
 
 <a name="TJuiResizable"></a>
 <h2>TJuiResizable</h2>
-<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiResizable" /> - <a href="http://api.jqueryui.com/resizable/">jQuery UI API</a>
+<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiResizable" /> - <a href="https://api.jqueryui.com/resizable/">jQuery UI API</a>
 <p class="block-content">
-<tt>TJuiResizable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="http://jqueryui.com/resizable/">Resizable</a> interaction.
+<tt>TJuiResizable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="https://jqueryui.com/resizable/">Resizable</a> interaction.
 </p>
 
 <p class="block-content">
@@ -53,9 +53,9 @@ A small handle is shown on the bottom right corner of the panel, that permits th
 
 <a name="TJuiSelectable"></a>
 <h2>TJuiSelectable</h2>
-<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiSelectable" /> - <a href="http://api.jqueryui.com/selectable/">jQuery UI API</a>
+<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiSelectable" /> - <a href="https://api.jqueryui.com/selectable/">jQuery UI API</a>
 <p class="block-content">
-<tt>TJuiSelectable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="http://jqueryui.com/selectable/">Selectable</a> interaction.
+<tt>TJuiSelectable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="https://jqueryui.com/selectable/">Selectable</a> interaction.
 </p>
 
 <p class="block-content">
@@ -68,9 +68,9 @@ A small handle is shown on the bottom right corner of the panel, that permits th
 
 <a name="TJuiSortable"></a>
 <h2>TJuiSortable</h2>
-<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiSortable" /> - <a href="http://api.jqueryui.com/sortable/">jQuery UI API</a>
+<com:DocLink ClassPath="Prado.Web.UI.JuiControls.TJuiSortable" /> - <a href="https://api.jqueryui.com/sortable/">jQuery UI API</a>
 <p class="block-content">
-<tt>TJuiSortable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="http://jqueryui.com/sortable/">Sortable</a> interaction.
+<tt>TJuiSortable</tt> is an extension to <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> based on jQuery-UI's <a href="https://jqueryui.com/sortable/">Sortable</a> interaction.
 </p>
 
 <p class="block-content">

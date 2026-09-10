@@ -1,7 +1,7 @@
 <com:TContent ID="body" >
 <h1>What is PRADO?</h1>
 <p class="block-content">
-PRADO is a component-based and event-driven programming framework for developing Web applications in PHP 5 and 7. PRADO stands for <b>P</b>HP <b>R</b>apid <b>A</b>pplication <b>D</b>evelopment <b>O</b>bject-oriented.
+PRADO is a component-based and event-driven programming framework for developing Web applications in PHP 8. PRADO stands for <b>P</b>HP <b>R</b>apid <b>A</b>pplication <b>D</b>evelopment <b>O</b>bject-oriented.
 </p>
 <p class="block-content">
 A primary goal of PRADO is to enable maximum reusability in Web programming. By reusability, we mean not only reusing one's own code, but also reusing other people's code in an easy way. The latter is more important as it saves the effort of reinventing the wheels and may cut off development time dramatically. The introduction of the concept of component is for this purpose.
@@ -65,9 +65,9 @@ In August 2004, PRADO started to be hosted on SourceForge as an open source proj
 In May 2005, we decided to completely rewrite the PRADO framework to resolve a few fundamental issues found in version 2.0 and to catch up with some cool features available in Microsoft ASP.NET 2.0. After nearly a year's hard work with over 50,000 lines of new code, version 3.0 was finally made available in April 2006.
 </p>
 <p class="block-content">
-In October 2008, the original development team released a new framework called <a href="http://www.yiiframework.com/">Yii</a>. Inheriting most of the PRADO code, Yii left the pages/events concept, focusing on a pure MVC design pattern. Since 2009 a lot of people contributed to PRADO fixing issues, developing new features or backporting them from Yii.
+In October 2008, the original development team released a new framework called <a href="https://www.yiiframework.com/">Yii</a>. Inheriting most of the PRADO code, Yii left the pages/events concept, focusing on a pure MVC design pattern. Since 2009 a lot of people contributed to PRADO fixing issues, developing new features or backporting them from Yii.
 </p>
 <p class="block-content">
-To promote a model of community-driven development, the project repositories were moved first on <a href="http://code.google.com/p/prado3/">Google Code</a> and later on <a href="http://github.com/pradosoft/prado">GitHub</a>.
+To promote a model of community-driven development, the project repositories were moved first on Google Code and later on <a href="https://github.com/pradosoft/prado">GitHub</a>.
 </p>
 </com:TContent>

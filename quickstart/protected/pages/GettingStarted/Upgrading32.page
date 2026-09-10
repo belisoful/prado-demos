@@ -4,8 +4,8 @@
 
 <div class="block-content">
 <p class="block-content">
-Since version 3.3, PRADO uses <a href="http://jquery.com/">jQuery</a> as its default javascript framework.
-Previously, up to version 3.2, PRADO used <a href="http://prototypejs.org/">Prototype</a> and <a href="http://script.aculo.us/">Scriptaculous</a> as its default javascript framework.
+Since version 3.3, PRADO uses <a href="https://jquery.com/">jQuery</a> as its default javascript framework.
+Previously, up to version 3.2, PRADO used Prototype and Scriptaculous as its default javascript framework.
 </p>
 <p class="block-content">
 PRADO relies a lot on clientside javascript code to implement its <a href="?page=Controls.Standard">standard controls</a>, to handle clientside <a href="?page=Controls.Validation">validators</a>, and to create a seamless <a href="?page=ActiveControls.Introduction">ajax</a> experience using <a href="?page=ActiveControls.Home">active controls</a>.
@@ -197,7 +197,7 @@ Porting prado to jQuery some method signatures has changed, or have been adapted
 		<td>Prado.Browser().ie</td>
 		<td>// Test for browser support for specific capabilities instead
 			<br/>jQuery.support
-			<br/>// or, better, use <a href="http://modernizr.com/">Modernizr</a>
+			<br/>// or, better, use <a href="https://modernizr.com/">Modernizr</a>
 		</td>
 	</tr>
 	<tr>
@@ -232,7 +232,7 @@ Following is the list of deprecated controls:
 <h4>TDraggable and TDropContainer</h4>
 <p class="block-content">
 <tt>TDraggable</tt> and <tt>TDropContainer</tt> have been deprecated and replaced respectively by <tt>TJuiDraggable</tt> and <tt>TJuiDroppable</tt>.
-The options for the new controls are available at <a href="http://api.jqueryui.com/">jQueryUI's API documentation</a>.
+The options for the new controls are available at <a href="https://api.jqueryui.com/">jQueryUI's API documentation</a>.
 </p>
 
 </com:TContent>

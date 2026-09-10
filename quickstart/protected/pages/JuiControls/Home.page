@@ -1,7 +1,7 @@
 <com:TContent ID="body" >
 <h1>Jui Controls (jQuery UI)</h1>
 <p class="block-content">
-Jui controls are the PRADO port of the standard <a href="http://jqueryui.com/">jQuery UI</a> widgets. They can be used as standard <a href="?page=ActiveControls.Introduction">Active Controls</a>, but will automatically load the needed jQuery-UI javascript libraries.
+Jui controls are the PRADO port of the standard <a href="https://jqueryui.com/">jQuery UI</a> widgets. They can be used as standard <a href="?page=ActiveControls.Introduction">Active Controls</a>, but will automatically load the needed jQuery-UI javascript libraries.
 </p>
 <h3>Options</h3>
 <p class="block-content">
@@ -10,7 +10,7 @@ The <tt>Options</tt> property of PRADO Jui controls is used to pass options to t
 
 <h4>Example</h4>
 <p class="block-content">
-jQuery-UI's <a href="http://jqueryui.com/resizable/">Resizable</a> adds an handle to a target element making it resizable. Its PRADO counterpart is <a href="?page=JuiControls.Interactions#TJuiResizable">TJuiResizable</a>. Resizable offers an <a href="http://api.jqueryui.com/resizable/#option-aspectRatio">aspectRatio</a> property to constrain the aspect ratio of the target element. The same property can be applied to TJuiResizable as a subproperty of the <tt>Options</tt> property:
+jQuery-UI's <a href="https://jqueryui.com/resizable/">Resizable</a> adds an handle to a target element making it resizable. Its PRADO counterpart is <a href="?page=JuiControls.Interactions#TJuiResizable">TJuiResizable</a>. Resizable offers an <a href="https://api.jqueryui.com/resizable/#option-aspectRatio">aspectRatio</a> property to constrain the aspect ratio of the target element. The same property can be applied to TJuiResizable as a subproperty of the <tt>Options</tt> property:
 </p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
   &lt;com:TJuiResizable
@@ -32,7 +32,7 @@ Jui controls doesn't make use of the AutoPostback property anymore, but only tri
 
 <h4>Example</h4>
 <p class="block-content">
-jQuery's <a href="http://jqueryui.com/draggable/">Draggable</a> allows a target element to the moved using the mouse. Its PRADO counterpart is <a href="?page=JuiControls.Interactions#TJuiDraggable">TJuiDraggable</a>. Draggable exposes two useful events: <a href="http://api.jqueryui.com/draggable/#event-start">start</a> and <a href="http://api.jqueryui.com/draggable/#event-stop">stop</a>, that gets triggered respectively when the element starts to move and when the movement stops. TJuiDraggable exposes these same events:
+jQuery's <a href="https://jqueryui.com/draggable/">Draggable</a> allows a target element to the moved using the mouse. Its PRADO counterpart is <a href="?page=JuiControls.Interactions#TJuiDraggable">TJuiDraggable</a>. Draggable exposes two useful events: <a href="https://api.jqueryui.com/draggable/#event-start">start</a> and <a href="https://api.jqueryui.com/draggable/#event-stop">stop</a>, that gets triggered respectively when the element starts to move and when the movement stops. TJuiDraggable exposes these same events:
 </p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
   &lt;com:TJuiDraggable
@@ -45,7 +45,7 @@ jQuery's <a href="http://jqueryui.com/draggable/">Draggable</a> allows a target 
 <h2>PRADO Jui interactions controls</h2>
 <p class="block-content">
 Jui interactions adds basic mouse-based interactions to elements like moving, resizing or sorting. PRADO Jui interactions controls applies there interactions to a <a href="?page=ActiveControls.ActivePanel">TActivePanel</a>
-For informations of the specific options of each interaction, follow jQuery-UI Interaction <a href="http://api.jqueryui.com/category/interactions/">API Documentation</a> for the specific interaction.
+For informations of the specific options of each interaction, follow jQuery-UI Interaction <a href="https://api.jqueryui.com/category/interactions/">API Documentation</a> for the specific interaction.
 </p>
 <ul id="u1" class="block-content">
   <li>

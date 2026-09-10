@@ -4,13 +4,13 @@
 
 <div class="block-content">
 <p class="block-content">
-Since version 4.0, PRADO classes make use of <a href="http://php.net/manual/language.namespaces.php">PHP namespaces</a> in its internal classes, enabling the autoloading of PHP class files using a <a href="http://www.php-fig.org/psr/psr-4/">PSR-4</a> autoloader.
+Since version 4.0, PRADO classes make use of <a href="https://php.net/manual/language.namespaces.php">PHP namespaces</a> in its internal classes, enabling the autoloading of PHP class files using a <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> autoloader.
 <br/>Proper changes have been made to ensure that code running on PRADO 3.x will work on 4.x requiring only minor changes.
 </p>
 <p class="block-content">
 <a href="https://getcomposer.org/">Composer</a> support has been added. Composer is used both to manage library dependencies and classes autoloading.
 <br/>Previous PRADO versions used to bundle external php and javascript libraries, making it hard for users to update them. All these libraries have been removed and will be installed by Composer.
-<br>PRADO's autoloader used to error out every time a PHP class could not be found, making it hard to include external libraries that used their own autoloaders. The <a href="http://www.php-fig.org/psr/psr-4/">PSR-4</a> standard was created to define a common autoloading pattern, and letting Composer handle autoloading solves this problem.
+<br>PRADO's autoloader used to error out every time a PHP class could not be found, making it hard to include external libraries that used their own autoloaders. The <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standard was created to define a common autoloading pattern, and letting Composer handle autoloading solves this problem.
 </p>
 
 <p class="block-content">
@@ -25,7 +25,7 @@ In order to port a PRADO 3.3 application to 4.0, the first step is to install co
 </p>
 
 <com:TTextHighlighter CssClass="source block-content">
-$ curl -s http://getcomposer.org/installer | php
+$ curl -s https://getcomposer.org/installer | php
 $ php composer.phar install
 </com:TTextHighlighter>
 

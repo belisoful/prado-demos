@@ -76,7 +76,7 @@ The <tt>marker</tt> value is used to surround any untranslated text.
 </xliff>
 </com:TTextHighlighter>
 
-Each translation message is wrapped within a <tt>trans-unit</tt> tag, where <tt>source</tt> is the original message, and <tt>target</tt> is the translated message. Editors such as <a href="http://www.heartsome.net/EN/xlfedit.html">Heartsome XLIFF Translation Editor</a> can help in editing these XML files.
+Each translation message is wrapped within a <tt>trans-unit</tt> tag, where <tt>source</tt> is the original message, and <tt>target</tt> is the translated message. Editors such as <a href="https://apps.kde.org/lokalize/">Lokalize</a> can help in editing these XML files.
 
 <h2>Using a Database for translation</h2>
 

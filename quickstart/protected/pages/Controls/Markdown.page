@@ -4,7 +4,7 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TMarkdown" />
 
 <p class="block-content">
-<tt>TMarkdown</tt> is a text formatter that produces html content from plain text. The formatter follows the <a href="http://www.wikipedia.org/wiki/Markdown">Markdown</a> syntax and the <a href="https://help.github.com/articles/github-flavored-markdown">GFM</a> (GitHub Flavored Markdown) extension.
+<tt>TMarkdown</tt> is a text formatter that produces html content from plain text. The formatter follows the <a href="https://www.wikipedia.org/wiki/Markdown">Markdown</a> syntax and the <a href="https://help.github.com/articles/github-flavored-markdown">GFM</a> (GitHub Flavored Markdown) extension.
 </p>
 <p class="block-content">
 Any content in the body of <tt>TMarkdown</tt>, including both static text and the rendering results of its child controls, is first converted using the Markdown syntax. Then, to any code block found in the html, syntax highlighting is applied. The code being highlighted follows the syntax of the specified <tt>Language</tt>, which can be 'php' (default), 'prado', 'css', 'html', etc. Here, 'prado' stands for the syntax of PRADO control templates. If the language is not specified in the <tt>Language</tt> property, it can be evinced from the Markdown syntax.

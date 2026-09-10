@@ -5,10 +5,10 @@
 Data Access Objects (DAO) separates a data resource's client interface from its data access mechanisms. It adapts a specific data resource's access API to a generic client interface. As a result, data access mechanisms can be changed independently of the code that uses the data.
 </p>
 <p class="block-content">
-Since version 3.1, PRADO starts to provide a DAO that is a thin wrap around <a href="http://www.php.net/manual/en/book.pdo.php">PHP Data Objects (PDO)</a>. Although PDO has a nice feature set and good APIs, we choose to implement the PRADO DAO on top of PDO because the PRADO DAO classes are component classes and are thus configurable in a PRADO application. Users can use these DAO classes in a more PRADO-preferred way.
+Since version 3.1, PRADO starts to provide a DAO that is a thin wrap around <a href="https://www.php.net/manual/en/book.pdo.php">PHP Data Objects (PDO)</a>. Although PDO has a nice feature set and good APIs, we choose to implement the PRADO DAO on top of PDO because the PRADO DAO classes are component classes and are thus configurable in a PRADO application. Users can use these DAO classes in a more PRADO-preferred way.
 </p>
 <div class="note"><b class="tip">Note:</b>
-Since the PRADO DAO is based on PDO, the PDO PHP extension needs to be installed. In addition, you need to install the corresponding PDO driver for the database to be used in your application. See more details in the <a href="http://www.php.net/manual/en/book.pdo.php">PHP Manual</a>.
+Since the PRADO DAO is based on PDO, the PDO PHP extension needs to be installed. In addition, you need to install the corresponding PDO driver for the database to be used in your application. See more details in the <a href="https://www.php.net/manual/en/book.pdo.php">PHP Manual</a>.
 </div>
 <p class="block-content">
 The PRADO DAO mainly consists of the following four classes (in contrast to PDO which uses only two classes, <tt>PDO</tt> and <tt>PDOStatement</tt>):
@@ -36,7 +36,7 @@ $connection->Active=true;  // connection is established
 $connection->Active=false;  // connection is closed
 </com:TTextHighlighter>
 <p class="block-content">
-Complete specification of DSN may be found in the <a href="http://www.php.net/manual/en/pdo.drivers.php">PDO documentation</a>. Below is a list of commonly used DSN formats:
+Complete specification of DSN may be found in the <a href="https://www.php.net/manual/en/pdo.drivers.php">PDO documentation</a>. Below is a list of commonly used DSN formats:
 </p>
 <ul id="u2" class="block-content">
 <li>MySQL - <tt>mysql:host=localhost;dbname=test</tt></li>
@@ -117,7 +117,7 @@ catch(Exception $e) // an exception is raised if a query fails will be raised
 
 <h2>Binding Parameters</h2>
 <p class="block-content">
-To avoid <a href="http://en.wikipedia.org/wiki/SQL_injection">SQL injection attacks</a> and to improve performance of executing repeatedly used SQL statements, one can "prepare" an SQL statement with optional parameter placeholders that are to be replaced with the actual parameters during the parameter binding process.
+To avoid <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection attacks</a> and to improve performance of executing repeatedly used SQL statements, one can "prepare" an SQL statement with optional parameter placeholders that are to be replaced with the actual parameters during the parameter binding process.
 </p>
 <p class="block-content">
 The parameter placeholders can be either named (represented as unique tokens) or unnamed (represented as question marks). Call <tt>TDbCommand.bindParameter()</tt> or <tt>TDbCommand.bindValue()</tt> to replace these placeholders with the actual parameters. The parameters do not need to be quoted: the underlying database driver does it for you. Parameter binding must be done before the SQL statement is executed.
@@ -140,7 +140,7 @@ $command->execute();
 The methods <tt>bindParameter()</tt> and <tt>bindValue()</tt> are very similar. The only difference is that the former binds a parameter with a PHP variable reference while the latter with a value. For parameters that represent large block of data memory, the former is preferred for performance consideration.
 </p>
 <p class="block-content">
-For more details about binding parameters, see the <a href="http://www.php.net/manual/en/function.PDOStatement-bindParam.php">relevant PHP documentation</a>.
+For more details about binding parameters, see the <a href="https://www.php.net/manual/en/function.PDOStatement-bindParam.php">relevant PHP documentation</a>.
 </p>
 
 

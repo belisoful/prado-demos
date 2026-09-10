@@ -4,7 +4,7 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TSafeHtml" />
 
 <p class="block-content">
-<tt>TSafeHtml</tt> is a control that strips down all potentially dangerous HTML content. It is mainly a wrapper of the <a href="http://htmlpurifier.org/">HTMLPurifier</a> project.
+<tt>TSafeHtml</tt> is a control that strips down all potentially dangerous HTML content. It is mainly a wrapper of the <a href="https://htmlpurifier.org/">HTMLPurifier</a> project.
 
 <p class="block-content">
 To use <tt>TSafeHtml</tt>, simply enclose the content to be secured within the <tt>TSafeHtml</tt> component tag in a template. The content may consist of both static text and PRADO controls. If the latter, the rendering result of the controls will be secured.

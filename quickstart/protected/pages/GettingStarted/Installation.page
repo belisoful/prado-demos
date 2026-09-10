@@ -5,17 +5,17 @@
 If you are viewing this page from your own Web server, you are already done with the installation.
 </p>
 <p>
-The minimum requirement by PRADO is that the Web server support PHP 7. PRADO has been tested with Apache Web server on Windows, MacOSX and various Linux distro. Highly possibly it may also run on other platforms with other Web servers, as long as PHP 7 is supported.
+The minimum requirement by PRADO is that the Web server support PHP 8.1. PRADO has been tested with Apache Web server on Windows, MacOSX and various Linux distro. Highly possibly it may also run on other platforms with other Web servers, as long as PHP 8.1 is supported.
 </p>
 </div>
 
 <h3>Installing a new app based on PRADO</h3>
 <p>
-The best way to install PRADO is <a href="http://getcomposer.org/">through composer</a>
+The best way to install PRADO is <a href="https://getcomposer.org/">through composer</a>
 <br/>If you don't use composer yet, first install it:
 </p>
 <com:TTextHighlighter CssClass="source block-content">
-curl -s http://getcomposer.org/installer | php
+curl -s https://getcomposer.org/installer | php
 php composer.phar install
 </com:TTextHighlighter>
 <p>
