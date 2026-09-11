@@ -1,10 +1,11 @@
 <com:TContent ID="body" >
 
-<h1>TReCaptcha</h1>
-<com:DocLink ClassPath="Prado.Web.UI.WebControls.TReCaptcha" />
+<h1>TReCaptcha2</h1>
+<com:SinceVersion Version="3.3.1" />
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TReCaptcha2" />
 
 <p class="block-content">
-<tt>TReCaptcha</tt> displays a <a href="https://www.google.com/recaptcha">reCAPTCHA v2</a> that can be used to determine if the input is entered by a real user instead of some program. It can also prevent multiple submits of the same form either by accident, or on purpose (ie. spamming).
+<tt>TReCaptcha2</tt> displays a <a href="https://www.google.com/recaptcha">reCAPTCHA v2</a> that can be used to determine if the input is entered by a real user instead of some program. It can also prevent multiple submits of the same form either by accident, or on purpose (ie. spamming).
 </p>
 
 <p class="block-content">
@@ -20,7 +21,7 @@ Upon postback, user input can be validated by calling <tt>validate()</tt>. The <
 </p>
 
 <p class="block-content">
-The following template shows a typical use of TReCaptcha control:
+The following template shows a typical use of the <tt>TReCaptcha2</tt> control:
 </p>
 
 <com:TTextHighlighter Language="prado" CssClass="source block-content">

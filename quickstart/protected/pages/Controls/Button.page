@@ -9,8 +9,86 @@
 <p class="block-content">
 Clicking on button can trigger form validation, if <tt>CausesValidation</tt> is true. And the validation may be restricted within a certain group of validator controls according to <tt>ValidationGroup</tt>.
 </p>
-<com:RunBar PagePath="Controls.Samples.TButton.Home" />
+<h2>Button type</h2>
 
-TODO: custom attributes
+<p class="block-content">
+The <tt>ButtonType</tt> property writes the <tt>type</tt> attribute of the rendered
+element. It defaults to <tt>Submit</tt>.
+</p>
+
+<table class="parameters">
+<tr><th>Value</th><th>Renders</th><th>Effect</th></tr>
+<tr>
+	<td><tt>Submit</tt></td>
+	<td><tt>type="submit"</tt></td>
+	<td>The button submits the form. This is the default.</td>
+</tr>
+<tr>
+	<td><tt>Reset</tt></td>
+	<td><tt>type="reset"</tt></td>
+	<td>The browser restores every field in the form to its initial value.</td>
+</tr>
+<tr>
+	<td><tt>Button</tt></td>
+	<td><tt>type="button"</tt></td>
+	<td>The browser takes no action of its own.</td>
+</tr>
+</table>
+
+<p class="block-content">
+A button whose type is not <tt>Submit</tt> reaches its handler through a client script.
+The control registers that script when it carries an <tt>OnClick</tt> or an
+<tt>OnCommand</tt> handler and <tt>EnableClientScript</tt> is true. Setting
+<tt>EnableClientScript</tt> to false leaves such a button without a way to post back.
+</p>
+
+<h2>Rendered element</h2>
+<com:SinceVersion Version="3.3.0" />
+
+<p class="block-content">
+The <tt>ButtonTag</tt> property selects which HTML element the button renders. It takes
+<tt>Input</tt> or <tt>Button</tt>, and it defaults to <tt>Input</tt>.
+</p>
+
+<table class="parameters">
+<tr><th>Value</th><th>Renders</th><th>Where the caption goes</th></tr>
+<tr>
+	<td><tt>Input</tt></td>
+	<td><tt>&lt;input&gt;</tt></td>
+	<td><tt>Text</tt> becomes the <tt>value</tt> attribute. The element has no body content.</td>
+</tr>
+<tr>
+	<td><tt>Button</tt></td>
+	<td><tt>&lt;button&gt;</tt></td>
+	<td><tt>Text</tt> becomes body content, and the control renders any other body content the template gives it.</td>
+</tr>
+</table>
+
+<p class="block-content">
+An <tt>&lt;input&gt;</tt> element carries plain text only. A <tt>&lt;button&gt;</tt>
+element holds markup, so a caption that needs an image or styled text uses
+<tt>ButtonTag="Button"</tt>.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TButton ButtonTag="Button" OnClick="save"&gt;
+  &lt;com:TImage ImageUrl="save.png" AlternateText="" /&gt;
+  Save
+&lt;/com:TButton&gt;
+</com:TTextHighlighter>
+
+<h2>Custom attributes</h2>
+
+<p class="block-content">
+A template adds any HTML attribute to the rendered element through the
+<tt>Attributes</tt> collection. The attribute name follows <tt>Attributes</tt> in the
+tag.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TButton Text="Save" Attributes.formnovalidate="formnovalidate" /&gt;
+</com:TTextHighlighter>
+
+<com:RunBar PagePath="Controls.Samples.TButton.Home" />
 
 </com:TContent>

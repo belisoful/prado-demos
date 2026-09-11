@@ -211,14 +211,20 @@ When Working Knowledge is found inaccurate:
 
 ## Legacy State / Known Issues (audit targets)
 
-- **Pre-namespace config aliases:** ~26 demo/config files use `class="System.*"`
-  paths (e.g. `System.Util.TParameterModule`); zero use namespaced `Prado\…` paths.
-  They run via PRADO 4 backward-compat aliasing. The README config example shows the
-  same. Modernize as part of the quickstart/demos audit.
-- **Stale TOC link:** `TopicList.tpl` links `GettingStarted.Upgrading40`; the on-disk
-  file is `Upgrading.page`.
-- **Version-string drift:** hardcoded prose versions (`Prado 4.2.0`, `3.2.1`, `3.1`)
-  scattered in pages; single-source them.
+- **Pre-namespace config aliases:** 19 files still use `class="System.*"` paths (e.g.
+  `System.Util.TParameterModule`), which run via PRADO 4 backward-compat aliasing. They
+  are 14 XML configs (one `protected/application.xml` per demo, quickstart included,
+  plus `sqlmap/protected/pages/Manual/config.xml`) and 5 `blog-tutorial` `.page` files
+  (`Day2/ConnectDB`, `Day2/CreateAR`, `Day3/Auth`, `Day5/ErrorLogging`,
+  `Day5/Performance`). The README config example shows the same. Quickstart prose is
+  done and uses namespaced `Prado\…` paths. Modernize the rest as part of the demos
+  audit.
+- **Version-string drift:** two hardcoded prose versions remain. `Controls/Pager.page`
+  says "Since Prado 3.2.1", which should become a `<com:SinceVersion Version="3.2.1"/>`
+  badge, and `Controls/Samples/TConditional/Home.page` prints "PRADO 3.2.3" as sample
+  text. The `<com:CurrentVersion />` control single-sources the running version from
+  `Prado::getVersion()`. The mentions in `GettingStarted/Upgrading32.page` and
+  `Upgrading33.page` are historical statements and stay as written.
 - **3.1/3.2-era body:** most pages predate 4.x and need a correctness pass, not just
   additive new pages (see the update plan, Workstream C).
 

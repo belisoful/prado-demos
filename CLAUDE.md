@@ -83,10 +83,16 @@ evidence, and the correction in `local/framework-agents-kb-inaccuracies.md`.
 
 ## Known Legacy Issues (audit targets)
 
-- ~26 demo/config files use pre-namespace `class="System.*"` aliases; none use
-  `Prado\…`. They run via 4.x backward-compat aliasing.
-- `TopicList.tpl` links stale `GettingStarted.Upgrading40` (on-disk: `Upgrading.page`).
-- Hardcoded prose version strings (`Prado 4.2.0`, `3.2.1`, `3.1`) — single-source them.
+- 19 files still use pre-namespace `class="System.*"` aliases, which run via 4.x
+  backward-compat aliasing: 14 XML configs (one `protected/application.xml` per demo,
+  quickstart included, plus `sqlmap/protected/pages/Manual/config.xml`) and 5
+  `blog-tutorial` `.page` files. The `README.md` config example shows the same.
+  Quickstart prose is done and uses `Prado\…` paths.
+- Two hardcoded prose version strings remain: `Controls/Pager.page` ("Since Prado
+  3.2.1", should become a `<com:SinceVersion>` badge) and
+  `Controls/Samples/TConditional/Home.page` ("PRADO 3.2.3"). `<com:CurrentVersion />`
+  single-sources the running version. The `Upgrading*.page` mentions are historical
+  and stay.
 - Most pages are 3.1/3.2-era and need a correctness pass, not only additive pages.
 
 ## PRADO Naming Conventions

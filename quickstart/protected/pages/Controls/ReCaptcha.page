@@ -1,7 +1,15 @@
 <com:TContent ID="body" >
 
 <h1>TReCaptcha</h1>
+<com:SinceVersion Version="3.2" />
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TReCaptcha" />
+
+<p class="block-content">
+<tt>TReCaptcha</tt> drives version 1 of the Google reCAPTCHA service. Google retired that
+service in March 2018, so the control reaches an endpoint that no longer answers. A new
+application uses <a href="?page=Controls.ReCaptcha2">TReCaptcha2</a>, which drives version
+2 of the service.
+</p>
 
 <p class="block-content">
 <tt>TReCaptcha</tt> displays a <a href="https://www.google.com/recaptcha">reCAPTCHA v1</a> that can be used to determine if the input is entered by a real user instead of some program. It can also prevent multiple submits of the same form either by accident, or on purpose (ie. spamming).

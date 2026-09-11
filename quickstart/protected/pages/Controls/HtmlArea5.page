@@ -16,12 +16,12 @@
 The default editor tries to mimic <tt>THtmlArea</tt>'s old style and behaviour, disabling the menubar and permitting the resize of the editor in both directions. To enable the menubar or change any other aspect of the editor layout, use the <tt>Options</tt> property to add additional editor options with each options on a new line. See <a href="https://www.tiny.cloud/docs/">TinyMCE website</a> for a complete list of options. The following example displays a menu specific for HTML table manipulation,
 </p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
-&lt;com:THtmlArea&gt;
+&lt;com:THtmlArea5&gt;
   &lt;prop:Options&gt;
     plugins: "table"
     menubar: "file edit table"
   &lt;/prop:Options&gt;
-&lt;/com:THtmlArea&gt;
+&lt;/com:THtmlArea5&gt;
 </com:TTextHighlighter>
 
 <com:RunBar PagePath="Controls.Samples.THtmlArea5.Home" />

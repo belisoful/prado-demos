@@ -4,8 +4,103 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TTextBox" />
 
 <p class="block-content">
-<tt>TTextBox</tt> displays a text box on a Web page. The content in the text box is determined by the <tt>Text</tt> property. You can create a <tt>SingleLine</tt>, a <tt>MultiLine</tt>, or a <tt>Password</tt> text box by setting the <tt>TextMode</tt> property. The <tt>Rows</tt> and <tt>Columns</tt> properties specify their dimensions. If <tt>AutoPostBack</tt> is true, changing the content in the text box and then moving the focus out of it will cause postback action.
+<tt>TTextBox</tt> displays a text box on a Web page. The content in the text box is determined by the <tt>Text</tt> property. The <tt>TextMode</tt> property selects the kind of input the control renders. The <tt>Rows</tt> and <tt>Columns</tt> properties size the box. If <tt>AutoPostBack</tt> is true, changing the content in the text box and then moving the focus out of it will cause postback action.
 </p>
+<h2>Input modes</h2>
+
+<p class="block-content">
+<tt>TextMode</tt> takes one of sixteen values. It defaults to <tt>SingleLine</tt>. The
+first three modes are the original ones.
+</p>
+
+<table class="parameters">
+<tr><th>Mode</th><th>Renders</th><th>Notes</th></tr>
+<tr>
+	<td><tt>SingleLine</tt></td>
+	<td><tt>&lt;input type="text"&gt;</tt></td>
+	<td>The default mode.</td>
+</tr>
+<tr>
+	<td><tt>MultiLine</tt></td>
+	<td><tt>&lt;textarea&gt;</tt></td>
+	<td><tt>Rows</tt> and <tt>Columns</tt> set its size. <tt>Wrap</tt> controls line wrapping.</td>
+</tr>
+<tr>
+	<td><tt>Password</tt></td>
+	<td><tt>&lt;input type="password"&gt;</tt></td>
+	<td>The control discards the value on postback unless <tt>PersistPassword</tt> is true.</td>
+</tr>
+</table>
+
+<h3>HTML5 input modes</h3>
+<com:SinceVersion Version="4.0.0" />
+
+<p class="block-content">
+Thirteen further modes render the HTML5 input types. Each mode writes its own
+<tt>type</tt> attribute. A browser that does not implement a type renders a plain text
+field instead, so the server still receives a string and <tt>Text</tt> still holds it.
+Validation of the value remains the application's job.
+</p>
+
+<table class="parameters">
+<tr><th>Mode</th><th>Renders</th></tr>
+<tr><td><tt>Color</tt></td><td><tt>type="color"</tt></td></tr>
+<tr><td><tt>Date</tt></td><td><tt>type="date"</tt></td></tr>
+<tr><td><tt>Datetime</tt></td><td><tt>type="datetime"</tt></td></tr>
+<tr><td><tt>DatetimeLocal</tt></td><td><tt>type="datetime-local"</tt></td></tr>
+<tr><td><tt>Email</tt></td><td><tt>type="email"</tt></td></tr>
+<tr><td><tt>Month</tt></td><td><tt>type="month"</tt></td></tr>
+<tr><td><tt>Number</tt></td><td><tt>type="number"</tt></td></tr>
+<tr><td><tt>Range</tt></td><td><tt>type="range"</tt></td></tr>
+<tr><td><tt>Search</tt></td><td><tt>type="search"</tt></td></tr>
+<tr><td><tt>Tel</tt></td><td><tt>type="tel"</tt></td></tr>
+<tr><td><tt>Time</tt></td><td><tt>type="time"</tt></td></tr>
+<tr><td><tt>Url</tt></td><td><tt>type="url"</tt></td></tr>
+<tr><td><tt>Week</tt></td><td><tt>type="week"</tt></td></tr>
+</table>
+
+<p class="block-content">
+The HTML standard withdrew the <tt>datetime</tt> type. Browsers render the
+<tt>Datetime</tt> mode as a plain text field. Use <tt>DatetimeLocal</tt> for a date and
+time entry.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TTextBox TextMode="Email" /&gt;
+&lt;com:TTextBox TextMode="Number" /&gt;
+</com:TTextHighlighter>
+
+<h2>Reading the input safely</h2>
+
+<p class="block-content">
+<tt>Text</tt> returns what the user typed. A page that writes that value back into its
+output without escaping it opens a cross-site scripting hole. <tt>SafeText</tt> returns
+the same value with scripting removed. <tt>TTextBox</tt> produces it by running
+<tt>Text</tt> through HTML Purifier.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$this-&gt;Result-&gt;Text = $this-&gt;Input-&gt;SafeText;
+</com:TTextHighlighter>
+
+<h3>Purifier configuration</h3>
+<com:SinceVersion Version="4.0.0" />
+
+<p class="block-content">
+The <tt>Config</tt> property holds an <tt>HTMLPurifier_Config</tt> object that governs
+what <tt>SafeText</tt> keeps. Leaving it unset gives the default configuration, which
+caches its serialized definitions under the application's <tt>runtime/htmlpurifier</tt>
+directory. That directory must be writable by the web server.
+</p>
+
+<h2>Trimming input</h2>
+
+<p class="block-content">
+<tt>AutoTrim</tt> defaults to false. Setting it to true makes the control strip leading
+and trailing whitespace from the posted value before it reaches <tt>Text</tt>. The trim
+happens while the control loads post data, so a validator sees the trimmed value.
+</p>
+
 <com:RunBar PagePath="Controls.Samples.TTextBox.Home" />
 
 </com:TContent>
