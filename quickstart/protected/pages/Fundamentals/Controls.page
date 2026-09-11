@@ -48,4 +48,85 @@ $this->setControlState('Name',$value,$defaultValue);
 where <tt>$this</tt> refers to the control instance, <tt>Name</tt> refers to a key identifying the persistent value, <tt>$defaultValue</tt> is optional. When retrieving values from viewstate or controlstate, if the corresponding key does not exist, the default value will be returned.
 </p>
 
+
+<h2>The Control lifecycle</h2>
+
+<p class="block-content">
+A control does not run on its own. It runs the stages the page runs, because the page
+raises each stage on every control in the tree. A control takes part by overriding the
+method for a stage, such as <tt>onInit</tt>, <tt>onLoad</tt> or <tt>onPreRender</tt>, and
+calling the parent implementation. The order of the stages, and which of them run only on
+a postback, are set out under <a href="?page=Fundamentals.Pages">Pages</a>.
+</p>
+
+<p class="block-content">
+Two stages matter most when writing a control. <tt>onInit</tt> is where the child controls
+exist and where state has not yet been restored, so it is the place to build the tree.
+<tt>onLoad</tt> is where posted data and restored state are available, so it is the place
+to read them.
+</p>
+
+<h2>Creating controls in code</h2>
+
+<p class="block-content">
+A control that builds its own children overrides <tt>createChildControls</tt>. The
+framework calls it once, through <tt>ensureChildControls</tt>, at the point the tree is
+needed. Code never calls <tt>createChildControls</tt> directly, because calling
+<tt>ensureChildControls</tt> is what keeps it from running twice.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function createChildControls()
+{
+    $label = new TLabel();
+    $label-&gt;setID('Caption');
+    $this-&gt;getControls()-&gt;add($label);
+    parent::createChildControls();
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>createChildControls</tt> raises the <tt>dyCreateChildControls</tt> dynamic event, so a
+<a href="?page=Fundamentals.Behaviors">behavior</a> attached to the control can add
+children of its own without the control knowing about it.
+</p>
+
+<p class="block-content">
+A control added to the tree after state has been restored does not get its state back,
+because there is nothing to match it against. Build the tree in the same order on every
+request, and use <tt>Visible</tt> to show or hide parts of it rather than adding and
+removing controls between requests.
+</p>
+
+<h2>Finding a control</h2>
+
+<p class="block-content">
+<tt>findControl</tt> takes an id path and searches within the naming container. The path
+is a sequence of ids joined by dots, so <tt>Repeater1.Item1.Button1</tt> reaches into two
+nested containers. It returns null when nothing matches, and raises a
+<tt>TInvalidDataValueException</tt> when two controls in one container share an id.
+</p>
+
+<h2>Controls that render a wrapper</h2>
+<com:SinceVersion Version="3.1.2" />
+
+<p class="block-content">
+Some controls render an element around themselves rather than a single element. A control
+that does so implements <tt>ISurroundable</tt>, which reports the wrapper's element
+through <tt>SurroundingTag</tt> and its id through <tt>SurroundingTagID</tt>. Client script
+that replaces a whole control addresses <tt>SurroundingTagID</tt>, since
+<tt>ClientID</tt> names the inner element. A check box with a caption is the common
+example, and the active data controls use the same idea to make a region replaceable.
+</p>
+
+<h2>Filtering what a control renders</h2>
+<com:SinceVersion Version="4.3.3" />
+
+<p class="block-content">
+A control can pass its own rendered output through a filter before it reaches the
+response, which changes the markup without changing the control. The
+<a href="?page=Controls.RenderFilters">Render Filters</a> page covers the interface, the
+event and the filter parameter.
+</p>
+
 </com:TContent>

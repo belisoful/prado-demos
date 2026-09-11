@@ -8,7 +8,55 @@ A module is an instance of a class implementing the <tt>IModule</tt> interface. 
 PRADO uses configurations to specify whether to load a module, load what kind of modules, and how to initialize the loaded modules. Developers may replace the core modules with their own implementations via application configuration, or they may write new modules to provide additional functionalities. For example, a module may be developed to provide common database logic for one or several pages. For more details, please see the <a href="?page=Configurations.Overview">configurations</a>.
 </p>
 <p class="block-content">
-There are three core modules that are loaded by default whenever an application runs. They are <a href="#request">request module</a>, <a href="#response">response module</a>, and <a href="#error">error handler module</a>. In addition, <a href="#session">session module</a> is loaded when it is used in the application. PRADO provides default implementation for all these modules. <a href="#custom">Custom modules</a> may be configured or developed to override or supplement these core modules.
+Four modules are always available, whether or not the configuration mentions them:
+the <a href="#request">request</a>, <a href="#response">response</a>,
+<a href="#session">session</a> and <a href="#error">error handler</a> modules. The
+application creates each of them from a default class the first time something asks for
+it. Naming one in the configuration replaces the default with another class, or sets
+properties on it. Every other module exists only because the configuration asks for it.
+</p>
+
+<h2>How a module is built and reached</h2>
+
+<p class="block-content">
+A module class implements <tt>IModule</tt>, which asks for an <tt>ID</tt> and an
+<tt>init</tt> method. <tt>TModule</tt> is the base class that provides both, so a module
+usually extends it and overrides <tt>init</tt>.
+</p>
+
+<p class="block-content">
+Modules are created while the application initializes, before the request is resolved and
+before any service starts. For each one the application creates the instance, sets the
+properties given in the configuration, raises the <tt>dyPreInit</tt> dynamic event on it,
+and then calls <tt>init</tt> with the configuration element. A module that needs other
+modules should therefore do that work in a lifecycle event rather than in <tt>init</tt>,
+because the order in which modules initialize follows the configuration.
+</p>
+
+<table class="parameters">
+<tr><th>Call</th><th>Returns</th></tr>
+<tr>
+	<td><tt>$app-&gt;getModule($id)</tt></td>
+	<td>The module with that id, or null. A module declared as lazy is created and initialized at this point.</td>
+</tr>
+<tr>
+	<td><tt>$app-&gt;getModules()</tt></td>
+	<td>Every loaded module, indexed by id.</td>
+</tr>
+<tr>
+	<td><tt>$app-&gt;getModulesByType($type)</tt></td>
+	<td>Every module of a class or interface, which finds a module without knowing the id the application gave it.</td>
+</tr>
+</table>
+
+<h3>Lazy modules</h3>
+<com:SinceVersion Version="3.2.2" />
+
+<p class="block-content">
+A module declared with <tt>lazy="true"</tt> is registered but not created until something
+asks for it. This keeps a module that only some pages use out of every other request. A
+module that must attach itself to an application lifecycle event cannot be lazy, because
+nothing will have asked for it by the time the event is raised.
 </p>
 
 <a name="request"></a>
@@ -35,16 +83,143 @@ Session module encapsulates the functionalities related with user session handli
 Error handler module is used to capture and process all error conditions in an application. PRADO uses <tt>TErrorHandler</tt> as error handler module. It captures all PHP warnings, notices and exceptions, and displays in an appropriate form to end-users. The error handler module can be accessed via the <tt>ErrorHandler</tt> property of the application instance.
 </p>
 
+<a name="shipped"></a>
+<h2>Modules the release ships</h2>
+
+<p class="block-content">
+The framework ships around forty modules. None of them load unless the configuration asks
+for them, apart from the four above. The version column marks the ones added after the 3.x
+series.
+</p>
+
+<h3>Request and response</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>THttpRequest</tt></td><td>The default request module.</td><td></td></tr>
+<tr><td><tt>THttpResponse</tt></td><td>The default response module.</td><td></td></tr>
+<tr><td><tt>THttpSession</tt></td><td>The default session module.</td><td></td></tr>
+<tr><td><tt>TCacheHttpSession</tt></td><td>Session storage in a cache module rather than in files.</td><td>3.1.1</td></tr>
+<tr><td><tt>TUrlManager</tt></td><td>Builds and parses URLs.</td><td></td></tr>
+<tr><td><tt>TUrlMapping</tt></td><td>Friendly URLs, described under <a href="?page=Configurations.UrlMapping">URL mapping</a>.</td><td></td></tr>
+</table>
+
+<h3>Errors and logging</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TErrorHandler</tt></td><td>The default error handler module.</td><td></td></tr>
+<tr><td><tt>TCallbackErrorHandler</tt></td><td>Reports an error raised during a callback back to the browser.</td><td>3.1</td></tr>
+<tr><td><tt>TLogRouter</tt></td><td>Sends log messages to files, a database, email, the browser console and elsewhere. See <a href="?page=Advanced.Logging">logging</a>.</td><td></td></tr>
+</table>
+
+<h3>Security</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TAuthManager</tt></td><td>Authentication and authorization, described under <a href="?page=Advanced.Auth">authentication</a>.</td><td></td></tr>
+<tr><td><tt>TUserManager</tt></td><td>User accounts held in the configuration.</td><td></td></tr>
+<tr><td><tt>TDbUserManager</tt></td><td>User accounts held in a database.</td><td>3.1.0</td></tr>
+<tr><td><tt>TSecurityManager</tt></td><td>Hashing and encryption of state and cookies.</td><td></td></tr>
+<tr><td><tt>TPermissionsManager</tt></td><td>Role-based access control, described under <a href="?page=Advanced.Permissions">permissions</a>.</td><td>4.2.0</td></tr>
+</table>
+
+<h3>Caching</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TDbCache</tt></td><td>Cache in a database table.</td><td>3.1.0</td></tr>
+<tr><td><tt>TMemCache</tt></td><td>Cache in memcached.</td><td></td></tr>
+<tr><td><tt>TAPCCache</tt></td><td>Cache in the APC store.</td><td></td></tr>
+<tr><td><tt>TRedisCache</tt></td><td>Cache in Redis.</td><td>4.0</td></tr>
+<tr><td><tt>TEtcdCache</tt></td><td>Cache in etcd.</td><td>4.0</td></tr>
+</table>
+
+<h3>Databases</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TDataSourceConfig</tt></td><td>Declares a database connection other modules and pages share.</td><td>3.1</td></tr>
+<tr><td><tt>TActiveRecordConfig</tt></td><td>Configures <a href="?page=Database.ActiveRecord">Active Record</a>.</td><td>3.1</td></tr>
+<tr><td><tt>TSqlMapConfig</tt></td><td>Configures the <a href="?page=Database.SqlMap">SqlMap</a> data mapper.</td><td>3.1</td></tr>
+<tr><td><tt>TDbModule</tt></td><td>The base class for a module of your own that needs a database connection. It takes a <tt>ConnectionID</tt> naming a data source module, or connection properties directly.</td><td>4.3.3</td></tr>
+</table>
+
+<h3>Parameters, behaviors and extensions</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TParameterModule</tt></td><td>Loads application parameters from a file.</td><td></td></tr>
+<tr><td><tt>TDbParameterModule</tt></td><td>Loads and stores parameters in a database, described under <a href="?page=Configurations.Parameters">database parameters</a>.</td><td>4.2.0</td></tr>
+<tr><td><tt>TBehaviorsModule</tt></td><td>Attaches <a href="?page=Fundamentals.Behaviors">behaviors</a> from configuration, described under <a href="?page=Configurations.BehaviorsConfig">behaviors configuration</a>.</td><td>4.2.0</td></tr>
+<tr><td><tt>TPluginModule</tt></td><td>The base class for a Composer-installed extension, described under <a href="?page=Advanced.Plugins">plugins</a>.</td><td>4.2.0</td></tr>
+<tr><td><tt>TDbPluginModule</tt></td><td>The same, for an extension that needs a database.</td><td>4.2.0</td></tr>
+</table>
+
+<h3>Scheduled tasks</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TCronModule</tt></td><td>Runs tasks on a schedule, described under <a href="?page=Advanced.Cron">cron</a>.</td><td>4.2.0</td></tr>
+<tr><td><tt>TDbCronManager</tt></td><td>The database-backed scheduler. It replaces <tt>TDbCronModule</tt>, which is deprecated.</td><td>4.3.3</td></tr>
+</table>
+
+<h3>Internationalization and page service</h3>
+<table class="parameters">
+<tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
+<tr><td><tt>TGlobalization</tt></td><td>Culture, charset and message translation. See <a href="?page=Advanced.I18N">internationalization</a>.</td><td></td></tr>
+<tr><td><tt>TGlobalizationAutoDetect</tt></td><td>The same, choosing the culture from the browser.</td><td></td></tr>
+<tr><td><tt>TAssetManager</tt></td><td>Publishes images, stylesheets and scripts. See <a href="?page=Advanced.Assets">assets</a>.</td><td></td></tr>
+<tr><td><tt>TTemplateManager</tt></td><td>Finds and caches page and control templates.</td><td></td></tr>
+<tr><td><tt>TThemeManager</tt></td><td>Finds themes and skins. See <a href="?page=Advanced.Themes">themes</a>.</td><td></td></tr>
+</table>
+
+<p class="block-content">
+The last three load with <tt>TPageService</tt> rather than with the application, because
+only the page service needs them.
+</p>
+
 <a name="custom"></a>
-<h2>Custom Modules</h2>
+<h2>Writing a module</h2>
+
 <p class="block-content">
-PRADO is released with a few more modules besides the core ones. They include caching modules (<tt>TDbCache</tt> and <tt>TMemCache</tt>), user management module (<tt>TUserManager</tt>), authentication and authorization module (<tt>TAuthManager</tt>), etc.
+A module of your own extends <tt>TModule</tt>, declares the properties the configuration
+will set, and does its work in <tt>init</tt> or in a handler attached to an application
+lifecycle event.
 </p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+class InventoryModule extends \Prado\TModule
+{
+    private $_warehouse = '';
+
+    public function getWarehouse()
+    {
+        return $this-&gt;_warehouse;
+    }
+
+    public function setWarehouse($value)
+    {
+        $this-&gt;_warehouse = $value;
+    }
+
+    public function init($config)
+    {
+        parent::init($config);
+        $this-&gt;getApplication()-&gt;attachEventHandler('onEndRequest', [$this, 'flush']);
+    }
+}
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;module id="inventory" class="Application.modules.InventoryModule" Warehouse="north" /&gt;
+</com:TTextHighlighter>
+
 <p class="block-content">
-When <tt>TPageService</tt> is requested, it also loads modules specific for page service, including asset manager (<tt>TAssetManager</tt>), template manager (<tt>TTemplateManager</tt>), theme/skin manager (<tt>TThemeManager</tt>).
+Pages and controls then reach it by id.
 </p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$inventory = $this-&gt;getApplication()-&gt;getModule('inventory');
+</com:TTextHighlighter>
+
 <p class="block-content">
-Custom modules and core modules are all configurable via <a href="?page=Configurations.Overview">configurations</a>.
+Every module, shipped or written, is configured the same way. See
+<a href="?page=Configurations.AppConfig">application configurations</a> for the syntax,
+and <a href="?page=Advanced.Plugins">plugins</a> for shipping one as a Composer package.
 </p>
 
 </com:TContent>

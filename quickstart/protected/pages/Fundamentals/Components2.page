@@ -36,7 +36,7 @@ The first two ways make use of the fact that <tt>$component->OnClick</tt> refers
 the event handler list <tt>TWeakCallableCollection</tt> for the 'OnClick' event.
 The variable <tt>$callback</tt> contains the definition of the event handler that can
 be either:
-<p>
+</p>
 
 <ul>
 <li>a string referring to a global function name</li>
@@ -318,7 +318,6 @@ class TObjectClassBehavior extends TClassBehavior {
     }
 }
 </com:TTextHighlighter>
-</p>
 <p class="block-content">
 When calling a dynamic event, only the parameters are passed.  The host object
 and the call chain are built into the framework.

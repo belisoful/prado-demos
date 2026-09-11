@@ -14,6 +14,48 @@ http://hostname/index.php?page=Fundamentals.Services
 Developers may implement additional services for their applications. To make a service available, configure it in <a href="?page=Configurations.AppConfig">application configurations</a>.
 </p>
 
+<h2>The services the release ships</h2>
+
+<p class="block-content">
+Five services come with the framework. Only the page service is configured by default, so
+the others have to be declared before a request can reach them.
+</p>
+
+<table class="parameters">
+<tr><th>Service</th><th>Answers</th><th>Added</th></tr>
+<tr>
+	<td><tt>TPageService</tt></td>
+	<td>Requests for pages. Described below.</td>
+	<td></td>
+</tr>
+<tr>
+	<td><tt>TSoapService</tt></td>
+	<td>SOAP requests, exposing PHP classes as web service providers. See <a href="?page=Services.SoapService">SOAP service</a>.</td>
+	<td>3.1</td>
+</tr>
+<tr>
+	<td><tt>TRpcService</tt></td>
+	<td>Remote procedure calls in JSON-RPC or XML-RPC, chosen by the request's content type. See <a href="?page=Services.RpcService">RPC service</a>.</td>
+	<td>3.2</td>
+</tr>
+<tr>
+	<td><tt>TJsonService</tt></td>
+	<td>Requests answered with a JSON document rather than a page.</td>
+	<td>3.1</td>
+</tr>
+<tr>
+	<td><tt>TFeedService</tt></td>
+	<td>Syndication feeds. A feed is a class implementing <tt>IFeedContentProvider</tt>, registered with the service under an id.</td>
+	<td>3.1</td>
+</tr>
+</table>
+
+<p class="block-content">
+The command line is not a service. <tt>TShellApplication</tt> replaces the application
+class rather than the service, because a console run has no request to route. See
+<a href="?page=GettingStarted.CommandLine">the command line</a>.
+</p>
+
 <h2>Page Service</h2>
 <p class="block-content">
 PRADO implements <tt>TPageService</tt> to process users' page requests. Pages are stored under a directory specified by the <tt>BasePath</tt> property of the page service. The property defaults to <tt>Pages</tt> directory under the application base path. You may change this default by configuring the service in the application configuration.

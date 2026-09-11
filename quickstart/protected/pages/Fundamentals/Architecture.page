@@ -12,14 +12,14 @@ When a PRADO application is processing a page request, its static object diagram
 <img src="<%~objectdiagram.gif%>" />
 
 <p class="block-content">
-Once the main <tt>Application</tt> object gets created, it load the <a href="?page=Configurations.AppConfig">application configuration</a>.
+Once the main <tt>Application</tt> object gets created, it loads the <a href="?page=Configurations.AppConfig">application configuration</a>. The stages it then runs through, and the events each stage raises, are set out under <a href="?page=Fundamentals.Applications">Applications</a>.
 The minimal configuration defines a set of basic <a href="?page=Fundamentals.Modules">modules</a> to parse the <tt>Request</tt>, create a proper <tt>Response</tt>, mantain the user <tt>Session</tt>, handle any <tt>Error</tt> and publish the needed <tt>Assets</tt> (images, css, javascript, etc). These helpers module will be available from anywhere inside the application code.
 <br/>
 Additionally, any 3rd-party or <tt>custom module</tt> can be loaded, and external <tt>Parameters</tt> can be loaded from external configurations.
 </p>
 
 <p class="block-content">
-Once the basic infrastructure has been set up, the <tt>Request</tt> module parses the request trying to identify the requested route. Different routes can be handled by different services, but the default route for http requests is the <tt>Page Service</tt>.
+Once the basic infrastructure has been set up, the <tt>Request</tt> module parses the request trying to identify the requested route. Different routes are handled by different <a href="?page=Fundamentals.Services">services</a>: alongside the page service the release ships services for SOAP, remote procedure calls, JSON responses and syndication feeds. The default route for http requests is the <tt>Page Service</tt>.
 <br/>
 The <a href="?page=Configurations.AppConfig">Page Service</a>'s role is to instanciate the requested <tt>Page</tt>, run it, apply any defined <tt>Theme</tt> and grab the result in order to build the <tt>Response</tt>.
 </p>

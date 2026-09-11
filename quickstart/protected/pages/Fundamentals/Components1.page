@@ -101,6 +101,14 @@ which will include the class file if <tt>MyClass</tt> is not defined.
 For more details about defining path aliases, see <a href="?page=Configurations.AppConfig">application configuration</a> section.
 </p>
 
+<p class="block-content">
+The two forms name the same classes. <tt>Prado\Web\UI\WebControls\TButton</tt> is the
+PHP namespace, and <tt>Prado.Web.UI.WebControls.TButton</tt> is the dotted path alias for
+the same class. Prose and PHP code use the PHP namespace. The dotted form remains in
+place for configuration attributes and for the <tt>Application.*</tt> aliases that point
+into an application's own directories, where a path rather than a class is meant.
+</p>
+
 <h2>Component Instantiation</h2>
 <p class="block-content">
 Component instantiation means creating instances of component classes. There are two types of component instantation: static instantiation and dynamic instantiation. The created components are called static components and dynamic components, respectively.
@@ -109,12 +117,29 @@ Component instantiation means creating instances of component classes. There are
 <h3>Dynamic Component Instantiation</h3>
 <p class="block-content">
 Dynamic component instantiation means creating component instances in PHP code. It is the same as the commonly referred object creation in PHP. A component can be dynamically created using one of the following two methods in PHP,
-<com:TTextHighlighter CssClass="source block-content">
-$component = new ComponentClassName;
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$component = new ComponentClassName();
 $component = Prado::createComponent('ComponentType');
 </com:TTextHighlighter>
-where <tt>ComponentType</tt> refers to a class name or a type name in Prado3 namespace format (e.g. <tt>Prado.Web.UI.TControl</tt>). The second approach is introduced to permit the creation of classes using Prado's namespace format and ther automatic configuration of new classes via configuration directives.
+<p class="block-content">
+where <tt>ComponentType</tt> refers to a class name or a type name in Prado3 namespace format (e.g. <tt>Prado.Web.UI.TControl</tt>). The second approach also resolves a path alias, so it loads the class file when the class is not yet defined.
 </p>
+
+<p class="block-content">
+<com:SinceVersion Version="4.2.0" />
+<tt>createComponent</tt> also accepts an array. The <tt>class</tt> entry names the class
+and every other entry sets a property on the new instance, which is how a configuration
+file describes an object that needs more than a constructor argument.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$button = Prado::createComponent([
+    'class' =&gt; \Prado\Web\UI\WebControls\TButton::class,
+    'Text' =&gt; 'Save',
+    'CssClass' =&gt; 'primary',
+]);
+</com:TTextHighlighter>
 
 <h3>Static Component Instantiation</h3>
 <p class="block-content">
