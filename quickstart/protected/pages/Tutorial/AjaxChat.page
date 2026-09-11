@@ -131,6 +131,21 @@ file to import some classes that we shall use later.
   </paths>
 </application>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'application' => ['id' => 'Chat', 'Mode' => 'Debug'],
+  'paths' => [
+    'using' => [
+      'System.Data.*',
+      'System.Data.ActiveRecord.*',
+      'System.Security.*',
+      'System.Web.UI.ActiveControls.*',
+    ],
+  ],
+];
+</com:TTextHighlighter>
 <p class="block-content">
 Next, we add a <tt>chat/protected/pages/config.xml</tt> configuration file to
 secure the <tt>pages</tt> directory.
@@ -148,6 +163,24 @@ secure the <tt>pages</tt> directory.
     <deny users="*" />
   </authorization>
 </configuration>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'modules' => [
+    'users' => ['class' => 'TUserManager'],
+    'auth' => [
+      'class' => 'TAuthManager',
+      'properties' => ['UserManager' => 'users', 'LoginPage' => 'Login'],
+    ],
+  ],
+  'authorization' => [
+    ['action' => 'allow', 'pages' => 'Login', 'users' => '?'],
+    ['action' => 'allow', 'roles' => 'normal'],
+    ['action' => 'deny', 'users' => '*'],
+  ],
+];
 </com:TTextHighlighter>
 <p class="block-content">
 We setup the authentication using the default classes as explained in the
@@ -223,6 +256,31 @@ we import classes from the <tt>App_Code</tt> directory and add an
   </modules>
 </application>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'application' => ['id' => 'Chat', 'Mode' => 'Debug'],
+  'paths' => [
+    'using' => [
+      'Application.App_Code.*',
+      'System.Data.*',
+      'System.Data.ActiveRecord.*',
+      'System.Security.*',
+      'System.Web.UI.ActiveControls.*',
+    ],
+  ],
+  'modules' => [
+    'activerecord' => [
+      'class' => 'TActiveRecordConfig',
+      'properties' => [
+        'EnableCache' => 'true',
+        'Database.ConnectionString' => 'sqlite:protected/App_Code/chat.db',
+      ],
+    ],
+  ],
+];
+</com:TTextHighlighter>
 
 <h2>Custom User Manager class</h2>
 <p class="block-content">To implement a custom user manager module class we just need
@@ -290,6 +348,10 @@ our new custom user manager class. We simply change the <tt>&lt;module&gt;</tt>
 configuration with <tt>id="users"</tt>.</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <module id="users" class="ChatUserManager" />
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'users' => ['class' => 'ChatUserManager'],
 </com:TTextHighlighter>
 
 <h1>Authentication</h1>

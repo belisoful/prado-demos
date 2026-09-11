@@ -114,6 +114,11 @@ Attach the behavior to the <tt>auth</tt> module in the application configuration
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;behavior name="shellLoginAuth" Class="Prado\Shell\TShellLoginBehavior" AttachTo="module:auth" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['name' => 'shellLoginAuth', 'class' => 'Prado\Shell\TShellLoginBehavior',
+ 'attachto' => 'module:auth'],
+</com:TTextHighlighter>
 <p class="block-content">
 With the behavior attached, a command asks for a username and password. The
 <tt>--user</tt> option, aliased <tt>-u</tt>, and the <tt>--password</tt> option, aliased
@@ -239,6 +244,12 @@ To better organize our directories, we create a new directory <tt>protected/data
 <paths>
   <using namespace="Application.database.*" />
 </paths>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'paths' => [
+    'using' => ['Application.database.*'],
+],
 </com:TTextHighlighter>
 
 <p class="block-content">

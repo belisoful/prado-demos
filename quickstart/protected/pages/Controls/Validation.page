@@ -275,7 +275,7 @@ The following example show the use of client-side and server side validator even
 demonstrates conditional validation. Notice that, we need to write code for both the
 server side and client-side. Moreover, on the server side, we need to re-enable the conditional
 validator so that its javascript code are produced no matter what (otherwise, the client-side validator is not available).
-<com:RunBar PagePath="Controls.Samples.TClientSideValidator.Home" />
 </p>
+<com:RunBar PagePath="Controls.Samples.TClientSideValidator.Home" />
 
 </com:TContent>

@@ -210,6 +210,13 @@ class InventoryModule extends \Prado\TModule
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;module id="inventory" class="Application.modules.InventoryModule" Warehouse="north" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'inventory' => [
+    'class' => 'Application.modules.InventoryModule',
+    'properties' => ['Warehouse' => 'north'],
+],
+</com:TTextHighlighter>
 
 <p class="block-content">
 Pages and controls then reach it by id.

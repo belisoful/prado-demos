@@ -182,6 +182,15 @@ database.
 &lt;database ConnectionString="pgsql:host=localhost;dbname=mydb"
           Username="dbuser" Password="dbpass" Charset="UTF-8" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'database' => [
+    'ConnectionString' => 'pgsql:host=localhost;dbname=mydb',
+    'Username' => 'dbuser',
+    'Password' => 'dbpass',
+    'Charset' => 'UTF-8',
+],
+</com:TTextHighlighter>
 
 <h2>Data-store interfaces</h2>
 <com:SinceVersion Version="4.3.3" />

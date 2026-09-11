@@ -33,6 +33,18 @@ Asset publishing is managed by the <tt>Prado\Web\TAssetManager</tt> module. By d
             BaseUrl="images" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'asset' => [
+        'class' => 'Prado\Web\TAssetManager',
+        'properties' => [
+            'BasePath' => 'Web.images',
+            'BaseUrl' => 'images',
+        ],
+    ],
+],
+</com:TTextHighlighter>
 
 <h2>Publishing options</h2>
 <com:SinceVersion Version="4.3.3" />
@@ -54,6 +66,15 @@ of the <tt>TAssetManager</tt> module change how it publishes.
     &lt;module id="asset" class="Prado\Web\TAssetManager"
             AppendTimestamp="true" /&gt;
 &lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'asset' => [
+        'class' => 'Prado\Web\TAssetManager',
+        'properties' => ['AppendTimestamp' => 'true'],
+    ],
+],
 </com:TTextHighlighter>
 <p class="block-content">
 <tt>LinkAssets</tt> publishes a link that shares the source file. Editing the source

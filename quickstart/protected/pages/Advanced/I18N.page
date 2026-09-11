@@ -40,6 +40,12 @@ First you need to include the <tt>System.I18N.*</tt> namespace to your paths.
     <using namespace="System.I18N.*" />
 </paths>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'paths' => [
+    'using' => ['System.I18N.*'],
+],
+</com:TTextHighlighter>
 
 <p class="block-content">Then, if you wish to translate some text in your application, you need to add one translation message data source.</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
@@ -49,6 +55,19 @@ First you need to include the <tt>System.I18N.*</tt> namespace to your paths.
         marker="@@"
         autosave="true" cache="true" />
 </module>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'globalization' => [
+    'class' => 'Prado\I18N\TGlobalization',
+    'translate' => [
+        'type' => 'XLIFF',
+        'source' => 'MyApp.messages',
+        'marker' => '@@',
+        'autosave' => 'true',
+        'cache' => 'true',
+    ],
+],
 </com:TTextHighlighter>
 
 <p class="block-content">Where <tt>source</tt> in <tt>translation</tt> is the dot path to a directory
@@ -102,6 +121,27 @@ Each translation message is wrapped within a <tt>trans-unit</tt> tag, where <tt>
         source="db1" />
 </module>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'db1' => [
+    'class' => 'Prado\Data\TDataSourceConfig',
+    'database' => [
+        'ConnectionString' => 'mysql:host=localhost;dbname=demodb',
+        'Username' => 'demo',
+        'Password' => 'demo',
+    ],
+],
+
+'globalization' => [
+    'class' => 'Prado\I18N\TGlobalization',
+    'translate' => [
+        'type' => 'Database',
+        'autosave' => 'true',
+        'cache' => 'false',
+        'source' => 'db1',
+    ],
+],
+</com:TTextHighlighter>
 
 <p class="block-content">The translation messages will be stored in the <tt>trans_unit</tt> table. Add your translation in the <tt>target</tt> field of that table. You should make sure that you are working on the right catalogue by comparing the message's <tt>cat_id</tt> with that from the catalogue table.</p>
 
@@ -118,6 +158,13 @@ $globalization->Charset= "GB-2312"; //change the charset
 <module id="globalization" class="Prado\I18N\TGlobalizationAutoDetect">
    ...
 </module>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'globalization' => [
+    'class' => 'Prado\I18N\TGlobalizationAutoDetect',
+    // ...
+],
 </com:TTextHighlighter>
 
 <p class="block-content">You may also provide your own globalization class to change how the application culture is set.

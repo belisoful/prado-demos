@@ -166,6 +166,24 @@ We can also specify master in <a href="http://www.pradoframework.net/demos/quick
   </services>
 </application>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'application' => ['id' => 'blog', 'mode' => 'Debug'],
+  // configuration for available services
+  'services' => [
+    'page' => [
+      'class' => 'TPageService',
+      'properties' => ['DefaultPage' => 'Home'],
+      // initial properties set for all pages
+      'pages' => [
+        'properties' => ['MasterClass' => 'Application.layouts.MainLayout'],
+      ],
+    ],
+  ],
+];
+</com:TTextHighlighter>
 
 <p>
 By doing so, we save the trouble of specifying master in every page template. If we decide to use a different master for the pages, we only need to change the application configuration. For this reason, in our blog system we will use this approach to specify master.

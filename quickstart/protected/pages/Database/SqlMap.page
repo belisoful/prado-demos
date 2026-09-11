@@ -107,6 +107,20 @@ $sqlmap = $manager->getSqlMapGateway();
   </module>
 </modules>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'my-sqlmap' => [
+        'class' => 'Prado\Data\SqlMap\TSqlMapConfig',
+        'properties' => ['EnableCache' => 'true', 'ConfigFile' => 'my-sqlmap.xml'],
+        'database' => [
+            'ConnectionString' => 'pgsql:host=localhost;dbname=test',
+            'Username' => 'dbuser',
+            'Password' => 'dbpass',
+        ],
+    ],
+],
+</com:TTextHighlighter>
 
 <p class="block-content">
     The <tt>ConfigFile</tt> attribute should point to a SqlMap configuration file
@@ -163,6 +177,11 @@ class User
 
 <p class="block-content">Next, we need to define a SqlMap XML configuration file, lets name
     the file as <tt>my-sqlmap.xml</tt>
+</p>
+<p class="block-content">
+A SqlMap mapping file is XML in every application. The choice between the XML and the PHP
+form of the <a href="?page=Configurations.AppConfig">application configuration</a> sets how
+the module is declared, and does not change the mapping files the module reads.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8" ?>

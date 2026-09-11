@@ -90,7 +90,7 @@ A page that shows many avatars repeats the same style, size, and rating. A skin 
 values once for every <tt>TGravatar</tt> in a theme.
 </p>
 
-<com:TTextHighlighter Language="xml" CssClass="source block-content">
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TGravatar Size="48" Rating="g" DefaultImageStyle="identicon" /&gt;
 </com:TTextHighlighter>
 

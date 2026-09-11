@@ -48,9 +48,7 @@ requests of its own rather than adding behavior to the page service.
 &lt;/services&gt;
 </com:TTextHighlighter>
 
-<p class="block-content">
-The same configuration in the PHP application configuration style:
-</p>
+<p class="block-content">The same configuration in the PHP format:</p>
 
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 'services' => [

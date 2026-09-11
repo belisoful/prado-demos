@@ -20,6 +20,12 @@ to start using it for its own work.
   &lt;module id="cache" class="Prado\Caching\TDbCache" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'cache' => ['class' => 'Prado\Caching\TDbCache'],
+],
+</com:TTextHighlighter>
 
 <h2>Reading and writing</h2>
 
@@ -117,6 +123,23 @@ given directly. With neither, it creates a SQLite database in the runtime direct
           ConnectionID="db" CacheTableName="pradocache" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'db' => [
+        'class' => 'Prado\Data\TDataSourceConfig',
+        'database' => [
+            'ConnectionString' => 'mysql:host=localhost;dbname=mydb',
+            'Username' => 'dbuser',
+            'Password' => 'dbpass',
+        ],
+    ],
+    'cache' => [
+        'class' => 'Prado\Caching\TDbCache',
+        'properties' => ['ConnectionID' => 'db', 'CacheTableName' => 'pradocache'],
+    ],
+],
+</com:TTextHighlighter>
 
 <h3>TMemCache</h3>
 <p class="block-content">
@@ -125,7 +148,9 @@ lost when it restarts. It needs the <tt>memcached</tt> extension and raises a
 <tt>TConfigurationException</tt> when that is missing. <tt>Host</tt> and <tt>Port</tt> name
 the server, <tt>PersistentID</tt> reuses a connection between requests, and
 <tt>Options</tt> passes client options through. More than one server is declared as
-<tt>&lt;server&gt;</tt> elements inside the module.
+<tt>&lt;server&gt;</tt> elements inside the module. The module reads that list from the XML
+form only, so an application on the PHP form names a single server through <tt>Host</tt>
+and <tt>Port</tt>.
 </p>
 
 <h3>TRedisCache</h3>

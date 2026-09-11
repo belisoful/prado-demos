@@ -23,13 +23,33 @@ To use <tt>TUrlMapping</tt>, one must set the <tt>UrlManager</tt> property of th
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
-		<module id="request" class="THttpRequest" UrlManager="friendly-url" />
+		<module id="request" class="Prado\Web\THttpRequest" UrlManager="friendly-url" />
 		<module id="friendly-url" class="Prado\Web\TUrlMapping">
 				<url ServiceParameter="Posts.ViewPost" pattern="post/{id}/" parameters.id="\d+" />
 				<url ServiceParameter="Posts.ListPost" pattern="archive/{time}/" parameters.time="\d{6}" />
 				<url ServiceParameter="Posts.ListPost" pattern="category/{cat}/" parameters.cat="\d+" />
 		</module>
 </modules>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'request' => [
+        'class' => 'Prado\Web\THttpRequest',
+        'properties' => ['UrlManager' => 'friendly-url'],
+    ],
+    'friendly-url' => [
+        'class' => 'Prado\Web\TUrlMapping',
+        'urls' => [
+            ['properties' => ['ServiceParameter' => 'Posts.ViewPost',
+                              'Pattern' => 'post/{id}/', 'parameters.id' => '\d+']],
+            ['properties' => ['ServiceParameter' => 'Posts.ListPost',
+                              'Pattern' => 'archive/{time}/', 'parameters.time' => '\d{6}']],
+            ['properties' => ['ServiceParameter' => 'Posts.ListPost',
+                              'Pattern' => 'category/{cat}/', 'parameters.cat' => '\d+']],
+        ],
+    ],
+],
 </com:TTextHighlighter>
 
 <p class="block-content">
@@ -72,11 +92,28 @@ For example,
 <url ServiceParameter="ArticleView" pattern="articles/{year}/{month}/{day}"
 	parameters.year="\d{4}" parameters.month="\d{2}" parameters.day="\d+" />
 </com:TTextHighlighter>
-The example is equivalent to the following regular expression (it uses the "named group" feature in regular expressions available in PHP):
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['properties' => ['ServiceParameter' => 'ArticleView',
+                  'Pattern' => 'articles/{year}/{month}/{day}',
+                  'parameters.year' => '\d{4}', 'parameters.month' => '\d{2}',
+                  'parameters.day' => '\d+']],
+</com:TTextHighlighter>
+<p class="block-content">
+The example is equivalent to the following regular expression, which uses the named group
+feature of regular expressions in PHP. The XML form carries the expression as the text of
+the <tt>url</tt> element in a CDATA section. The PHP form has no element text, so it sets
+the same expression through the <tt>RegularExpression</tt> property.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <url ServiceParameter="ArticleView"><![CDATA[
 	#articles/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d+)#u
 ]]></url>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['properties' => ['ServiceParameter' => 'ArticleView',
+                  'RegularExpression' => '#articles/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d+)#u']],
 </com:TTextHighlighter>
 <p class="block-content">
 In the above example, the pattern contains 3 parameters named "<tt>year</tt>",
@@ -88,10 +125,18 @@ as substrings in replacing the placeholders in the <tt>Pattern</tt> string
 to form a complete regular expression string.
 </p>
 
-For simple (not parameterized) regular expressions you can use the <tt>RegularExpression</tt> property:
+<p class="block-content">
+For simple regular expressions that take no parameters, use the
+<tt>RegularExpression</tt> property.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <url ServiceParameter="ArticleView"
 	RegularExpression="/articles\/best-of/u" />
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['properties' => ['ServiceParameter' => 'ArticleView',
+                  'RegularExpression' => '/articles\/best-of/u']],
 </com:TTextHighlighter>
 
 <div class="note"><b class="tip">Note:</b>
@@ -133,6 +178,13 @@ parameters with these patterns if a lot of pages share common parameters.</p>
 <url ServiceParameter="Posts.*" pattern="posts/{*}" />
 <url ServiceParameter="Static.Info.*" pattern="info/{*}" />
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['properties' => ['ServiceParameter' => 'Posts.*', 'Pattern' => 'posts/{*}/{id}',
+                  'parameters.id' => '\d+']],
+['properties' => ['ServiceParameter' => 'Posts.*', 'Pattern' => 'posts/{*}']],
+['properties' => ['ServiceParameter' => 'Static.Info.*', 'Pattern' => 'info/{*}']],
+</com:TTextHighlighter>
 
 <p class="block-content">With these rules, any of the following URLs will be recognized:
 </p>
@@ -153,6 +205,12 @@ in combination with wildcard patterns. In fact, this feature only is available i
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <url ServiceParameter="user.admin.*" pattern="admin/{*}" UrlFormat="Path"/>
 <url ServiceParameter="*" pattern="{*}" UrlFormat="Path" />
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['properties' => ['ServiceParameter' => 'user.admin.*', 'Pattern' => 'admin/{*}',
+                  'UrlFormat' => 'Path']],
+['properties' => ['ServiceParameter' => '*', 'Pattern' => '{*}', 'UrlFormat' => 'Path']],
 </com:TTextHighlighter>
 
 <p class="block-content">Parameters will get appended to the specified patterns as name/value pairs, separated by a "/".
@@ -176,6 +234,13 @@ any method.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <url ServiceParameter="Api.Item" pattern="items/{id}" parameters.id="\d+" Verbs="GET" />
 <url ServiceParameter="Api.SaveItem" pattern="items/{id}" parameters.id="\d+" Verbs="POST,PUT" />
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['properties' => ['ServiceParameter' => 'Api.Item', 'Pattern' => 'items/{id}',
+                  'parameters.id' => '\d+', 'Verbs' => 'GET']],
+['properties' => ['ServiceParameter' => 'Api.SaveItem', 'Pattern' => 'items/{id}',
+                  'parameters.id' => '\d+', 'Verbs' => 'POST,PUT']],
 </com:TTextHighlighter>
 <p class="block-content">
 The two rules share a URL pattern and separate by method. A <tt>GET</tt> request for

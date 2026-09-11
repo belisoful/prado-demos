@@ -15,6 +15,12 @@ To better organize our directories, we create a new directory <tt>protected/data
   <using namespace="Application.database.*" />
 </paths>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'paths' => [
+  'using' => ['Application.database.*'],
+],
+</com:TTextHighlighter>
 
 <p>
 Instead of writing the classes manually, we will use the <a href="https://github.com/pradosoft/prado-wsat">PRADO Web Site Administration Tool</a> to generate the classes for us.
@@ -28,14 +34,22 @@ composer require --dev pradosoft/prado-wsat
 Now we need to modify again our application configuration in the services section like follows:
 </p>
 
- <p class="block-content">
 <com:TTextHighlighter CssClass="source" Language="xml">
 <services> 
     ...
     <service id="wsat" class="System.Wsat.TWsatService" Password="my_secret_password" />
 </services>
 </com:TTextHighlighter>
-</p>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'services' => [
+    // ...
+    'wsat' => [
+      'class' => 'System.Wsat.TWsatService',
+      'properties' => ['Password' => 'my_secret_password'],
+    ],
+],
+</com:TTextHighlighter>
 
 <p class="block-content">
         Then you are ready to go to: http://localhost/yoursite/index.php?wsat=TWsatLogin where you should see

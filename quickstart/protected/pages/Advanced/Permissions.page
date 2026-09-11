@@ -69,20 +69,17 @@ by the <tt>PermissionsFile</tt> property.
   &lt;module id="permissions" class="Prado\Security\Permissions\TPermissionsManager"
           DefaultRoles="Default" SuperRoles="Administrator"&gt;
     &lt;role name="Editor" children="blog_read_posts, blog_update_posts, blog_publish" /&gt;
-    &lt;role name="Default" children="register_user, blog_read_posts, blog_comment"&gt;
-      &lt;permissionrule name="register_user" action="allow" users="?" /&gt;
-      &lt;permissionrule name="blog_update_posts"
-                      class="Prado\Security\Permissions\TUserOwnerRule" Priority="5" /&gt;
-      &lt;permissionrule name="blog_*" action="allow" roles="Editor" /&gt;
-      &lt;permissionrule name="*" action="deny" Priority="1000" /&gt;
-    &lt;/role&gt;
+    &lt;role name="Default" children="register_user, blog_read_posts, blog_comment" /&gt;
+    &lt;permissionrule name="register_user" action="allow" users="?" /&gt;
+    &lt;permissionrule name="blog_update_posts" action="allow"
+                    class="Prado\Security\Permissions\TUserOwnerRule" Priority="5" /&gt;
+    &lt;permissionrule name="blog_*" action="allow" roles="Editor" /&gt;
+    &lt;permissionrule name="*" action="deny" Priority="1000" /&gt;
   &lt;/module&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
-<p class="block-content">
-The same configuration is written in the PHP application configuration style.
-</p>
-<com:TTextHighlighter CssClass="source block-content">
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
 'modules' => [
     'permissions' => [
         'class' => 'Prado\Security\Permissions\TPermissionsManager',
@@ -91,9 +88,10 @@ The same configuration is written in the PHP application configuration style.
             'Editor' => ['blog_read_posts', 'blog_update_posts', 'blog_publish'],
             'Default' => ['register_user', 'blog_read_posts', 'blog_comment'],
         ],
-        'permissionRules' => [
+        'permissionrules' => [
             ['name' => 'register_user', 'action' => 'allow', 'users' => '?'],
-            ['name' => 'blog_update_posts', 'class' => 'Prado\Security\Permissions\TUserOwnerRule', 'priority' => '5'],
+            ['name' => 'blog_update_posts', 'action' => 'allow',
+             'class' => 'Prado\Security\Permissions\TUserOwnerRule', 'priority' => '5'],
             ['name' => 'blog_*', 'action' => 'allow', 'roles' => 'Editor'],
             ['name' => '*', 'action' => 'deny', 'priority' => 1000],
         ],

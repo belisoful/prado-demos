@@ -73,6 +73,12 @@ no <tt>class</tt> attribute, because the class comes from the package's
   &lt;module id="myvendor/myplugin" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'myvendor/myplugin' => [],
+],
+</com:TTextHighlighter>
 
 <h2>The plugin module</h2>
 <p class="block-content">
@@ -144,6 +150,12 @@ The application declares the parameter once, naming the placeholder its layout u
   &lt;parameter id="PluginContentId" value="Main" /&gt;
 &lt;/parameters&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'parameters' => [
+    'PluginContentId' => 'Main',
+],
+</com:TTextHighlighter>
 
 <h3>Error messages</h3>
 
@@ -198,6 +210,22 @@ a single application parameter configures every database extension the same way.
   &lt;/module&gt;
   &lt;module id="myvendor/mydbplugin" ConnectionID="db" /&gt;
 &lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'db' => [
+        'class' => 'Prado\Data\TDataSourceConfig',
+        'database' => [
+            'ConnectionString' => 'mysql:host=localhost;dbname=mydb',
+            'Username' => 'dbuser',
+            'Password' => 'dbpass',
+        ],
+    ],
+    'myvendor/mydbplugin' => [
+        'properties' => ['ConnectionID' => 'db'],
+    ],
+],
 </com:TTextHighlighter>
 
 </com:TContent>

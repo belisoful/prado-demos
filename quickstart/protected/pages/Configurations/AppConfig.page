@@ -5,7 +5,7 @@
 Application configurations are used to specify the global behavior of an application. They include specification of path aliases, namespace usages, module and service configurations, and parameters.
 </p>
 <p class="block-content">
-Configuration for an application is stored in an XML file named <tt>application.xml</tt>, which should be located under the application base path. Its format is shown in the following. Complete specification of application configurations can be found in the <a href="https://github.com/pradosoft/prado/blob/master/docs/specs/application.dtd">DTD</a> and <a href="https://github.com/pradosoft/prado/blob/master/docs/specs/application.xsd">XSD</a> files.
+Configuration for an application is stored in a file named <tt>application.xml</tt>, which should be located under the application base path. The same configuration is written as a PHP array in <tt>application.php</tt>, described under <a href="#phpform">the PHP form</a> below. Both formats are shown throughout this tutorial. Their format is shown in the following. Complete specification of application configurations can be found in the <a href="https://github.com/pradosoft/prado/blob/master/docs/specs/application.dtd">DTD</a> and <a href="https://github.com/pradosoft/prado/blob/master/docs/specs/application.xsd">XSD</a> files.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <application PropertyName="PropertyValue" ...>
@@ -25,6 +25,38 @@ Configuration for an application is stored in an XML file named <tt>application.
   </services>
 </application>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'application' => ['PropertyName' => 'PropertyValue'],
+  'paths' => [
+    'aliases' => ['AliasID' => 'AliasPath'],
+    'using' => ['Namespace'],
+  ],
+  'modules' => [
+    'ModuleID' => [
+      'class' => 'ModuleClass',
+      'properties' => ['PropertyName' => 'PropertyValue'],
+    ],
+  ],
+  'parameters' => [
+    'ParameterID' => [
+      'class' => 'ParameterClass',
+      'properties' => ['PropertyName' => 'PropertyValue'],
+    ],
+  ],
+  'includes' => [
+    ['file' => 'path.to.extconfig', 'when' => 'PHP expression'],
+  ],
+  'services' => [
+    'ServiceID' => [
+      'class' => 'ServiceClass',
+      'properties' => ['PropertyName' => 'PropertyValue'],
+    ],
+  ],
+];
+</com:TTextHighlighter>
 
 <p class="block-content">
 Five elements are recognized inside <tt>&lt;application&gt;</tt>: <tt>&lt;paths&gt;</tt>,
@@ -43,6 +75,10 @@ Five elements are recognized inside <tt>&lt;application&gt;</tt>: <tt>&lt;paths&
 <li>The <tt>&lt;parameters&gt;</tt> element contains a list of application-level parameters that are accessible from anywhere in the application. You may specify component-typed parameters like specifying modules, or you may specify string-typed parameters which take a simpler format as follows,
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <parameter id="ParameterID" value="ParameterValue" />
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'ParameterID' => 'ParameterValue',
 </com:TTextHighlighter>
 Note, if the <tt>value</tt> attribute is not specified, the whole parameter XML node (of type <tt>TXmlElement</tt>) will be returned as the parameter value. In addition, the <tt>Prado\Util\TParameterModule</tt> module provides a way to load parameters from an external XML file. See more details in its API documentation.
 </li>
@@ -73,6 +109,15 @@ By default every module named in the application configuration is created at the
     <module id="ModuleID" class="ModuleClass" lazy="true" PropertyName="PropertyValue" ... />
   </modules>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+  'modules' => [
+    'ModuleID' => [
+      'class' => 'ModuleClass',
+      'properties' => ['lazy' => 'true', 'PropertyName' => 'PropertyValue'],
+    ],
+  ],
+</com:TTextHighlighter>
 
 <p class="block-content">
 A module declared this way is not created until the first time the application is asked
@@ -89,44 +134,29 @@ A module that has to attach itself to an application lifecycle event cannot be l
 because nothing will have asked for it by the time the event is raised.
 </p>
 
-<h2>The PHP form</h2>
+<h2 id="phpform">The PHP form</h2>
 <com:SinceVersion Version="3.2" />
 <p class="block-content">
-The configuration can be a PHP array in a file named <tt>application.php</tt> instead of XML. It carries the same information under the same names, with one difference: the XML <tt>&lt;include&gt;</tt> element becomes an <tt>includes</tt> key holding a list.
+The configuration is a PHP array in a file named <tt>application.php</tt> instead of XML.
+It carries the same information under the same names. An element that repeats in XML, such
+as <tt>&lt;module&gt;</tt> or <tt>&lt;service&gt;</tt>, becomes an array keyed by the
+<tt>id</tt>, and the attributes of that element become its <tt>properties</tt> array. A
+module that nests further elements, such as the log router or the URL manager, reads them
+from a key of its own, which that module's own section names.
 </p>
-
+<p class="block-content">
+The XML <tt>&lt;include&gt;</tt> element becomes an <tt>includes</tt> key holding a list,
+where each entry gives a <tt>file</tt> and an optional <tt>when</tt>. Release 4.3.3 applies
+that key in a <a href="?page=Configurations.PageConfig">page configuration</a> only, so an
+application on the PHP form reaches its external configuration files from a page
+configuration.
+</p>
+<p class="block-content">
+The choice of format is made in the <tt>TApplication</tt> constructor, in the
+<tt>index.php</tt> entry script. It applies to page configurations as well, which are then
+read from <tt>config.php</tt> rather than <tt>config.xml</tt>.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
-<?php
-return [
-  'application' => [
-    'PropertyName' => 'PropertyValue',
-  ],
-  'paths' => [
-    'aliases' => ['AliasID' => 'AliasPath'],
-    'using' => ['Namespace'],
-  ],
-  'modules' => [
-    'ModuleID' => [
-      'class' => 'ModuleClass',
-      'properties' => ['PropertyName' => 'PropertyValue'],
-    ],
-  ],
-  'services' => [
-    'ServiceID' => [
-      'class' => 'ServiceClass',
-      'properties' => ['PropertyName' => 'PropertyValue'],
-    ],
-  ],
-  'parameters' => [
-    'ParameterID' => 'ParameterValue',
-  ],
-  'includes' => ['path.to.extconfig'],
-];
-</com:TTextHighlighter>
-
-The choice of format is made in the <tt>TApplication</tt> constructor, in the <tt>index.php</tt> entry script. It applies to <a href="?page=Configurations.PageConfig">page configurations</a> as well, which are then read from <tt>config.php</tt> rather than <tt>config.xml</tt>:
-
-<com:TTextHighlighter Language="php" CssClass="source block-content php">
 $application = new \Prado\TApplication('protected', false, TApplication::CONFIG_TYPE_PHP);
 $application->run();
 </com:TTextHighlighter>

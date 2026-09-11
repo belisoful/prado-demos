@@ -18,6 +18,19 @@ Before we proceed with the implementation, we would like to point our homepage t
   </service>
 </services>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+// ...
+'services' => [
+  'page' => [
+    'class' => 'TPageService',
+    'properties' => ['DefaultPage' => 'posts.ListPost'],
+    'pages' => [
+      'properties' => ['MasterClass' => 'Application.layouts.MainLayout'],
+    ],
+  ],
+],
+</com:TTextHighlighter>
 
 <p>
 We now create the template and class files for the <tt>ListPost</tt> page: <tt>protected/pages/posts/ListPost.page</tt> and <tt>protected/pages/posts/ListPost.php</tt>.

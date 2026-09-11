@@ -46,6 +46,20 @@ All themes by default must be placed under the <tt>[AppEntryPath]/themes</tt> di
     &lt;/modules&gt;
 &lt;/service&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'services' => [
+    'page' => [
+        'class' => 'Prado\Web\Services\TPageService',
+        'modules' => [
+            'theme' => [
+                'class' => 'Prado\Web\UI\TThemeManager',
+                'properties' => ['BasePath' => 'mythemes', 'BaseUrl' => 'mythemes'],
+            ],
+        ],
+    ],
+],
+</com:TTextHighlighter>
 
 <h2>Creating Themes</h2>
 <p class="block-content">

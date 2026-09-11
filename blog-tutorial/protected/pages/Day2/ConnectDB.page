@@ -34,6 +34,19 @@ We modify our application configuration file <tt>protected/application.xml</tt> 
   <module class="System.Data.ActiveRecord.TActiveRecordConfig" ConnectionID="db" />
 </modules>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+  'db' => [
+    'class' => 'System.Data.TDataSourceConfig',
+    'database' => ['ConnectionString' => 'sqlite:protected/data/blog.db'],
+  ],
+  'activerecord' => [
+    'class' => 'System.Data.ActiveRecord.TActiveRecordConfig',
+    'properties' => ['ConnectionID' => 'db'],
+  ],
+],
+</com:TTextHighlighter>
 
 <p>
 The configuration above shows that we are adding two <a href="http://www.pradoframework.net/demos/quickstart/?page=Fundamentals.Modules">modules</a> to our application. The <tt>TDataSourceConfig</tt> module is configured with the connection string <tt>sqlite:protected/data/blog.db</tt> which points to our SQLite database. This connection is used by the <tt>TActiveRecordConfig</tt> module which is required by Active Record.

@@ -20,6 +20,12 @@ To use <tt>TSoapService</tt>, configure it in the application specification like
 </services>
 </com:TTextHighlighter>
 <p class="block-content">
+This service reads its providers from the XML form only. Release 4.3.3 accepts the PHP form
+at startup and then fails when it builds the server for the first request, so an
+application that serves SOAP providers is configured in XML. The same holds for the
+<a href="?page=Services.RpcService">RPC service</a>.
+</p>
+<p class="block-content">
 The example specifies a SOAP service provider named <tt>stockquote</tt> which implements the <tt>getPrice</tt> SOAP method in the provider class <tt>StockQuote</tt>,
 </p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
@@ -52,7 +58,7 @@ echo $client->getPrice('IBM');
 <p class="block-content">
 Notice the URL used to construct <tt>SoapClient</tt> (a class provided by PHP SOAP extension). This is the URL for the <a href="https://en.wikipedia.org/wiki/WSDL">WSDL</a> that describes the communication protocol for the SOAP service we just implemented. WSDL is often too complex to be manually written. Fortunately, <tt>TSoapService</tt> can generate this for us using a WSDL generator. In general, the URL for the automatically generated WSDL in PRADO has the following format:
 </p>
-<com:TTextHighlighter Language="xml" CssClass="source block-content">
+<com:TTextHighlighter Language="text" CssClass="source block-content">
 http://path/to/index.php?SoapServiceID=SoapProviderID.wsdl
 </com:TTextHighlighter>
 

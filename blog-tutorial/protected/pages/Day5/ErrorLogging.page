@@ -28,6 +28,16 @@ PRADO implicitly loads a <tt>TErrorHandler</tt> module to handle errors. We woul
 </modules>
 ......
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+// ...
+'modules' => [
+    // ...
+    'error' => ['class' => 'Application.BlogErrorHandler'],
+    // ...
+],
+// ...
+</com:TTextHighlighter>
 
 <p>
 The class <tt>BlogErrorHandler</tt> as specified in the above is a new error handler module that we will create next. It extends and replaces the default <tt>TErrorHandler</tt> module.
@@ -134,6 +144,21 @@ In the <tt>handleExternalError()</tt> method of  <tt>BlogErrorHandler</tt>, we i
     ......
 </modules>
 ......
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+// ...
+'modules' => [
+    // ...
+    'log' => [
+      'class' => 'System.Util.TLogRouter',
+      'routes' => [
+        ['class' => 'TFileLogRoute', 'properties' => ['Categories' => 'BlogApplication']],
+      ],
+    ],
+    // ...
+],
+// ...
 </com:TTextHighlighter>
 
 <p>

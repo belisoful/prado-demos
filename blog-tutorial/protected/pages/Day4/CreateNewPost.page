@@ -20,6 +20,17 @@ Because <tt>NewPost</tt> can only be accessed by authenticated users, we add a p
   </authorization>
 </configuration>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'authorization' => [
+    ['action' => 'allow', 'pages' => 'NewPost,EditPost', 'users' => '@'],
+    ['action' => 'allow', 'pages' => 'ListPost,ReadPost'],
+    ['action' => 'deny', 'users' => '*'],
+  ],
+];
+</com:TTextHighlighter>
 
 <com:TipBox>
 It's always a good idea to start with a <tt>deny="*"</tt> catch all rule at the bottom and then step by step grant access to pages with additional rules.

@@ -18,6 +18,14 @@ A PRADO application may be configured to run in different mode. By default, it r
     ......
 </application>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'application' => ['id' => 'blog', 'mode' => 'Normal'],
+  // ...
+];
+</com:TTextHighlighter>
 
 <h2>Enabling Caching</h2>
 
@@ -33,6 +41,16 @@ There are a lot of parsing work involved in a PRADO application: configuration X
     ......
 </modules>
 ......
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+// ...
+'modules' => [
+    // ...
+    'cache' => ['class' => 'System.Caching.TDbCache'],
+    // ...
+],
+// ...
 </com:TTextHighlighter>
 
 <p>

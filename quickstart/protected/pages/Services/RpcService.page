@@ -23,6 +23,11 @@ To use <tt>TRpcService</tt>, configure it in the application specification like 
 </services>
 </com:TTextHighlighter>
 <p class="block-content">
+This service reads its providers from the XML form only. Release 4.3.3 hands the service a
+PHP array when the application uses the PHP form, and the service rejects it, so an
+application that serves RPC providers is configured in XML.
+</p>
+<p class="block-content">
 The example specifies a RPC service provider named <tt>stockquote</tt> which implements the <tt>getPrice</tt> RPC method in the provider class <tt>StockQuote</tt>,
 </p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">

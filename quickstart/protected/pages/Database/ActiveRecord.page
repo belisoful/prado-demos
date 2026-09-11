@@ -252,6 +252,20 @@ class MyDb2Record extends TActiveRecord
   </module>
 </modules>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'activerecord' => [
+        'class' => 'Prado\Data\ActiveRecord\TActiveRecordConfig',
+        'properties' => ['EnableCache' => 'true'],
+        'database' => [
+            'ConnectionString' => 'pgsql:host=localhost;dbname=test',
+            'Username' => 'dbuser',
+            'Password' => 'dbpass',
+        ],
+    ],
+],
+</com:TTextHighlighter>
 <div class="tip"><b class="note">Tip:</b>
     The <tt>EnableCache</tt> attribute when set to "true" will cache the table
     meta data, that is, the table columns names, indexes and constraints are
@@ -277,6 +291,29 @@ class MyDb2Record extends TActiveRecord
   <module class="Prado\Data\SqlMap\TSqlMapConfig"
         ConnectionID="db1"  ... />
 </modules>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'db1' => [
+        'class' => 'Prado\Data\TDataSourceConfig',
+        'database' => [
+            'ConnectionString' => 'pgsql:host=localhost;dbname=test',
+            'Username' => 'dbuser',
+            'Password' => 'dbpass',
+        ],
+    ],
+
+    'activerecord' => [
+        'class' => 'Prado\Data\ActiveRecord\TActiveRecordConfig',
+        'properties' => ['ConnectionID' => 'db1', 'EnableCache' => 'true'],
+    ],
+
+    'sqlmap' => [
+        'class' => 'Prado\Data\SqlMap\TSqlMapConfig',
+        'properties' => ['ConnectionID' => 'db1' /* ... */],
+    ],
+],
 </com:TTextHighlighter>
 </div>
 

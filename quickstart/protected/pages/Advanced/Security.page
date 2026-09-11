@@ -22,6 +22,15 @@ HMAC check requires a private key that should be secret to end users. Developers
         ValidationKey="my private key" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'security' => [
+        'class' => 'Prado\Security\TSecurityManager',
+        'properties' => ['ValidationKey' => 'my private key'],
+    ],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 HMAC check does not prevent end users from reading the viewstate content. An added security measure is to encrypt the viewstate information so that end users cannot decipher it. To enable viewstate encryption, set the <tt>EnableStateEncryption</tt> of pages to true. This can be done in <a href="?page=Configurations.PageConfig">page configurations</a> or in page code. Note, encrypting viewstate may degrade the application performance. A better strategy is to store viewstate on the server side, rather than the default hidden field.
 </p>
@@ -65,6 +74,19 @@ initialization vector and the ciphertext, so tampering is detected on the way ba
         UseEncryptionHmac="true"
         EncryptionKeyAlgorithm="sha256" /&gt;
 &lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'security' => [
+        'class' => 'Prado\Security\TSecurityManager',
+        'properties' => [
+            'ValidationKey' => 'my private key',
+            'UseEncryptionHmac' => 'true',
+            'EncryptionKeyAlgorithm' => 'sha256',
+        ],
+    ],
+],
 </com:TTextHighlighter>
 
 <p class="block-content">
@@ -120,6 +142,15 @@ Cookie validation is disabled by default. To enable it, configure the <tt>THttpR
   <module id="request" class="Prado\Web\THttpRequest" EnableCookieValidation="true" />
 </modules>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'request' => [
+        'class' => 'Prado\Web\THttpRequest',
+        'properties' => ['EnableCookieValidation' => 'true'],
+    ],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 To make use of cookie validation scheme provided by PRADO, you also need to retrieve cookies through the <tt>Cookies</tt> collection of <tt>THttpRequest</tt> by using the following PHP statements,
 </p>
@@ -143,6 +174,15 @@ The HttpOnly setting is disabled by default. To enable it, configure the THttpSe
 &lt;modules&gt;
   &lt;module id="session" class="Prado\Web\THttpSession" Cookie.HttpOnly="true" /&gt;
 &lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'session' => [
+        'class' => 'Prado\Web\THttpSession',
+        'properties' => ['Cookie.HttpOnly' => 'true'],
+    ],
+],
 </com:TTextHighlighter>
 
 <h3>Restricting a cookie to same-site requests</h3>
@@ -175,6 +215,19 @@ send it.
   &lt;module id="session" class="Prado\Web\THttpSession"
           Cookie.HttpOnly="true" Cookie.Secure="true" Cookie.SameSite="Lax" /&gt;
 &lt;/modules&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'session' => [
+        'class' => 'Prado\Web\THttpSession',
+        'properties' => [
+            'Cookie.HttpOnly' => 'true',
+            'Cookie.Secure' => 'true',
+            'Cookie.SameSite' => 'Lax',
+        ],
+    ],
+],
 </com:TTextHighlighter>
 
 <p class="block-content">

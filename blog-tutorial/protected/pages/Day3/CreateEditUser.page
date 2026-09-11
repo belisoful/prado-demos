@@ -28,7 +28,6 @@ As you may have guessed, the page template <tt>EditUser</tt> is largely the same
 <li>The validator for the "password" input is removed. This is because if the user does not provide a password during editting, it means the user does not want to change the password.</li>
 <li>The "role" input is surrounded with <tt>TControl</tt> whose visibility is toggled according to the role of the currently logged-in user. If the user is not an administrator, the "role" input will not be displayed because normal users are not allowed to modify their roles.</li>
 </ul>
-</p>
 
 <com:TTextHighlighter CssClass="source" Language="prado">
 &lt;%@ Title="My Blog - Edit User" %>
@@ -201,6 +200,17 @@ To make the <tt>EditUser</tt> page also accessible by authenticated users (<tt>u
     <deny users="*"/>
   </authorization>
 </configuration>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'authorization' => [
+    ['action' => 'allow', 'roles' => 'admin'],
+    ['action' => 'allow', 'users' => '@', 'pages' => 'EditUser'],
+    ['action' => 'deny', 'users' => '*'],
+  ],
+];
 </com:TTextHighlighter>
 
 

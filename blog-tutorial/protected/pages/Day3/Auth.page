@@ -24,6 +24,25 @@ We add two new modules to the application configuration as follows:
       UserClass="Application.BlogUser" />
 </modules>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    // ...TDataSourceConfig and TActiveRecordConfig modules...
+
+    'auth' => [
+      'class' => 'System.Security.TAuthManager',
+      'properties' => [
+        'UserManager' => 'users',
+        'LoginPage' => 'users.LoginUser',
+      ],
+    ],
+
+    'users' => [
+      'class' => 'System.Security.TDbUserManager',
+      'properties' => ['UserClass' => 'Application.BlogUser'],
+    ],
+],
+</com:TTextHighlighter>
 
 <p>
 The <a href="http://pradosoft.github.io/docs/manual/class-Prado.Security.TAuthManager">TAuthManager</a> module manages the whole authentication and authorization workflow. It uses the <tt>users</tt> module as its user manager (see below). By specifying the <tt>LoginPage</tt> property, we inform the auth manager to redirect user's browser to the <tt>LoginUser</tt> page when an authorization fails. We will describe how to create <tt>LoginUser</tt> in the next subsection.

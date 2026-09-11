@@ -17,6 +17,12 @@ Enabling caching is very easy. Simply add the cache module in the application co
     &lt;module id="cache" class="Prado\Caching\TDbCache" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'cache' => ['class' => 'Prado\Caching\TDbCache'],
+],
+</com:TTextHighlighter>
 
 <p class="block-content">
 Developers can also take advantage of the caching technique in their applications. The <tt>Cache</tt> property of <tt>TApplication</tt> returns the plugged-in cache module when it is available. To save and retrieve a data item in cache, use the following commands,
@@ -58,6 +64,12 @@ To switch application mode, configure it in application configuration:
     ......
 &lt;/application &gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'application' => [
+    'Mode' => 'Performance',
+],
+</com:TTextHighlighter>
 
 <h2>Reducing Page Size</h2>
 <p class="block-content">
@@ -73,6 +85,15 @@ Second, you may use a different page state storage. For example, page state may 
 &lt;pages StatePersisterClass="MyPersister1" ... &gt;
     &lt;page ID="SpecialPage" StatePersisterClass="MyPersister2" ... /&gt;
 &lt;/pages&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'pages' => [
+    'properties' => ['StatePersisterClass' => 'MyPersister1'],
+    'SpecialPage' => [
+        'properties' => ['StatePersisterClass' => 'MyPersister2'],
+    ],
+],
 </com:TTextHighlighter>
 <p class="block-content">
 Note, in the above the <tt>SpecialPage</tt> will use <tt>MyPersister2</tt> as its persister class, while the rest pages will use <tt>MyPersister1</tt>. Therefore, you can have different state persister strategies for different pages.

@@ -84,9 +84,42 @@ messages, and stores every message in a database table.
   &lt;/module&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'log' => [
+        'class' => 'Prado\Util\TLogRouter',
+        'routes' => [
+            [
+                'class' => 'Prado\Util\TFileLogRoute',
+                'properties' => [
+                    'Levels' => 'Warning, Error, Fatal',
+                    'LogFile' => 'app.log',
+                    'MaxFileSize' => '1024',
+                    'MaxLogFiles' => '10',
+                ],
+            ],
+            [
+                'class' => 'Prado\Util\TEmailLogRoute',
+                'properties' => [
+                    'Levels' => 'Fatal',
+                    'Emails' => 'ops@example.com',
+                    'SentFrom' => 'prado@example.com',
+                    'Subject' => 'Fatal error',
+                ],
+            ],
+            [
+                'class' => 'Prado\Util\TDbLogRoute',
+                'properties' => ['ConnectionID' => 'db', 'RetainPeriod' => '604800'],
+            ],
+        ],
+    ],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 An example of each route follows. Each is a <tt>route</tt> element inside the
-<tt>TLogRouter</tt> module.
+<tt>TLogRouter</tt> module, or an entry in the module's <tt>routes</tt> list in the PHP
+format.
 </p>
 <p class="block-content">
 <tt>TFileLogRoute</tt> writes to a file under the runtime directory and rotates it by
@@ -95,6 +128,11 @@ size.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TFileLogRoute" LogFile="app.log" MaxFileSize="1024" MaxLogFiles="10" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TFileLogRoute',
+ 'properties' => ['LogFile' => 'app.log', 'MaxFileSize' => '1024', 'MaxLogFiles' => '10']],
+</com:TTextHighlighter>
 <p class="block-content">
 <tt>TBrowserLogRoute</tt> writes to the browser's debug console and colors the time
 between messages.
@@ -102,12 +140,22 @@ between messages.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TBrowserLogRoute" ColorizeDelta="true" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TBrowserLogRoute',
+ 'properties' => ['ColorizeDelta' => 'true']],
+</com:TTextHighlighter>
 <p class="block-content">
 <tt>TFirebugLogRoute</tt> writes to the Firebug console. It is a subclass of
 <tt>TBrowserLogRoute</tt>.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TFirebugLogRoute" Levels="Warning, Error" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TFirebugLogRoute',
+ 'properties' => ['Levels' => 'Warning, Error']],
 </com:TTextHighlighter>
 <p class="block-content">
 <tt>TDbLogRoute</tt> writes to a database table, creates the table when it is missing,
@@ -117,6 +165,12 @@ and removes rows older than the retain period in seconds.
 &lt;route class="Prado\Util\TDbLogRoute" ConnectionID="db"
        LogTableName="prado_log" AutoCreateLogTable="true" RetainPeriod="604800" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TDbLogRoute',
+ 'properties' => ['ConnectionID' => 'db', 'LogTableName' => 'prado_log',
+                  'AutoCreateLogTable' => 'true', 'RetainPeriod' => '604800']],
+</com:TTextHighlighter>
 <p class="block-content">
 <tt>TEmailLogRoute</tt> emails the messages to one or more addresses.
 </p>
@@ -124,11 +178,22 @@ and removes rows older than the retain period in seconds.
 &lt;route class="Prado\Util\TEmailLogRoute" Levels="Fatal"
        Emails="ops@example.com" SentFrom="prado@example.com" Subject="Fatal error" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TEmailLogRoute',
+ 'properties' => ['Levels' => 'Fatal', 'Emails' => 'ops@example.com',
+                  'SentFrom' => 'prado@example.com', 'Subject' => 'Fatal error']],
+</com:TTextHighlighter>
 <p class="block-content">
 <tt>TFirePhpLogRoute</tt> writes to the FirePHP browser console under a group label.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TFirePhpLogRoute" GroupLabel="PRADO" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TFirePhpLogRoute',
+ 'properties' => ['GroupLabel' => 'PRADO']],
 </com:TTextHighlighter>
 <com:SinceVersion Version="4.3.0" />
 <p class="block-content">
@@ -138,6 +203,11 @@ prefix on each line.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TSysLogRoute" Facility="LOG_LOCAL0" SysLogPrefix="myapp" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TSysLogRoute',
+ 'properties' => ['Facility' => 'LOG_LOCAL0', 'SysLogPrefix' => 'myapp']],
+</com:TTextHighlighter>
 <com:SinceVersion Version="4.3.0" />
 <p class="block-content">
 <tt>TStdOutLogRoute</tt> writes to standard output, and limits itself to the development
@@ -145,6 +215,11 @@ web server when <tt>OnlyDevServer</tt> is set.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TStdOutLogRoute" OnlyDevServer="true" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TStdOutLogRoute',
+ 'properties' => ['OnlyDevServer' => 'true']],
 </com:TTextHighlighter>
 
 <h2>Log levels and categories</h2>
@@ -160,6 +235,11 @@ levels the route sends.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TFileLogRoute" Levels="Warning, Error, Fatal" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TFileLogRoute',
+ 'properties' => ['Levels' => 'Warning, Error, Fatal']],
 </com:TTextHighlighter>
 <p class="block-content">
 Categories are hierarchical. A category is an ancestor of another when its name is a
@@ -177,6 +257,11 @@ by what to leave out instead of what to include.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TBrowserLogRoute" Categories="!Prado\Web\UI\WebControls" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['class' => 'Prado\Util\TBrowserLogRoute',
+ 'properties' => ['Categories' => '!Prado\Web\UI\WebControls']],
 </com:TTextHighlighter>
 
 <h2>Flushing large logs</h2>

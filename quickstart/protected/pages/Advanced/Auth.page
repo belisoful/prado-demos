@@ -36,6 +36,28 @@ To enable PRADO auth framework, add the <tt>TAuthManager</tt> module and <tt>TUs
   &lt;/modules&gt;
 &lt;/service&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'services' => [
+    'page' => [
+        'class' => 'Prado\Web\Services\TPageService',
+        'modules' => [
+            'auth' => [
+                'class' => 'Prado\Security\TAuthManager',
+                'properties' => ['UserManager' => 'users', 'LoginPage' => 'UserLogin'],
+            ],
+            'users' => [
+                'class' => 'Prado\Security\TUserManager',
+                'properties' => ['PasswordMode' => 'Clear'],
+                'users' => [
+                    ['name' => 'demo', 'password' => 'demo'],
+                    ['name' => 'admin', 'password' => 'admin'],
+                ],
+            ],
+        ],
+    ],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 In the above, the <tt>UserManager</tt> property of <tt>TAuthManager</tt> is set to the <tt>users</tt> module which is <tt>TUserManager</tt>. Developers may replace it with a different user management module that is derived from <tt>TUserManager</tt>.
 </p>
@@ -51,6 +73,15 @@ Authorization rules for pages are specified in <a href="?page=Configurations.Pag
               users="?"
               verb="post" /&gt;
 &lt;/authorization&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'authorization' => [
+    ['action' => 'allow', 'pages' => 'PageID1,PageID2',
+     'users' => 'User1,User2', 'roles' => 'Role1'],
+    ['action' => 'deny', 'pages' => 'PageID1,PageID2',
+     'users' => '?', 'verb' => 'post'],
+],
 </com:TTextHighlighter>
 <p class="block-content">
 An authorization rule can be either an <tt>allow</tt> rule or a <tt>deny</tt> rule. Each rule consists of four optional properties:
@@ -112,6 +143,13 @@ so a stored password is a hash and not clear text when the mode is <tt>MD5</tt> 
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;module id="users" class="Prado\Security\TUserManager" PasswordMode="MD5" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'users' => [
+    'class' => 'Prado\Security\TUserManager',
+    'properties' => ['PasswordMode' => 'MD5'],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 The password parameter of <tt>login</tt> and of the user manager's <tt>validateUser</tt>
 method is marked as a sensitive parameter, so PHP hides its value from a stack trace and
@@ -145,6 +183,15 @@ We have seen in the above example that two users are specified in the applicatio
 &lt;user name="demo" password="demo" roles="demo,admin" /&gt;
 &lt;role name="admin" users="demo,demo2" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'users' => [
+    ['name' => 'demo', 'password' => 'demo', 'roles' => 'demo,admin'],
+],
+'roles' => [
+    ['name' => 'admin', 'users' => 'demo,demo2'],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 where the <tt>roles</tt> attribute in <tt>user</tt> element is optional. User roles can be specified in either the <tt>user</tt> element or in a separate <tt>role</tt> element.
 </p>
@@ -167,6 +214,20 @@ To use <tt>TDbUserManager</tt>, configure it in the application configuration li
 <module id="auth"
      class="Prado\Security\TAuthManager"
      UserManager="users" LoginPage="Path.To.LoginPage" />
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'modules' => [
+    'db' => ['class' => 'Prado\Data\TDataSourceConfig', /* ... */],
+    'users' => [
+        'class' => 'Prado\Security\TDbUserManager',
+        'properties' => ['UserClass' => 'Path.To.MyUserClass', 'ConnectionID' => 'db'],
+    ],
+    'auth' => [
+        'class' => 'Prado\Security\TAuthManager',
+        'properties' => ['UserManager' => 'users', 'LoginPage' => 'Path.To.LoginPage'],
+    ],
+],
 </com:TTextHighlighter>
 
 <p class="block-content">

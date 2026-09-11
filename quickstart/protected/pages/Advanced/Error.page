@@ -52,6 +52,13 @@ Developers can customize the presentation of exception messages. By default, all
     class="Prado\Exceptions\TErrorHandler"
     ErrorTemplatePath="Application.ErrorTemplates" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'error' => [
+    'class' => 'Prado\Exceptions\TErrorHandler',
+    'properties' => ['ErrorTemplatePath' => 'Application.ErrorTemplates'],
+],
+</com:TTextHighlighter>
 <p class="block-content">
 <tt>THttpException</tt> uses a set of templates that are differentiated according to different <tt>StatusCode</tt> property value of <tt>THttpException</tt>. <tt>StatusCode</tt> has the same meaning as the status code in HTTP protocol. For example, a status code equal to 404 means the requested URL is not found on the server. The <tt>StatusCode</tt> value is used to select which output template to use. The output template files use the following naming convention:
 </p>

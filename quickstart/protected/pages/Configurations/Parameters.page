@@ -30,11 +30,17 @@ names a <tt>TDataSourceConfig</tt> module. The <tt>TableName</tt>, <tt>KeyField<
           KeyField="param_key" ValueField="param_value" Serializer="php" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
-<p class="block-content">
-The same configuration is written in the PHP application configuration style.
-</p>
-<com:TTextHighlighter CssClass="source block-content">
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
 'modules' => [
+    'db' => [
+        'class' => 'Prado\Data\TDataSourceConfig',
+        'database' => [
+            'ConnectionString' => 'mysql:host=localhost;dbname=mydb',
+            'Username' => 'dbuser',
+            'Password' => 'dbpass',
+        ],
+    ],
     'dbparams' => [
         'class' => 'Prado\Util\TDbParameterModule',
         'properties' => [
@@ -91,6 +97,22 @@ WordPress options table works by naming its columns.
         KeyField="option_name" ValueField="option_value"
         AutoLoadField="autoload" AutoLoadValue="'yes'" AutoLoadValueFalse="'no'"
         Serializer="php" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'dbparams' => [
+    'class' => 'Prado\Util\TDbParameterModule',
+    'properties' => [
+        'ConnectionID' => 'db',
+        'TableName' => 'wp_options',
+        'KeyField' => 'option_name',
+        'ValueField' => 'option_value',
+        'AutoLoadField' => 'autoload',
+        'AutoLoadValue' => "'yes'",
+        'AutoLoadValueFalse' => "'no'",
+        'Serializer' => 'php',
+    ],
+],
 </com:TTextHighlighter>
 
 <h2>Command line</h2>

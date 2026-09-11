@@ -194,6 +194,16 @@ PRADO offers a more systematic way of checking page access permissions. To do so
   </authorization>
 </configuration>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'authorization' => [
+    ['action' => 'allow', 'roles' => 'admin'],
+    ['action' => 'deny', 'users' => '*'],
+  ],
+];
+</com:TTextHighlighter>
 
 <p>
 The page configuration contains authorization rules that apply to the pages under the directory <tt>protected/pages/users</tt>. The above configuration reads that users in the role <tt>admin</tt> can access all pages (see <a href="?page=Day3.Auth">BlogUser.createUser()</a> for why the word "admin"). For now all other users (<tt>users="*"</tt>) are denied acess to pages in this directory - except for the <tt>LoginUser</tt> page which by convention can always be accessed. 

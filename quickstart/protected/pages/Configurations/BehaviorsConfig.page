@@ -32,17 +32,17 @@ properties.
   &lt;/module&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
-<p class="block-content">
-The same configuration is written in the PHP application configuration style.
-</p>
-<com:TTextHighlighter CssClass="source block-content">
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
 'modules' => [
     'behaviors' => [
         'class' => 'Prado\Util\TBehaviorsModule',
         'behaviors' => [
             ['name' => 'pagetheme', 'class' => 'Prado\Util\Behaviors\TParameterizeBehavior',
-             'attachto' => 'page', 'priority' => '10',
+             'attachto' => 'Page', 'priority' => '10',
              'Parameter' => 'ThemeName', 'Property' => 'Theme'],
+            ['name' => 'auditRecords', 'class' => 'Application.behaviors.TAuditBehavior',
+             'attachtoclass' => 'Application.data.TArticleRecord'],
         ],
     ],
 ],
@@ -108,6 +108,12 @@ routed to the property.
           AttachTo="Page" Parameter="ThemeName" Property="Theme"
           DefaultValue="Basic" /&gt;
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+['name' => 'pagetheme', 'class' => 'Prado\Util\Behaviors\TParameterizeBehavior',
+ 'attachto' => 'Page',
+ 'Parameter' => 'ThemeName', 'Property' => 'Theme', 'DefaultValue' => 'Basic'],
+</com:TTextHighlighter>
 <p class="block-content">
 The <tt>Parameter</tt> attribute reads a property of another component when its value
 begins with <tt>prop:</tt>. For example, <tt>Parameter="prop:TSecurityManager.ValidationKey"</tt>
@@ -130,6 +136,23 @@ the per-directory configuration files.
              Priority="10" AttachToClass="Prado\Web\UI\TPage"
              Parameter="ThemeName" Property="Theme" DefaultValue="Basic" /&gt;
 &lt;/parameters&gt;
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'parameters' => [
+    'pagethemeloader' => [
+        'class' => 'Prado\Util\Behaviors\TBehaviorParameterLoader',
+        'properties' => [
+            'BehaviorName' => 'pagetheme',
+            'BehaviorClass' => 'Prado\Util\Behaviors\TParameterizeBehavior',
+            'Priority' => '10',
+            'AttachToClass' => 'Prado\Web\UI\TPage',
+            'Parameter' => 'ThemeName',
+            'Property' => 'Theme',
+            'DefaultValue' => 'Basic',
+        ],
+    ],
+],
 </com:TTextHighlighter>
 
 </com:TContent>

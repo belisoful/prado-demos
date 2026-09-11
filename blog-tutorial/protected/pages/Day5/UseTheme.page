@@ -122,6 +122,23 @@ To use the theme we just created, we modify the application configuration as fol
   </services>
 ......
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+// ...
+'services' => [
+  'page' => [
+    'class' => 'TPageService',
+    'properties' => ['DefaultPage' => 'posts.ListPost'],
+    'pages' => [
+      'properties' => [
+        'MasterClass' => 'Application.layouts.MainLayout',
+        'Theme' => 'Basic',
+      ],
+    ],
+  ],
+],
+// ...
+</com:TTextHighlighter>
 
 <com:InfoBox>
 It is possible to specify different themes for different pages, and this can be done either in application/page configurations or programmatically (note <tt>Theme</tt> a page property). For the latter, it is must be done in <tt>onPreInit()</tt> method of the page because PRADO applies a theme to a page early in the page lifecycle.

@@ -159,6 +159,22 @@ To change the location of the root page directory and change the name of homepag
   </services>
 </application>
 </com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+<?php
+return [
+  'application' => ['id' => 'blog', 'mode' => 'Debug'],
+  'services' => [
+    'page' => [
+      'class' => 'TPageService',
+      'properties' => [
+        'BasePath' => 'path.to.pages',
+        'DefaultPage' => 'NewHome',
+      ],
+    ],
+  ],
+];
+</com:TTextHighlighter>
 
 <p>
 As you learn more about PRADO, you will see that PRADO is such a flexible framework that it allows you to customize nearly every aspect. We will describe more customization techniques as we continue with our tutorial.
