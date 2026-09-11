@@ -7,8 +7,10 @@
 When the text box receives focus, a calendar will pop up and users can
 pick up from it a date that will be automatically entered into the text box.
 The format of the date string displayed in the text box is determined by
-the <tt>DateFormat</tt> property. Valid formats are the combination of the
-following tokens:
+the <tt>DateFormat</tt> property. The pattern is the one
+<a href="?page=Advanced.I18N">TSimpleDateFormatter</a> reads, and the tokens a date picker
+uses are these:
+</p>
 
 <com:TTextHighlighter Language="text" CssClass="source block-content">
 Character      Format Pattern (en-US)

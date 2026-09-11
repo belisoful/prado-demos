@@ -18,12 +18,61 @@ HMAC check requires a private key that should be secret to end users. Developers
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;modules&gt;
     &lt;module id="security"
-        class="TSecurityManager"
+        class="Prado\Security\TSecurityManager"
         ValidationKey="my private key" /&gt;
 &lt;/modules&gt;
 </com:TTextHighlighter>
 <p class="block-content">
 HMAC check does not prevent end users from reading the viewstate content. An added security measure is to encrypt the viewstate information so that end users cannot decipher it. To enable viewstate encryption, set the <tt>EnableStateEncryption</tt> of pages to true. This can be done in <a href="?page=Configurations.PageConfig">page configurations</a> or in page code. Note, encrypting viewstate may degrade the application performance. A better strategy is to store viewstate on the server side, rather than the default hidden field.
+</p>
+
+<h2>Encryption</h2>
+
+<p class="block-content">
+<tt>TSecurityManager</tt> both signs and encrypts. Signing uses <tt>ValidationKey</tt> with
+<tt>HashAlgorithm</tt>, which defaults to <tt>sha256</tt>. Encryption uses
+<tt>EncryptionKey</tt> with <tt>EncryptionAlgorithm</tt>.
+</p>
+
+<h3>Authenticated encryption</h3>
+<com:SinceVersion Version="4.3.3" />
+
+<p class="block-content">
+Encryption on its own hides the content but does not prove it arrived unchanged. Setting
+<tt>UseEncryptionHmac</tt> to true makes the manager prepend a keyed hash over the
+initialization vector and the ciphertext, so tampering is detected on the way back.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th><th>Default</th></tr>
+<tr>
+	<td><tt>UseEncryptionHmac</tt></td>
+	<td>Whether encryption also authenticates what it produces.</td>
+	<td>false</td>
+</tr>
+<tr>
+	<td><tt>EncryptionKeyAlgorithm</tt></td>
+	<td>The hash used to derive the working key from <tt>EncryptionKey</tt>. It accepts any algorithm the manager reports as supported, and rejects the rest with a <tt>TInvalidDataValueException</tt>.</td>
+	<td><tt>md5</tt></td>
+</tr>
+</table>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+    &lt;module id="security"
+        class="Prado\Security\TSecurityManager"
+        ValidationKey="my private key"
+        UseEncryptionHmac="true"
+        EncryptionKeyAlgorithm="sha256" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+Turning <tt>UseEncryptionHmac</tt> on is safe for an application that already has
+encrypted data in circulation. Decryption tries the authenticated form first whatever the
+setting says, so data written before the change still decrypts, and so does data written
+after it if the setting is turned back off. The change can be made and undone without
+invalidating anything.
 </p>
 
 <h2>Cross Site Scripting Prevention</h2>
@@ -68,7 +117,7 @@ Cookie validation is disabled by default. To enable it, configure the <tt>THttpR
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
-  <module id="request" class="THttpRequest" EnableCookieValidation="true" />
+  <module id="request" class="Prado\Web\THttpRequest" EnableCookieValidation="true" />
 </modules>
 </com:TTextHighlighter>
 <p class="block-content">
@@ -91,8 +140,52 @@ To avoid the possibility of identity theft through some variants of XSS attacks,
 The HttpOnly setting is disabled by default. To enable it, configure the THttpSession module as follows,
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
-<modules>
-  <module id="session" class="THttpSession" Cookie.HttpOnly="true" >
-</modules>
+&lt;modules&gt;
+  &lt;module id="session" class="Prado\Web\THttpSession" Cookie.HttpOnly="true" /&gt;
+&lt;/modules&gt;
 </com:TTextHighlighter>
+
+<h3>Restricting a cookie to same-site requests</h3>
+<com:SinceVersion Version="4.1.2" />
+
+<p class="block-content">
+A cookie sent with a request that another site started is what makes cross-site request
+forgery possible. The <tt>SameSite</tt> property of a cookie tells the browser when to
+send it.
+</p>
+
+<table class="parameters">
+<tr><th>Value</th><th>The browser sends the cookie</th></tr>
+<tr>
+	<td><tt>Strict</tt></td>
+	<td>Only for requests that start on the same site. A link followed in from elsewhere arrives without it, so the user appears signed out.</td>
+</tr>
+<tr>
+	<td><tt>Lax</tt></td>
+	<td>For same-site requests, and for top-level navigation arriving from elsewhere. This is the usual choice for a session cookie.</td>
+</tr>
+<tr>
+	<td><tt>None</tt></td>
+	<td>Always. This is the default, and modern browsers require the cookie to be marked secure as well.</td>
+</tr>
+</table>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="session" class="Prado\Web\THttpSession"
+          Cookie.HttpOnly="true" Cookie.Secure="true" Cookie.SameSite="Lax" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The same property is set on a cookie the application creates for itself.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$cookie = new THttpCookie($name, $value);
+$cookie-&gt;SameSite = THttpCookieSameSite::Lax;
+$cookie-&gt;HttpOnly = true;
+$this-&gt;Response-&gt;Cookies[] = $cookie;
+</com:TTextHighlighter>
+
 </com:TContent>

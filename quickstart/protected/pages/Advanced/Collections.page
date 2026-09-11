@@ -111,6 +111,7 @@ The following methods are provided by <tt>TMap</tt> for convenience,
 <p class="block-content">
 <tt>TAttributeCollection</tt> is a special class extending from <tt>TMap</tt>. It is mainly used by the <tt>Attributes</tt> property of <tt>TControl</tt>.
 </p>
+<p class="block-content">
 Besides the normal functionalities provided by <tt>TMap</tt>, <tt>TAttributeCollection</tt> allows you to get and set collection items like getting and setting properties. For example,
 </p>
 <com:TTextHighlighter CssClass="source block-content" id="code6">
@@ -154,8 +155,8 @@ use Prado\Collections\TWeakList;
 $list = new TWeakList();
 $list->add($object);   // stored as a weak reference
 </com:TTextHighlighter>
-<p class="block-content">
 <com:SinceVersion Version="4.3.3" />
+<p class="block-content">
 <tt>TWeakMap</tt> is a key-value map that stores its object values as weak references. The
 keys are held directly. A non-object value, and a <tt>Closure</tt>, are stored directly.
 The <tt>DiscardInvalid</tt> property sets what happens when a value is collected. When it

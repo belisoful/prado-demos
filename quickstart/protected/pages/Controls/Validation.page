@@ -90,7 +90,8 @@ TCompareValidator compares the user input with a constant value specified by <tt
 <li><tt>String</tt> - A string data type.</li>
 <li><tt>Integer</tt> - A 32-bit signed integer data type.</li>
 <li><tt>Float</tt> - A double-precision floating point number data type.</li>
-<li><tt>Date</tt> - A date data type. The date format can be specified by setting <tt>DateFormat</tt> property, which must be recognizable by <tt>TSimpleDateFormatter</tt>. If the property is not set, the GNU date syntax is assumed.</li>
+<li><tt>Date</tt> - A date data type. The date format can be specified by setting <tt>DateFormat</tt> property, which must be recognizable by
+<a href="?page=Advanced.I18N">TSimpleDateFormatter</a>. If the property is not set, the GNU date syntax is assumed.</li>
 </ul>
 <p class="block-content">
 Note, if the input being validated is empty, TEmailAddressValidator will not do validation. Use a TRequiredFieldValidator to ensure the value is not empty.

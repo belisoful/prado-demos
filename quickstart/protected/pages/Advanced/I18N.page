@@ -3,6 +3,12 @@
 <h1>Internationalization (I18N) and Localization (L10N)</h1>
 <p class="block-content">Many web application built with PHP will not have internationalization in mind when it was first written. It may be that it was not intended for use in languages and cultures. Internationalization is an important aspect due to the increase adoption of the Internet in many non-English speaking countries. The process of internationalization and localization will contain difficulties. Below are some general guidelines to internationalize an existing application.</p>
 
+<div class="note"><b class="tip">Note:</b>
+The internationalization components are built on PHP's <tt>intl</tt> extension, which
+supplies the culture data. The extension is required by the framework, so an installation
+without it fails at the Composer step rather than at run time. See
+<a href="?page=GettingStarted.Installation">installing PRADO</a>.</div>
+
 <h2>Separate culture/locale sensitive data</h2>
 
 <p class="block-content">Identify and separate data that varies with culture. The most obvious are text/string/message. Other type of data should also be considered. The following list categorize some examples of culture sensitive data
@@ -37,7 +43,7 @@ First you need to include the <tt>System.I18N.*</tt> namespace to your paths.
 
 <p class="block-content">Then, if you wish to translate some text in your application, you need to add one translation message data source.</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
-<module id="globalization" class="TGlobalization">
+<module id="globalization" class="Prado\I18N\TGlobalization">
     <translation type="XLIFF"
         source="MyApp.messages"
         marker="@@"
@@ -81,14 +87,14 @@ Each translation message is wrapped within a <tt>trans-unit</tt> tag, where <tt>
 <h2>Using a Database for translation</h2>
 
 <com:SinceVersion Version="3.1.3" />
-<p class="block-content">Since version 3.1.3 the messages can also be stored in a database using the connection id from an existing <tt>TDataSourceConfig</tt>. You have to create two tables in your database: <tt>catalogue</tt> and <tt>trans_unit</tt>. The catalogue table needs an entry for each catalogue you want to use. Example schemas for different databases can be found in the framework's <tt>I18N/schema</tt> directory. To configure translation with a database use:</></p>
+<p class="block-content">The messages can also be stored in a database using the connection id from an existing <tt>TDataSourceConfig</tt>. You have to create two tables in your database: <tt>catalogue</tt> and <tt>trans_unit</tt>. The catalogue table needs an entry for each catalogue you want to use. Example schemas for different databases can be found in the framework's <tt>I18N/schema</tt> directory. To configure translation with a database use:</></p>
 
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <module id="db1" class="Prado\Data\TDataSourceConfig">
     <database ConnectionString="mysql:host=localhost;dbname=demodb" Username="demo" Password="demo" />
 </module>
 
-<module id="globalization" class="TGlobalization">
+<module id="globalization" class="Prado\I18N\TGlobalization">
     <translation
         type="Database"
         autosave="true"
@@ -109,7 +115,7 @@ $globalization->Charset= "GB-2312"; //change the charset
 
 <p class="block-content">You also change the way the culture is determined by changing the <tt>class</tt> attribute in the module configuration. For example, to set the culture that depends on the browser settings, you can use the <tt>TGlobalizationAutoDetect</tt> class.</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
-<module id="globalization" class="TGlobalizationAutoDetect">
+<module id="globalization" class="Prado\I18N\TGlobalizationAutoDetect">
    ...
 </module>
 </com:TTextHighlighter>
@@ -188,6 +194,7 @@ The time is {time}.
 &lt;com:TLabel Text="&lt;%[ Hello World! ]%&gt;" /&gt;
 </com:TTextHighlighter>
 
+<a name="TDateFormat"></a>
 <h2>TDateFormat</h2>
 <p class="block-content">Formatting localized date and time is straight forward.</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
@@ -276,6 +283,113 @@ Format Pattern                         Result
 </com:TTextHighlighter>
 
 <p class="block-content">If the <tt>Value</tt> property is not specified, the current date and time is used.</p>
+
+<h2>TSimpleDateFormatter</h2>
+
+<p class="block-content">
+<tt>TSimpleDateFormatter</tt> formats and parses dates from PHP code, using the pattern
+language of Java's <tt>SimpleDateFormat</tt>. It is a different thing from
+<a href="#TDateFormat">TDateFormat</a>: that control renders a value into a page using the
+culture's own conventions, while this class works both ways and is driven by a pattern you
+write. It is the pattern language behind the <tt>DateFormat</tt> property of
+<a href="?page=Controls.DatePicker">TDatePicker</a> and of the date check in
+<a href="?page=Controls.Validation">TDataTypeValidator</a>.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Util\TSimpleDateFormatter;
+
+$formatter = new TSimpleDateFormatter('dd/MM/yyyy');
+echo $formatter-&gt;format($timestamp);        // '24/06/2005'
+
+$formatter = new TSimpleDateFormatter('d-M-yyyy');
+echo $formatter-&gt;parse('24-6-2005');        // a timestamp
+</com:TTextHighlighter>
+
+<h3>Pattern letters</h3>
+
+<p class="block-content">
+A letter repeated more times generally means a longer or zero-padded form.
+</p>
+
+<com:TTextHighlighter Language="text" CssClass="source block-content">
+ Pattern   Meaning                                  Example
+ -------   --------------------------------------   ---------------
+ d / dd    day of month, plain or zero padded       7 / 07
+ M / MM    month number, plain or zero padded       4 / 04
+ MMM       abbreviated month name                   Apr
+ MMMM      full month name                          April
+ y         year, two or four digits
+ yy        two digit year                           05
+ yyyy      four digit year                          2005
+ E         abbreviated day name                     Tue
+ EEEE      full day name                            Tuesday
+ D         day in the year                          189
+ F         day of the week within the month         2
+ w / W     week in the year / week in the month
+ H / HH    hour 0-23, plain or zero padded          9 / 09
+ k / kk    hour 1-24, plain or zero padded
+ h / hh    hour 1-12, plain or zero padded
+ K / KK    hour 0-11, plain or zero padded
+ m / mm    minute, plain or zero padded             5 / 05
+ s / ss    second, plain or zero padded             5 / 05
+ S .. SSSSSS  fractional second, 1 to 6 digits
+ a         AM or PM marker
+</com:TTextHighlighter>
+
+<p class="block-content">
+Month and day names come from the culture, which the third constructor argument sets.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$formatter = new TSimpleDateFormatter('MMMM d, yyyy', 'UTF-8', 'de_DE');
+echo $formatter-&gt;format($timestamp);        // 'März 5, 2026'
+</com:TTextHighlighter>
+
+<h3>Literal text</h3>
+
+<p class="block-content">
+Every ASCII letter is reserved as a pattern letter, so text that should appear as written
+is wrapped in single quotes. Two single quotes produce one literal quote.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$formatter = new TSimpleDateFormatter("yyyy 'Year' MM 'Month' dd");
+echo $formatter-&gt;format($timestamp);        // '2026 Year 04 Month 17'
+</com:TTextHighlighter>
+
+<h3>Parsing</h3>
+
+<table class="parameters">
+<tr><th>Input</th><th>Result</th></tr>
+<tr>
+	<td>A date matching the pattern</td>
+	<td>A timestamp.</td>
+</tr>
+<tr>
+	<td>A date that does not exist, such as 30 February</td>
+	<td><tt>null</tt>. Check for it rather than assuming a number.</td>
+</tr>
+<tr>
+	<td>A two digit year</td>
+	<td>00 to 70 becomes 2000 to 2070, and 71 to 99 becomes 1971 to 1999.</td>
+</tr>
+<tr>
+	<td>A pattern missing some components</td>
+	<td>The missing parts default to the current date and time, unless the constructor is told otherwise.</td>
+</tr>
+<tr>
+	<td>A timestamp, or a <tt>DateTimeInterface</tt> object</td>
+	<td>Returned unchanged.</td>
+</tr>
+</table>
+
+<p class="block-content">
+<tt>parseExact</tt> parses without the defaulting, and <tt>isValidDate</tt> answers whether
+a string matches the pattern. <tt>getDayMonthYearOrdering</tt> reports the order the pattern
+puts the three parts in, which a form uses to lay out three inputs in the order the reader
+expects.
+</p>
 
 <h2>TNumberFormat</h2>
 <p class="block-content">PRADO's Internationalization framework provide localized currency formatting and number formatting. Please note that the <tt>TNumberFormat</tt> component provides formatting only, it does not perform current conversion or exchange.</p>
@@ -439,6 +553,34 @@ $culture->getCountries()['AU'];    // 'Australia'
 $culture->getLanguages()['fr'];    // 'French'
 $culture->getCurrencies()['EUR'];  // ['€', 'Euro']
 </com:TTextHighlighter>
+
+<h3>Units</h3>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+A culture also carries the localized names of measurement units, taken from ICU.
+<tt>getUnits</tt> returns them grouped by kind, such as length, duration and digital
+storage. <tt>formatUnit</tt> formats a number together with a unit, in the culture's own
+words and number format.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\I18N\core\CultureInfo;
+
+CultureInfo::getCultureInfo('en_US')-&gt;formatUnit(2.5, 'length-kilometer');  // '2.5 kilometers'
+CultureInfo::getCultureInfo('fr_FR')-&gt;formatUnit(2.5, 'length-kilometer');  // '2,5 kilomètres'
+CultureInfo::getCultureInfo('de_DE')-&gt;formatUnit(5, 'duration-hour');       // '5 Stunden'
+</com:TTextHighlighter>
+<p class="block-content">
+A unit is named by its ICU identifier, which is a kind and a unit joined by a hyphen, such
+as <tt>digital-gigabyte</tt> or <tt>duration-hour</tt>. <tt>getUnit</tt> returns the unit's
+name on its own, and <tt>formatPerUnit</tt> formats a rate.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$culture = CultureInfo::getCultureInfo('en_US');
+
+$culture-&gt;getUnit('duration-hour');              // 'hours'
+$culture-&gt;formatPerUnit(12, 'length-kilometer'); // '12 per kilometer'
+</com:TTextHighlighter>
+
 
 <h2>TDataSize</h2>
 <com:SinceVersion Version="4.2.0" />

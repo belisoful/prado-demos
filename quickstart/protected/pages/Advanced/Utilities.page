@@ -34,6 +34,132 @@ use Prado\TPropertyValue;
 TPropertyValue::ensureHexColor('RebeccaPurple');   // '#663399'
 TPropertyValue::ensureHexColor('SteelBlue');       // '#4682B4'
 </com:TTextHighlighter>
+<p class="block-content">
+<tt>TWebColors</tt>, with the plural name, is the same list under an older name. It is a
+deprecated stub that will be removed, so new code uses <tt>TWebColor</tt>.
+</p>
+
+<h2>Rational numbers</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TRational</tt> holds a number as one integer divided by another, which is how EXIF and
+TIFF record values such as an exposure time or a GPS coordinate. <tt>TURational</tt> is the
+unsigned form. Reading such a value as a float loses the pair the file actually stored, and
+these classes keep it.
+</p>
+<p class="block-content">
+A value is set from a string in <tt>numerator/denominator</tt> form, from an array of the
+two integers, or from a float. A float is converted with a continued fraction to a stated
+tolerance, so the pair is the closest one within that tolerance rather than an arbitrary
+rounding.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Util\Math\TRational;
+
+$shutter = new TRational('1/250');
+echo $shutter-&gt;getValue();        // 0.004
+echo $shutter-&gt;getNumerator();    // 1
+echo $shutter-&gt;getDenominator();  // 250
+echo $shutter;                    // '1/250'
+
+$approx = new TRational(0.375);
+echo $approx;                     // '3/8'
+</com:TTextHighlighter>
+<p class="block-content">
+These classes do not extend <tt>TComponent</tt>, so they have no property syntax. Call the
+getters rather than reading <tt>Value</tt> or <tt>Numerator</tt> as properties.
+</p>
+<p class="block-content">
+The numerator and the denominator are also reachable by index, at <tt>[0]</tt> and
+<tt>[1]</tt> or by the names <tt>numerator</tt> and <tt>denominator</tt>. Infinity is held
+as <tt>-1/0</tt>, and a value that is not a number has a zero denominator, so neither case
+raises a division error.
+</p>
+
+<h2>Extracting tar archives</h2>
+<com:SinceVersion Version="4.3.3" />
+<p class="block-content">
+<tt>TTarFileExtractor</tt> reads a tar archive, including one compressed with gzip, bzip2
+or xz, and writes it into a destination directory.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\IO\TTarFileExtractor;
+
+$extractor = new TTarFileExtractor('/path/to/archive.tar.gz');
+$extractor-&gt;extract('/destination/directory');
+</com:TTextHighlighter>
+<p class="block-content">
+The archive path may also be an HTTP or HTTPS URL, which the extractor downloads first.
+<tt>UrlTimeout</tt> sets how long it waits.
+</p>
+
+<h3>Treating the archive as untrusted</h3>
+
+<p class="block-content">
+An archive can name entries that write outside the directory you gave it, or links that
+point outside it. <tt>Strict</tt> decides what happens then, and it defaults to true.
+</p>
+
+<table class="parameters">
+<tr><th><tt>Strict</tt></th><th>On a security violation</th></tr>
+<tr>
+	<td>true</td>
+	<td>Extraction stops and throws. Nothing further is written.</td>
+</tr>
+<tr>
+	<td>false</td>
+	<td>The offending entry is skipped and the rest is extracted. <tt>getSkippedFiles()</tt> lists what was passed over, and <tt>hasSkippedFiles()</tt> answers whether anything was.</td>
+</tr>
+</table>
+
+<h3>Existing files</h3>
+
+<p class="block-content">
+<tt>ConflictMode</tt> decides what an entry does when a file of that name already exists.
+It defaults to overwriting.
+</p>
+
+<table class="parameters">
+<tr><th>Mode</th><th>Effect</th></tr>
+<tr><td><tt>CONFLICT_OVERWRITE</tt></td><td>Replace the existing file. This is the default.</td></tr>
+<tr><td><tt>CONFLICT_SKIP</tt></td><td>Keep the existing file and record the entry as skipped.</td></tr>
+<tr><td><tt>CONFLICT_ERROR</tt></td><td>Stop and throw.</td></tr>
+<tr><td><tt>CONFLICT_NEWER</tt></td><td>Replace only when the archived entry is newer.</td></tr>
+<tr><td><tt>CONFLICT_OLDER</tt></td><td>Replace only when the archived entry is older.</td></tr>
+<tr><td>a callable</td><td>Decide per entry. Returning an empty result skips the entry, and a type error inside the callable skips it as well.</td></tr>
+</table>
+
+<h3>All or nothing</h3>
+
+<p class="block-content">
+<tt>Atomic</tt> defaults to false, so a failure part way through leaves whatever was
+already written in place. Setting it to true stages the files in a private temporary
+directory and merges them into the destination at the end, backing up anything it
+overwrites so the destination can be restored if the merge fails. The guarantee costs
+extra disk space and a second pass over the data.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$extractor = new TTarFileExtractor('/path/to/archive.tar.gz');
+$extractor-&gt;setAtomic(true)
+          -&gt;setConflictMode(TTarFileExtractor::CONFLICT_NEWER);
+$extractor-&gt;extract('/destination/directory');
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>DirModeOverride</tt> and <tt>FileModeOverride</tt> force permissions on everything
+written, in place of the modes the archive carries.
+</p>
+
+<h3>Inspecting before extracting</h3>
+
+<p class="block-content">
+<tt>getManifest()</tt> reads the archive without writing anything. Each entry reports its
+path, size, modification time, mode and type. An entry that would not be extracted carries
+a <tt>reason</tt>, and one rejected on security grounds carries a <tt>security</tt> key
+naming the violation, such as an attempt to escape the destination. That key is what
+separates a security rejection from an ordinary file conflict.
+</p>
 
 <h2>Processes and signals</h2>
 <com:SinceVersion Version="4.3.0" />

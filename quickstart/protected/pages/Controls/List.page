@@ -60,8 +60,9 @@ $listbox->dataBind();
 <p class="block-content">
 <tt>TDropDownList</tt> displays a dropdown list box that allows users to select a single option from a few prespecified ones.
 </p>
+<com:SinceVersion Version="3.1.1" />
 <p class="block-content">
-Since v3.1.1, <tt>TDropDownList</tt> starts to support prompt text (something like 'Please select:' as the first list item). To use this feature, set either <tt>PromptText</tt> or <tt>PromptValue</tt>, or both. If the user chooses the prompt item, the dropdown list will be unselected.
+<tt>TDropDownList</tt> supports prompt text, something like 'Please select:' as the first list item. To use this feature, set either <tt>PromptText</tt> or <tt>PromptValue</tt>, or both. If the user chooses the prompt item, the dropdown list will be unselected.
 </p>
 <com:RunBar PagePath="Controls.Samples.TDropDownList.Home" />
 

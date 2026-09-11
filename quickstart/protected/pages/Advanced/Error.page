@@ -49,7 +49,7 @@ Developers can customize the presentation of exception messages. By default, all
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;module id="error"
-    class="TErrorHandler"
+    class="Prado\Exceptions\TErrorHandler"
     ErrorTemplatePath="Application.ErrorTemplates" /&gt;
 </com:TTextHighlighter>
 <p class="block-content">

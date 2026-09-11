@@ -24,7 +24,7 @@ During <tt>Authorization</tt> application lifecycle, which occurs after <tt>Auth
 To enable PRADO auth framework, add the <tt>TAuthManager</tt> module and <tt>TUserManager</tt> module to <a href="?page=Configurations.AppConfig">application configuration</a>,
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content" id="code1">
-&lt;service id="page" class="TPageService"&gt;
+&lt;service id="page" class="Prado\Web\Services\TPageService"&gt;
   &lt;modules&gt;
     &lt;module id="auth" class="Prado\Security\TAuthManager"
                UserManager="users" LoginPage="UserLogin" /&gt;
@@ -57,7 +57,7 @@ An authorization rule can be either an <tt>allow</tt> rule or a <tt>deny</tt> ru
 </p>
 <ul id="u1" class="block-content">
 <li><tt>pages</tt> - list of comma-separated page names that this rule applies to. If empty, not set or wildcard '*', this rule will apply to all pages under the current directory and all its subdirectories recursively.</li>
-<li><tt>users</tt> - list of comma-separated user names that this rule applies to. If empty, not set or wildcard '*', this rule will apply to all users including anonymous/guest user. A character ? refers to anonymous/guest user. And a character @ refers to authenticated users (available since v3.1).</li>
+<li><tt>users</tt> - list of comma-separated user names that this rule applies to. If empty, not set or wildcard '*', this rule will apply to all users including anonymous/guest user. A character ? refers to anonymous/guest user. And a character @ refers to authenticated users.</li>
 <li><tt>roles</tt> - list of comma-separated user roles that this rule applies to. If empty, not set or wildcard '*', this rule will apply to all user roles.</li>
 <li><tt>verb</tt> - page access method that this rule applies to. It can be either <tt>get</tt> or <tt>post</tt>. If empty, not set or wildcard '*', the rule will apply to both methods.</li>
 </ul>
@@ -76,11 +76,12 @@ In the above example, anonymous users will be denied from posting to <tt>PageID1
 </p>
 <com:SinceVersion Version="3.1.1" />
 <p class="block-content">
-Since version 3.1.1, the <tt>pages</tt> attribute in the authorization rules can take relative page paths with wildcard '*'. For example, <tt>pages="admin.Home"</tt> refers to the <tt>Home</tt> page under the <tt>admin</tt> directory, and <tt>pages="admin.*"</tt> would refer to all pages under the <tt>admin</tt> directory and subdirectories.
+The <tt>pages</tt> attribute in the authorization rules can take relative page paths with wildcard '*'. For example, <tt>pages="admin.Home"</tt> refers to the <tt>Home</tt> page under the <tt>admin</tt> directory, and <tt>pages="admin.*"</tt> would refer to all pages under the <tt>admin</tt> directory and subdirectories.
 </p>
 
+<com:SinceVersion Version="3.1.1" />
 <p class="block-content">
-Also introduced in version 3.1.1 are IP rules. They are specified by a new attribute <tt>ips</tt> in authorization rules. The IP rules are used to determine if an authorization rule aplies to an end-user according to his IP address. One can list a few IPs together, separated by comma ','. Wildcard '*' can be used in the rules. For example, <tt>ips="192.168.0.2, 192.168.1.*"</tt> means the rule applies to users whose IP address is 192.168.0.2 or 192.168.1.*. The latter matches any host in the subnet 192.168.1. If the attribute 'ips' is empty, not set or wildcard '*', the corresponding rule will apply to requests coming from any host address.
+IP rules are specified by the <tt>ips</tt> attribute in authorization rules. The IP rules are used to determine if an authorization rule aplies to an end-user according to his IP address. One can list a few IPs together, separated by comma ','. Wildcard '*' can be used in the rules. For example, <tt>ips="192.168.0.2, 192.168.1.*"</tt> means the rule applies to users whose IP address is 192.168.0.2 or 192.168.1.*. The latter matches any host in the subnet 192.168.1. If the attribute 'ips' is empty, not set or wildcard '*', the corresponding rule will apply to requests coming from any host address.
 </p>
 
 <h2>Users and passwords</h2>
@@ -149,8 +150,9 @@ where the <tt>roles</tt> attribute in <tt>user</tt> element is optional. User ro
 </p>
 
 <h2>Using <tt>TDbUserManager</tt></h2>
+<com:SinceVersion Version="3.1.0" />
 <p class="block-content">
-<tt>TDbUserManager</tt> is introduced in v3.1.0. Its main purpose is to simplify the task of managing user accounts that are stored in a database. It requires developers to write a user class that represents the necessary information for a user account. The user class must extend from <tt>TDbUser</tt>.
+<tt>TDbUserManager</tt> simplifies managing user accounts that are stored in a database. It requires developers to write a user class that represents the necessary information for a user account. The user class must extend from <tt>TDbUser</tt>.
 </p>
 <p class="block-content">
 To use <tt>TDbUserManager</tt>, configure it in the application configuration like following:
@@ -167,7 +169,6 @@ To use <tt>TDbUserManager</tt>, configure it in the application configuration li
      UserManager="users" LoginPage="Path.To.LoginPage" />
 </com:TTextHighlighter>
 
-</p>
 <p class="block-content">
 In the above, <tt>UserClass</tt> specifies what class will be used to create user instance. The class must extend from <tt>TDbUser</tt>. <tt>ConnectionID</tt> refers to the ID of a <tt>TDataSourceConfig</tt> module which specifies how to establish database connection to retrieve user information.
 </p>
@@ -176,7 +177,7 @@ The user class has to implement the two abstract methods in <tt>TDbUser</tt>: <t
 </p>
 <com:SinceVersion Version="3.1.1" />
 <p class="block-content">
-Since 3.1.1, <tt>TAuthManager</tt> provides support to allow remembering login by setting <tt>AllowAutoLogin</tt> to true. Accordingly, <tt>TDbUser</tt> adds two methods to facilitate the implementation of this feature. In particular, two new methods are introduced: <tt>createUserFromCookie()</tt> and <tt>saveUserToCookie()</tt>. Developers should implement these two methods if remembering login is needed. Below is a sample implementation:
+<tt>TAuthManager</tt> supports remembering a login, by setting <tt>AllowAutoLogin</tt> to true. Accordingly, <tt>TDbUser</tt> adds two methods to facilitate the implementation of this feature. In particular, two new methods are introduced: <tt>createUserFromCookie()</tt> and <tt>saveUserToCookie()</tt>. Developers should implement these two methods if remembering login is needed. Below is a sample implementation:
 </p>
 <com:TTextHighlighter Language="php" CssClass="source block-content" id="code5">
 public function createUserFromCookie($cookie)

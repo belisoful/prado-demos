@@ -14,8 +14,8 @@ an application adds its own.
 <com:TTextHighlighter CssClass="source block-content">
 Prado::log('Order saved', TLogger::INFO, 'app.orders');
 </com:TTextHighlighter>
-<p class="block-content">
 <com:SinceVersion Version="4.3.0" />
+<p class="block-content">
 Each log level also has a method that records a message at that level. When the category
 is omitted, PRADO uses the name of the calling class.
 </p>
@@ -130,16 +130,18 @@ and removes rows older than the retain period in seconds.
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TFirePhpLogRoute" GroupLabel="PRADO" /&gt;
 </com:TTextHighlighter>
+<com:SinceVersion Version="4.3.0" />
 <p class="block-content">
 <tt>TSysLogRoute</tt> writes to the operating system's log under a facility, with a
-prefix on each line. <com:SinceVersion Version="4.3.0" />
+prefix on each line.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TSysLogRoute" Facility="LOG_LOCAL0" SysLogPrefix="myapp" /&gt;
 </com:TTextHighlighter>
+<com:SinceVersion Version="4.3.0" />
 <p class="block-content">
 <tt>TStdOutLogRoute</tt> writes to standard output, and limits itself to the development
-web server when <tt>OnlyDevServer</tt> is set. <com:SinceVersion Version="4.3.0" />
+web server when <tt>OnlyDevServer</tt> is set.
 </p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 &lt;route class="Prado\Util\TStdOutLogRoute" OnlyDevServer="true" /&gt;
@@ -167,8 +169,8 @@ that category and of its descendant categories. The core framework categorizes a
 by the namespace of the class that logs it, so a message logged in <tt>TPage</tt> has the
 category <tt>Prado\Web\UI\TPage</tt>.
 </p>
-<p class="block-content">
 <com:SinceVersion Version="4.3.0" />
+<p class="block-content">
 A category in the <tt>Categories</tt> property is excluded when it begins with <tt>!</tt>
 or <tt>~</tt>. The route then sends every category except that one, so the filter is set
 by what to leave out instead of what to include.
@@ -190,7 +192,10 @@ free the memory, and the process continues.
 <p class="block-content">
 <tt>TDbLogRoute</tt> writes the messages to a database table, which a
 <tt>ConnectionID</tt> names.
+</p>
+
 <com:SinceVersion Version="4.3.0" />
+<p class="block-content">
 The <tt>RetainPeriod</tt> property removes log rows that are older than a number of
 seconds, so the table does not grow without bound. The route reads and deletes the
 stored logs by level, category, and time.
