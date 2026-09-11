@@ -4,7 +4,55 @@
 PRADO uses configurations to glue together components into pages and applications. There are <a href="?page=Configurations.AppConfig">application configurations</a>, <a href="?page=Configurations.PageConfig">page configurations</a>, and <a href="?page=Configurations.Templates1">templates</a>.
 </p>
 <p class="block-content">
-Application and page configurations are optional if default values are used. Templates are mainly used by pages and template controls. They are optional, too.
+All three are optional. An application with no configuration at all runs on the default
+modules and the page service, and a page with no template renders whatever its class
+writes.
 </p>
+
+<h2>The three kinds</h2>
+
+<table class="parameters">
+<tr><th>Kind</th><th>Lives in</th><th>Sets</th></tr>
+<tr>
+	<td><a href="?page=Configurations.AppConfig">Application configuration</a></td>
+	<td>One file at the application base path, <tt>application.xml</tt> or <tt>application.php</tt>.</td>
+	<td>Path aliases, modules, services, parameters, and the properties of the application itself.</td>
+</tr>
+<tr>
+	<td><a href="?page=Configurations.PageConfig">Page configuration</a></td>
+	<td><tt>config.xml</tt> or <tt>config.php</tt>, in any page directory.</td>
+	<td>The same, narrowed to that directory, plus authorization rules and initial page property values.</td>
+</tr>
+<tr>
+	<td><a href="?page=Configurations.Templates1">Template</a></td>
+	<td>A <tt>.page</tt> or <tt>.tpl</tt> file beside the class that uses it.</td>
+	<td>The controls on a page or inside a control, and their initial property values.</td>
+</tr>
+</table>
+
+<h2>How they combine</h2>
+
+<p class="block-content">
+The application configuration is read once, when the application starts. Page
+configurations are read afterwards, and only for the request at hand: the page service
+walks from the base path down to the directory holding the requested page, reading a
+configuration file in each directory it passes. Each one appends to or overrides what came
+before, so a setting made near the root applies to everything below it and a setting made
+in a leaf directory applies to that directory alone.
+</p>
+
+<p class="block-content">
+An application chooses XML or PHP for both kinds at once. The choice is made in the entry
+script, where the application is constructed, and it decides which file names the
+framework looks for.
+</p>
+
+<h2>Other configuration in this chapter</h2>
+
+<ul id="u1" class="block-content">
+  <li><a href="?page=Configurations.UrlMapping">URL mapping</a> turns request paths into service and page requests.</li>
+  <li><a href="?page=Configurations.BehaviorsConfig">Behaviors configuration</a> attaches <a href="?page=Fundamentals.Behaviors">behaviors</a> to classes and objects without changing their code.</li>
+  <li><a href="?page=Configurations.Parameters">Database parameters</a> keep application parameters in a database table rather than in a file.</li>
+</ul>
 
 </com:TContent>

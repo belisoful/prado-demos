@@ -41,8 +41,9 @@ To facilitate initializing properties with big trunk of data, the following prop
 PropertyValue
 &lt;/prop:PropertyName&gt;
 </com:TTextHighlighter>
+<com:SinceVersion Version="3.1.0" />
 <p class="block-content">
-Since version 3.1.0, the property initialization tag can also be used to initialize a set of subproperties who share the same parent property. For example, the following is equivalent to <tt>HeaderStyle.BackColor="black"</tt> and <tt>HeaderStyle.ForeColor="red"</tt>.
+A property initialization tag can also set a group of subproperties that share a parent property. The following is equivalent to <tt>HeaderStyle.BackColor="black"</tt> and <tt>HeaderStyle.ForeColor="red"</tt>.
 </p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;prop:HeaderStyle BackColor="black" ForeColor="red" />
@@ -58,7 +59,27 @@ makes it possible to get the textbox object in code using <tt>$page->TextBox</tt
 </p>
 
 <a name="tct"></a>
+<h3>Hyphenated attribute names</h3>
+
+<p class="block-content">
+An HTML attribute whose name contains a hyphen, such as <tt>aria-label</tt> or a
+<tt>data-</tt> attribute, cannot be set from a template in this release. Writing it
+directly raises <tt>template_property_unknown</tt>, because the control has no property of
+that name. Writing it through the attribute collection parses without complaint but
+renders the hyphen as an underscore, so <tt>Attributes.aria-label="Primary"</tt> produces
+<tt>aria_label="Primary"</tt> in the output.
+</p>
+
+<p class="block-content">
+Set such an attribute from the control's code instead, where the name is kept as written.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$this-&gt;PrimaryNav-&gt;getAttributes()-&gt;add('aria-label', 'Primary');
+</com:TTextHighlighter>
+
 <h2>Template Control Tags</h2>
+<p class="block-content">
 A template control tag is used to configure the initial property values of the control owning the template. Its format is as follows,
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;%@ PropertyName="PropertyValue" ... %&gt;
@@ -82,12 +103,15 @@ Comment tags are used to put in a template developer comments that will not disp
 Comments INVISIBLE to end-users
 ---&gt;
 </com:TTextHighlighter>
+<com:SinceVersion Version="3.1" />
 <div class="note"><b class="tip">Note:</b>
-The new comment tag <tt>&lt;!--- ... ---&gt;</tt> has been introduced since PRADO version 3.1. Previously, it was <tt>&lt;!-- ... --!&gt;</tt> which was deprecated because some editors have problems in syntax-highlighting such tags. </div>
+The comment tag was written <tt>&lt;!-- ... --!&gt;</tt> before this form replaced it. The
+old form was dropped because some editors could not highlight it correctly.</div>
 
 <h2>Include Tags</h2>
+<com:SinceVersion Version="3.0.5" />
 <p class="block-content">
-Since version 3.0.5, PRADO starts to support external template inclusion. This is accomplished via include tags, where external template files are specified in namespace format and their file name must be terminated as <tt>.tpl</tt>.
+An include tag pulls in an external template file. The file is named in namespace format and its name must end in <tt>.tpl</tt>.
 </p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;%include path.to.templateFile %&gt;

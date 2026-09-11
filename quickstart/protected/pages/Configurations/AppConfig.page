@@ -26,13 +26,19 @@ Configuration for an application is stored in an XML file named <tt>application.
 </application>
 </com:TTextHighlighter>
 
+<p class="block-content">
+Five elements are recognized inside <tt>&lt;application&gt;</tt>: <tt>&lt;paths&gt;</tt>,
+<tt>&lt;modules&gt;</tt>, <tt>&lt;parameters&gt;</tt>, <tt>&lt;include&gt;</tt> and
+<tt>&lt;services&gt;</tt>. Anything else is ignored.
+</p>
+
 <ul id="u1" class="block-content">
 
 <li>The outermost element <tt>&lt;application&gt;</tt> corresponds to the <tt>TApplication</tt> instance. The <tt>PropertyName="PropertyValue"</tt> pairs specify the initial values for the properties of <tt>TApplication</tt>.</li>
 
 <li>The <tt>&lt;paths&gt;</tt> element contains the definition of path aliases and the PHP inclusion paths for the application. Each path alias is specified via an <tt>&lt;alias&gt;</tt> whose <tt>path</tt> attribute takes an absolute path or a path relative to the directory containing the application configuration file. The <tt>&lt;using&gt;</tt> element specifies a particular path (in terms of namespace) to be appended to the PHP include paths when the application runs. PRADO defines two default aliases: <tt>System</tt> and <tt>Application</tt>. The former refers to the PRADO framework root directory, and the latter refers to the directory containing the application configuration file.</li>
 
-<li>The <tt>&lt;modules&gt;</tt> element contains the configurations for a list of modules. Each module is specified by a <tt>&lt;module&gt;</tt> element. Each module is uniquely identified by the <tt>id</tt> attribute and is of type <tt>class</tt>. The <tt>PropertyName="PropertyValue"</tt> pairs specify the initial values for the properties of the module.</li>
+<li>The <tt>&lt;modules&gt;</tt> element contains the configurations for a list of modules. Each module is specified by a <tt>&lt;module&gt;</tt> element. Each module is uniquely identified by the <tt>id</tt> attribute and is of type <tt>class</tt>. The <tt>PropertyName="PropertyValue"</tt> pairs specify the initial values for the properties of the module. The <a href="?page=Fundamentals.Modules#shipped">modules the release ships</a> are listed under Modules.</li>
 
 <li>The <tt>&lt;parameters&gt;</tt> element contains a list of application-level parameters that are accessible from anywhere in the application. You may specify component-typed parameters like specifying modules, or you may specify string-typed parameters which take a simpler format as follows,
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
@@ -41,7 +47,7 @@ Configuration for an application is stored in an XML file named <tt>application.
 Note, if the <tt>value</tt> attribute is not specified, the whole parameter XML node (of type <tt>TXmlElement</tt>) will be returned as the parameter value. In addition, the <tt>Prado\Util\TParameterModule</tt> module provides a way to load parameters from an external XML file. See more details in its API documentation.
 </li>
 
-<li>The <tt>&lt;include&gt;</tt> element allows one to include external configuration files. It has been introduced since v3.1.0. The <tt>file</tt> attribute specifies the external configuration file in namespace format. The extension name of the file must be <tt>.xml</tt>. The <tt>when</tt> attribute contains a PHP expression and is optional (defaults to true). Only when the expression evaluates true, will the external configuration file be included. The context of the expression is the application, i.e., <tt>$this</tt> in the expression would refer to the application object.
+<li>The <tt>&lt;include&gt;</tt> element allows one to include external configuration files. The <tt>file</tt> attribute specifies the external configuration file in namespace format. The extension name of the file must be <tt>.xml</tt>. The <tt>when</tt> attribute contains a PHP expression and is optional (defaults to true). Only when the expression evaluates true, will the external configuration file be included. The context of the expression is the application, i.e., <tt>$this</tt> in the expression would refer to the application object.
 </li>
 
 <li>The <tt>&lt;services&gt;</tt> element is similar to the <tt>&lt;modules&gt;</tt> element. It mainly specifies the services provided by the application. Within a <tt>&lt;service&gt;</tt> element, one can have any of the above elements. They will be effective only when the corresponding service is being requested.</li>
@@ -53,13 +59,14 @@ An external configuration file has the same format as described above. Although 
 </p>
 
 <p class="block-content">
-By default without explicit configuration, a PRADO application will load a few core modules, such as <tt>THttpRequest</tt>, <tt>THttpResponse</tt>, etc. It will also provide the <tt>TPageService</tt> as a default service. Configuration and usage of these modules and services are covered in individual sections of this tutorial. Note, if your application takes default settings for these modules and service, you do not need to provide an application configuration. However, if these modules or services are not sufficient, or you want to change their behavior by configuring their property values, you will need an application configuration.
+Without any configuration, an application still has a request, a response, a session and an error handler module, each created from its default class the first time something asks for it, and it still provides <tt>TPageService</tt> as the default service. Configuration and usage of these modules and services are covered in individual sections of this tutorial. Note, if your application takes default settings for these modules and service, you do not need to provide an application configuration. However, if these modules or services are not sufficient, or you want to change their behavior by configuring their property values, you will need an application configuration.
 </p>
 
+<h2>Lazy modules</h2>
 <com:SinceVersion Version="3.2.2" />
 <p class="block-content">
-By default PRADO instanciates all modules defined in the application configuration at the beginning of the application lifecycle. This can hit the application performance if you have a lot of modules defined but not used at every request.
-Since version 3.2.2 you can set the <tt>lazy</tt> property on modules defined in the application configuration to enable the lazy loading of that module.
+By default every module named in the application configuration is created at the start of the application lifecycle. That costs time on every request for a module only some requests use. Setting the <tt>lazy</tt> attribute on a module defers its creation until something asks for it.
+</p>
 
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
   <modules>
@@ -67,46 +74,57 @@ Since version 3.2.2 you can set the <tt>lazy</tt> property on modules defined in
   </modules>
 </com:TTextHighlighter>
 
-A module with the <tt>lazy</tt> property set won't be instanciated until the first time it gets actually used by the application:
-
-<com:TTextHighlighter Language="php" CssClass="source block-content">
-  // requesting the lazy module to the application will instanciate it
-  Prado::getApplication()->getModule('ModuleID');
-</com:TTextHighlighter>
+<p class="block-content">
+A module declared this way is not created until the first time the application is asked
+for it. Asking for it is what builds and initializes it.
 </p>
 
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+  // this call creates the module, sets its properties and runs its init()
+  Prado::getApplication()->getModule('ModuleID');
+</com:TTextHighlighter>
+
+<p class="block-content">
+A module that has to attach itself to an application lifecycle event cannot be lazy,
+because nothing will have asked for it by the time the event is raised.
+</p>
+
+<h2>The PHP form</h2>
 <com:SinceVersion Version="3.2" />
 <p class="block-content">
-Since version 3.2 the application configuration can be stored in PHP array format in a file named <tt>application.php</tt>.
-The format of the configuration file is exactly the same of its XML counterpart, but following the PHP syntax.
+The configuration can be a PHP array in a file named <tt>application.php</tt> instead of XML. It carries the same information under the same names, with one difference: the XML <tt>&lt;include&gt;</tt> element becomes an <tt>includes</tt> key holding a list.
 </p>
 
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 <?php
-return array(
-  'application' => array(
-    'PropertyName' => 'PropertyValue'
-  ),
-  'modules' => array(
-    'ModuleID' => array(
+return [
+  'application' => [
+    'PropertyName' => 'PropertyValue',
+  ],
+  'paths' => [
+    'aliases' => ['AliasID' => 'AliasPath'],
+    'using' => ['Namespace'],
+  ],
+  'modules' => [
+    'ModuleID' => [
       'class' => 'ModuleClass',
-      'properties' => array(
-        'PropertyName' => 'PropertyValue'
-      ),
-    ),
-  ),
-  'services' => array(
-    'ServiceID' => array(
+      'properties' => ['PropertyName' => 'PropertyValue'],
+    ],
+  ],
+  'services' => [
+    'ServiceID' => [
       'class' => 'ServiceClass',
-      'properties' => array(
-        'PropertyName' => 'PropertyValue'
-      ),
-    ),
-  ),
-);
+      'properties' => ['PropertyName' => 'PropertyValue'],
+    ],
+  ],
+  'parameters' => [
+    'ParameterID' => 'ParameterValue',
+  ],
+  'includes' => ['path.to.extconfig'],
+];
 </com:TTextHighlighter>
 
-The use of a PHP application configuration must be defined in the <tt>TApplication</tt> constructor, tipically located in the <tt>index.php</tt> entry script:
+The choice of format is made in the <tt>TApplication</tt> constructor, in the <tt>index.php</tt> entry script. It applies to <a href="?page=Configurations.PageConfig">page configurations</a> as well, which are then read from <tt>config.php</tt> rather than <tt>config.xml</tt>:
 
 <com:TTextHighlighter Language="php" CssClass="source block-content php">
 $application = new \Prado\TApplication('protected', false, TApplication::CONFIG_TYPE_PHP);

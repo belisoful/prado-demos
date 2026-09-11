@@ -39,9 +39,40 @@ The <tt>&lt;paths&gt;</tt>, <tt>&lt;modules&gt;</tt>, <tt>&lt;parameters&gt;</tt
 Complete specification of page configurations can be found in the <a href="https://github.com/pradosoft/prado/blob/master/docs/specs/config.dtd">DTD</a> and <a href="https://github.com/pradosoft/prado/blob/master/docs/specs/config.xsd">XSD</a> files.
 </p>
 
+<h2>Page paths and wildcards</h2>
 <com:SinceVersion Version="3.1.1" />
 <p class="block-content">
-Since version 3.1.1, the <tt>id</tt> attribute in the &lt;page&gt; element can be a relative page path pointing to a page in the subdirectory of the directory containing the page configuration. For example, <tt>id="admin.Home"</tt> refers to the <tt>Home</tt> page under the <tt>admin</tt> directory. The <tt>id</tt> attribute can also contain wildcard '*' to match all pages under the specified directory. For example, <tt>id="admin.*"</tt> refers to all pages under the <tt>admin</tt> directory and its subdirectories. This enhancement allows developers to centralize their page configurations (e.g. put all page initializations in the aplication configuration or the root page configuration.)
+The <tt>id</tt> attribute of a <tt>&lt;page&gt;</tt> element can be a relative page path rather than a bare page name, so one file configures pages in the directories below it. <tt>id="admin.Home"</tt> names the <tt>Home</tt> page under <tt>admin</tt>, and <tt>id="admin.*"</tt> names every page under <tt>admin</tt> and its subdirectories. This is how an application keeps its page initialization in one place, in the application configuration or in the configuration at the root of the page tree, rather than scattering a file through every directory.
 </p>
+
+<h2>The PHP form</h2>
+<com:SinceVersion Version="3.2" />
+<p class="block-content">
+A page configuration follows the format the application chose. An application constructed for PHP configuration reads <tt>config.php</tt> in each page directory instead of <tt>config.xml</tt>, holding the same information as a PHP array. The choice is made once, in the entry script, and is described under <a href="?page=Configurations.AppConfig">application configurations</a>.
+</p>
+
+<h2>Extending how a page configuration loads</h2>
+<com:SinceVersion Version="4.2.0" />
+<p class="block-content">
+<tt>TPageConfiguration</tt> raises three dynamic events while it works, so a
+<a href="?page=Fundamentals.Behaviors">behavior</a> attached to it can take part in
+loading without the class changing.
+</p>
+
+<table class="parameters">
+<tr><th>Dynamic event</th><th>Raised</th></tr>
+<tr>
+	<td><tt>dyLoadPageConfigurationFromXml</tt></td>
+	<td>After an XML configuration file is read, with the parsed document.</td>
+</tr>
+<tr>
+	<td><tt>dyLoadPageConfigurationFromPhp</tt></td>
+	<td>The same, for a PHP configuration file, with the array.</td>
+</tr>
+<tr>
+	<td><tt>dyApplyConfiguration</tt></td>
+	<td>When the collected configuration is applied to the page service.</td>
+</tr>
+</table>
 
 </com:TContent>

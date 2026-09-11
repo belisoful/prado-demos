@@ -44,8 +44,9 @@ The format of databind tags is as follows,
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;%# PhpExpression %&gt;
 </com:TTextHighlighter>
+<com:SinceVersion Version="3.0.2" />
 <p class="block-content">
-Since v3.0.2, expression tags and databind tags can be embedded within static strings. For example, you can write the following in a template,
+Expression tags and databind tags can also be embedded within static strings. For example, you can write the following in a template,
 </p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TLabel&gt;

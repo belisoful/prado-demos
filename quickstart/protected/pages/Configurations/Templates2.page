@@ -105,7 +105,6 @@ URL tags are used to insert the relative web url path to the Prado application i
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;%/ image.jpg %&gt;
 </com:TTextHighlighter>
-</p>
 <p class="block-content">
 If your Prado application is deployed on http://localhost/pradoapp/, the tag above will produce "/pradoapp/image.jpg". This tag will help you to use the correct file path even with UrlFormat set to Path, or if you are using url mappings.
 </p>
