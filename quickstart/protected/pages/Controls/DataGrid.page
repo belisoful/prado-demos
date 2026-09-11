@@ -159,6 +159,43 @@ To enable custom paging, set both <tt>AllowPaging</tt> and <tt>AllowCustomPaging
 </p>
 <com:RunBar PagePath="Controls.Samples.TDataGrid.Sample6" />
 
+<h2>Item renderers in a template column</h2>
+<com:SinceVersion Version="3.1.0" />
+
+<p class="block-content">
+A <tt>TTemplateColumn</tt> holds its cell layout in the page that declares it. Its
+<tt>ItemRenderer</tt> property moves that layout into a class instead, which several pages
+then share. <tt>TDataGridItemRenderer</tt> is the base class for one. The class extends
+<tt>TTemplateControl</tt>, so it carries a template file named after it.
+<tt>EditItemRenderer</tt> names a renderer for cells in the row being edited.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TTemplateColumn
+	HeaderText="Stock"
+	ItemRenderer="Application.pages.Controls.Samples.TDataGrid.StockCell" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+Inside the renderer, <tt>Data</tt> holds the row, <tt>ItemIndex</tt> holds the zero-based
+position of the row, and <tt>ItemType</tt> holds the item's type. The renderer's template
+reads them through databind expressions, and the renderer's own methods compute anything
+the template would otherwise spell out.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TLabel Text=&lt;%# $this-&gt;Data['quantity'] %&gt; ForeColor=&lt;%# $this-&gt;StockColor %&gt; /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+Use a databind expression, <tt>&lt;%# %&gt;</tt>, rather than an evaluation expression,
+<tt>&lt;%= %&gt;</tt>. A databind expression runs once while the data binds, and the result
+travels in viewstate. An evaluation expression runs on every request, including a postback,
+when <tt>Data</tt> is null.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.TDataGrid.Sample7" />
+
 <h2>Extending TDataGrid</h2>
 <p class="block-content">
 Besides traditional class inheritance, extensibility of TDataGrid is mainly through developing new datagrid column components. For example, one may want to display an image column. He may use <tt>TTemplateColumn</tt> to accomplish this task. A better solution is to develop an image column component so that the work can be reused easily in other projects.

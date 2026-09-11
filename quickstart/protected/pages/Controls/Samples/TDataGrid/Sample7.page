@@ -1,0 +1,27 @@
+<com:TContent ID="body">
+
+<h1>TDataGrid Sample 7</h1>
+<h2>Using an Item Renderer in a Template Column</h2>
+
+<p>The third column is a <tt>TTemplateColumn</tt> whose <tt>ItemRenderer</tt> names
+<tt>StockCell</tt>, a class that extends <tt>TDataGridItemRenderer</tt> and carries its own
+template.</p>
+
+<com:TDataGrid
+	ID="DataGrid"
+	AutoGenerateColumns="false"
+	CellPadding="2"
+	HeaderStyle.BackColor="black"
+	HeaderStyle.ForeColor="white"
+	ItemStyle.BackColor="#BFCFFF"
+	AlternatingItemStyle.BackColor="#E6ECFF">
+
+	<com:TBoundColumn HeaderText="ID" DataField="id" />
+	<com:TBoundColumn HeaderText="Name" DataField="name" />
+	<com:TTemplateColumn
+		HeaderText="Stock"
+		ItemRenderer="Application.pages.Controls.Samples.TDataGrid.StockCell" />
+
+</com:TDataGrid>
+
+</com:TContent>

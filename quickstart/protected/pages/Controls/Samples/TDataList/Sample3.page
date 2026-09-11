@@ -1,0 +1,16 @@
+<com:TContent ID="body">
+
+<h1>TDataList Sample 3</h1>
+
+<p>Every item below is rendered by <tt>ProductDisplay</tt>, a class that extends
+<tt>TDataListItemRenderer</tt> and carries its own template.</p>
+
+<com:TDataList
+	ID="DataList"
+	DataKeyField="id"
+	ItemRenderer="Application.pages.Controls.Samples.TDataList.ProductDisplay"
+	OnSelectedIndexChanged="selectItem" />
+
+<p><com:TLabel ID="Result" Text="No item has been selected." /></p>
+
+</com:TContent>

@@ -112,4 +112,54 @@ Be aware, for simplicity, this application does not do any input validation. In 
 </p>
 <com:RunBar PagePath="Controls.Samples.TDataList.Sample2" />
 
+<h2>Templated item renderers</h2>
+<com:SinceVersion Version="3.1.0" />
+
+<p class="block-content">
+An item template lives inside the page that uses it. An item renderer moves that layout
+into a class of its own, which several pages then share. <tt>TDataListItemRenderer</tt> is
+the base class for one. The class extends <tt>TTemplateControl</tt>, so it carries a
+template file named after it, and it implements <tt>IStyleable</tt>, so the datalist
+applies its item styles to the renderer.
+</p>
+
+<p class="block-content">
+The <tt>ItemRenderer</tt> property names the class. The value is a namespace path, and the
+datalist creates one instance of the class for each row.
+<tt>AlternatingItemRenderer</tt>, <tt>EditItemRenderer</tt>, and
+<tt>SelectedItemRenderer</tt> name a renderer for the other item states.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TDataList ID="DataList" ItemRenderer="Application.pages.Controls.Samples.TDataList.ProductDisplay" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+Inside the renderer, <tt>Data</tt> holds the row, <tt>ItemIndex</tt> holds the zero-based
+position, and <tt>ItemType</tt> holds the item's state. The renderer's template reads them
+through databind expressions, which the datalist evaluates while it binds.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TPanel BackColor=&lt;%# $this-&gt;ItemIndex % 2 ? '#E6ECFF' : '#BFCFFF' %&gt;&gt;
+	&lt;com:TLabel Text=&lt;%# $this-&gt;Data['name'] %&gt; /&gt;
+&lt;/com:TPanel&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+Use a databind expression, <tt>&lt;%# %&gt;</tt>, rather than an evaluation expression,
+<tt>&lt;%= %&gt;</tt>. A databind expression runs once while the data binds, and the
+result travels in viewstate. An evaluation expression runs on every request, including a
+postback, when <tt>Data</tt> is null.
+</p>
+
+<p class="block-content">
+A renderer also holds its own methods, which keeps computed values out of the template. A
+command control inside the renderer bubbles its event to the datalist, so
+<tt>OnSelectedIndexChanged</tt> and the other command events work as they do with a
+template.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.TDataList.Sample3" />
+
 </com:TContent>

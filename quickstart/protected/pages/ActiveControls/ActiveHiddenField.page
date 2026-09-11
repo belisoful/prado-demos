@@ -1,12 +1,54 @@
 <com:TContent ID="body" >
 
 <h1>TActiveHiddenField</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveHiddenField" />
 
 <p class="block-content">
-<tt>TActiveHiddenField</tt> is the active control counterpart of <tt>THiddenField</tt> component.
-It displays a hidden input field on a Web page. The value of the input field can be accessed and changed
-on callback via the <tt>Value</tt> property.
+<tt>TActiveHiddenField</tt> is the active control counterpart of <tt>THiddenField</tt>. It
+renders a hidden input field, which carries a value between the browser and the server
+without showing it to the user. The <tt>Value</tt> property holds that value, and a
+callback handler reads it and writes it.
 </p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TActiveHiddenField ID="Hidden1" Value="alpha" /&gt;
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function buttonCallback($sender, $param)
+{
+	$current = $this->Hidden1->Value;
+	$this->Hidden1->Value = 'a new value';
+}
+</com:TTextHighlighter>
+
+<h2>Writing the value during a callback</h2>
+
+<p class="block-content">
+Assigning <tt>Value</tt> during a callback also updates the input element in the browser.
+The update needs the posted value of the field, so it happens only after the
+<tt>OnLoad</tt> stage of the page. Code that runs earlier changes the server-side value
+alone, and the browser keeps the value it already has.
+</p>
+
+<h2>The value changed event</h2>
+
+<p class="block-content">
+The control raises <tt>OnValueChanged</tt> when the value that arrives from the browser
+differs from the value the control held before. A client-side script that writes to the
+input therefore reaches the server on the next request, and the handler sees the new value.
+</p>
+
+<com:TTextHighlighter Language="javascript" CssClass="source block-content">
+document.getElementById('ctl0_body_Hidden1').value = 'set by the browser';
+</com:TTextHighlighter>
+
+<p class="block-content">
+A page finds that element id through the control's <tt>ClientID</tt> property rather than
+writing it out by hand.
+</p>
+
+<com:RunBar PagePath="ActiveControls.Samples.TActiveHiddenField.Home" />
 
 </com:TContent>

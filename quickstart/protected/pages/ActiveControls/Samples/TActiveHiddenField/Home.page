@@ -1,0 +1,43 @@
+<com:TContent ID="body">
+
+<h1>TActiveHiddenField Sample</h1>
+
+<com:TActiveHiddenField ID="Hidden1" Value="alpha" OnValueChanged="valueChanged" />
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+Read the hidden field on the server:
+</td><td class="sampleaction">
+<com:TActiveButton Text="Read the value" OnCallback="readValue" />
+</td></tr>
+
+<tr><td class="samplenote">
+Write a new value from the server. The callback also updates the input on the client:
+</td><td class="sampleaction">
+<com:TActiveButton Text="Write a new value" OnCallback="writeValue" />
+</td></tr>
+
+<tr><td class="samplenote">
+Write a value on the client, without a request. The next read shows it:
+</td><td class="sampleaction">
+<input type="button" value="Set the value to 'set by the browser'"
+	onclick="document.getElementById('<%= $this->Hidden1->ClientID %>').value = 'set by the browser';" />
+</td></tr>
+
+<tr><td class="samplenote">
+Server-side value:
+</td><td class="sampleaction">
+<com:TActiveLabel ID="Result" Text="Nothing has been read yet." />
+</td></tr>
+
+<tr><td class="samplenote">
+The <tt>OnValueChanged</tt> event fires when the posted value differs from the previous
+one:
+</td><td class="sampleaction">
+<com:TActiveLabel ID="ChangeLog" Text="The value has not changed yet." />
+</td></tr>
+
+</table>
+
+</com:TContent>
