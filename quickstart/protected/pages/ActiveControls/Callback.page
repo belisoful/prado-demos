@@ -1,23 +1,24 @@
 <com:TContent ID="body" >
 
 <h1>TCallback</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallback" />
 
 <p class="block-content">
 <tt>TCallback</tt> provides a basic callback handler that can be invoked from the
-client side by using the javascript ojbect obtained from the
+client side by using the javascript object obtained from the
 <tt>ActiveControl.Javascript</tt> property.
 You can set the <tt>CallbackParameter</tt> property from javascript directly on
 the object returned by <tt>ActiveControl.Javascript</tt>.
-Once you are ready, you can call the <tt>dispatch()<tt> method on the object to
+Once you are ready, you can call the <tt>dispatch()</tt> method on the object to
 execute the callback.
-The server-side event <tt>OnCallback</tt> is raised when a callback is requested made.
+The server-side event <tt>OnCallback</tt> is raised when the callback arrives.
 </p>
 
 <p class="block-content">
 Example usage:
 </p>
-<com:TTextHighlighter Language="text" CssClass="source block-content" >
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TCallback ID="callback1" OnCallback="callback1_Requested" /&gt;
 &lt;script type="text/javascript"&gt;
   function do_callback1()

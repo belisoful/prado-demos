@@ -1,5 +1,6 @@
 <com:TContent ID="body">
 <h1>TActiveCheckBox</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveCheckBox" />
 
 <p class="block-content">
@@ -10,11 +11,23 @@
  <tt>OnCallback</tt> event is raise after the <tt>OnCheckedChanged</tt> event.
  </p>
 
- <p class="block-content">
- The <tt>Text</tt> and <tt>Checked</tt> properties of <tt>TActiveCheckBox</tt>
- can be changed during a callback request. The <tt>TextAlign</tt> property
- of <tt>TActiveCheckBox</tt> <strong>can not</strong> be changed during
- a callback request.
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Effect on the browser</th></tr>
+<tr>
+	<td><tt>Checked</tt></td>
+	<td>Ticks or unticks the box.</td>
+</tr>
+<tr>
+	<td><tt>Text</tt></td>
+	<td>Replaces the content of the caption. The control gives its <tt>&lt;label&gt;</tt> element an id of its own so the update can find it.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Both updates are subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>. <tt>TextAlign</tt> cannot change during a
+callback, because the caption's position is decided when the pair of elements is written.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveCheckBox.Home" />

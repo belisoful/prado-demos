@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TActiveImageButton</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveImageButton" />
 
 <p class="block-content">
@@ -10,7 +11,27 @@ The<tt>OnCallback</tt> event is raised during a callback request and it is raise
 </p>
 
 <p class="block-content">
-<tt>TActiveImageButton</tt> is similar to <tt>TActiveButton</tt>, except that <tt>TActiveImageButton</tt> displays the button as an image. The image is specified via <tt>ImageUrl</tt>, and the alternate text is specified by <tt>Text</tt>. In addition, it is possible to obtain the coordinate of the point where the image is clicked. The coordinate information is contained in the event parameter of the <tt>OnClick</tt> event (not <tt>OnCallback</tt>).
+<tt>TActiveImageButton</tt> is similar to <a href="?page=ActiveControls.ActiveButton">TActiveButton</a>, except that it displays
+the button as an image. <tt>ImageUrl</tt> names the image and <tt>Text</tt> sets its
+alternate text. The point where the click landed is carried in the event parameter of the
+<tt>OnClick</tt> event, as <tt>X</tt> and <tt>Y</tt>, and not in the parameter of
+<tt>OnCallback</tt>. A handler that needs the coordinate therefore uses <tt>OnClick</tt>.
+</p>
+
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Attribute rewritten</th></tr>
+<tr><td><tt>ImageUrl</tt></td><td><tt>src</tt></td></tr>
+<tr><td><tt>AlternateText</tt></td><td><tt>alt</tt></td></tr>
+<tr><td><tt>ImageAlign</tt></td><td><tt>align</tt></td></tr>
+<tr><td><tt>DescriptionUrl</tt></td><td><tt>longdesc</tt></td></tr>
+</table>
+
+<p class="block-content">
+Each update is subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>. <tt>ImageAlign</tt> and
+<tt>DescriptionUrl</tt> are deprecated, as they are on
+<a href="?page=Controls.Image">TImage</a>.
 </p>
 <com:RunBar PagePath="ActiveControls.Samples.TActiveImageButton.Home" />
 

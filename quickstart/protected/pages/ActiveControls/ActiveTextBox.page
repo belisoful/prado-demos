@@ -1,14 +1,41 @@
 <com:TContent ID="body" >
 
 <h1>TActiveTextBox</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveTextBox" />
 
 <p class="block-content">
-<tt>TActiveTextBox</tt> is the active control counterpart of <tt>TTextBox</tt> component.
-<tt>TActiveTextBox</tt> allows the <tt>Text</tt> property of the textbox to
-be changed during callback. When <tt>AutoPostBack</tt> property
-is true, changes to the textbox contents will perform a callback request causing
-<tt>OnTextChanged</tt> to be fired first followed by <tt>OnCallback</tt> event.
+<tt>TActiveTextBox</tt> is the active control counterpart of
+<a href="?page=Controls.TextBox">TTextBox</a>. It renders the same input and adds the
+ability to change its value during a callback.
+</p>
+
+<h2>What updates during a callback</h2>
+
+<p class="block-content">
+Assigning <tt>Text</tt> writes the new value into the input in the browser, subject to
+<a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>. The other text box properties, including <tt>TextMode</tt> and
+<tt>ReadOnly</tt>, are fixed once the control has rendered.
+</p>
+
+<h2>Calling back when the value changes</h2>
+
+<p class="block-content">
+Unlike most controls in this chapter, <tt>AutoPostBack</tt> <a href="?page=ActiveControls.Introduction#AutoPostBackDefaults">defaults to false</a> here, because
+the property is inherited from <tt>TTextBox</tt> unchanged. A text box that should reach
+the server when the user leaves the field has to say so.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TActiveTextBox AutoPostBack="true"
+    OnTextChanged="textChanged" OnCallback="callbackRequested" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+With <tt>AutoPostBack</tt> on, leaving the field after a change starts a callback that
+raises <tt>OnTextChanged</tt> first and <tt>OnCallback</tt> second. A handler that runs
+for every change belongs on <tt>OnTextChanged</tt>, and one that runs only for callbacks
+belongs on <tt>OnCallback</tt>.
 </p>
 <com:RunBar PagePath="ActiveControls.Samples.TActiveTextBox.Home" />
 

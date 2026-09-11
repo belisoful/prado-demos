@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TRadioButton</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveRadioButton" />
 
 <p class="block-content">
@@ -9,10 +10,30 @@ The <tt>AutoPostBack</tt> property is set to true by default. Thus, when the rad
 <tt>OnCallback</tt> event is raise after <tt>OnCheckedChanged</tt> event.
 </p>
 
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Effect on the browser</th></tr>
+<tr>
+	<td><tt>Checked</tt></td>
+	<td>Selects or clears the button.</td>
+</tr>
+<tr>
+	<td><tt>Text</tt></td>
+	<td>Replaces the content of the caption.</td>
+</tr>
+</table>
+
 <p class="block-content">
-The <tt>Text</tt> and <tt>Checked</tt> properties can be changed during a callback.
-The <tt>GroupName</tt> property may <b>NOT</b> be changed during callback because the client-side
-<tt>name</tt> attribute is read-only and can not be changed using javascript.
+Both updates are subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>.
+</p>
+
+<p class="block-content">
+<tt>GroupName</tt> cannot change during a callback. The grouping lives in the
+<tt>name</tt> attribute of the input element, which a browser will not let script rewrite
+once the element exists. Grouping is explained on
+<a href="?page=Controls.RadioButton">TRadioButton</a>, including how the rendered name is
+built and when <tt>UniqueGroupName</tt> is needed.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveRadioButton.Home" />

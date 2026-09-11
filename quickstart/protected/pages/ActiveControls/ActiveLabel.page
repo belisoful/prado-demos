@@ -1,14 +1,31 @@
 <com:TContent ID="body" >
 
 <h1>TActiveLabel</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveLabel" />
 
 <p class="block-content">
-<tt>TActiveLabel</tt> is the active control counterpart of <tt>TLabel</tt> component. When
-<tt>ActiveControl.EnableUpdate</tt> property is true during a callback request, setting <tt>Text</tt>
-property will also set the text of the label on the client upon callback
-completion. Similarly, setting <tt>ForControl</tt> will also set
-the client-side "for" attribute on the label.
+<tt>TActiveLabel</tt> is the active control counterpart of
+<a href="?page=Controls.Label">TLabel</a>. It renders the same markup and adds the
+ability to change itself during a callback.
+</p>
+
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Effect on the browser</th></tr>
+<tr>
+	<td><tt>Text</tt></td>
+	<td>Replaces the content of the element. The value is written as markup, not escaped, exactly as <tt>TLabel</tt> renders it.</td>
+</tr>
+<tr>
+	<td><tt>ForControl</tt></td>
+	<td>Rewrites the <tt>for</tt> attribute. The element the label renders is decided at render time, so a label that started as a span stays a span for the rest of the request.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Both updates are subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveLabel.Home" />

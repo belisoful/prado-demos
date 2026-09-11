@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TCallbackEventParameter</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallbackEventParameter" />
 
 <p class="block-content">
@@ -22,5 +23,15 @@ use the same writer instance for the panels to be rendered.
 The response data (i.e., passing results back to the client-side
 callback handler function) can be set using <tt>ResponseData</tt> property.
 </p>
+
+
+<h2>Members</h2>
+
+<table class="parameters">
+<tr><th>Member</th><th>Purpose</th></tr>
+<tr><td><tt>CallbackParameter</tt></td><td>Read-only. What the client sent with the request.</td></tr>
+<tr><td><tt>ResponseData</tt></td><td>Data sent back to the client with the response. The client-side callback hooks receive it, which is how a handler returns a value rather than a piece of page.</td></tr>
+<tr><td><tt>NewWriter</tt></td><td>Read-only. A fresh writer for rendering a control into the response, as <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> does.</td></tr>
+</table>
 
 </com:TContent>

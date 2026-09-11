@@ -1,12 +1,39 @@
 <com:TContent ID="body">
 <h1 id="ActiveHyperLink">TActiveHyperLink</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveHyperLink" />
 
 <p class="block-content">
-The active control counterpart of <a href="?page=Controls.HyperLink">THyperLink</a>
-component. During a callback request, changes to the <tt>Text</tt>, <tt>ImageUrl</tt>,
-<tt>NavigateUrl</tt> and <tt>Target</tt> properties on the server side will also
-change the corresponding attributes and content on the client-side.
+The active control counterpart of <a href="?page=Controls.HyperLink">THyperLink</a>. It
+renders the same <tt>&lt;a&gt;</tt> element and adds the ability to change the link
+during a callback.
+</p>
+
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Effect on the browser</th></tr>
+<tr>
+	<td><tt>NavigateUrl</tt></td>
+	<td>Rewrites the <tt>href</tt> attribute.</td>
+</tr>
+<tr>
+	<td><tt>Target</tt></td>
+	<td>Rewrites the <tt>target</tt> attribute.</td>
+</tr>
+<tr>
+	<td><tt>Text</tt></td>
+	<td>Replaces the content of the link.</td>
+</tr>
+<tr>
+	<td><tt>ImageUrl</tt></td>
+	<td>Renders a fresh image and replaces the content of the link with it. Assigning an empty value sends nothing, so an image already shown cannot be removed this way.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Each update is subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>. <tt>Text</tt> and <tt>ImageUrl</tt> both
+replace the same region, so the one assigned last is the one the user sees.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveHyperLink.Home" />

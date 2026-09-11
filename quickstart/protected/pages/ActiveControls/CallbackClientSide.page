@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TCallbackClientSide</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallbackClientSide" />
 
 <p class="block-content">
@@ -70,6 +71,9 @@ The following properties can be used to change the way the callback request is p
   <li><tt>RetryLimit</tt> The number of times the request is retried when it timeouts (default: 1)</li>
   <li><tt>EnablePageStateUpdate</tt> enable the callback response to enable the
   viewstate update. This will automatically set HasPriority to true when enabled. (default: true).</li>
+  <li><tt>PostBackTarget</tt> the id of the control the callback reports as its target. Setting it makes the request arrive as though another control had raised it.</li>
+  <li><tt>PostBackParameter</tt> the event parameter sent with the request, which the handler reads from the callback event parameter.</li>
+  <li><tt>CausesValidation</tt> whether validators run before the request is sent, and <tt>ValidationGroup</tt> which group of them. Both also exist on <tt>ActiveControl</tt> itself.</li>
 </ul>
 
 <com:RunBar PagePath="ActiveControls.Samples.TCallbackClientSide.Home" />

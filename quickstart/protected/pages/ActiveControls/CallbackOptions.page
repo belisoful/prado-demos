@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TCallbackOptions</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallbackOptions" />
 
 <p class="block-content">
@@ -19,7 +20,7 @@ pause the user interaction with a "Please wait" style message until callback com
 First create a single <tt>TCallbackOptions</tt> control, assign it an ID and the the needed properties:
 </p>
 
-<com:TTextHighlighter Language="text" CssClass="source block-content" >
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TCallbackOptions
 	ID="MyOptions"
 	ClientSide.OnLoading="... kindly inform the user that he should wait ..."
@@ -31,7 +32,7 @@ First create a single <tt>TCallbackOptions</tt> control, assign it an ID and the
 Then, share this set of options to one or more active controls; each control will follow them:
 </p>
 
-<com:TTextHighlighter Language="text" CssClass="source block-content" >
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TActiveButton
 	Text="simple button"
 	OnCallback="..."

@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TInPlaceTextBox</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TInPlaceTextBox" />
 
 <p class="block-content">
@@ -32,9 +33,60 @@ If the <tt>AutoHideTextBox</tt> property is true, then
 the textbox will be hidden and the label is then shown.
 </p>
 
+<h2>Properties</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>EditTriggerControlID</tt></td>
+	<td>The id of the control or element whose click opens the editor. The label itself opens it when this is empty.</td>
+</tr>
+<tr>
+	<td><tt>AutoHideTextBox</tt></td>
+	<td>Whether the editor hides again and the label returns after a successful callback. Defaults to true.</td>
+</tr>
+<tr>
+	<td><tt>DisplayTextBox</tt></td>
+	<td>Shows or hides the editor from the server. Assigning it during a callback opens or closes the editor in the browser, so a handler can put the user straight into editing.</td>
+</tr>
+</table>
+
+<h3>Read-only mode</h3>
+<com:SinceVersion Version="3.1.2" />
+
 <p class="block-content">
-Since 3.1.2, you can set the <tt>ReadOnly</tt> property to make
-the control not editable. This property can be also changed on callback
+<tt>ReadOnly</tt> makes the content uneditable. It can be assigned during a callback,
+which switches the control between editable and fixed without a page load.
+</p>
+
+<p class="block-content">
+Updates to <tt>DisplayTextBox</tt> and <tt>ReadOnly</tt> are subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>.
+The control also carries everything
+<a href="?page=ActiveControls.ActiveTextBox">TActiveTextBox</a> has, since it extends it.
+</p>
+
+<h2>Events</h2>
+
+<table class="parameters">
+<tr><th>Event</th><th>Raised when</th></tr>
+<tr>
+	<td><tt>OnLoadingText</tt></td>
+	<td>The user has asked to edit. Attaching a handler is what makes the control call back at that moment, so the text can be fetched before editing starts.</td>
+</tr>
+<tr>
+	<td><tt>OnTextChanged</tt></td>
+	<td>The editor lost focus and the value had changed.</td>
+</tr>
+<tr>
+	<td><tt>OnCallback</tt></td>
+	<td>After <tt>OnTextChanged</tt>, for logic that belongs only to the callback.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The control has no postback fallback. It reaches the server only through client script,
+as the abilities table on the <a href="?page=ActiveControls.Home">Active Controls</a> page
+records.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TInPlaceTextBox.Home" />

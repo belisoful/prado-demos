@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TValueTriggeredCallback</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TValueTriggeredCallback" />
 
 <p class="block-content">
@@ -11,6 +12,33 @@ for changes every <tt>Interval</tt> seconds.
 A <tt>DecayRate</tt> can be set to increase the polling
 interval linearly if no changes are observed. Once a change is
 observed, the polling interval is reset to the original value.
+</p>
+
+
+<h2>Properties</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr><td><tt>ControlID</tt></td><td>The id of the control or element to watch.</td></tr>
+<tr><td><tt>PropertyName</tt></td><td>The client-side property to read from it, such as <tt>value</tt>.</td></tr>
+<tr><td><tt>Interval</tt></td><td>How often the value is read, in seconds. Defaults to 1.</td></tr>
+<tr><td><tt>DecayRate</tt></td><td>How much the interval grows after each check that finds no change. Defaults to 0, meaning a fixed interval. A change resets the interval to its original value.</td></tr>
+</table>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TTextBox ID="Search" /&gt;
+&lt;com:TValueTriggeredCallback
+    ControlID="Search"
+    PropertyName="value"
+    Interval="0.5"
+    DecayRate="0.2"
+    OnCallback="searchChanged" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+This watches a value rather than an event, so it notices a change however it was made,
+including one written by other client script. The decay rate keeps an idle page from
+polling as hard as an active one.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TValueTriggeredCallback.Home" />

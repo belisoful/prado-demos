@@ -1,12 +1,28 @@
 <com:TContent ID="body" >
 
 <h1>TActiveMultiView</h1>
+<com:SinceVersion Version="3.1.9" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveMultiView" />
 
 <p class="block-content">
 <tt>TActiveMultiView</tt> is the active counterpart to the original <tt>TMultiView</tt> control.
 <tt>TActiveMultiView</tt> serves as a container for a group of <tt>TView</tt> controls, which can be retrieved by the <tt>Views</tt> property. Each view contains child controls. <tt>TActiveMultiView</tt> determines which view and its child controls are visible. At any time, at most one view is visible (called <i>active</i>). To make a view active, set <tt>ActiveView</tt> or <tt>ActiveViewIndex</tt>. Note, by default there is no active view.
 <tt>TActiveMultiView</tt> is able to render itself on Callback when <tt>ActiveView</tt> or <tt>ActiveViewIndex</tt> properties are changed.
+</p>
+
+<h2>Switching views on a callback</h2>
+
+<p class="block-content">
+Assigning <tt>ActiveViewIndex</tt> or <tt>ActiveView</tt> during a callback renders the
+newly active view and replaces the region in the browser, subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>.
+The views that are not active render nothing, as they do on an ordinary multi view.
+</p>
+
+<h2>The surrounding container</h2>
+
+<p class="block-content">
+The control renders a container around itself so the region can be replaced. Its id is the
+control's client id followed by <tt>_Container</tt>.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveMultiView.Home" />

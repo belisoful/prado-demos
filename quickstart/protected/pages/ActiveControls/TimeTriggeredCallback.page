@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TTimeTriggeredCallback</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TTimeTriggeredCallback" />
 
 <p class="block-content">
@@ -9,6 +10,42 @@ Upon each callback request, the <tt>OnCallback</tt> event is raised.
 The timer can be started by calling <tt>startTimer()</tt> and stopped using
 <tt>stopTimer()</tt>. The timer can be automatically started when
 <tt>StartTimerOnLoad</tt> is true.
+</p>
+
+
+<h2>Properties and methods</h2>
+
+<table class="parameters">
+<tr><th>Member</th><th>Purpose</th></tr>
+<tr><td><tt>Interval</tt></td><td>The gap between requests, in seconds. Defaults to 1.</td></tr>
+<tr><td><tt>StartTimerOnLoad</tt></td><td>Whether the timer starts as soon as the page loads. Defaults to false, so a page must start it deliberately.</td></tr>
+<tr><td><tt>startTimer()</tt>, <tt>stopTimer()</tt></td><td>Start and stop the timer from the server, including from inside a callback handler.</td></tr>
+</table>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TTimeTriggeredCallback ID="Poll"
+    Interval="5"
+    StartTimerOnLoad="true"
+    OnCallback="poll" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+A handler stops the timer once the work it was waiting for is done, so the page does not
+keep polling forever.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function poll($sender, $param)
+{
+    if ($this-&gt;jobFinished()) {
+        $sender-&gt;stopTimer();
+    }
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+A short interval means a request per client per interval, so choose it against the number
+of visitors the page will have rather than against how fresh the data could be.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TTimeTriggeredCallback.Home" />

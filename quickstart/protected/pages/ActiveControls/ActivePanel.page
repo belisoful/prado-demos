@@ -1,23 +1,53 @@
 <com:TContent ID="body" >
 
 <h1>TActivePanel</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActivePanel" />
 
 <p class="block-content">
+<tt>TActivePanel</tt> is the active control counterpart of
+<a href="?page=Controls.Panel">TPanel</a>. It renders the same <tt>&lt;div&gt;</tt> and
+adds the ability to replace everything inside it during a callback.
+</p>
 
-<tt>TActivePanel</tt> is the <tt>TPanel</tt> active control counterpart.
-<tt>TActivePanel</tt> allows the client-side panel contents to be updated during a
-callback response using the <tt>render</tt> method.
-Example: Assume $param is an instance of <tt>TCallbackEventParameter</tt> attached to
-the <tt>OnCallback</tt> event of a <tt>TCallback</tt> with ID "callback1", and
-"panel1" is the ID of a <tt>TActivePanel</tt>.
+<h2>Replacing the contents</h2>
 
-<com:TTextHighlighter Language="text" CssClass="source block-content">
-function callback1_requested($sender, $param)
+<p class="block-content">
+A panel does not expose a property that pushes a value. A handler calls <tt>render()</tt>
+on the panel with the writer from the callback event parameter, and the panel renders
+itself again and sends the result to replace the element in the browser.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function callbackRequested($sender, $param)
 {
-	   $this->panel1->render($param->getNewWriter());
+    $this-&gt;Panel1-&gt;render($param-&gt;NewWriter);
 }
 </com:TTextHighlighter>
+
+<p class="block-content">
+This is the way to change a region whose shape varies, such as adding or removing
+controls, rather than changing one value inside it. Everything the panel contains is
+rendered again, so a control the handler added to the panel appears in the result.
+</p>
+
+<h2>Child controls are not updated separately</h2>
+
+<p class="block-content">
+When a panel renders during a callback, it turns off
+<tt>ActiveControl.EnableUpdate</tt> on every active control inside it. Those controls
+would otherwise each send their own update, and the panel is about to replace the whole
+region anyway. A handler that assigns to an active label inside a panel it also renders
+therefore sees the value in the rendered output, not as a separate update.
+</p>
+
+<p class="block-content">
+The replacement itself is subject to
+<a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a
+client-side update</a>. A panel with <tt>Visible</tt> set to false sends nothing, which is
+why a hidden region is usually revealed by rendering an outer panel rather than the hidden
+one.
+</p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActivePanel.Home" />
 

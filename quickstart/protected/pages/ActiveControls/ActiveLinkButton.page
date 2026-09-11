@@ -1,17 +1,40 @@
 <com:TContent ID="body" >
 
 <h1>TActiveLinkButton</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveLinkButton" />
 
 <p class="block-content">
-<tt>TActiveLinkButton</tt> is the active control counter part to <tt>TLinkButton</tt>.
-When a <tt>TActiveLinkButton</tt> is clicked, rather than a normal post back request a
-callback request is initiated.
-The <tt>OnCallback</tt> event is raised during a callback request
-and it is raise <b>after</b> the <tt>OnClick</tt> event.
-When the <tt>ActiveControl.EnableUpdate</tt>
-property is true, changing the <tt>Text</tt> property during callback request
-will update the link text upon callback response completion.
+<tt>TActiveLinkButton</tt> is the active control counterpart of
+<a href="?page=Controls.LinkButton">TLinkButton</a>. Clicking it starts a callback rather
+than a postback. The <tt>OnCallback</tt> event is raised during a callback, after the
+<tt>OnClick</tt> event.
+</p>
+
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Effect on the browser</th></tr>
+<tr>
+	<td><tt>Text</tt></td>
+	<td>Replaces the content of the link.</td>
+</tr>
+<tr>
+	<td><tt>Enabled</tt></td>
+	<td>Set to false, it removes the <tt>href</tt> attribute, so the link stops responding to clicks. Set back to true, it restores the attribute and registers the client script again.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Both updates are subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>.
+</p>
+
+<p class="block-content">
+Because the control reaches the server through its <tt>href</tt>, a link button needs
+client script to work at all. It is one of the controls with no postback fallback, listed
+in the abilities table on the <a href="?page=ActiveControls.Home">Active Controls</a>
+page, so a browser without JavaScript cannot activate it. Use
+<a href="?page=ActiveControls.ActiveButton">TActiveButton</a> where that matters.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveLinkButton.Home" />

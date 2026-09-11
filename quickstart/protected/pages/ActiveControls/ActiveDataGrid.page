@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TActiveDataGrid</h1>
+<com:SinceVersion Version="3.1.9" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveDataGrid" />
 
 <p class="block-content">
@@ -39,6 +40,52 @@ Please refer to the original documentation of <a href="?page=Controls.DataGrid">
 <h3>Automatically Generated Columns</h3>
 <p class="block-content">
 TDataGrid by default will create a list of columns based on the structure of the bound data. TDataGrid will read the first row of the data, extract the field names of the row, and construct a column for each field. Each column is of type <tt>TActiveBoundColumn</tt>. All of this happens in an ajax callback.
+</p>
+
+<h2>Repainting on a callback</h2>
+
+<p class="block-content">
+A data bound control cannot push one value, because its whole body comes from the data.
+Instead, assigning <tt>DataSource</tt> during a callback registers the control to render
+itself again, and the response replaces the region in the browser. A handler does not call
+<tt>render()</tt> for this, unlike
+<a href="?page=ActiveControls.ActivePanel">TActivePanel</a>.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function callbackRequested($sender, $param)
+{
+    $this-&gt;List-&gt;DataSource = $this-&gt;fetchRows();
+    $this-&gt;List-&gt;dataBind();
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+The repaint is subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>.
+</p>
+
+<h2>The surrounding container</h2>
+
+<p class="block-content">
+To be replaceable, the control needs an element of its own to replace. It renders a
+container around itself whose id is the control's client id followed by
+<tt>_Container</tt>. That container, not the control's own markup, is what the callback
+response swaps out.
+</p>
+
+<p class="block-content">
+<tt>SurroundingTag</tt> chooses the element used for that container, and defaults to
+<tt>div</tt>. Change it where a <tt>&lt;div&gt;</tt> is not valid in the surrounding
+markup. <tt>SurroundingTagID</tt> returns the container's id, which client script needs in
+order to address the region.
+</p>
+<h2>Connected pagers</h2>
+
+<p class="block-content">
+When the data source is assigned during a callback, the control also re-renders every
+<a href="?page=ActiveControls.ActivePager">TActivePager</a> on the page whose
+<tt>ControlToPaginate</tt> names it. The page count changes with the data, so the pager
+would otherwise show buttons for pages that no longer exist.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveDataGrid.Sample1" />

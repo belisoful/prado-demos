@@ -1,5 +1,6 @@
 <com:TContent ID="body">
 <h1>TActiveCustomValidator</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveCustomValidator" />
 
 <p class="block-content">Performs custom validation using only server-side <tt>OnServerValidate</tt>
@@ -15,6 +16,29 @@ changes value, that is, the server validation may be called many times.
 After the callback or postback, the {@link onServerValidate onServerValidate}
 is raised once more. The <tt>IsCallback</tt> property of the <tt>TPage</tt> class
 will be true when validation is made during a callback request.
+</p>
+
+
+<h2>Validating on the server during a callback</h2>
+
+<p class="block-content">
+The control raises <tt>OnServerValidate</tt> during a callback, so the check runs on the
+server without a full page load. <tt>IsCallback</tt> tells a handler which kind of request
+it is running in, for a check that is too expensive to repeat on every keystroke.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function checkName($sender, $param)
+{
+    $param-&gt;IsValid = !$this-&gt;nameIsTaken($param-&gt;Value);
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>EnableClientScript</tt> decides whether the validator also runs its client-side
+function. With it off, the check happens only on the server.
+<tt>ClientValidationFunction</tt> names the client-side function, as on
+<a href="?page=Controls.Validation">TCustomValidator</a>.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveCustomValidator.Home" />

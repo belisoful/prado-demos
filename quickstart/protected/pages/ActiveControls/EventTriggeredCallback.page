@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TEventTriggeredCallback</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TEventTriggeredCallback" />
 
 <p class="block-content">
@@ -8,6 +9,30 @@
 on a control with ID given by <tt>ControlID</tt> is raised.
 The default action of the event on the client-side can be prevented when
 <tt>PreventDefaultAction</tt> is set to true.
+</p>
+
+
+<h2>Properties</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr><td><tt>ControlID</tt></td><td>The id of the control or element to watch. It is an id path relative to the trigger's own naming container.</td></tr>
+<tr><td><tt>EventName</tt></td><td>The client-side event to watch, written without the <tt>on</tt> prefix, such as <tt>click</tt> or <tt>change</tt>.</td></tr>
+<tr><td><tt>PreventDefaultAction</tt></td><td>Whether the browser's own response to the event is suppressed. Defaults to false. Set it to true on a link or a submit button so the page does not navigate while the callback runs.</td></tr>
+</table>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;div id="hotspot"&gt;Click anywhere here&lt;/div&gt;
+&lt;com:TEventTriggeredCallback
+    ControlID="hotspot"
+    EventName="click"
+    PreventDefaultAction="true"
+    OnCallback="hotspotClicked" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The trigger renders nothing of its own. It attaches to an element that already exists,
+which is how plain markup, not only PRADO controls, gains a server-side handler.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TEventTriggeredCallback.Home" />

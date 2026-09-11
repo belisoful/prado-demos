@@ -1,14 +1,37 @@
 <com:TContent ID="body" >
 
 <h1>TActiveDatePicker</h1>
+<com:SinceVersion Version="3.1.3" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveDatePicker" />
 
 <p class="block-content">
-<tt>TActiveDatePicker</tt> is the active control counter part to <tt>TDatePicker</tt> control.
-When the date selection is changed, the <tt>OnCallback</tt> event is raised.
+<tt>TActiveDatePicker</tt> is the active control counterpart of
+<a href="?page=Controls.DatePicker">TDatePicker</a>. It offers the same calendar and input
+modes, and it reaches the server through a callback when the selected date changes.
+<tt>AutoPostBack</tt> defaults to true here, unlike on the ordinary control.
 </p>
+
+<h2>Events</h2>
+
 <p class="block-content">
-Please refer to the documentation of <tt>TDatePicker</tt> for further usage informations.
+Changing the date raises <tt>OnTextChanged</tt> first, inherited from the text box the
+control is built on, and <tt>OnCallback</tt> second.
+</p>
+
+<h2>Updating the date during a callback</h2>
+
+<p class="block-content">
+Assigning <tt>Text</tt> writes the new date into the field in the browser. This one update
+carries an extra condition beyond <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>: the page must already have loaded
+its post data. A date assigned earlier than that is kept on the server and never sent, so
+write it from <tt>OnLoad</tt> or from the callback handler rather than from
+<tt>OnInit</tt>.
+</p>
+
+<p class="block-content">
+Under the <tt>DropDownList</tt> input mode the control shows three select elements rather
+than a text field. Assigning <tt>Text</tt> then sets the day, the month, and the year
+lists as well, so the three stay in step with the value.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveDatePicker.Home" />

@@ -37,10 +37,80 @@ Active controls extends standard PRADO controls adding the ability to automatica
 Most active controls have a <tt>ActiveControl.EnableUpdate</tt> property that determines whether the active control is allowed to update the contents of the client-side when the callback response returns. Depending on the control different properties can be updated.
 </p>
 
+<a name="ClientSideUpdates"></a>
+<h2>When a property reaches the browser</h2>
+
+<p class="block-content">
+An active control property that can update the browser does so from its own setter. The
+setter stores the value as the ordinary control would, then asks whether an update is
+allowed, and only then sends the change down with the callback response. Five conditions
+all have to hold for that to happen.
+</p>
+
+<table class="parameters">
+<tr><th>Condition</th><th>Why it matters</th></tr>
+<tr>
+	<td>The request is a callback</td>
+	<td>On a full postback the whole page is rendered anyway, so no separate update is sent.</td>
+</tr>
+<tr>
+	<td><tt>ActiveControl.EnableUpdate</tt> is true</td>
+	<td>It defaults to true. Set it to false to change server state without touching the browser.</td>
+</tr>
+<tr>
+	<td>The control is visible</td>
+	<td>A control with <tt>Visible</tt> set to false receives no update, so a handler cannot reveal it by assigning to it. Set <tt>Visible</tt> from a surrounding <a href="?page=ActiveControls.ActivePanel">TActivePanel</a> instead, or render the region again.</td>
+</tr>
+<tr>
+	<td>The control's children are initialized</td>
+	<td>Assignments made before that point are kept on the server but not sent.</td>
+</tr>
+<tr>
+	<td>The page is not loading post data</td>
+	<td>This is why a value written during <tt>loadPostData</tt> never reaches the browser. Write it from <tt>OnLoad</tt> or later.</td>
+</tr>
+</table>
+
+<p class="block-content">
+One more rule catches people out. A setter that receives the value the property already
+holds returns immediately and sends nothing. Assigning the same text twice therefore
+repaints nothing, which matters when client script has changed the element behind the
+server's back.
+</p>
+
 <p class="block-content">
 Some active controls can trigger a callback as a consequence of a clientside event (a button click, a checkbox being checked, a DOM event). The callback will first raise the normal serverside event associated to the control (eg: OnClick for a <tt>TButton</tt> or OnSelectedIndexChanged for a <tt>TRadioButtonList</tt>) and then the <tt>OnCallBack</tt> event.
-The <tt>AutoPostBack</tt> property typically defaults to true for these controls.
 </p>
+
+<a name="AutoPostBackDefaults"></a>
+<h2>Which controls fire on their own</h2>
+
+<p class="block-content">
+<tt>AutoPostBack</tt> decides whether interacting with the control starts a request by
+itself. The ordinary controls leave it false. Most active controls turn it on in their
+constructor, so they react to a click or a change without any configuration.
+</p>
+
+<table class="parameters">
+<tr><th>Default</th><th>Controls</th></tr>
+<tr>
+	<td>true</td>
+	<td><tt>TActiveCheckBox</tt>, <tt>TActiveCheckBoxList</tt>, <tt>TActiveRadioButton</tt>,
+	<tt>TActiveRadioButtonList</tt>, <tt>TActiveDropDownList</tt>, <tt>TActiveListBox</tt>,
+	<tt>TActiveRatingList</tt>, <tt>TActiveDatePicker</tt>, <tt>TInPlaceTextBox</tt></td>
+</tr>
+<tr>
+	<td>false</td>
+	<td><tt>TActiveTextBox</tt>, which inherits the setting from <tt>TTextBox</tt>. A text box that should
+	call back when the user leaves the field needs <tt>AutoPostBack="true"</tt> written out.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Setting <tt>AutoPostBack</tt> to false on a control that defaults to true stops the
+control registering its client script at all, so it no longer reaches the server on its
+own. The buttons are a separate case: a click is what they are for, and they always call
+back.
 </p>
 
 <p class="block-content">

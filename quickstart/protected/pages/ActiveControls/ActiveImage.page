@@ -1,15 +1,35 @@
 <com:TContent ID="body" >
 
 <h1>TActiveImage</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveImage" />
 
 <p class="block-content">
-<tt>TActiveImage</tt> is the active control counter part to <tt>TImage</tt>. <tt>TActiveImage</tt> displays an image on a page. The image is specified via the <tt>ImageUrl</tt> property which takes a relative or absolute URL to the image file. The alignment of the image displayed is set by the <tt>ImageAlign</tt> property. To set alternate text or long description of the image, use <tt>AlternateText</tt> or <tt>DescriptionUrl</tt>, respectively.
+<tt>TActiveImage</tt> is the active control counterpart of
+<a href="?page=Controls.Image">TImage</a>. It renders an <tt>&lt;img&gt;</tt> element in
+the same way and adds the ability to change its attributes during a callback.
+</p>
+
+<h2>What updates during a callback</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Attribute rewritten</th></tr>
+<tr><td><tt>ImageUrl</tt></td><td><tt>src</tt></td></tr>
+<tr><td><tt>AlternateText</tt></td><td><tt>alt</tt></td></tr>
+<tr><td><tt>ImageAlign</tt></td><td><tt>align</tt></td></tr>
+<tr><td><tt>DescriptionUrl</tt></td><td><tt>longdesc</tt></td></tr>
+</table>
+
+<p class="block-content">
+Each update is subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>. Swapping <tt>ImageUrl</tt> is the common
+case, and changing <tt>AlternateText</tt> with it keeps the new image described.
 </p>
 
 <p class="block-content">
-TActiveImage allows the <tt>AlternateText</tt>, <tt>ImageAlign</tt>, <tt>ImageUrl</tt>
-and <tt>DescriptionUrl</tt> to be updated during a callback request.
+<tt>ImageAlign</tt> and <tt>DescriptionUrl</tt> are inherited from <tt>TImage</tt> and
+both are deprecated, because HTML5 dropped the attributes they write. Use the CSS
+<tt>float</tt> or <tt>vertical-align</tt> declaration and an ARIA attribute such as
+<tt>aria-describedby</tt> instead.
 </p>
 <com:RunBar PagePath="ActiveControls.Samples.TActiveImage.Home" />
 

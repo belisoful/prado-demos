@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TActiveFileUpload</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveFileUpload" />
 
 <p class="block-content">
@@ -26,6 +27,50 @@ TActiveFileUpload actually does a postback in a hidden IFrame, and then does a c
 This callback then raises the <tt>OnFileUpload</tt> event. After the postback
 a status icon is displayed; either a green checkmark if the upload is successful,
 or a red x if there was an error.
+</p>
+
+
+<h2>Properties</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>TempPath</tt></td>
+	<td>Where the uploaded file is held until the handler saves it. It is written in namespace form and defaults to <tt>Application.runtime.*</tt>. The directory must be writable by the web server.</td>
+</tr>
+<tr>
+	<td><tt>BusyImage</tt></td>
+	<td>The image shown while the transfer runs.</td>
+</tr>
+<tr>
+	<td><tt>SuccessImage</tt></td>
+	<td>The image shown when the transfer finished, a green check by default.</td>
+</tr>
+<tr>
+	<td><tt>ErrorImage</tt></td>
+	<td>The image shown when the transfer failed, a red cross by default.</td>
+</tr>
+<tr>
+	<td><tt>CallbackJavascript</tt></td>
+	<td>Read-only. The script that starts the upload. A page with <tt>AutoPostBack</tt> off calls it from its own control, such as a button, to begin the transfer.</td>
+</tr>
+</table>
+
+<p class="block-content">
+All three images are <tt>TImage</tt> controls, so their subproperties set the source and
+the alternate text.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TActiveFileUpload ID="Upload"
+    TempPath="Application.runtime.uploads"
+    BusyImage.ImageUrl="spinner.gif"
+    OnFileUpload="fileUploaded" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The multiple file upload of <a href="?page=Controls.FileUpload">TFileUpload</a> applies
+here too, so <tt>Multiple</tt>, <tt>Files</tt>, and <tt>HasAllFiles</tt> work the same way.
 </p>
 
 <com:RunBar PagePath="ActiveControls.Samples.TActiveFileUpload.Home" />

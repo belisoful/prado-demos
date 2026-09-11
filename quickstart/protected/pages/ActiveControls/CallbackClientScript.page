@@ -1,14 +1,19 @@
 <com:TContent ID="body" >
 
 <h1>TCallbackClientScript</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallbackClientScript" />
 
 <p class="block-content">
-The <tt>TCallbackClientScript</tt> class provides corresponding methods that can be
-executed on the client-side (i.e. the browser client that is viewing
-the page) during a callback response.
-For a complete list of available client side methods, consult the
-<com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallbackClientScript" />
+<tt>TCallbackClientScript</tt> is how a callback handler reaches parts of the page that
+are not active controls. Each method queues a client-side operation, and the operations
+run in the browser when the callback response arrives, in the order they were queued. The
+page exposes the object as <tt>CallbackClient</tt>.
+</p>
+
+<p class="block-content">
+Every method that takes an element accepts either a PRADO control or a client-side element
+id, so it reaches markup the page did not render as a control.
 </p>
 
 <p class="block-content">
@@ -23,6 +28,88 @@ For example, to hide "$myTextBox" element during callback response, do:
 </p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 $this->getPage()->getCallbackClient()->hide($myTextBox);
+</com:TTextHighlighter>
+
+
+<h2>Changing content</h2>
+
+<table class="parameters">
+<tr><th>Method</th><th>Effect</th></tr>
+<tr><td><tt>update($el, $content)</tt></td><td>Replaces everything inside the element. A control passed as the content is rendered first.</td></tr>
+<tr><td><tt>replaceContent($el, $content)</tt></td><td>Replaces the element itself, not only its contents.</td></tr>
+<tr><td><tt>appendContent($el, $c)</tt>, <tt>prependContent($el, $c)</tt></td><td>Adds a fragment inside the element, at the end or the start.</td></tr>
+<tr><td><tt>insertContentAfter($el, $c)</tt>, <tt>insertContentBefore($el, $c)</tt></td><td>Adds a fragment outside the element, on either side.</td></tr>
+<tr><td><tt>remove($el)</tt></td><td>Removes the element from the page.</td></tr>
+</table>
+
+<h2>Changing attributes, styles and classes</h2>
+
+<table class="parameters">
+<tr><th>Method</th><th>Effect</th></tr>
+<tr><td><tt>setAttribute($el, $name, $value)</tt></td><td>Sets one attribute.</td></tr>
+<tr><td><tt>removeAttribute($el, $name)</tt></td><td>Removes one attribute.</td></tr>
+<tr><td><tt>setStyle($el, $styles)</tt></td><td>Applies CSS declarations given as an array.</td></tr>
+<tr><td><tt>addCssClass($el, $class)</tt>, <tt>removeCssClass($el, $class)</tt></td><td>Adds or removes one class name.</td></tr>
+<tr><td><tt>setOpacity($el, $value)</tt></td><td>Sets opacity without an animation.</td></tr>
+</table>
+
+<h2>Changing form fields</h2>
+
+<table class="parameters">
+<tr><th>Method</th><th>Effect</th></tr>
+<tr><td><tt>setValue($el, $value)</tt></td><td>Writes the value of an input.</td></tr>
+<tr><td><tt>check($el, $checked)</tt></td><td>Ticks or clears a check box or radio button.</td></tr>
+<tr><td><tt>select($el, $method, $value)</tt></td><td>Changes the selection of a list control. The method names what to do: <tt>Value</tt>, <tt>Index</tt>, <tt>Clear</tt>, <tt>All</tt>, or <tt>Invert</tt>.</td></tr>
+<tr><td><tt>setListItems($el, $items)</tt></td><td>Replaces the options of a list control.</td></tr>
+<tr><td><tt>focus($el)</tt></td><td>Moves focus to the element.</td></tr>
+<tr><td><tt>click($el)</tt></td><td>Clicks the element. The class documentation warns that the result is unpredictable, so prefer calling the handler directly on the server.</td></tr>
+</table>
+
+<h2>Showing and hiding</h2>
+
+<p class="block-content">
+<tt>show()</tt>, <tt>hide()</tt>, and <tt>toggle()</tt> change visibility at once.
+<tt>scrollTo()</tt> brings an element into view.
+</p>
+
+<h2>Running script</h2>
+
+<table class="parameters">
+<tr><th>Method</th><th>Effect</th></tr>
+<tr><td><tt>callClientFunction($name, $args)</tt></td><td>Calls a JavaScript function that the page already defines.</td></tr>
+<tr><td><tt>jQuery($el, $method, $args)</tt></td><td>Calls any jQuery method on the element, which covers anything the wrappers above do not.</td></tr>
+<tr><td><tt>evaluateScript($script)</tt></td><td>Runs a fragment of script.</td></tr>
+<tr><td><tt>appendScriptBlock($script)</tt></td><td>Adds a script block to the page.</td></tr>
+<tr><td><tt>raiseClientEvent($el, $name)</tt></td><td>Fires an event on the element, so handlers attached to it run.</td></tr>
+</table>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$client = $this-&gt;Page-&gt;CallbackClient;
+$client-&gt;update($this-&gt;Result, '&lt;strong&gt;Saved&lt;/strong&gt;');
+$client-&gt;addCssClass($this-&gt;Result, 'ok');
+$client-&gt;jQuery($this-&gt;Input, 'focus');
+</com:TTextHighlighter>
+
+<h2>Visual effects</h2>
+
+<p class="block-content">
+<tt>fadeIn()</tt>, <tt>fadeOut()</tt>, <tt>fadeTo()</tt>, <tt>slideDown()</tt>,
+<tt>slideUp()</tt>, <tt>appear()</tt>, and <tt>fade()</tt> animate an element using
+jQuery, which the framework already loads.
+</p>
+
+<p class="block-content">
+A second set comes from jQuery UI: <tt>juiEffect()</tt> runs any named effect, and
+<tt>blind()</tt>, <tt>drop()</tt>, <tt>fold()</tt>, <tt>size()</tt>, <tt>puff()</tt>,
+<tt>pulsate()</tt>, <tt>shake()</tt>, <tt>scale()</tt>, <tt>highlight()</tt>,
+<tt>blindDown()</tt>, <tt>blindUp()</tt>, <tt>dropOut()</tt>, <tt>grow()</tt>,
+<tt>shrink()</tt>, <tt>squish()</tt>, and <tt>switchOff()</tt> are named wrappers over it.
+These need the jQuery UI script registered first, or nothing happens.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$this-&gt;Page-&gt;ClientScript-&gt;registerPradoScript('jqueryui');
+$this-&gt;Page-&gt;CallbackClient-&gt;juiEffect($this-&gt;Result, 'highlight');
 </com:TTextHighlighter>
 
 <com:RunBar PagePath="ActiveControls.Samples.TCallbackClientScript.Home" />

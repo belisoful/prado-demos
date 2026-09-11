@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TActivePager</h1>
+<com:SinceVersion Version="3.1.2" />
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TPager" />
 
 <p class="block-content">

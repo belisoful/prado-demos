@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TActiveListBox</h1>
+<com:SinceVersion Version="3.1" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveListBox" />
 
 <p class="block-content">
@@ -13,10 +14,29 @@ Thus, when a list item is clicked a <tt>OnCallback</tt> event is
 raised after <tt>OnSelectedIndexChanged</tt> event.
 </p>
 
+<h2>What updates during a callback</h2>
+
 <p class="block-content">
-With <tt>ActiveControl.EnableUpdate</tt>
-set to true (default is true), changes to the selection will be updated
-on the client side.
+The selection can be changed from the server. Assigning <tt>SelectedIndex</tt>,
+<tt>SelectedIndices</tt>, <tt>SelectedValue</tt>, or <tt>SelectedValues</tt> moves the
+selection in the browser, subject to <a href="?page=ActiveControls.Introduction#ClientSideUpdates">the five conditions for a client-side update</a>. A list with a prompt item counts
+the prompt outside the index, in the same way a postback does.
+</p>
+
+<h2>Changing the items</h2>
+
+<p class="block-content">
+Like <a href="?page=ActiveControls.ActiveDropDownList">TActiveDropDownList</a>, a list box
+can have its <tt>Items</tt> collection rebuilt during a callback, and the new options
+reach the browser with the response.
+</p>
+
+<h2>Single and multiple selection</h2>
+
+<p class="block-content">
+<tt>SelectionMode</tt> can also change during a callback. Switching to a multiple mode
+rewrites the field name so the browser posts an array, and switching back undoes that.
+Without the rename a multiple selection would arrive at the server as a single value.
 </p>
 
 <p class="block-content">

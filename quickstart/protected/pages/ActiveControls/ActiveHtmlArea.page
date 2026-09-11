@@ -1,6 +1,7 @@
 <com:TContent ID="body" >
 
 <h1>TActiveHtmlArea</h1>
+<com:SinceVersion Version="4.0.0" />
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveHtmlArea" />
 
 <p class="block-content">
