@@ -1,7 +1,7 @@
 <com:TContent ID="body">
 
 <h1>Data Mapper</h1>
-<com:SinceVersion Version="3.1a" />
+<com:SinceVersion Version="3.1" />
 <p class="block-content">Data Mappers moves data between objects and a database while keeping them
     independent of each other and the mapper itself. If you started with
     <a href="?page=Database.ActiveRecord">Active Records</a>, you may eventually

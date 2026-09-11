@@ -73,7 +73,7 @@ As aforementioned, you can put several skins within a single skin file, or split
 </p>
 
 <h2>Web controls decorators</h2>
-<com:SinceVersion Version="3.2a" />
+<com:SinceVersion Version="3.2" />
 <p class="block-content">
 As an alternative to the previous methods, to customize the rending of a control its Decorator property can be customized. A <tt>TWebControlDecorator</tt> can add custom text (html code) before and after both the open and close tag of the control.
 </p>

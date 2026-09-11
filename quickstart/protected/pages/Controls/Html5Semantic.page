@@ -28,7 +28,7 @@ so it holds other controls and markup as its body content.
 </table>
 
 <h2>Heading controls</h2>
-<com:SinceVersion Version="3.2a" />
+<com:SinceVersion Version="3.2" />
 <p class="block-content">
 Six further controls render the HTML heading elements. <tt>THeader1</tt> renders
 <tt>&lt;h1&gt;</tt>, <tt>THeader2</tt> renders <tt>&lt;h2&gt;</tt>, and so on through

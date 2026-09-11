@@ -1,6 +1,6 @@
 <com:TContent ID="body" >
 <h1>Active Record</h1>
-<com:SinceVersion Version="3.1a" />
+<com:SinceVersion Version="3.1" />
 <p class="block-content">Active Records are objects that wrap a row in a database table or view,
     encapsulate the database access and add domain logic on that data.
     The basics of an Active Record are business classes, e.g., a
@@ -622,7 +622,7 @@ $obj->OnExecuteCommand[] = array($logger, 'log'); //any valid PHP callback.
 </com:TTextHighlighter>
 
 <h1 id="ar_relations">Active Record Relationships</h1>
-<com:SinceVersion Version="3.1rc1" />
+<com:SinceVersion Version="3.1" />
 <p id="690504a" class="block-content">
 The Prado Active Record implementation supports the foreign key mappings for database
 that supports foreign key constraints. For Active Record relationships to function the

@@ -1,6 +1,5 @@
 <com:TContent ID="body" >
 <h1>Components: Events</h1>
-<com:SinceVersion Version="3.2.3" />
 
 <h2>Component events</h2>
 <p class="block-content">

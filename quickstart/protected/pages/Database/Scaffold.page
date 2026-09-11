@@ -1,6 +1,6 @@
 <com:TContent ID="body" >
 <h1>Active Record Scaffold Views</h1>
-<com:SinceVersion Version="3.1b" />
+<com:SinceVersion Version="3.1" />
 <p class="block-content"><a href="?page=Database.ActiveRecord">Active Record</a> classes can be used together with
 <com:DocLink ClassPath="Prado.Data.ActiveRecord.Scaffold.TScaffoldListView" Text="TScaffoldListView"/>
 and

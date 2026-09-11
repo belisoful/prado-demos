@@ -1,6 +1,6 @@
 <com:TContent ID="body" >
 <h1>Data Access Objects (DAO)</h1>
-<com:SinceVersion Version="3.1a" />
+<com:SinceVersion Version="3.1" />
 <p class="block-content">
 Data Access Objects (DAO) separates a data resource's client interface from its data access mechanisms. It adapts a specific data resource's access API to a generic client interface. As a result, data access mechanisms can be changed independently of the code that uses the data.
 </p>

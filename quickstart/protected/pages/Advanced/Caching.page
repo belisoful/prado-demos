@@ -154,7 +154,7 @@ and <tt>Port</tt>.
 </p>
 
 <h3>TRedisCache</h3>
-<com:SinceVersion Version="4.0" />
+<com:SinceVersion Version="4.0.0" />
 <p class="block-content">
 Stores entries in Redis. It needs the <tt>redis</tt> extension and raises a
 <tt>TConfigurationException</tt> without it. <tt>Host</tt> and <tt>Port</tt> name the
@@ -163,7 +163,7 @@ numbered database within the server.
 </p>
 
 <h3>TEtcdCache</h3>
-<com:SinceVersion Version="4.0" />
+<com:SinceVersion Version="4.0.0" />
 <p class="block-content">
 Stores entries in an etcd key-value store over its HTTP interface, which suits a
 distributed deployment that already runs one. <tt>Host</tt> and <tt>Port</tt> name the
