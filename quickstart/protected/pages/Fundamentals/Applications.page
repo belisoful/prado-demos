@@ -62,15 +62,15 @@ services, parameters, modules, and external configuration files. Each module is
 instantiated, its properties are set, it receives the <tt>dyPreInit</tt> dynamic event,
 and its <tt>init</tt> method runs.
 </p>
-<p class="block-content">
 <com:SinceVersion Version="4.3.3" />
+<p class="block-content">
 The application then raises <tt>onConfiguration</tt>. At this point the configuration is
 fully applied and the modules are loaded, the request is not yet resolved, and no
 service has started. A handler of this event registers additional services before the
 request is routed.
 </p>
-<p class="block-content">
 <com:SinceVersion Version="4.2.0" />
+<p class="block-content">
 The application resolves the request and loads and initializes the corresponding
 service. It then raises <tt>onInitComplete</tt>. At this point the modules are loaded,
 the request is resolved, and the service is initialized. <tt>TShellApplication</tt>
@@ -108,8 +108,8 @@ The application raises <tt>onEndRequest</tt> after the steps complete. A call to
 When an exception is raised during the lifecycle, the application raises
 <tt>onError</tt>, handles the error, and then raises <tt>onEndRequest</tt>.
 </p>
-<p class="block-content">
 <com:SinceVersion Version="4.3.0" />
+<p class="block-content">
 Throwing a <tt>TExitException</tt> terminates the application gracefully from anywhere in
 the lifecycle. The application raises <tt>onEndRequest</tt> and then exits with the exit
 code carried by the exception, which <tt>getExitCode</tt> returns. A

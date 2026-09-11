@@ -144,8 +144,8 @@ and also when any attached behavior is an instance of the class. A behavior impl
 that case the host component reports itself as an instance of the class the behavior
 supplies.
 </p>
-<p class="block-content">
 <com:SinceVersion Version="4.3.0" />
+<p class="block-content">
 When <tt>asa</tt> is called with a class name and no behavior of that name is found,
 <tt>asa</tt> returns the first attached behavior that is an instance of the class.
 <tt>getBehaviors</tt> returns the attached behaviors, and it accepts an optional class

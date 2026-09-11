@@ -155,8 +155,8 @@ $component->raiseEvent('OnClick', $this, $param, TEventResults::EVENT_REVERSE);
 <tt>TEventParameter</tt> carries the data of an event. A handler reads the data with
 <tt>getParameter</tt> and reads the name of the event with <tt>getEventName</tt>.
 </p>
-<p class="block-content">
 <com:SinceVersion Version="4.3.3" />
+<p class="block-content">
 A <tt>TEventParameter</tt> is set read-only through its <tt>ReadOnly</tt> property. A
 read-only parameter throws <tt>TInvalidOperationException</tt> on any attempt to change
 its data, and reads are always permitted. When the parameter data is an array, a handler

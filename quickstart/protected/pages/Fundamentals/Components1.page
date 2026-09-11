@@ -126,8 +126,8 @@ $component = Prado::createComponent('ComponentType');
 where <tt>ComponentType</tt> refers to a class name or a type name in Prado3 namespace format (e.g. <tt>Prado.Web.UI.TControl</tt>). The second approach also resolves a path alias, so it loads the class file when the class is not yet defined.
 </p>
 
-<p class="block-content">
 <com:SinceVersion Version="4.2.0" />
+<p class="block-content">
 <tt>createComponent</tt> also accepts an array. The <tt>class</tt> entry names the class
 and every other entry sets a property on the new instance, which is how a configuration
 file describes an object that needs more than a constructor argument.
