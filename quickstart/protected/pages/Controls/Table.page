@@ -4,8 +4,35 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TTable" />
 
 <p class="block-content">
-<tt>TTable</tt> displays an HTML table on a page. It is used together with <tt>TTableRow</tt> and <tt>TTableCell</tt> to allow programmatically manipulating HTML tables. The rows of the table is stored in <tt>Rows</tt> property. You may set the table cellspacing and cellpadding via the <tt>CellSpacing</tt> and <tt>CellPadding</tt> properties, respectively. The table caption can be specified via <tt>Caption</tt> whose alignment is specified by <tt>CaptionAlign</tt>. The <tt>GridLines</tt> property indicates how the table should display its borders, and the <tt>BackImageUrl</tt> allows the table to have a background image.
+<tt>TTable</tt> displays an HTML table on a page. It is used together with <tt>TTableRow</tt> and <tt>TTableCell</tt> to allow programmatically manipulating HTML tables. The rows of the table is stored in <tt>Rows</tt> property. The table caption can be specified via <tt>Caption</tt> whose alignment is specified by <tt>CaptionAlign</tt>, and <tt>BackImageUrl</tt> gives the table a background image.
 </p>
+
+<h2>Presentational properties to avoid</h2>
+
+<p class="block-content">
+Three properties write HTML attributes that HTML5 dropped, and the framework marks all
+three deprecated. They still render, so existing pages keep working. CSS replaces each of
+them, through the <tt>Style</tt> property or a class named by <tt>CssClass</tt>.
+</p>
+
+<table class="parameters">
+<tr><th>Deprecated property</th><th>Writes</th><th>Use instead</th></tr>
+<tr>
+	<td><tt>CellSpacing</tt></td>
+	<td><tt>cellspacing</tt></td>
+	<td>The CSS <tt>border-spacing</tt> declaration.</td>
+</tr>
+<tr>
+	<td><tt>CellPadding</tt></td>
+	<td><tt>cellpadding</tt></td>
+	<td>The CSS <tt>border-collapse</tt> declaration set to <tt>collapse</tt>, with <tt>padding</tt> on the cells.</td>
+</tr>
+<tr>
+	<td><tt>GridLines</tt></td>
+	<td><tt>border</tt></td>
+	<td>CSS borders on the individual elements.</td>
+</tr>
+</table>
 <h2>Table sections</h2>
 <com:SinceVersion Version="3.0.1" />
 
@@ -63,7 +90,7 @@ that describe the cell to assistive technology.
 <tr>
 	<td><tt>CategoryText</tt></td>
 	<td><tt>axis</tt></td>
-	<td>A comma separated list of categories the cell belongs to.</td>
+	<td>A comma separated list of categories the cell belongs to. Deprecated, because HTML5 dropped the attribute. Use <tt>Scope</tt>.</td>
 </tr>
 </table>
 

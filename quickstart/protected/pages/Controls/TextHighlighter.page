@@ -4,11 +4,75 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TTextHighlighter" />
 
 <p class="block-content">
-<tt>TTextHighlighter</tt> does syntax highlighting for its body content, including both static text and the rendering results of its child controls. The text being highlighted follows the syntax of the specified <tt>Language</tt>, which can be 'php' (default), 'prado', 'css', 'html', etc. Here, 'prado' stands for the syntax of PRADO control templates.
+<tt>TTextHighlighter</tt> highlights its body content, which covers static text and the
+rendering results of its child controls. The control renders a <tt>&lt;pre&gt;</tt>
+element holding a <tt>&lt;code&gt;</tt> element, and the
+<a href="https://highlightjs.org/">highlight.js</a> library colors the block in the
+browser.
 </p>
+
+<h2>Choosing a language</h2>
+
 <p class="block-content">
-If line numbers are desired in front of each line, set <tt>ShowLineNumbers</tt> to true.
+<tt>Language</tt> names the syntax. It defaults to <tt>php</tt>. The control lowercases
+the value and writes it as the class of the rendered <tt>&lt;code&gt;</tt> element. The
+library ships 185 language definitions, and highlights a block whose class names one of
+them.
 </p>
+
+<p class="block-content">
+A value the library does not recognize leaves it to detect the language from the content.
+That is what happens to <tt>prado</tt>, which the quickstart uses throughout for control
+templates. The library has no PRADO definition, detects the content as XML, and colors it
+as markup.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TTextHighlighter Language="sql"&gt;
+  SELECT name FROM users WHERE id = 1
+&lt;/com:TTextHighlighter&gt;
+</com:TTextHighlighter>
+
+<h2>Presentation</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Default</th><th>Effect</th></tr>
+<tr>
+	<td><tt>ShowLineNumbers</tt></td>
+	<td>false</td>
+	<td>Puts a line number in front of each line. The <tt>hljs-line-numbers</tt> CSS class styles them.</td>
+</tr>
+<tr>
+	<td><tt>EnableCopyCode</tt></td>
+	<td>false</td>
+	<td>Adds a <tt>Copy code</tt> button in the corner of the block that copies the text to the clipboard.</td>
+</tr>
+<tr>
+	<td><tt>TabSize</tt></td>
+	<td>4</td>
+	<td>The number of spaces a tab character becomes.</td>
+</tr>
+<tr>
+	<td><tt>SyntaxStyle</tt></td>
+	<td><tt>default</tt></td>
+	<td>Names one of the highlight.js color themes. The control publishes the matching stylesheet.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The control registers a stylesheet during pre-render, so the page template needs a
+<a href="?page=Controls.Head">THead</a> control for the highlighting to appear.
+</p>
+
+<h2>Encoding the body content</h2>
+
+<p class="block-content">
+<tt>EncodeHtml</tt> defaults to true. The control HTML-encodes the body content before
+rendering it, and strips leading whitespace so the block does not open with a blank
+line. Setting it to false renders the body content untouched, which a page needs
+only when the content is already encoded.
+</p>
+
 <p class="block-content">
 To use <tt>TTextHighlighter</tt>, simply enclose the contents to be syntax highlighted within the body of a <tt>TTextHighlighter</tt> control. The following example highlights a piece of PHP code,
 </p>
