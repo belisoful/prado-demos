@@ -10,7 +10,6 @@
     <li><a href="?page=GettingStarted.Upgrading">Upgrading from a previous version</a></li>
     <li><a href="?page=GettingStarted.Upgrading32">Upgrading from v3.2</a></li>
     <li><a href="?page=GettingStarted.Upgrading33">Upgrading from v3.3</a></li>
-    <li><a href="?page=GettingStarted.Wsat">Web Site Administration Tool</a></li>
     <li><a href="?page=GettingStarted.CommandLine">Command Line Tool</a></li>
 </ul>
 </div>
@@ -104,6 +103,7 @@
     <li><a href="?page=Advanced.Logging">Logging</a></li>
     <li><a href="?page=Advanced.Cron">Scheduled Tasks (Cron)</a></li>
     <li><a href="?page=Advanced.Plugins">Extensions (Plugins)</a></li>
+    <li><a href="?page=Advanced.Wsat">Web Site Administration Tool</a></li>
     <li><a href="?page=Advanced.Error">Error Handling and Reporting</a></li>
     <li><a href="?page=Advanced.I18N">Internationalization</a></li>
     <li><a href="?page=Advanced.Utilities">Utilities</a></li>

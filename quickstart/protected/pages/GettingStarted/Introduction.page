@@ -13,7 +13,27 @@ You may refer to the following resources if you find this tutorial does not fulf
 </p>
 </div>
 <ul class="block-content" id="intro-links">
-  <li><a href="https://pradosoft.github.io/docs/manual/">PRADO API Documentation</a></li>
-  <li><a href="https://github.com/pradosoft/prado/issues">PRADO Issue Tracker</a></li>
+  <li><a href="https://pradosoft.github.io/docs/manual/">PRADO API Documentation</a>, the reference for every class and property.</li>
+  <li><a href="https://github.com/pradosoft/prado">The PRADO repository</a>, including <tt>HISTORY.md</tt> and <tt>UPGRADE.md</tt>.</li>
+  <li><a href="https://github.com/pradosoft/prado/issues">PRADO Issue Tracker</a>.</li>
+  <li><a href="https://github.com/pradosoft/prado-demos">The demo applications</a>, which include the source of this tutorial.</li>
 </ul>
+
+<h2>How this tutorial is organized</h2>
+
+<ul class="block-content">
+  <li><b>Getting started</b> covers installing PRADO, a first application, and the command line tool.</li>
+  <li><b>Fundamentals</b> explains the parts a PRADO application is built from: components, controls, pages, modules, services and behaviors.</li>
+  <li><b>Configurations</b> covers the application and page configuration files, and the template syntax.</li>
+  <li><b>Control reference</b> documents the controls, both the ordinary ones and the AJAX-enabled active controls, each with a runnable sample.</li>
+  <li><b>Working with databases</b> covers the data access layer, Active Record and the SqlMap data mapper.</li>
+  <li><b>Advanced topics</b> covers themes, authentication, caching, logging, internationalization, scheduled tasks and more.</li>
+</ul>
+
+<p class="block-content">
+Most pages in the control reference end with a <b>Run Sample</b> and <b>View Source</b>
+pair that opens a working example and its code. Where a page or a section begins with a
+line reading <i>Available from Prado versions</i>, that line gives the release the feature
+first shipped in.
+</p>
 </com:TContent>

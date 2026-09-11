@@ -4,36 +4,69 @@
 <p>
 If you are viewing this page from your own Web server, you are already done with the installation.
 </p>
-<p>
-The minimum requirement by PRADO is that the Web server support PHP 8.1. PRADO has been tested with Apache Web server on Windows, MacOSX and various Linux distro. Highly possibly it may also run on other platforms with other Web servers, as long as PHP 8.1 is supported.
-</p>
 </div>
 
-<h3>Installing a new app based on PRADO</h3>
-<p>
-The best way to install PRADO is <a href="https://getcomposer.org/">through composer</a>
-<br/>If you don't use composer yet, first install it:
+<h2>Requirements</h2>
+
+<p class="block-content">
+PRADO 4 needs PHP 8.1 or later. It runs on any web server that serves PHP, and it has been
+tested with Apache on Linux, macOS and Windows.
 </p>
-<com:TTextHighlighter CssClass="source block-content">
-curl -s https://getcomposer.org/installer | php
-php composer.phar install
-</com:TTextHighlighter>
-<p>
-Then, create the application structure using composer:
+
+<p class="block-content">
+Six PHP extensions are required. Composer refuses to install without them.
 </p>
-<com:TTextHighlighter CssClass="source block-content">
+
+<table class="parameters">
+<tr><th>Extension</th><th>Used for</th></tr>
+<tr><td><tt>ctype</tt>, <tt>pcre</tt>, <tt>spl</tt></td><td>Core framework operation.</td></tr>
+<tr><td><tt>dom</tt></td><td>Reading XML configurations and templates.</td></tr>
+<tr><td><tt>intl</tt></td><td>Cultures, dates, numbers and message formatting.</td></tr>
+<tr><td><tt>json</tt></td><td>Callback requests and JSON responses.</td></tr>
+</table>
+
+<p class="block-content">
+Several more are optional, each one enabling a particular part of the framework.
+</p>
+
+<table class="parameters">
+<tr><th>Extension</th><th>Enables</th></tr>
+<tr><td><tt>pdo</tt></td><td>Every database component, including <a href="?page=Database.ActiveRecord">Active Record</a>.</td></tr>
+<tr><td><tt>openssl</tt></td><td>Encryption of sensitive data such as the page state.</td></tr>
+<tr><td><tt>mbstring</tt>, <tt>iconv</tt></td><td>Locale-aware string handling in the I18N components.</td></tr>
+<tr><td><tt>apcu</tt>, <tt>memcached</tt></td><td>The matching cache modules.</td></tr>
+<tr><td><tt>soap</tt></td><td><a href="?page=Services.SoapService">The SOAP service</a>.</td></tr>
+<tr><td><tt>xsl</tt></td><td><a href="?page=Controls.XmlTransform">TXmlTransform</a>.</td></tr>
+<tr><td><tt>zlib</tt></td><td>Output compression.</td></tr>
+<tr><td><tt>sockets</tt></td><td>Capturing the log of a forked child process.</td></tr>
+<tr><td><tt>hash</tt></td><td>Hash algorithms beyond md5 and sha1.</td></tr>
+<tr><td><tt>xdebug</tt></td><td>Stack traces on fatal errors, during development.</td></tr>
+</table>
+
+<h2>Starting a new application</h2>
+
+<p class="block-content">
+PRADO is installed with <a href="https://getcomposer.org/">Composer</a>. If you do not have
+Composer yet, install it first, following the instructions on its own site. Then create the
+application:
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content">
 composer create-project pradosoft/prado-app app
 </com:TTextHighlighter>
-<p>
-The application will be installed in the "app" directory.
+<p class="block-content">
+The application is created in the <tt>app</tt> directory, with the entry script, the
+configuration and an empty page tree already in place. Point a web server at that directory
+and the application answers.
 </p>
 
-<h3>Add PRADO to an existing application</h3>
+<h2>Adding PRADO to an existing application</h2>
 
-<p>
-Create a composer.json file for your project:
+<p class="block-content">
+Add the framework as a dependency instead. PRADO's client-side libraries are distributed as
+Bower packages, so the <a href="https://asset-packagist.org">asset-packagist</a> repository
+has to be declared alongside it.
 </p>
-<com:TTextHighlighter CssClass="source json block-content">
+<com:TTextHighlighter Language="json" CssClass="source block-content">
 {
   "repositories": [
     {
@@ -41,23 +74,58 @@ Create a composer.json file for your project:
       "url": "https://asset-packagist.org"
     }
   ],
-    "require": {
-      "pradosoft/prado": "^4"
+  "require": {
+    "pradosoft/prado": "^4"
   }
 }
 </com:TTextHighlighter>
-<p>
-The <a href="https://asset-packagist.org">asset-packagist</a> repository is used to install javascript dependencies.
-<br/>Assuming you already installed composer, run
-<p>
-<com:TTextHighlighter CssClass="source block-content">
+<com:TTextHighlighter Language="cli" CssClass="source block-content">
 composer install
 </com:TTextHighlighter>
-<p>Then you can include the autoloader, and you will have access to the library classes:</p>
-<com:TTextHighlighter CssClass="source php block-content">
-<?php
+<p class="block-content">
+Then include the autoloader, and the framework classes are available:
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+&lt;?php
 require_once('vendor/autoload.php');
 </com:TTextHighlighter>
-</div>
+
+<h2>Directory permissions</h2>
+
+<p class="block-content">
+Two directories must be writable by the user the web server runs as. Composer sets the
+permissions during installation, and they are worth checking after a deployment that
+copies files.
+</p>
+
+<table class="parameters">
+<tr><th>Directory</th><th>Holds</th></tr>
+<tr>
+	<td><tt>assets</tt></td>
+	<td>Images, stylesheets and scripts that the framework publishes from inside the application. See <a href="?page=Advanced.Assets">assets</a>.</td>
+</tr>
+<tr>
+	<td><tt>protected/runtime</tt></td>
+	<td>Compiled templates, cached data, application state and logs.</td>
+</tr>
+</table>
+
+<h2>Checking the installation</h2>
+
+<p class="block-content">
+The command line tool reports the version it is running, which confirms that the
+autoloader and the framework are in place.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content">
+./vendor/bin/prado-cli
+</com:TTextHighlighter>
+<p class="block-content">
+It can also serve the application without a web server, which is the quickest way to see a
+new application answer. See <a href="?page=GettingStarted.CommandLine">the command line
+tool</a>.
+</p>
+<com:TTextHighlighter Language="cli" CssClass="source block-content">
+./vendor/bin/prado-cli http
+</com:TTextHighlighter>
 
 </com:TContent>

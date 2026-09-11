@@ -1,0 +1,139 @@
+<com:TContent ID="body">
+
+<h1>Web Site Administration Tool</h1>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+The Web Site Administration Tool, WSAT, is a development tool that performs repetitive
+project tasks through a web interface rather than by hand. Its closest relatives are the
+ASP.NET tool of the same name and Yii's Gii. It currently generates
+<a href="?page=Database.ActiveRecord">Active Record</a> classes from an existing database
+schema.
+</p>
+
+<ul class="block-content">
+  <li>Generate one Active Record class, or one for every table in the schema.</li>
+  <li>Generate the relationships between those classes.</li>
+  <li>Generate a <tt>__toString()</tt> method on each generated class.</li>
+</ul>
+
+<p class="block-content">
+WSAT ships separately from the framework, as the Composer package
+<a href="https://github.com/pradosoft/prado-wsat">pradosoft/prado-wsat</a>. It is an
+<a href="?page=Advanced.Plugins">extension</a> in the sense that page describes, so an
+application that wants it declares it as a dependency and registers its service.
+</p>
+
+<h2>Installing it</h2>
+
+<p class="block-content">
+Add the package to the application.
+</p>
+
+<com:TTextHighlighter Language="cli" CssClass="source block-content">
+composer require pradosoft/prado-wsat
+</com:TTextHighlighter>
+
+<p class="block-content">
+Then register the service in the
+<a href="?page=Configurations.AppConfig">application configuration</a>. WSAT is a
+<a href="?page=Fundamentals.Services">service</a> rather than a module, because it answers
+requests of its own rather than adding behavior to the page service.
+</p>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;services&gt;
+  ...
+  &lt;service id="wsat" class="Prado\Wsat\TWsatService" Password="my_secret_password" /&gt;
+&lt;/services&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The same configuration in the PHP application configuration style:
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'services' => [
+    'wsat' => [
+        'class' => 'Prado\Wsat\TWsatService',
+        'properties' => ['Password' => 'my_secret_password'],
+    ],
+],
+</com:TTextHighlighter>
+
+<p class="block-content">
+The <tt>id</tt> is what appears in the URL, in the same way <tt>page</tt> identifies the
+page service. Choosing <tt>wsat</tt> makes the tool answer at
+<tt>index.php?wsat=...</tt>.
+</p>
+
+<h2>The password</h2>
+
+<p class="block-content">
+<tt>Password</tt> is required. It gates every WSAT screen behind a login, which matters
+because the tool writes class files into the application's own directories. The protection
+is a single shared password, not an account system, and it does not use the application's
+<a href="?page=Advanced.Auth">authentication</a>.
+</p>
+
+<div class="note"><b class="tip">Note:</b>
+WSAT is a development tool. Leave the service out of the configuration an application
+deploys, or guard it the way any other write-capable endpoint is guarded. Registering it
+in production exposes code generation to anyone holding one password.</div>
+
+<h2>Signing in</h2>
+
+<p class="block-content">
+With the service registered, the login screen is at
+<tt>index.php?wsat=TWsatLogin</tt>. The field takes the password given in the
+configuration.
+</p>
+
+<img src="<%~wsat_login.png%>" style="width: 700px;" alt="The WSAT login screen, a single password field with a submit button." />
+
+<h2>Generating Active Record classes</h2>
+
+<p class="block-content">
+The generation screen is at <tt>index.php?wsat=TWsatGenerateAR</tt>, and the welcome page
+links to it. It reads the database that the application's
+<a href="?page=Database.ActiveRecord">Active Record configuration</a> already points at, so
+there is no connection to set up here.
+</p>
+
+<img src="<%~wsat_generate_ar.png%>" style="width: 700px;" alt="The WSAT Active Record generation screen, with fields for table name, output folder, class prefix, class suffix, and a build relations option." />
+
+<table class="parameters">
+<tr><th>Field</th><th>Meaning</th></tr>
+<tr>
+	<td>Table Name</td>
+	<td>The table to generate a class for. The default <tt>*</tt> generates one class per table in the schema.</td>
+</tr>
+<tr>
+	<td>Output Folder</td>
+	<td>Where the generated files are written, in namespace format with dots rather than slashes. It defaults to <tt>Application.App_Data.AR_Classes</tt>, which is <tt>protected/App_Data/AR_Classes</tt>. The directory is created if it does not exist.</td>
+</tr>
+<tr>
+	<td>Class Prefix</td>
+	<td>Text placed before each generated class name. Leave it empty for none.</td>
+</tr>
+<tr>
+	<td>Class Suffix</td>
+	<td>Text placed after each generated class name. Leave it empty for none.</td>
+</tr>
+<tr>
+	<td>Build Relations</td>
+	<td>Whether the generated classes carry the relationships the schema declares, as described under <a href="?page=Database.ActiveRecord">Active Record relationships</a>.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Generated classes are a starting point. Regenerating overwrites them, so put the code you
+add by hand in a subclass rather than in the generated file.
+</p>
+
+<p class="block-content">
+The <a href="?page=GettingStarted.CommandLine">command line tool</a> generates the same
+classes without a browser, which suits a scripted or repeated run.
+</p>
+
+</com:TContent>

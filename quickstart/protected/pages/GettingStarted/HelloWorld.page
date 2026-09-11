@@ -29,11 +29,12 @@ where each directory is explained as follows. Note, the above directory structur
 </ul>
 
 <div class="tip">
-<b class="tip">Tip:</b>You may also use the <tt>bin/prado-cli.php (framework/prado-cli.php for Prado < 3.2.3)</tt>
-<a href="?page=GettingStarted.CommandLine">command line script</a>
-to create the Prado project directory structure. For example, type the command
-<tt>php path/to/prado-cli.php -c helloworld</tt> in the directory
-where you want to create the <tt>helloworld</tt> project.
+<b class="tip">Tip:</b>Composer creates this structure for you. Running
+<tt>composer create-project pradosoft/prado-app helloworld</tt> produces a working
+application with the entry script, the configuration and an empty page tree already in
+place. See <a href="?page=GettingStarted.Installation">installing PRADO</a>. The
+<a href="?page=GettingStarted.CommandLine">command line tool</a> then serves it without a
+web server.
 </div>
 
 <p>
