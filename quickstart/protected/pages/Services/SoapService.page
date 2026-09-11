@@ -137,16 +137,18 @@ provide property setter/getter methods).
 
 <p class="block-content">
 Optionally, extra attributes (nillable, minOccurs, maxOccurs) can be defined for each property by enclosing definitions into curly brackets and separated by comma like so:
+</p>
 <com:TTextHighlighter Language="javascript" CssClass="source block-content">
 {[attribute1 = value1][, attribute2 = value2], ...}
 </com:TTextHighlighter>
+<p class="block-content">
 where the attribute can be one of following:
+</p>
 <ul>
     <li>nillable = [0|1|true|false]</li>
     <li>minOccurs = n; where n>=0</li>
     <li>maxOccurs = n; where [n>=0|unbounded]</li>
 </ul>
-</p>
 
 <p class="block-content">
 An array of complex objects can also be returned by adding a pair of 
@@ -173,6 +175,7 @@ when objects are received from the client. The soap server can be configured to
 automatically create objects of certain type objects are received as method
 parameters. For example, if we have a Soap method that accepts
 a <tt>Contact</tt> object as parameter.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 /**
  * @param Contact $contact
@@ -184,14 +187,15 @@ a <tt>Contact</tt> object as parameter.
 	return true
  }
 </com:TTextHighlighter>
+<p class="block-content">
 The do this, we need to set the <tt>ClassMaps</tt> property of
 the <tt>TSoapServer</tt> in the <tt>&lt;soap&gt;</tt> tags as
 a comma separated string of class names that we wish to be automatically
 converted.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <soap id="contact-manager" provider="path.to.ContactManager"
 	ClassMaps="Contact, Address"/>
 </com:TTextHighlighter>
-</p>
 
 </com:TContent>

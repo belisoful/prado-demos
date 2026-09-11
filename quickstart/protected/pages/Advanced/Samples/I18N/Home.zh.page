@@ -10,16 +10,17 @@
 <p>
 您目前的语言设置是
 <%= $this->Page->CurrentCulture %>.
+</p>
 <div class="links">
 可查看的语言版本包括：
 	<com:LanguageList />
 </div>
-</p>
 
 <p>
 除了能自动侦知语言设置的模板外，文本也可以使用不同的翻译源进行本地化。
 PRADO提供了gettext，XML，SQLite以及MySQL等手段用于存放消息的各种翻译。
 下面连接所指向的例子展示了如何使用TTranslate部件对文本进行本地化。
+</p>
 <hr />
 <h2>简介</h2>
 <p>开发和维护多语言的站点对Web开发者而言是一个很常见的问题。</p>

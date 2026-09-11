@@ -7,11 +7,11 @@
 
 <p>
 Your current culture is <%= $this->Page->CurrentCulture %>.
+</p>
 <div class="links">
 	Available localized versions: 
 	<com:LanguageList />
 </div>
-</p>
 
 <p>
 	In addition to culture aware template. Text can be localized using many different translation sources. PRADO provides gettext, XML, SQLite, and Database container for storing message translations. The example in the following link demonstrates how text can be localized using the TTranslate component.

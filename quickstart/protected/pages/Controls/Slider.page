@@ -44,12 +44,12 @@ TSlider raises the <tt>onValueChanged</tt> event when the value of the slider ha
 
 <p class="block-content">
 You can also attach ClientSide javascript events handler to the slider :
+</p>
 <ul>
 <li><tt>ClientSide.onSlide</tt> is called when the handle is slided on the track. You can get the current value in the <b>value</b>
 javascript variable. You can use this event to update on client side a label with the current value</li>
 <li><tt>ClientSide.onChange</tt> is called when the slider value has changed (at the end of a move).</li>
 </ul>
-</p>
 
 <com:RunBar PagePath="Controls.Samples.TSlider.Home" />
 

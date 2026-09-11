@@ -30,6 +30,7 @@
 	<h1>Download, Install and Create a New Application</h1>
 	<p class="block-content">The download and installation steps are similar to those in
 	the <a href="?page=Tutorial.CurrencyConverter#download">Currency converter tutorial</a>.
+	</p>
 
     <p class="block-content">
     The best way to install PRADO is <a href="https://getcomposer.org/">through composer</a>
@@ -118,6 +119,7 @@ class Login extends TPage
 page, <tt>Home.page</tt>, before they have logged in, the user is presented with
 the <tt>Login.page</tt> first. We add a <tt>chat/protected/application.xml</tt> configuration
 file to import some classes that we shall use later.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8"?>
 <application id="Chat" Mode="Debug">
@@ -129,8 +131,10 @@ file to import some classes that we shall use later.
   </paths>
 </application>
 </com:TTextHighlighter>
+<p class="block-content">
 Next, we add a <tt>chat/protected/pages/config.xml</tt> configuration file to
 secure the <tt>pages</tt> directory.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -145,6 +149,7 @@ secure the <tt>pages</tt> directory.
   </authorization>
 </configuration>
 </com:TTextHighlighter>
+<p class="block-content">
 We setup the authentication using the default classes as explained in the
 <a href="?page=Advanced.Auth">authentication/authorization quickstart</a>.
 In the authorization definition, we allow anonymous users to access the
@@ -168,6 +173,7 @@ that can work with the <tt>chat_users</tt> table with ease. For the demo, we
 use <tt>sqlite</tt> as our database for ease of distributing the demo. The demo
 can be extended to use other databases such as MySQL or Postgres SQL easily.
 We define the <tt>chat_users</tt> table as follows.
+</p>
 <com:TTextHighlighter Language="text" CssClass="source block-content">
 CREATE TABLE chat_users
 (
@@ -175,10 +181,12 @@ CREATE TABLE chat_users
 	last_activity INTEGER NOT NULL DEFAULT "0"
 );
 </com:TTextHighlighter>
+<p class="block-content">
 Next we define the corresponding <tt>ChatUserRecord</tt> class and save it as
 <tt>chat/protected/App_Code/ChatUserRecord.php</tt> (you need to create the
 <tt>App_Code</tt> directory as well). We also save the sqlite database file
 as <tt>App_Code/chat.db</tt>.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class ChatUserRecord extends TActiveRecord
 {
@@ -193,10 +201,12 @@ class ChatUserRecord extends TActiveRecord
     }
 }
 </com:TTextHighlighter>
+<p class="block-content">
 Before using the <tt>ChatUserRecord</tt> class we to configure a default
 database connection for ActiveRecord to function. In the <tt>chat/protected/application.xml</tt>
 we import classes from the <tt>App_Code</tt> directory and add an
 <a href="?page=Database.ActiveRecord">ActiveRecord configuration module</a>.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8"?>
 <application id="Chat" Mode="Debug">
@@ -213,7 +223,6 @@ we import classes from the <tt>App_Code</tt> directory and add an
   </modules>
 </application>
 </com:TTextHighlighter>
-</p>
 
 <h2>Custom User Manager class</h2>
 <p class="block-content">To implement a custom user manager module class we just need
@@ -327,6 +336,7 @@ function createNewUser($sender, $param)
     }
 }
 </com:TTextHighlighter>
+<p class="block-content">
 The <tt>checkUserName()</tt> method uses the <tt>ChatUserManager</tt> class
 (recall that in the <tt>config.xml</tt> configuration we set the
 ID of the custom user manager class as "users") to validate the username
@@ -344,7 +354,6 @@ our custom user manager class using the <tt>$manager->getUser(...)</tt> method.<
 	<li>Then we set/update the <tt>Application</tt>'s user instance with our
 	new user object.</li>
 </ul>
-</p>
 <p id="finally" class="block-content">
 Finally, we redirect the client to the default <tt>Home</tt> page.
 </p>
@@ -359,6 +368,7 @@ value in the <tt>ChatUserRecord</tt> class. We shall demonstrate the later by
 altering the <tt>ChatUserRecord</tt> with the addition of a set getter/setter
 methods for the <tt>last_activity</tt> property.
 
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 private $_last_activity;
 
@@ -374,6 +384,7 @@ public function setLast_Activity($value)
     $this->_last_activity = $value;
 }
 </com:TTextHighlighter>
+<p class="block-content">
 Notice that we renamed <tt>$last_activity</tt> to <tt>$_last_activity</tt> (note
 the underscore after the dollar sign).
 </p>
@@ -383,6 +394,7 @@ the underscore after the dollar sign).
 layout that consist of one panel holding the chat messages, one panel
 to hold the users list, a textarea for the user to enter the text message
 and a button to send the message.
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 <!DOCTYPE html>
 <html lang="en">
@@ -447,6 +459,7 @@ and a button to send the message.
 </body>
 </html>
 </com:TTextHighlighter>
+<p class="block-content">
 We added two Active Control components: a
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveTextBox" Text="TActiveTextBox" />
 and a
@@ -461,12 +474,15 @@ that will be very useful for understanding how the Active Controls work.
 to see how we can update the current page when we receive a message. First, we add
 an <tt>OnClick</tt> event handler for the <tt>Send</tt> button.
 
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TActiveButton ID="sendButton" CssClass="send-button"
 	Text="Send" OnClick="processMessage"/&gt;
 </com:TTextHighlighter>
+<p class="block-content">
 And the corresponding event handler method in the <tt>Home.php</tt> class (we
 need to create this new file too).
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class Home extends TPage
 {
@@ -476,6 +492,7 @@ class Home extends TPage
     }
 }
 </com:TTextHighlighter>
+<p class="block-content">
 If you now type something in the main application textbox and click the send button
 you should see whatever you have typed echoed in the <tt>TJavascriptLogger</tt> console.
 </p>
@@ -485,12 +502,14 @@ some methods in the
 <com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TCallbackClientScript" Text="TCallbackClientScript" />
 class which is available through the <tt>CallbackClient</tt> property of the
 current <tt>TPage</tt> object. For example, we do can do
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 function processMessage($sender, $param)
 {
     $this->CallbackClient->appendContent("messages", $this->userinput->Text);
 }
 </com:TTextHighlighter>
+<p class="block-content">
 This is one way to update some part of the existing page during a callback (AJAX style events)
 and will be the primary way we will use to implement the chat application.
 </p>
@@ -499,6 +518,7 @@ and will be the primary way we will use to implement the chat application.
 <p class="block-content">To send a message to all the connected users we need to buffer or store
 the message for each user. We can use the database to buffer the messages. The
 <tt>chat_buffer</tt> table is defined as follows.
+</p>
 <com:TTextHighlighter Language="text" CssClass="source block-content">
 CREATE TABLE chat_buffer
 (
@@ -509,9 +529,11 @@ CREATE TABLE chat_buffer
 	created_on INTEGER NOT NULL DEFAULT "0"
 );
 </com:TTextHighlighter>
+<p class="block-content">
 The corresponding <tt>ChatBufferRecord</tt> class is saved as
 <tt>App_Code/ChatBufferRecord.php</tt>.
 
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class ChatBufferRecord extends TActiveRecord
 {
@@ -541,13 +563,13 @@ class ChatBufferRecord extends TActiveRecord
     }
 }
 </com:TTextHighlighter>
-</p>
 
 <h1>Chat Application Logic</h1>
 <p class="block-content">We finally arrive at the guts of the chat application logic. First, we
 need to save a received message into the chat buffer for <b>all</b> the
 current users. We add this logic in the <tt>ChatBufferRecord</tt> class.
 
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 public function saveMessage()
 {
@@ -566,6 +588,7 @@ public function saveMessage()
     }
 }
 </com:TTextHighlighter>
+<p class="block-content">
 We first find all the current users using the <tt>ChatUserRecord</tt> finder
 methods. Then we duplicate the message and save it into the database. In addition,
 we update the message sender's last activity timestamp. The above piece of code
@@ -619,12 +642,12 @@ we formatted the messages in these Active Record classes. For large applications
 these message formatting tasks should be done using Prado components (e.g. using
 a TRepeater in the template or a custom component).
 </div>
-</p>
 
 <h1>Putting It Together</h1>
 <p class="block-content">Now comes to put the application flow together. In the <tt>Home.php</tt> we update
 the <tt>Send</tt> buttons <tt>OnClick</tt> event handler to use the application
 logic we just implemented.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 function processMessage($sender, $param)
 {
@@ -642,6 +665,7 @@ function processMessage($sender, $param)
     }
 }
 </com:TTextHighlighter>
+<p class="block-content">
 We simply save the message to the chat buffer and then ask for all the messages
 for the current user and update the client side message list using a callback
 response (AJAX style).
@@ -657,6 +681,7 @@ need to improve the user experience. First, we want a list of current users
 as well. So we add the following method to <tt>Home.php</tt>, we can call
 this method when ever some callback event is raised, e.g. when the <tt>Send</tt>
 button is clicked.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 protected function refreshUserList()
 {
@@ -669,7 +694,6 @@ protected function refreshUserList()
     }
 }
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">Actually, we want to periodically update the messages and user list as new
 users join in and new message may arrive from other users. So we need to refresh
@@ -697,6 +721,7 @@ protected function refreshMessageList()
     }
 }
 </com:TTextHighlighter>
+<p class="block-content">
 The anchor using <tt>time()</tt> as ID for a focus point is so that when the
 message list on the client side gets very long, the focus method will
 scroll the message list to the latest message (well, it works in most browsers).
@@ -705,6 +730,7 @@ scroll the message list to the latest message (well, it works in most browsers).
 <p class="block-content">Next, we need to redirect the user back to the login page if the user has
 been inactive for some time, say about 5 mins, we can add this check to any stage
 of the page life-cycle. Lets add it to the <tt>onLoad()</tt> stage.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 public function onLoad($param)
 {
@@ -719,7 +745,6 @@ public function onLoad($param)
     }
 }
 </com:TTextHighlighter>
-</p>
 
 <h1>Improving User Experience</h1>
 <p class="block-content">The last few details are to periodically check for new messages and
@@ -728,6 +753,7 @@ refresh the user list. We can accomplish this by polling the server using a
 control. We add a <tt>TTimeTriggeredCallback</tt> to the <tt>Home.page</tt>
 and call the <tt>refresh</tt> handler method defined in <tt>Home.php</tt>.
 We set the polling interval to 2 seconds.
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TTimeTriggeredCallback OnCallback="refresh"
 	Interval="2" StartTimerOnLoad="true" /&gt;
@@ -739,13 +765,13 @@ function refresh($sender, $param)
     $this->refreshMessageList();
 }
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">The final piece requires us to use some javascript. We want that when the
 user type some text in the textarea and press the <tt>Enter</tt> key, we want it
 to send the message without clicking on the <tt>Send</tt> button. We add to the
 <tt>Home.page</tt> some javascript.
 
+</p>
 <com:TTextHighlighter Language="javascript" CssClass="source block-content">
 &lt;com:TClientScript&gt;
 Event.observe($("&lt;%= $this->userinput->ClientID %&gt;"), "keypress", function(ev)
@@ -759,6 +785,7 @@ Event.observe($("&lt;%= $this->userinput->ClientID %&gt;"), "keypress", function
 });
 &lt;/com:TClientScript&gt;
 </com:TTextHighlighter>
+<p class="block-content">
 Details regarding the javascript can be explored in the
 <a href="?page=Advanced.Scripts">Introduction to Javascript</a> section of the quickstart.
 </p>

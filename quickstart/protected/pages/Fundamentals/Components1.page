@@ -7,6 +7,7 @@ A component is an instance of <tt>TComponent</tt> or its child class. The base c
 <h2>Component Properties</h2>
 <p class="block-content">
 A component property can be viewed as a public variable describing a specific aspect of the component, such as the background color, the font size, etc. A property is defined by the existence of a getter and/or a setter method in the component class. For example, in <tt>TControl</tt>, we define its <tt>ID</tt> property using the following getter and setter methods,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 class TControl extends TComponent {
     public function getID() {
@@ -17,19 +18,20 @@ class TControl extends TComponent {
     }
 }
 </com:TTextHighlighter>
-</p>
 <p class="block-content">
 To get or set the <tt>ID</tt> property, do as follows, just like working with a variable,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 $id = $component->ID;
 $component->ID = $id;
 </com:TTextHighlighter>
+<p class="block-content">
 This is equivalent to the following,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 $id = $component->getID();
 $component->setID( $id );
 </com:TTextHighlighter>
-</p>
 <p class="block-content">
 A property is read-only if it has a getter method but no setter method. Since PHP method names are case-insensitive, property names are also case-insensitive. A component class inherits all its ancestor classes' properties.
 </p>
@@ -40,16 +42,18 @@ A subproperty is a property of some object-typed property. For example, <tt>TWeb
 </p>
 <p class="block-content">
 To get or set the <tt>Name</tt> subproperty, use the following method,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 $name = $component-&gt;getSubProperty('Font.Name');
 $component->setSubProperty('Font.Name', $name);
 </com:TTextHighlighter>
+<p class="block-content">
 This is equivalent to the following,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 $name = $component->getFont()->getName();
 $component-&gt;getFont()-&gt;setName( $name );
 </com:TTextHighlighter>
-</p>
 
 <h3>Js-friendly properties</h3>
 <p class="block-content">
@@ -57,19 +61,23 @@ A JavaScript-friendly property is a property that can accept both simple strings
 Prado automatically encodes all properties sent clientside inside javascript blocks to avoid security problems (like injections or cross site scripting).
 If a property is known to always contain only safe javascript code and its value needs to bypass this encoding, that property can be defined in a special way that will make Prado mark its value as "safe".
 Js-friendly properties are identified by their name starting with 'js' (case insensitive):
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 // getter, defines a readable property 'Text'
 function getJsText() { … }
 // setter, defines a writable property 'Text', with $value being the value to be set to the property
 function setJsText(TJavaScriptLiteral $value) { … }
 </com:TTextHighlighter>
+<p class="block-content">
 Js-friendly properties can be accessed using both their Js-less name and their Js-enabled name:
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 // set some simple text as property value
 $component-&gt;Text = 'text';
 // set some javascript code as property value
 $component-&gt;JsText = 'raw javascript';
 </com:TTextHighlighter>
+<p class="block-content">
 In the first case, the property value will automatically gets encoded when sent clientside inside a javascript block.
 In the second case, the property will be 'marked' as being a safe javascript statement and will not be encoded when rendered inside a javascript block.
 This special handling makes use of the <tt>TJavaScriptLiteral</tt> class.
@@ -81,20 +89,26 @@ A namespace refers to a logical grouping of some class names so that they can be
 </p>
 <p class="block-content">
 PRADO has an internal support for namespaces that predates PHP namespac support. A namespace in PRADO is considered as a directory containing one or several class files. A class may be specified without ambiguity using such a namespace followed by the class name. Each namespace in PRADO is specified in the following format,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 PathAlias.Dir1.Dir2
 </com:TTextHighlighter>
+<p class="block-content">
 where <tt>PathAlias</tt> is an alias of some directory, while <tt>Dir1</tt> and <tt>Dir2</tt> are subdirectories under that directory. A class named <tt>MyClass</tt> defined under <tt>Dir2</tt> may now be fully qualified as <tt>PathAlias.Dir1.Dir2.MyClass</tt>.
 </p>
 <p class="block-content">
 To use a namespace in code, do as follows,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 Prado::using('PathAlias.Dir1.Dir2.*');
 </com:TTextHighlighter>
+<p class="block-content">
 which appends the directory referred to by <tt>PathAlias.Dir1.Dir2</tt> into PHP include path so that classes defined under that directory may be instantiated without the namespace prefix. You may also include an individual class definition by
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 Prado::using('PathAlias.Dir1.Dir2.MyClass');
 </com:TTextHighlighter>
+<p class="block-content">
 which will include the class file if <tt>MyClass</tt> is not defined.
 </p>
 <p class="block-content">
@@ -144,9 +158,9 @@ $button = Prado::createComponent([
 <h3>Static Component Instantiation</h3>
 <p class="block-content">
 Static component instantiation is about creating components via <a href="?page=Configurations.Overview">configurations</a>. The actual creation work is done by the PRADO framework. For example, in an <a href="?page=Configurations.AppConfig">application configuration</a>, one can configure a module to be loaded when the application runs. The module is thus a static component created by the framework. Static component instantiation is more commonly used in <a href="?page=Configurations.Templates1">templates</a>. Every component tag in a template specifies a component that will be automatically created by the framework when the template is loaded. For example, in a page template, the following tag will lead to the creation of a <tt>TButton</tt> component on the page,
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TButton Text="Register" /&gt;
 </com:TTextHighlighter>
-</p>
 
 </com:TContent>

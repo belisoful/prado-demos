@@ -164,30 +164,37 @@ The <tt>prado-cli.php</tt> script can be used to start the shell and load an exi
 Prado project. For example, let us load the blog demo project. Assume that your
 command line is in the <tt>prado</tt> distribution directory and you type.
 </p>
-<p class="block-content">
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
 $: php bin/prado-cli.php shell demos/blog
 </com:TTextHighlighter>
+<p class="block-content">
 The output should be
+</p>
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
   Command line tools for Prado <com:CurrentVersion />.
 Psy Shell v0.11.2 (PHP 7.4.28 — cli) by Justin Hileman
 >>>
 </com:TTextHighlighter>
+<p class="block-content">
 Then we will get an instance of the Prado blog application, and from
 that instance we want an instance of the <tt>'data'</tt> module.
 
+</p>
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
 >> $app = Prado::getApplication();
 
 >> $db = $app->getModule('data');
 </com:TTextHighlighter>
+<p class="block-content">
 Lastly, we want to use the data module to query for a post with <tt>ID=1</tt>. Notice that
 we <b>leave out the semicolon</b> to show the results.
+</p>
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
 >> $db->queryPostByID(1)
 </com:TTextHighlighter>
+<p class="block-content">
 There should not be any errors and you should see the following.
+</p>
 <com:TTextHighlighter Language="cli" CssClass="source block-content cli">
 PostRecord#1
 (
@@ -204,7 +211,6 @@ PostRecord#1
     [CommentCount] => 0
 )
 </com:TTextHighlighter>
-</p>
 
 <h2>Creating Active Record Classes</h2>
 <p class="block-content">

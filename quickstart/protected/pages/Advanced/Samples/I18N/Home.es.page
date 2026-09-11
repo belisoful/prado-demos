@@ -7,14 +7,15 @@
 <p>
  Su cultura actual es
 <%= $this->Page->CurrentCulture %>.
+</p>
 <div class="links">
  Versiones localizadas disponibles:
 	<com:LanguageList />
 </div>
-</p>
 
 <p>
  Además de modelo enterado de la cultura. El texto se puede localizar usando muchas diversas fuentes de la traducción. PRADO proporciona al gettext, al envase de XML, de SQLite, y de MySQL para salvar traducciones del mensaje. El ejemplo en la conexión siguiente demuestra cómo el texto se puede localizar usando el componente de TTranslate. 
+</p>
 <hr />
 <h2>Introducción </h2>
 <p> Que desarrolla y que los mantiene el multi-lenguaje sitios es un problema común para los reveladores del Web.</p>

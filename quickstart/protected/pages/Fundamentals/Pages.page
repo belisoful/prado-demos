@@ -20,11 +20,13 @@ A form submission is called <i>postback</i> if the submission is made to the pag
 A <i>callback</i> is a special form submission that, instead of requiring a full page reload on the browser, gets executed in the background through an ajax call. So, a callback is considered a postback too, but not vice versa.
 <br/>
 A callback is handled as a normal postback but, instead of re-rendering the entire page, only the specific changes occured on the page gets sent back to the client and merged with the current browser page. A typical callback response consists of:
+</p>
 <ol>
 	<li>one or more pieces of html code that will replace existing content on the page;</li>
 	<li>the javascript instructions needed to update the page;</li>
 	<li>some specific fields used by prado to mantain the pagestate and add the needed external resources (stylesheets, javascript files, etc..).</li>
 </ol>
+<p class="block-content">
 <tt>TPage</tt> has a <tt>IsCallBack</tt> property exposing whether the current request being handled is the consequence of a callback. Since a callback is also a postback, both <tt>IsPostBack</tt> and <tt>IsCallBack</tt> are true during callback requests.
 </p>
 

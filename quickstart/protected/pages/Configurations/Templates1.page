@@ -13,11 +13,13 @@ A component tag specifies a component as part of the body content of the templat
 </p>
 <p class="block-content">
 The format of a component tag is as follows,
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:ComponentType PropertyName="PropertyValue" ... EventName="EventHandler" ...&gt;
 body content
 &lt;/com:ComponentType&gt;
 </com:TTextHighlighter>
+<p class="block-content">
 <tt>ComponentType</tt> can be either the class name or the dotted type name (e.g. <tt>Prado.Web.UI.TControl</tt>) of the component. <tt>PropertyName</tt> and <tt>EventName</tt> are both case-insensitive. <tt>PropertyName</tt> can be a property or subproperty name (e.g. <tt>Font.Name</tt>). Note, <tt>PropertyValue</tt> will be HTML-decoded when assigned to the corresponding property. Content enclosed between the opening and closing component tag are normally treated the body of the component.
 </p>
 <p class="block-content">
@@ -25,9 +27,11 @@ It is required that component tags nest properly with each other and an opening 
 </p>
 <p class="block-content">
 The following template shows a component tag specifying the <tt>Text</tt> property and <tt>OnClick</tt> event of a button control,
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TButton Text="Register" OnClick="registerUser" />
 </com:TTextHighlighter>
+<p class="block-content">
 Note, property names and event names are all case-insensitive, while component type names are case-sensitive. Event names always begin with <tt>On</tt>.
 </p>
 <p class="block-content">
@@ -52,9 +56,11 @@ A property initialization tag can also set a group of subproperties that share a
 <h3>Component IDs</h3>
 <p class="block-content">
 When specified in templates, component <tt>ID</tt> property has special meaning in addition to its normal property definition. A component tag specified with an ID value in template will register the corresponding component to the template owner control. The component can thus be directly accessed from the template control with its ID value. For example, in <tt>Home</tt> page's template, the following component tag
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TTextBox ID="TextBox" Text="First Name" />
 </com:TTextHighlighter>
+<p class="block-content">
 makes it possible to get the textbox object in code using <tt>$page->TextBox</tt>.
 </p>
 
@@ -81,9 +87,11 @@ $this-&gt;PrimaryNav-&gt;getAttributes()-&gt;add('aria-label', 'Primary');
 <h2>Template Control Tags</h2>
 <p class="block-content">
 A template control tag is used to configure the initial property values of the control owning the template. Its format is as follows,
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;%@ PropertyName="PropertyValue" ... %&gt;
 </com:TTextHighlighter>
+<p class="block-content">
 Like in component tags, <tt>PropertyName</tt> is case-insensitive and can be a property or subproperty name.
 </p>
 <p class="block-content">

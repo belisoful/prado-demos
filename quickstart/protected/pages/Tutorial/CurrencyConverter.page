@@ -272,7 +272,6 @@ $this->total->Text = $rate * $dollars;
 	DataType="Float"
 	ErrorMessage="Please enter a number." /&gt;
 </com:TTextHighlighter>
-	</p>
 
 	<p class="block-content">Now if you try to enter some invalid data in the application or left out
 		any of the fields the validators will be activated and present the user

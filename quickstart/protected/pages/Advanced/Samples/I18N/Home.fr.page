@@ -13,17 +13,18 @@
 			</p>
 			<p>
 				Votre culture actuelle est <%= $this->Page->CurrentCulture %>.
-				<div class="links">
+				</p>
+<div class="links">
 					Versions localisées disponibles :
 					<com:LanguageList />
 				</div>
-			<P></P>
 			<p>
 				En plus du support de la culture dans les gabarits, le&nbsp;contenu peut être 
 				localisé en utilisant différentes sources de traduction. PRADO permet 
 				d'utiliser gettext, XML, SQLite et MySQL pour enregistrer les traductions des 
 				messages. L'exemple suivant montre comment le texte peut être localisé en 
 				utilisant le composant TTranslate. 
+			</p>
 			<hr>
 			<h2>Introduction
 			</h2>

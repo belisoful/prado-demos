@@ -105,6 +105,7 @@ involved are described under <a href="?page=Database.DAO">Data Access Objects</a
 <p class="block-content">Let us
     consider the following "<tt>users</tt>" table that contains two columns named "<tt>username</tt>" and "<tt>email</tt>",
     where "<tt>username</tt>" is also the primary key.
+</p>
 <com:TTextHighlighter Language="sql" CssClass="source block-content">
 CREATE TABLE users
 (
@@ -113,8 +114,8 @@ CREATE TABLE users
     PRIMARY KEY ( username )
 );
 </com:TTextHighlighter>
-</p>
 <p class="block-content">Next we define our Active Record class that corresponds to the "<tt>users</tt>" table.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class UserRecord extends TActiveRecord
 {
@@ -132,7 +133,6 @@ class UserRecord extends TActiveRecord
     }
 }
 </com:TTextHighlighter>
-</p>
 <p class="block-content">Each column of the "<tt>users</tt>" table must have corresponding
     property of the same name as the column name in the <tt>UserRecord</tt> class.
     Of course, you also define additional member variables or properties that does not exist in the table structure.
@@ -243,6 +243,7 @@ class MyDb2Record extends TActiveRecord
     The default database connection can also be configured using a <tt>&lt;module&gt;</tt>
     tag in the <a href="?page=Configurations.AppConfig">application.xml</a>
     or <a href="?page=Configurations.PageConfig">config.xml</a> as follows.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
   <module class="Prado\Data\ActiveRecord\TActiveRecordConfig" EnableCache="true">
@@ -258,11 +259,11 @@ class MyDb2Record extends TActiveRecord
     wish to see changes made to your table definitions. A <a href="?page=Advanced.Performance#6402">cache
     module</a> must also be defined for the cache to function.
 </div>
-</p>
 
 <p class="block-content">A <tt>ConnectionID</tt> property can be specified with value corresponding
     to another <tt>TDataSourceConfig</tt> module configuration's ID value. This allows
     the same database connection to be used in other modules such as <a href="?page=Database.SqlMap">SqlMap</a>.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
   <module class="Prado\Data\TDataSourceConfig" id="db1">
@@ -277,7 +278,6 @@ class MyDb2Record extends TActiveRecord
         ConnectionID="db1"  ... />
 </modules>
 </com:TTextHighlighter>
-</p>
 </div>
 
 <h2>Loading data from the database</h2>
@@ -297,6 +297,7 @@ matching data is found.
 
 	<h3><tt>findByPk()</tt></h3>
     <p class="block-content">Finds one record using only a primary key or a composite key.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 $finder = UserRecord::finder();
 $user = $finder->findByPk($primaryKey);
@@ -305,7 +306,6 @@ $user = $finder->findByPk($primaryKey);
 $record = $finder->findByPk($key1, $key2, ...);
 $record = $finder->findByPk(array($key1, $key2,...));
 </com:TTextHighlighter>
-</p>
 
     <h3><tt>findAllByPks()</tt></h3>
     <p class="block-content">Finds multiple records using a list of primary keys or composite keys.
@@ -412,6 +412,7 @@ You may also use a combination of <tt>AND</tt> and <tt>OR</tt> as a condition in
 return an Active Record and <tt>findAllBySql()</tt>returns an array of record objects.
 For each column returned, the corresponding Active Record class must define a member variable or
 property for each corresponding column name.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class UserRecord2 extends UserRecord
 {
@@ -420,7 +421,6 @@ class UserRecord2 extends UserRecord
 $sql = "SELECT users.*, 'hello' as another_value FROM users";
 $users = TActiveRecord::finder('UserRecord2')->findAllBySql($sql);
 </com:TTextHighlighter>
-</p>
 <h3><tt>count()</tt></h3>
 <p class="block-content">Find the number of matchings records, accepts same parameters as the <tt>findAll()</tt> method.</p>
 
@@ -449,12 +449,12 @@ To update a record in the database, just change one or more properties of
 the Active Record object that has been loaded from the database and then
 call the <tt>save()</tt> method.
 
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 $user = UserRecord::finder()->findByName('admin');
 $user->email="test@example.com"; //change property
 $user->save(); //update it.
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">
 Active Record objects have a simple life-cycle illustrated in the following diagram.

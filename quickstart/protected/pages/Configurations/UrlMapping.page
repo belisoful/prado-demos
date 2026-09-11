@@ -20,6 +20,7 @@ pattern will be replaced with the corresponding GET variable values.
 
 <p class="block-content">
 To use <tt>TUrlMapping</tt>, one must set the <tt>UrlManager</tt> property of the <tt>THttpRequest</tt> module as the <tt>TUrlMapping</tt> module ID. See following for an example,
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
 		<module id="request" class="THttpRequest" UrlManager="friendly-url" />
@@ -30,7 +31,6 @@ To use <tt>TUrlMapping</tt>, one must set the <tt>UrlManager</tt> property of th
 		</module>
 </modules>
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">
 The above example is part of the application configuration of the <tt>blog</tt> demo in the PRADO release. It enables recognition of the following URL formats:
@@ -67,11 +67,11 @@ a regular expression with parameter names enclosed between a left brace '<tt>{</
 and a right brace '<tt>}</tt>'. The patterns for each parameter can be set
 using <tt>Parameters</tt> attribute collection.
 For example,
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <url ServiceParameter="ArticleView" pattern="articles/{year}/{month}/{day}"
 	parameters.year="\d{4}" parameters.month="\d{2}" parameters.day="\d+" />
 </com:TTextHighlighter>
-</p>
 The example is equivalent to the following regular expression (it uses the "named group" feature in regular expressions available in PHP):
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <url ServiceParameter="ArticleView"><![CDATA[
@@ -135,6 +135,7 @@ parameters with these patterns if a lot of pages share common parameters.</p>
 </com:TTextHighlighter>
 
 <p class="block-content">With these rules, any of the following URLs will be recognized:
+</p>
 <ul id="u1" class="block-content">
 	<li><tt>/index.php/post/ViewPost/123</tt> is recognized as <tt>/index.php?page=Posts.ViewPost&amp;id=123</tt></li>
 	<li><tt>/index.php/post/ListPost/123</tt> is recognized as <tt>/index.php?page=Posts.ListPost&amp;id=123</tt></li>
@@ -143,7 +144,6 @@ parameters with these patterns if a lot of pages share common parameters.</p>
 	<li><tt>/index.php/info/Conditions</tt> is recognized as <tt>/index.php?page=Static.Info.Conditions</tt></li>
 	<li><tt>/index.php/info/About</tt> is recognized as <tt>/index.php?page=Static.Info.About</tt></li>
 </ul>
-</p>
 
 <p class="block-content">As above, put more specific rules before more common rules as the first matching rule will be used.</p>
 
@@ -157,13 +157,13 @@ in combination with wildcard patterns. In fact, this feature only is available i
 
 <p class="block-content">Parameters will get appended to the specified patterns as name/value pairs, separated by a "/".
 (You can change the separator character with <tt>UrlParamSeparator</tt>.)
+</p>
 <ul id="u1" class="block-content">
 	<li><tt>/index.php/list/cat/15/month/12</tt> is recognized as <tt>/index.php?page=list&amp;cat=15&amp;month=12</tt></li>
 	<li><tt>/index.php/edit/id/12</tt> is recognized as <tt>/index.php?page=list&amp;id=12</tt></li>
 	<li><tt>/index.php/show/name/foo</tt> is recognized as <tt>/index.php?page=show&amp;name=foo</tt></li>
 	<li><tt>/index.php/admin/edit/id/12</tt> is recognized as <tt>/index.php?page=user.admin.edit&amp;id=12</tt></li>
 </ul>
-</p>
 
 <h2>Matching by HTTP verb</h2>
 <com:SinceVersion Version="4.3.3" />

@@ -10,10 +10,12 @@ Controls are related to each other via parent-child relationship. Each parent co
 </p>
 <p class="block-content">
 The parent-child relationship is usually established by the framework via <a href="?page=Configurations.Templates1">templates</a>. In code, you may explicitly specify a control as a child of another using one of the following methods,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 $parent->Controls->add($child);
 $parent->Controls[]=$child;
 </com:TTextHighlighter>
+<p class="block-content">
 where the property <tt>Controls</tt> refers to the child control collection of the parent.
 </p>
 
@@ -39,12 +41,14 @@ PRADO borrows the viewstate and controlstate concept from Microsoft ASP.NET to p
 </p>
 <p class="block-content">
 Viewstate and controlstate are implemented in <tt>TControl</tt>. They are commonly used to define various properties of controls. To save and retrieve values from viewstate or controlstate, use following methods,
+</p>
 <com:TTextHighlighter CssClass="source block-content">
 $this->getViewState('Name',$defaultValue);
 $this->setViewState('Name',$value,$defaultValue);
 $this->getControlState('Name',$defaultValue);
 $this->setControlState('Name',$value,$defaultValue);
 </com:TTextHighlighter>
+<p class="block-content">
 where <tt>$this</tt> refers to the control instance, <tt>Name</tt> refers to a key identifying the persistent value, <tt>$defaultValue</tt> is optional. When retrieving values from viewstate or controlstate, if the corresponding key does not exist, the default value will be returned.
 </p>
 

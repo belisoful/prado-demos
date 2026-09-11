@@ -211,23 +211,25 @@ Porting prado to jQuery some method signatures has changed, or have been adapted
 <p class="block-content">
 Some Prado controls were based on specific extensions of the Prototype + Scriptaculous javascript framework, and they have been deprecated now that jQuery has become the primary js framework in PRADO.
 PRADO 3.3 introduces jQuery-based counterpart for these controls and encourage everyone to port their code to the new controls, but the old controls are still supposed to work with some minor annoyance:
+</p>
 <ul>
 	<li>Prototype and Scriptaculous will be loaded along jQuery</li>
 	<li>jQuery will execute in "no conflict" mode, so the $() helper won't call anymore jQuery but Prototype.</li>
 </ul>
+<p class="block-content">
 Following is the list of deprecated controls:
 </p>
 
 <h4>TAutoComplete</h4>
 <p class="block-content">
 <tt>TAutoComplete</tt> is deprecated, use <tt>TJuiAutoComplete</tt> instead. Main changes in porting existing code using TAutoComplete to TJuiAutoComplete:
+</p>
 <ul>
 	<li>the <tt>Frequency</tt> property doesn't exists anymore</li>
 	<li>only the <tt>ItemTemplate</tt> is supported for the <tt>Suggestions</tt> repeater (no HeaderTemplate, FooterTemplate, etc..)</li>
 	<li><tt>ItemTemplate</tt> doesn't need to render the &lt;li&gt; tag anymore, but only the content itself</li>
 	<li>multiple selections are not supported</li>
 </ul>
-</p>
 
 <h4>TDraggable and TDropContainer</h4>
 <p class="block-content">

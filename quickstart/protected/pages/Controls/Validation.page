@@ -248,6 +248,7 @@ For Prado versions earlier than 3.1 the property names were <tt>OnError</tt> and
 </div>
 
 <p class="block-content">The following example pop-up a message saying "hello" when the validator fails on the client-side.
+</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TRequiredFieldValidator ... &gt;
 	&lt;prop:ClientSide.OnValidationError&gt;
@@ -255,13 +256,16 @@ For Prado versions earlier than 3.1 the property names were <tt>OnError</tt> and
 	&lt;/prop:ClientSide.OnValidationError&gt;
 &lt;/com:TRequiredFieldValidator&gt;
 </com:TTextHighlighter>
+<p class="block-content">
 The resulting client-side event callback function is of the following form.
+</p>
 <com:TTextHighlighter Language="javascript" CssClass="source block-content">
 function onErrorHandler(sender, parameter)
 {
 	alert("hello");
 }
 </com:TTextHighlighter>
+<p class="block-content">
 Where <tt>sender</tt> is the current client-side validator and <tt>parameter</tt>
 is the control that invoked the validator.
 </p>

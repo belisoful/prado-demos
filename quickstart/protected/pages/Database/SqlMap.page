@@ -75,6 +75,7 @@
     A database connection for SqlMap can be set as follows.
     See <a href="?page=Database.DAO">Establishing Database Connection</a> for
     futher details regarding creation of database connection in general.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 //create a connection and give it to the SqlMap manager.
 $dsn = 'pgsql:host=localhost;dbname=test'; //Postgres SQL
@@ -83,7 +84,6 @@ $manager = new TSqlMapManager($conn);
 $manager->configureXml('my-sqlmap.xml');
 $sqlmap = $manager->getSqlMapGateway();
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">
     The <tt>TSqlMapManager</tt> is responsible for setting up the database connection
@@ -97,6 +97,7 @@ $sqlmap = $manager->getSqlMapGateway();
     SqlMap database connection can also be configured using a <tt>&lt;module&gt;</tt>
     tag in the <a href="?page=Configurations.AppConfig">application.xml</a>
     or <a href="?page=Configurations.PageConfig">config.xml</a> as follows.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <modules>
   <module id="my-sqlmap" class="Prado\Data\SqlMap\TSqlMapConfig"
@@ -106,24 +107,24 @@ $sqlmap = $manager->getSqlMapGateway();
   </module>
 </modules>
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">
     The <tt>ConfigFile</tt> attribute should point to a SqlMap configuration file
     (to be detailed later) either using absolute path, relative path or the
     Prado's namespace dot notation path (must omit the ".xml" extension).
 
-    <div class="tip"><b class="note">Tip:</b>
+    </p>
+<div class="tip"><b class="note">Tip:</b>
         The <tt>EnableCache</tt> attribute when set to "true" will cache the
         parsed configuration. You must clear or disable the cache if you
         make changes to your configuration file.
         A <a href="?page=Advanced.Performance#6402">cache
         module</a> must also be defined for the cache to function.
     </div>
-</p>
 
 <p class="block-content">To obtain the SqlMap gateway interface from the &lt;module&gt; configuration, simply
     do, for example,
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class MyPage extends TPage
 {
@@ -135,12 +136,12 @@ class MyPage extends TPage
     }
 }
 </com:TTextHighlighter>
-</p>
 
 <h2>A quick example</h2>
 <p class="block-content">Let us
     consider the following "users" table that contains two columns named "username" and "email",
     where "username" is also the primary key.
+</p>
 <com:TTextHighlighter Language="sql" CssClass="source block-content">
 CREATE TABLE users
 (
@@ -149,7 +150,6 @@ CREATE TABLE users
     PRIMARY KEY ( username )
 );
 </com:TTextHighlighter>
-</p>
 <p class="block-content">Next we define our plain <tt>User</tt> class as follows. Notice that
     the <tt>User</tt> is very simple.
 </p>
@@ -163,6 +163,7 @@ class User
 
 <p class="block-content">Next, we need to define a SqlMap XML configuration file, lets name
     the file as <tt>my-sqlmap.xml</tt>
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMapConfig>
@@ -171,12 +172,12 @@ class User
     </select>
 </sqlMapConfig>
 </com:TTextHighlighter>
-</p>
 <p class="block-content">The &lt;select&gt; tag returns defines an SQL statement. The <tt>id</tt>
     attribute will be used as the identifier for the query. The <tt>resultClass</tt>
     attribute value is the name of the class the the objects to be returned.
     We can now query the objects as follows:
 
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 //assume that $sqlmap is an TSqlMapGateway instance
 $userList = $sqlmap->queryForList("SelectUsers");
@@ -184,7 +185,6 @@ $userList = $sqlmap->queryForList("SelectUsers");
 //Or just one, if that's all you need:
 $user = $sqlmap->queryForObject("SelectUsers");
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">The above example shows demonstrates only a fraction of the capabilities
     of the SqlMap Data Mapper. Further details can be found in the
@@ -209,6 +209,7 @@ $user = $sqlmap->queryForObject("SelectUsers");
 </p>
 <p class="block-content">Continuing with the previous example, we change the definition of the
     <tt>User</tt> class to become an Active Record.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class UserRecord extends TActiveRecord
 {
@@ -226,10 +227,10 @@ class UserRecord extends TActiveRecord
     }
 }
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">We also need to change the definition of the SqlMap XML configuration. We
     just need to change the value of <tt>resultClass</tt> attribute to <tt>UserRecord</tt>.
+</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMapConfig>
@@ -238,12 +239,12 @@ class UserRecord extends TActiveRecord
     </select>
 </sqlMapConfig>
 </com:TTextHighlighter>
-</p>
 
 
 <p class="block-content">The PHP code for retrieving the users remains the same, but SqlMap
     returns Active Records instead, and we can take advantage of the Active Record methods.
 
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 //assume that $sqlmap is an TSqlMapGateway instance
 $user = $sqlmap->queryForObject("SelectUsers");
@@ -251,7 +252,6 @@ $user = $sqlmap->queryForObject("SelectUsers");
 $user->email = 'test@example.com'; //change data
 $user->save(); //save it using Active Record
 </com:TTextHighlighter>
-</p>
 
 <h2>References</h2>
 <ul id="u1" class="block-content">

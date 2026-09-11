@@ -7,14 +7,15 @@
 <p>
  Ihre aktuelle Kultur ist
 <%= $this->Page->CurrentCulture %>.
+</p>
 <div class="links">
  Vorhandene Sprachversionen:
 	<com:LanguageList />
 </div>
-</p>
 
 <p>
 Weiter mit dem Thema kulturell angepasster Templates. Text kann unter Zuhilfenahme vieler unterschiedlicher Übersetzungsquellen lokalisiert werden. PRADO stellt gettext-, XML-, SQLite- und MySQL-Container für die Speicherung von Nachrichtenübersetzungen zur Verfügung. Das Beispiel im folgenden Link zeigt, wie Text mit der TTranslate-Komponente lokalisiert werden kann.
+</p>
 <hr />
 <h2>Einleitung </h2>
 <p> Entwicklung und Wartung mehrsprachiger Sites ist ein weitverbreitetes Problem fÜr Web-Entwickler.</p>
