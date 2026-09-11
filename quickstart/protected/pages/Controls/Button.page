@@ -77,6 +77,15 @@ element holds markup, so a caption that needs an image or styled text uses
 &lt;/com:TButton&gt;
 </com:TTextHighlighter>
 
+<h2>The default button</h2>
+
+<p class="block-content">
+<tt>IsDefaultButton</tt> makes the button answer the return key. A
+<a href="?page=Controls.Panel">TPanel</a> sets it on the button its own
+<tt>DefaultButton</tt> property names, so a template usually configures this from the
+panel rather than on the button.
+</p>
+
 <h2>Custom attributes</h2>
 
 <p class="block-content">

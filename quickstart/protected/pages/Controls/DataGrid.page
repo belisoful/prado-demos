@@ -38,6 +38,10 @@ TDataGrid defines different styles applied to its items. For example, <tt>Altern
 <p class="block-content">
 Item styles are applied in a hierarchical way. Styles in higher hierarchy will inherit from styles in lower hierarchy. Starting from the lowest hierarchy, the item styles include item's own style, <tt>ItemStyle</tt>, <tt>AlternatingItemStyle</tt>, <tt>SelectedItemStyle</tt>, and <tt>EditItemStyle</tt>. Therefore, if background color is set as red in <tt>ItemStyle</tt>, <tt>EditItemStyle</tt> will also have red background color, unless it is explicitly set to a different value.
 </p>
+<p class="block-content">
+The header and footer rows stand outside that hierarchy and take <tt>HeaderStyle</tt> and
+<tt>FooterStyle</tt>. <tt>PagerStyle</tt> covers the pager rows.
+</p>
 
 <h2>Events</h2>
 <p class="block-content">
@@ -195,6 +199,70 @@ when <tt>Data</tt> is null.
 </p>
 
 <com:RunBar PagePath="Controls.Samples.TDataGrid.Sample7" />
+
+<h2>Table structure and styling</h2>
+
+<p class="block-content">
+A data grid renders a <tt>&lt;table&gt;</tt>. Beyond the item styles above, four properties
+shape the table itself.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Effect</th></tr>
+<tr>
+	<td><tt>Caption</tt></td>
+	<td>Renders a <tt>&lt;caption&gt;</tt> element. <tt>CaptionAlign</tt> positions it and is deprecated, because HTML5 dropped the attribute. Use the CSS <tt>caption-side</tt> and <tt>text-align</tt> declarations.</td>
+</tr>
+<tr>
+	<td><tt>ShowHeader</tt>, <tt>ShowFooter</tt></td>
+	<td>Whether the header and footer rows render. <tt>ShowHeader</tt> defaults to true and <tt>ShowFooter</tt> to false.</td>
+</tr>
+<tr>
+	<td><tt>EmptyTemplate</tt></td>
+	<td>Renders in place of the table when the bound data holds no rows.</td>
+</tr>
+<tr>
+	<td><tt>BackImageUrl</tt></td>
+	<td>A background image for the table.</td>
+</tr>
+</table>
+
+<h3>Section styles</h3>
+<com:SinceVersion Version="3.1.1" />
+
+<p class="block-content">
+<tt>TableHeadStyle</tt>, <tt>TableBodyStyle</tt>, and <tt>TableFootStyle</tt> style the
+<tt>&lt;thead&gt;</tt>, <tt>&lt;tbody&gt;</tt>, and <tt>&lt;tfoot&gt;</tt> elements rather
+than the rows inside them. Use them for a sticky header or a background that spans a whole
+section.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TDataGrid TableHeadStyle.CssClass="grid-head"
+    TableFootStyle.BackColor="#eeeeee" /&gt;
+</com:TTextHighlighter>
+
+<h2>Reading what the grid produced</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Returns</th></tr>
+<tr>
+	<td><tt>ItemCount</tt></td>
+	<td>The number of items the grid currently holds, which is one page worth when paging is on.</td>
+</tr>
+<tr>
+	<td><tt>SelectedItem</tt></td>
+	<td>The item in selected state, or null when <tt>SelectedItemIndex</tt> is negative.</td>
+</tr>
+<tr>
+	<td><tt>AutoColumns</tt></td>
+	<td>The columns the grid generated from the data. <tt>Columns</tt> holds only the ones written in the template.</td>
+</tr>
+<tr>
+	<td><tt>TopPager</tt>, <tt>BottomPager</tt></td>
+	<td>The two pager rows, or null when paging is off. Use them to reach the pager controls after binding.</td>
+</tr>
+</table>
 
 <h2>Extending TDataGrid</h2>
 <p class="block-content">

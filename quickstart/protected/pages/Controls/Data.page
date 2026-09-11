@@ -64,4 +64,141 @@ rather than in expressions. The <a href="?page=Controls.DataList">TDataList</a> 
 control. A data grid also carries pagers of its own, at the top, the bottom, or both.
 </p>
 
+<h2>Supplying the data</h2>
+
+<p class="block-content">
+<tt>DataSource</tt> takes the items. It accepts an array, any object that implements
+<tt>Traversable</tt>, and a <tt>TDbDataReader</tt>, which the control reads in full
+because a reader is forward-only. A string is accepted too, and is split on commas into a
+list. Anything else raises a <tt>TInvalidDataTypeException</tt>.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$this-&gt;ProductList-&gt;DataSource = $rows;
+$this-&gt;ProductList-&gt;dataBind();
+</com:TTextHighlighter>
+
+<p class="block-content">
+Calling <tt>dataBind()</tt> walks the source and creates one item per entry. The control
+raises <tt>OnDataBound</tt> when that finishes, and <tt>OnDataSourceChanged</tt> whenever
+the source is replaced.
+</p>
+
+<p class="block-content">
+<tt>DataSourceID</tt> is the alternative to setting the source in code. It holds the id
+path of a control that implements <tt>IDataSource</tt>, found through the binding
+control's naming container. An id that names no control, or names one that is not a data
+source, raises a <tt>TInvalidDataValueException</tt>. The framework ships
+<tt>TDataSourceControl</tt> as an abstract base and no concrete data source control of its
+own, so this route needs a class the application supplies. <tt>DataMember</tt> names which
+view of that source to read. Most applications set <tt>DataSource</tt> instead.
+</p>
+
+<h2>Paging</h2>
+
+<p class="block-content">
+All three controls inherit paging from <tt>TDataBoundControl</tt>. Paging holds back part
+of the bound data instead of rendering every item.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>AllowPaging</tt></td>
+	<td>Turns paging on. Defaults to false.</td>
+</tr>
+<tr>
+	<td><tt>PageSize</tt></td>
+	<td>The number of items on a page. Defaults to 10.</td>
+</tr>
+<tr>
+	<td><tt>CurrentPageIndex</tt></td>
+	<td>The page being shown, counted from zero.</td>
+</tr>
+<tr>
+	<td><tt>PageCount</tt></td>
+	<td>Read-only. The number of pages the current data divides into.</td>
+</tr>
+<tr>
+	<td><tt>AllowCustomPaging</tt></td>
+	<td>Turns on custom paging, described below. Defaults to false.</td>
+</tr>
+<tr>
+	<td><tt>VirtualItemCount</tt></td>
+	<td>The total number of items, which the application states when custom paging is on.</td>
+</tr>
+</table>
+
+<h2>Ordinary paging and custom paging</h2>
+
+<p class="block-content">
+With <tt>AllowPaging</tt> alone, the control still receives every item and renders one
+page of them. This is simple and costs memory in proportion to the whole data set.
+</p>
+
+<p class="block-content">
+Custom paging moves the slicing to the data source. With <tt>AllowCustomPaging</tt> also
+true, the control renders every item it is given and treats that as the current page. The
+application fetches only that slice, and sets <tt>VirtualItemCount</tt> so the control
+knows how many pages exist. For a database that means a query with a limit and an offset,
+plus a second query counting the rows.
+</p>
+
+<table class="parameters">
+<tr><th></th><th>Ordinary paging</th><th>Custom paging</th></tr>
+<tr>
+	<td>What <tt>DataSource</tt> holds</td>
+	<td>Every item</td>
+	<td>One page of items</td>
+</tr>
+<tr>
+	<td>Who slices the data</td>
+	<td>The control</td>
+	<td>The application</td>
+</tr>
+<tr>
+	<td><tt>VirtualItemCount</tt></td>
+	<td>Unused</td>
+	<td>Required, or the control cannot count pages</td>
+</tr>
+<tr>
+	<td>Rebinding on a page change</td>
+	<td>Optional</td>
+	<td>Required, to fetch the new slice</td>
+</tr>
+</table>
+
+<h2>Showing the page controls</h2>
+
+<p class="block-content">
+<a href="?page=Controls.DataGrid">TDataGrid</a> renders pagers of its own, which
+<tt>PagerStyle</tt> configures and <tt>TopPager</tt> and <tt>BottomPager</tt> expose.
+<tt>TDataList</tt> and <tt>TRepeater</tt> render none, so a page pairs them with a
+separate <a href="?page=Controls.Pager">TPager</a>. The pager's
+<tt>ControlToPaginate</tt> holds the id path of the control it drives, and its
+<tt>OnPageIndexChanged</tt> handler moves the control to the new page.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TPager ControlToPaginate="ProductList" Mode="Numeric"
+    OnPageIndexChanged="pageChanged" /&gt;
+&lt;com:TDataList ID="ProductList" AllowPaging="true" PageSize="5"&gt;
+  ...
+&lt;/com:TDataList&gt;
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function pageChanged($sender, $param)
+{
+    $this-&gt;ProductList-&gt;CurrentPageIndex = $param-&gt;NewPageIndex;
+    $this-&gt;populateData();
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+Several pagers may drive one control at once. The
+<a href="?page=Controls.Samples.TPager.Sample1">TPager sample</a> puts four of them around
+a single data list running in custom paging mode.
+</p>
+
 </com:TContent>

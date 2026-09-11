@@ -13,8 +13,10 @@ The reCAPTCHA to solve (a string consisting of two separate words) displayed is 
 </p>
 
 <p class="block-content">
-Currently the reCAPTCHA API supports only one reCAPTCHA field per page, so you MUST make sure that all your input is protected and validated by a single reCAPTCHA control. Placing more than one reCAPTCHA control on the page will lead to unpredictable results, and the user will most likely unable to solve any of them successfully.
- </p>
+Version 2 renders each control as its own widget, and each one posts under its own field
+name, so a page may carry more than one. That is a change from
+<a href="?page=Controls.ReCaptcha">TReCaptcha</a>, which allows only one.
+</p>
 
 <p class="block-content">
 Upon postback, user input can be validated by calling <tt>validate()</tt>. The <tt>TReCaptcha2Validator</tt> control can also be used to do validation, which provides server-side validation. Calling <tt>validate()</tt> will invalidate the token supplied, so all consecutive calls to the method - without solving a new captcha - will return false. Therefore if implementing a multi-stage input process, you must make sure that you call <tt>validate()</tt> only once, either at the end of the input process, or you store the result till the end of the processing.
@@ -32,6 +34,90 @@ The following template shows a typical use of the <tt>TReCaptcha2</tt> control:
 &lt;com:TReCaptcha2Validator ControlToValidate="Captcha"
     ErrorMessage="You are challenged!" />
 </com:TTextHighlighter>
+
+<h2>Keys</h2>
+
+<p class="block-content">
+The service issues a pair of keys for a site. <tt>SiteKey</tt> is public and reaches the
+browser. <tt>SecretKey</tt> stays on the server and is used to verify the answer. The
+control checks both during pre-render, and a missing one raises a
+<tt>TConfigurationException</tt> rather than rendering a widget that cannot work.
+</p>
+
+<h2>Appearance</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Values</th><th>Default</th></tr>
+<tr>
+	<td><tt>Theme</tt></td>
+	<td>The color theme of the widget, <tt>light</tt> or <tt>dark</tt>.</td>
+	<td><tt>light</tt></td>
+</tr>
+<tr>
+	<td><tt>Type</tt></td>
+	<td>The challenge to serve, <tt>image</tt> or <tt>audio</tt>.</td>
+	<td><tt>image</tt></td>
+</tr>
+<tr>
+	<td><tt>Size</tt></td>
+	<td>The widget size, <tt>normal</tt> or <tt>compact</tt>.</td>
+	<td><tt>normal</tt></td>
+</tr>
+<tr>
+	<td><tt>Language</tt></td>
+	<td>The language code the widget is rendered in.</td>
+	<td><tt>en</tt></td>
+</tr>
+<tr>
+	<td><tt>TabIndex</tt></td>
+	<td>The tab position of the widget and its challenge. Set it on a page whose other fields use tab positions.</td>
+	<td>unset</td>
+</tr>
+</table>
+
+<p class="block-content">
+The control passes these to the widget as written rather than checking them against a
+list, so a value the service does not know is ignored by the service.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TReCaptcha2 ID="Captcha"
+   SiteKey="..."
+   SecretKey="..."
+   Theme="dark"
+   Size="compact"
+   Language="fr" /&gt;
+</com:TTextHighlighter>
+
+<h2>Responding to the widget</h2>
+
+<p class="block-content">
+The widget reports back over a callback, so the page reacts without a full postback.
+</p>
+
+<table class="parameters">
+<tr><th>Member</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>OnCallback</tt></td>
+	<td>Raised when the user solves the challenge. <tt>Response</tt> then holds the token the service issued.</td>
+</tr>
+<tr>
+	<td><tt>OnCallbackExpired</tt></td>
+	<td>Raised when the token expires. The control clears <tt>Response</tt> and resets the widget before the handler runs.</td>
+</tr>
+<tr>
+	<td><tt>reset()</tt></td>
+	<td>Clears the widget on the client, so the user is asked again.</td>
+</tr>
+<tr>
+	<td><tt>ResponseFieldName</tt></td>
+	<td>The name of the posted field. A second control on the same page gets a suffixed name.</td>
+</tr>
+<tr>
+	<td><tt>WidgetId</tt></td>
+	<td>The identifier the client library assigned to this widget.</td>
+</tr>
+</table>
 
 <com:RunBar PagePath="Controls.Samples.TReCaptcha2.Home" />
 

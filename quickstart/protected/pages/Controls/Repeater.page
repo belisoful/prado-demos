@@ -11,8 +11,11 @@ TRepeater displays its content repeatedly based on the data fetched from <tt>Dat
 The layout of the repeated contents are specified by inline templates. In particular, repeater items, header, footer, etc. are being instantiated with the corresponding templates when data is being bound to the repeater.
 </p>
 
+<h2>Item renderers</h2>
+<com:SinceVersion Version="3.1.0" />
+
 <p class="block-content">
-Since v3.1.0, the layout can also be specified by <i>renderers</i>. A renderer is a control class that can be instantiated as repeater items, header, etc. A renderer can thus be viewed as an external template (in fact, it can also be non-templated controls). A renderer can be any control class. By using item renderers, one can avoid writing long and messy templates. Since a renderer is a class, it also helps reusing templates that previously might be embedded within other templates. If implemented with one of the following interfaces, a renderer will be initialized with additional properties relevant to the repeater items:
+The layout can also be specified by <i>renderers</i>. A renderer is a control class that can be instantiated as repeater items, header, etc. A renderer can thus be viewed as an external template (in fact, it can also be non-templated controls). A renderer can be any control class. By using item renderers, one can avoid writing long and messy templates. Since a renderer is a class, it also helps reusing templates that previously might be embedded within other templates. If implemented with one of the following interfaces, a renderer will be initialized with additional properties relevant to the repeater items:
 </p>
 
 <ul id="u1" class="block-content">
@@ -104,7 +107,7 @@ See in the following yet another example showing how to use repeater to collect 
 <com:RunBar PagePath="Controls.Samples.TRepeater.Sample3" />
 
 <p class="block-content">
-This sample shows how to use "drop-in" item renderers, available since v3.1.0. These renderers come in the PRADO release. They are essentially controls implementing the <tt>IDataRenderer</tt> interface. Common Web controls, such as <tt>TTextBox</tt>, <tt>TLabel</tt>, all implement this interface. When such controls are used item renderers, their <tt>Data</tt> property is assigned with the row of the data being bound to the repeater item.
+This sample shows how to use "drop-in" item renderers. These renderers come in the PRADO release. They are essentially controls implementing the <tt>IDataRenderer</tt> interface. Common Web controls, such as <tt>TTextBox</tt>, <tt>TLabel</tt>, all implement this interface. When such controls are used item renderers, their <tt>Data</tt> property is assigned with the row of the data being bound to the repeater item.
 </p>
 <com:RunBar PagePath="Controls.Samples.TRepeater.Sample4" />
 
@@ -112,5 +115,69 @@ This sample shows how to use "drop-in" item renderers, available since v3.1.0. T
 More often, one needs to customize the layout of repeater items. The sample above relies on <tt>OnItemCreated</tt> to adjust the appearance of the renderer. Templated item renderers are perferred in this situation, as they allow us to put in more complex layout and content in a repeater item. The following sample reimplements the nested repeater sample using a templated item renderer called <tt>RegionDisplay</tt>. As we can see, the new code is much easier to understand and maintain.
 </p>
 <com:RunBar PagePath="Controls.Samples.TRepeater.Sample5" />
+
+<h2>Data source and paging</h2>
+
+<p class="block-content">
+<tt>TRepeater</tt> extends <tt>TDataBoundControl</tt>, so it carries the data source and
+paging properties described under
+<a href="?page=Controls.Data">Data Controls</a>. Setting <tt>AllowPaging</tt> makes the
+repeater render one page of the bound data, <tt>PageSize</tt> sets how many items that is,
+and <tt>CurrentPageIndex</tt> selects the page.
+</p>
+
+<p class="block-content">
+A repeater renders no page controls of its own. Pair it with a
+<a href="?page=Controls.Pager">TPager</a> whose <tt>ControlToPaginate</tt> names the
+repeater, and move the repeater in the pager's <tt>OnPageIndexChanged</tt> handler.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TRepeater ID="Regions" AllowPaging="true" PageSize="5"&gt;
+  &lt;prop:ItemTemplate&gt;...&lt;/prop:ItemTemplate&gt;
+&lt;/com:TRepeater&gt;
+&lt;com:TPager ControlToPaginate="Regions" Mode="Numeric"
+    OnPageIndexChanged="pageChanged" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The following sample pages a repeater, reads a key from <tt>DataKeys</tt> when an item is
+selected, and shows what an empty data source renders.
+</p>
+<com:RunBar PagePath="Controls.Samples.TRepeater.Sample6" />
+
+<h2>Header, footer and separators</h2>
+
+<p class="block-content">
+<tt>HeaderTemplate</tt>, <tt>FooterTemplate</tt>, and <tt>SeparatorTemplate</tt> add
+content around and between the items. Each has a matching renderer property,
+<tt>HeaderRenderer</tt>, <tt>FooterRenderer</tt>, and <tt>SeparatorRenderer</tt>. The
+rendered header and footer controls are reachable afterwards as <tt>Header</tt> and
+<tt>Footer</tt>, which is how a handler writes a total into a footer once every item has
+been bound.
+</p>
+
+<p class="block-content">
+<tt>EmptyTemplate</tt> renders in place of everything else when the bound data holds no
+items, so an empty list shows a message rather than a bare header and footer.
+</p>
+
+<h2>Keys</h2>
+
+<p class="block-content">
+<tt>DataKeyField</tt> names a field of the bound rows. The repeater collects that field
+from every row into <tt>DataKeys</tt>, indexed the same way as <tt>Items</tt>. A command
+handler then reads the key of the item that raised the event without putting the key into
+the markup.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function itemCommand($sender, $param)
+{
+    $id = $this-&gt;Regions-&gt;DataKeys[$param-&gt;Item-&gt;ItemIndex];
+}
+</com:TTextHighlighter>
+
+
 
 </com:TContent>

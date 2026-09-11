@@ -43,4 +43,86 @@ Output caches can be nested. An outer cache takes precedence over an inner cache
 By default, <tt>TOutputCache</tt> is effective only for non-postback page requests and when a cache module is enabled. Do not attempt to address child controls of <tt>TOutputCache</tt> when the cached content is currently being used. Use <tt>ContentCached</tt> property to determine whether the content is cached or not.
 </p>
 
+<h2>Choosing the cache and the duration</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>Duration</tt></td>
+	<td>How many seconds the content stays valid. Defaults to 60.</td>
+</tr>
+<tr>
+	<td><tt>CacheModuleID</tt></td>
+	<td>The id of the cache module to store in. Leaving it empty uses the application's primary cache module.</td>
+</tr>
+<tr>
+	<td><tt>CachingPostBack</tt></td>
+	<td>Whether cached content is served on a postback as well. Defaults to false.</td>
+</tr>
+</table>
+
+<div class="note"><b class="tip">Note:</b>
+Turning on <tt>CachingPostBack</tt> serves a cached copy of interactive controls, whose
+state then no longer matches the page they sit in. Leave it off unless the cached region
+holds nothing the user can act on.
+</div>
+
+<h2>Varying the cached copy</h2>
+
+<p class="block-content">
+One control can hold several versions of its content, each under its own key. The key is
+built from the page path, the control's unique id, and whatever the variation properties
+add.
+</p>
+
+<table class="parameters">
+<tr><th>Property or event</th><th>Adds to the key</th></tr>
+<tr>
+	<td><tt>VaryByParam</tt></td>
+	<td>The listed request parameters, separated by commas. A different value gives a different copy.</td>
+</tr>
+<tr>
+	<td><tt>VaryBySession</tt></td>
+	<td>The session id, so each user gets a private copy.</td>
+</tr>
+<tr>
+	<td><tt>OnCalculateKey</tt></td>
+	<td>Whatever a handler writes into the event parameter's <tt>CacheKey</tt>. It is appended to the default key.</td>
+</tr>
+</table>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function calculateKey($sender, $param)
+{
+    $param-&gt;CacheKey = $this-&gt;User-&gt;IsGuest ? 'guest' : 'member';
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+Overriding <tt>calculateCacheKey()</tt> in a subclass does the same job when the variation
+belongs with the class rather than with one page.
+</p>
+
+<h2>Inspecting the cache at run time</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Returns</th></tr>
+<tr>
+	<td><tt>ContentCached</tt></td>
+	<td>Whether this request is serving cached content. Check it before touching any child control.</td>
+</tr>
+<tr>
+	<td><tt>CacheKey</tt></td>
+	<td>The key the control resolved for this request.</td>
+</tr>
+<tr>
+	<td><tt>CacheTime</tt></td>
+	<td>The timestamp the cached copy was written. Meaningful only while content is cached.</td>
+</tr>
+<tr>
+	<td><tt>AllowChildControls</tt></td>
+	<td>False while cached content is in use, which is why the child controls are not created at all.</td>
+</tr>
+</table>
+
 </com:TContent>

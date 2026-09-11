@@ -1,0 +1,81 @@
+<com:TContent ID="body">
+
+<h1>TRepeater Sample 6</h1>
+
+<p>
+A repeater with paging turned on. The repeater renders one page of the bound data, and the
+<tt>TPager</tt> below it moves between pages. <tt>DataKeyField</tt> collects the product id
+of every row, so the select button reports the id without putting it in the markup.
+</p>
+
+<com:TRepeater ID="Repeater"
+	AllowPaging="true"
+	PageSize="5"
+	DataKeyField="id"
+	OnItemCommand="itemCommand">
+
+<prop:HeaderTemplate>
+<table cellpadding="4">
+<tr style="color:white;background-color:black">
+  <th>ID</th><th>Name</th><th>Quantity</th><th>Price</th><th></th>
+</tr>
+</prop:HeaderTemplate>
+
+<prop:ItemTemplate>
+<tr style="background-color:#BFCFFF">
+<td><%#$this->Data['id']%></td>
+<td><%#$this->Data['name']%></td>
+<td><%#$this->Data['quantity']%></td>
+<td>$<%#$this->Data['price']%></td>
+<td><com:TLinkButton Text="Select" CommandName="select" /></td>
+</tr>
+</prop:ItemTemplate>
+
+<prop:AlternatingItemTemplate>
+<tr style="background-color:#E6ECFF">
+<td><%#$this->Data['id']%></td>
+<td><%#$this->Data['name']%></td>
+<td><%#$this->Data['quantity']%></td>
+<td>$<%#$this->Data['price']%></td>
+<td><com:TLinkButton Text="Select" CommandName="select" /></td>
+</tr>
+</prop:AlternatingItemTemplate>
+
+<prop:FooterTemplate>
+<tr style="background-color:gray;color:white">
+  <td colspan="5">Page <%# $this->Parent->CurrentPageIndex + 1 %> of <%# $this->Parent->PageCount %></td>
+</tr>
+</table>
+</prop:FooterTemplate>
+
+<prop:EmptyTemplate>
+<p><em>No products to show.</em></p>
+</prop:EmptyTemplate>
+
+</com:TRepeater>
+
+<div style="margin-top:8px">
+Go to page:
+<com:TPager ID="Pager"
+	ControlToPaginate="Repeater"
+	Mode="Numeric"
+	OnPageIndexChanged="pageChanged" />
+</div>
+
+<p>
+<com:TLabel ID="Result" Text="Nothing selected yet." />
+</p>
+
+<p>
+The select handler rebinds the repeater before it returns. Without that, the repeater
+would rebuild its rows from view state with no data behind them, and every cell would
+render empty. <tt>CurrentPageIndex</tt> is held in view state, so rebinding shows the same
+page again.
+</p>
+
+<p>
+<com:TButton Text="Bind an empty list" OnClick="bindEmpty" />
+<com:TButton Text="Bind the products again" OnClick="bindProducts" />
+</p>
+
+</com:TContent>

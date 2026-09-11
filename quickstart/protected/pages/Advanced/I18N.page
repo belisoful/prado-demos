@@ -81,7 +81,7 @@ Each translation message is wrapped within a <tt>trans-unit</tt> tag, where <tt>
 <h2>Using a Database for translation</h2>
 
 <com:SinceVersion Version="3.1.3" />
-<p class="block-content">Since version 3.1.3 the messages can also be stored in a database using the connection id from an existing <tt>TDataSourceConfig</tt>. You have to create two tables in your database: <tt>catalogue</tt> and <tt>trans_unit</tt>. The catalogue table needs an entry for each catalogue you want to use. Example schemas for different databases can be found in the framework's <tt>I18N/schema</tt> directory. To configure translation with a database use:</>
+<p class="block-content">Since version 3.1.3 the messages can also be stored in a database using the connection id from an existing <tt>TDataSourceConfig</tt>. You have to create two tables in your database: <tt>catalogue</tt> and <tt>trans_unit</tt>. The catalogue table needs an entry for each catalogue you want to use. Example schemas for different databases can be found in the framework's <tt>I18N/schema</tt> directory. To configure translation with a database use:</></p>
 
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <module id="db1" class="Prado\Data\TDataSourceConfig">
@@ -107,7 +107,7 @@ echo $globalization->Culture;
 $globalization->Charset= "GB-2312"; //change the charset
 </com:TTextHighlighter>
 
-<p class="block-content">You also change the way the culture is determined by changing the <tt>class</tt> attribute in the module configuration. For example, to set the culture that depends on the browser settings, you can use the <tt>TGlobalizationAutoDetect</tt> class.
+<p class="block-content">You also change the way the culture is determined by changing the <tt>class</tt> attribute in the module configuration. For example, to set the culture that depends on the browser settings, you can use the <tt>TGlobalizationAutoDetect</tt> class.</p>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <module id="globalization" class="TGlobalizationAutoDetect">
    ...
@@ -124,7 +124,7 @@ Lastly, you can change the globalization settings on page by page basis using <a
 There are two areas in your application that may need message or string localization, in PHP code and in the templates. To localize strings within PHP, use the <tt>localize</tt> function detailed below. To localize text in the template, use the <a href="#ttranslate">TTranslate</a> component.
 <h2>Using <tt>localize</tt> function to translate text within PHP</h2>
 
-<p class="block-content">The <tt>localize</tt> function searches for a translated string that matches original from your translation source. First, you need to locate all the hard coded text in PHP that are displayed or sent to the end user. The following example localizes the text of the <tt>$sender</tt> (assuming, say, the sender is a button). The original code before localization is as follows.
+<p class="block-content">The <tt>localize</tt> function searches for a translated string that matches original from your translation source. First, you need to locate all the hard coded text in PHP that are displayed or sent to the end user. The following example localizes the text of the <tt>$sender</tt> (assuming, say, the sender is a button). The original code before localization is as follows.</p>
 <com:TTextHighlighter CssClass="source block-content">
 function clickMe($sender,$param)
 {
@@ -172,7 +172,7 @@ To translate a message or string in the template, use <tt>TTranslate</tt>.</p>
 
 <p class="block-content"><tt>TTranslate</tt> can also perform string substitution.
 The <tt>Parameters</tt> property can be use to add name values pairs for substitution. Substrings in the translation enclosed with "{" and "}" are consider as the
- parameter names during substitution lookup. The following example will substitute the substring "{time}" with the value of the parameter attribute "<tt>Parameters.time=&lt;%= time() %&gt;</tt>".
+ parameter names during substitution lookup. The following example will substitute the substring "{time}" with the value of the parameter attribute "<tt>Parameters.time=&lt;%= time() %&gt;</tt>".</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TTranslate Parameters.time=&lt;%= time() %&gt; &gt;
 The time is {time}.
@@ -217,7 +217,7 @@ by the <tt>Culture</tt> property.</p>
 </com:TTextHighlighter>
 
 <p class="block-content">You can also specify a custom pattern using the following sub-patterns.
-The date/time format is specified by means of a string time pattern. In this pattern, all ASCII letters are reserved as pattern letters, which are defined as the following:
+The date/time format is specified by means of a string time pattern. In this pattern, all ASCII letters are reserved as pattern letters, which are defined as the following:</p>
 <com:TTextHighlighter Language="text" CssClass="source block-content">
  Symbol   Meaning                 Presentation        Example
  ------   -------                 ------------        -------
@@ -241,7 +241,6 @@ The date/time format is specified by means of a string time pattern. In this pat
  '        escape for text         (Delimiter)         'Date='
  ''       single quote            (Literal)           'o''clock'
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">The count of pattern letters determine the format.</p>
 
@@ -263,7 +262,7 @@ and ['A'..'Z'] will be treated as quoted text. For instance, characters
 like ':', '.', ' ', and '@' will appear in the resulting time text
 even they are not embraced within single quotes.</p>
 
-<p class="block-content">Examples using the US locale:
+<p class="block-content">Examples using the US locale:</p>
 
 <com:TTextHighlighter Language="text" CssClass="source block-content">
 Format Pattern                         Result
@@ -275,7 +274,6 @@ Format Pattern                         Result
 "K:mm a"                          -&gt;&gt;  0:00 PM
 "yyyy.MMMM.dd G hh:mm a"          -&gt;&gt;  1996.July.10 AD 12:08 PM
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">If the <tt>Value</tt> property is not specified, the current date and time is used.</p>
 
@@ -303,12 +301,11 @@ Germany (say using the EURO currency), formatted using the german
 the currency right, e.g. 100,00$. The decimal and grouping separator is
 then also from the <tt>de_DE</tt> locale. This may lead to some confusion because
 people from US uses the "," (comma) as thousand separator. Therefore a <tt>Currency</tt>
-attribute is available, so that the output from the following example results in $100.00
+attribute is available, so that the output from the following example results in $100.00</p>
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TNumberFormat Type="currency"
           Culture="en_US" Currency="EUR" Value="100" /&gt;
 </com:TTextHighlighter>
-</p>
 
 <p class="block-content">The <tt>Pattern</tt> property determines the number of digits, thousand grouping
 positions, the number of decimal points and the decimal position. The actual characters that
@@ -334,12 +331,11 @@ Pattern                      Output
 ##,###,##.0             -&gt;&gt;  12,345,67.1
 000,000,000.0           -&gt;&gt;  001,234,567.1
 </com:TTextHighlighter>
-</p>
 
 <h2>TTranslateParameter</h2>
 <p class="block-content">Compound messages, i.e., string substitution, can be accomplished with <tt>TTranslateParameter</tt>.
 In the following example, the strings "{greeting}" and "{name}" will be replace
-with the values of "Hello" and "World", respectively.The substitution string must be enclose with "{" and "}". The parameters can be further translated by using <tt>TTranslate</tt>.
+with the values of "Hello" and "World", respectively.The substitution string must be enclose with "{" and "}". The parameters can be further translated by using <tt>TTranslate</tt>.</p>
 
 <com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TTranslate&gt;
@@ -377,7 +373,7 @@ is "One Apple". If the <tt>Value</tt> was "2", then it will show "Two Apples".</
 The string chosen for display depends on the <tt>Value</tt> property. The <tt>Value</tt> is evaluated for each set until the <tt>Value</tt> is found to belong to a particular set.</p>
 
 <com:SinceVersion Version="3.1.1" />
-<pi class="block-content"> Since version 3.1.1 the following set notation is also possible.</p>
+<p class="block-content">The following set notation is also possible.</p>
 <ul class="block-content">
     <li> <tt>{n: n % 10 > 1 && n % 10 < 5}</tt> --  matches numbers like 2, 3, 4, 22, 23, 24</li>
 </ul>

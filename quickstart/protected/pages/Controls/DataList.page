@@ -15,8 +15,11 @@ TDataList differs from TRepeater in that it introduces the concept of item state
 The layout of the repeated contents in TDataList are specified by inline templates. TDataList items, header, footer, etc. are being instantiated with the corresponding templates when data is being bound to the repeater.
 </p>
 
+<h2>Renderers</h2>
+<com:SinceVersion Version="3.1.0" />
+
 <p class="block-content">
-Since v3.1.0, the layout can also be by renderers. A renderer is a control class that can be instantiated as datalist items, header, etc. A renderer can thus be viewed as an external template (in fact, it can also be non-templated controls). For more details, see the explanation about renderer in the <a href="?page=Controls.Repeater">TRepeater tutorial</a>.
+The layout can also be specified by renderers. A renderer is a control class that can be instantiated as datalist items, header, etc. A renderer can thus be viewed as an external template (in fact, it can also be non-templated controls). For more details, see the explanation about renderer in the <a href="?page=Controls.Repeater">TRepeater tutorial</a>.
 </p>
 
 <p class="block-content">
@@ -86,6 +89,17 @@ Different styles may be applied to items in different status. The style applicat
 </ul>
 
 <p class="block-content">
+The header, footer, and separators stand outside that hierarchy. They take
+<tt>HeaderStyle</tt>, <tt>FooterStyle</tt>, and <tt>SeparatorStyle</tt>.
+</p>
+
+<p class="block-content">
+Under the <tt>Table</tt> layout, <tt>HorizontalAlign</tt> aligns the table itself and
+<tt>GridLines</tt> draws its borders. <tt>GridLines</tt> is deprecated, because HTML5
+dropped the attribute it writes. Use CSS borders on the cells instead.
+</p>
+
+<p class="block-content">
 Therefore, if background color is set as red in <tt>ItemStyle</tt>, <tt>EditItemStyle</tt> will also have red background color unless it is set to a different value explicitly.
 </p>
 
@@ -111,6 +125,60 @@ The following example displays a computer product information. Users can add new
 Be aware, for simplicity, this application does not do any input validation. In real applications, make sure user inputs are valid before saving them into databases.
 </p>
 <com:RunBar PagePath="Controls.Samples.TDataList.Sample2" />
+
+<h2>Reading the current state</h2>
+
+<p class="block-content">
+Alongside the index properties that set the state, a set of read-only properties report
+what the control produced. A handler uses them after data binding rather than reaching
+into <tt>Items</tt> by position.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Returns</th></tr>
+<tr>
+	<td><tt>SelectedItem</tt></td>
+	<td>The item currently in selected state, or null when <tt>SelectedItemIndex</tt> is negative.</td>
+</tr>
+<tr>
+	<td><tt>SelectedDataKey</tt></td>
+	<td>The entry of <tt>DataKeys</tt> that belongs to the selected item. Reading it while <tt>DataKeyField</tt> is empty raises a <tt>TInvalidOperationException</tt>.</td>
+</tr>
+<tr>
+	<td><tt>EditItem</tt></td>
+	<td>The item currently in edit state, or null when <tt>EditItemIndex</tt> is negative.</td>
+</tr>
+<tr>
+	<td><tt>Header</tt>, <tt>Footer</tt></td>
+	<td>The header and footer items, so a handler can write a total into a footer after binding.</td>
+</tr>
+<tr>
+	<td><tt>HasHeader</tt>, <tt>HasFooter</tt>, <tt>HasSeparators</tt></td>
+	<td>Whether those parts were created at all.</td>
+</tr>
+</table>
+
+<p class="block-content">
+<tt>ShowHeader</tt> and <tt>ShowFooter</tt> both default to true. Setting either to false
+suppresses that part even when a template for it exists.
+</p>
+
+<h2>Paging</h2>
+
+<p class="block-content">
+<tt>TDataList</tt> inherits the paging properties described under
+<a href="?page=Controls.Data">Data Controls</a>. Setting <tt>AllowPaging</tt> makes the
+control render one page of the bound data, sized by <tt>PageSize</tt> and selected by
+<tt>CurrentPageIndex</tt>. Adding <tt>AllowCustomPaging</tt> and <tt>VirtualItemCount</tt>
+moves the slicing to the data source, which is what a database-backed list wants.
+</p>
+
+<p class="block-content">
+A data list renders no page controls of its own, so pair it with a
+<a href="?page=Controls.Pager">TPager</a> whose <tt>ControlToPaginate</tt> names the list.
+The <a href="?page=Controls.Samples.TPager.Sample1">TPager sample</a> drives one data list
+from four pagers at once, in custom paging mode.
+</p>
 
 <h2>Templated item renderers</h2>
 <com:SinceVersion Version="3.1.0" />

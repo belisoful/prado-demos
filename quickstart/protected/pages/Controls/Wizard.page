@@ -49,6 +49,138 @@ In the above, <tt>StepType</tt> refers to the type of a wizard step, which can a
 </ul>
 
 
+<h2>Navigation events</h2>
+
+<p class="block-content">
+A wizard raises an event for each navigation button, plus one when the active step
+changes. Every button event carries a <tt>TWizardNavigationEventParameter</tt>.
+</p>
+
+<table class="parameters">
+<tr><th>Event</th><th>Raised when</th></tr>
+<tr>
+	<td><tt>OnNextButtonClick</tt></td>
+	<td>A next button is clicked, in a start step or an internal step.</td>
+</tr>
+<tr>
+	<td><tt>OnPreviousButtonClick</tt></td>
+	<td>A previous button is clicked.</td>
+</tr>
+<tr>
+	<td><tt>OnCompleteButtonClick</tt></td>
+	<td>The complete button of the finish step is clicked.</td>
+</tr>
+<tr>
+	<td><tt>OnCancelButtonClick</tt></td>
+	<td>A cancel button is clicked. The wizard then sends the user to <tt>CancelDestinationUrl</tt>, if one is set.</td>
+</tr>
+<tr>
+	<td><tt>OnSideBarButtonClick</tt></td>
+	<td>A side bar link is clicked, which jumps straight to that step.</td>
+</tr>
+<tr>
+	<td><tt>OnActiveStepChanged</tt></td>
+	<td>The active step has changed. This one carries no navigation parameter.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The event parameter has three members, and two of them are writable, so a handler steers
+the move rather than only observing it.
+</p>
+
+<table class="parameters">
+<tr><th>Member</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>CurrentStepIndex</tt></td>
+	<td>Read-only. The step the user is leaving.</td>
+</tr>
+<tr>
+	<td><tt>NextStepIndex</tt></td>
+	<td>The step the wizard is about to activate. Assigning to it redirects the move, which is how a wizard skips a step that the answers so far have made irrelevant.</td>
+</tr>
+<tr>
+	<td><tt>CancelNavigation</tt></td>
+	<td>Setting it to true keeps the user on the current step. Use it when validation fails.</td>
+</tr>
+</table>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function nextClicked($sender, $param)
+{
+    if (!$this-&gt;Page-&gt;IsValid) {
+        $param-&gt;CancelNavigation = true;
+    } elseif ($this-&gt;AccountType-&gt;SelectedValue === 'personal') {
+        $param-&gt;NextStepIndex = 3;   // skip the company details step
+    }
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>FinishDestinationUrl</tt> sends the user somewhere after the complete button, in the
+same way <tt>CancelDestinationUrl</tt> does after cancel. <tt>ShowCancelButton</tt>
+decides whether a cancel button appears at all, and defaults to false.
+</p>
+
+<h2>Replacing the navigation</h2>
+
+<p class="block-content">
+Each kind of step draws its navigation from a template, and each template has a matching
+read-only property that returns the control the wizard built from it.
+</p>
+
+<table class="parameters">
+<tr><th>Template</th><th>Applies to</th><th>Rendered as</th></tr>
+<tr>
+	<td><tt>StartNavigationTemplate</tt></td>
+	<td>A step of type <tt>Start</tt></td>
+	<td><tt>StartNavigation</tt></td>
+</tr>
+<tr>
+	<td><tt>StepNavigationTemplate</tt></td>
+	<td>A step of type <tt>Step</tt></td>
+	<td><tt>StepNavigation</tt></td>
+</tr>
+<tr>
+	<td><tt>FinishNavigationTemplate</tt></td>
+	<td>A step of type <tt>Finish</tt></td>
+	<td><tt>FinishNavigation</tt></td>
+</tr>
+</table>
+
+<p class="block-content">
+A custom navigation template supplies its own buttons. The wizard recognizes a button by
+its command name rather than by its id or its type, so any button control works.
+</p>
+
+<table class="parameters">
+<tr><th>Command name</th><th>Effect</th></tr>
+<tr><td><tt>NextStep</tt></td><td>Move forward, raising <tt>OnNextButtonClick</tt>.</td></tr>
+<tr><td><tt>PreviousStep</tt></td><td>Move back, raising <tt>OnPreviousButtonClick</tt>.</td></tr>
+<tr><td><tt>Complete</tt></td><td>Finish, raising <tt>OnCompleteButtonClick</tt>.</td></tr>
+<tr><td><tt>Cancel</tt></td><td>Abandon, raising <tt>OnCancelButtonClick</tt>.</td></tr>
+<tr><td><tt>MoveTo</tt></td><td>Jump to the step named by the command parameter. The side bar uses this one.</td></tr>
+</table>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TWizard&gt;
+  &lt;prop:StepNavigationTemplate&gt;
+    &lt;com:TLinkButton Text="Back" CommandName="PreviousStep" CausesValidation="false" /&gt;
+    &lt;com:TLinkButton Text="Continue" CommandName="NextStep" /&gt;
+  &lt;/prop:StepNavigationTemplate&gt;
+  ...
+&lt;/com:TWizard&gt;
+</com:TTextHighlighter>
+
+<com:RunBar PagePath="Controls.Samples.TWizard.Sample4" />
+
+<p class="block-content">
+A command name the wizard does not expect in the current step raises a
+<tt>TInvalidDataValueException</tt>, so a finish step rejects a next button.
+<tt>HeaderTemplate</tt> and <tt>SideBarTemplate</tt> replace the other two regions in the
+same way, and <tt>HeaderText</tt> fills the default header without a template.
+</p>
+
 <h2>Using TWizard</h2>
 
 <h3>A Single-Step Wizard Sample</h3>
