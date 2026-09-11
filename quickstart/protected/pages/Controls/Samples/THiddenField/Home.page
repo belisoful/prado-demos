@@ -1,0 +1,44 @@
+<com:TContent ID="body">
+
+<h1>THiddenField Sample</h1>
+
+<com:THiddenField ID="Hidden1" Value="alpha" OnValueChanged="valueChanged" />
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+Read the hidden field on the server:
+</td><td class="sampleaction">
+<com:TButton Text="Read the value" OnClick="readValue" />
+</td></tr>
+
+<tr><td class="samplenote">
+Write a new value from the server. The new value reaches the browser with the next page:
+</td><td class="sampleaction">
+<com:TButton Text="Write a new value" OnClick="writeValue" />
+</td></tr>
+
+<tr><td class="samplenote">
+Write a value on the client, then post the form. The value survives the round trip and
+raises <tt>OnValueChanged</tt>:
+</td><td class="sampleaction">
+<input type="button" value="Set the value to 'set by the browser'"
+	onclick="document.getElementById('<%= $this->Hidden1->ClientID %>').value = 'set by the browser';" />
+</td></tr>
+
+<tr><td class="samplenote">
+Server-side value:
+</td><td class="sampleaction">
+<com:TLabel ID="Result" Text="Nothing has been read yet." />
+</td></tr>
+
+<tr><td class="samplenote">
+The <tt>OnValueChanged</tt> event fires when the posted value differs from the previous
+one:
+</td><td class="sampleaction">
+<com:TLabel ID="ChangeLog" Text="The value has not changed yet." />
+</td></tr>
+
+</table>
+
+</com:TContent>

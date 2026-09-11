@@ -5,28 +5,48 @@
 <table class="sampletable">
 
 <tr><td class="samplenote">
-Inline frame with default settings:
+An inline frame with default settings, loading another page of this tutorial:
 </td><td class="sampleaction">
-<com:TInlineFrame FrameUrl="https://github.com/pradosoft/prado" />
+<com:TInlineFrame FrameUrl="?page=GettingStarted.AboutPrado" />
 </td></tr>
 
 <tr><td class="samplenote">
-Inline frame customized with margins and align:
+Sized with <tt>Width</tt> and <tt>Height</tt>, and labeled for assistive technology:
 </td><td class="sampleaction">
 <com:TInlineFrame
-	MarginWidth="100"
-	MarginHeight="100"
+	FrameUrl="?page=GettingStarted.AboutPrado"
+	Width="500"
+	Height="200"
+	Attributes.title="About PRADO" />
+</td></tr>
+
+<tr><td class="samplenote">
+Styled with CSS instead of the deprecated presentational properties. The border and the
+spacing come from the <tt>Style</tt> property:
+</td><td class="sampleaction">
+<com:TInlineFrame
+	FrameUrl="?page=GettingStarted.AboutPrado"
+	Width="500"
+	Height="200"
+	Style="border:2px solid #4a7ebb; margin:8px; float:right"
+	Attributes.title="About PRADO" />
+</td></tr>
+
+<tr><td class="samplenote">
+The deprecated properties still render. This frame sets <tt>Align</tt>,
+<tt>MarginWidth</tt>, <tt>MarginHeight</tt>, <tt>ScrollBars</tt>, and
+<tt>ShowBorder</tt>, which write HTML attributes that HTML5 dropped. A browser may ignore
+any of them:
+</td><td class="sampleaction">
+<com:TInlineFrame
+	FrameUrl="?page=GettingStarted.AboutPrado"
+	Width="500"
+	Height="200"
+	MarginWidth="20"
+	MarginHeight="20"
 	Align="Right"
-	FrameUrl="https://github.com/pradosoft/prado" />
-</td></tr>
-
-<tr><td class="samplenote">
-Inline frame without scrollbars and border:
-</td><td class="sampleaction">
-<com:TInlineFrame
 	ScrollBars="None"
-	ShowBorder="false"
-	FrameUrl="https://github.com/pradosoft/prado" />
+	ShowBorder="false" />
 </td></tr>
 
 </table>

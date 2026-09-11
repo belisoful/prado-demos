@@ -1,13 +1,48 @@
 <com:TContent ID="body">
 <h1>TConditional Samples</h1>
 
-<com:TConditional Condition="Prado::getVersion()==='3.2.3'">
+<table class="sampletable">
+
+<tr><td class="samplenote">
+A condition that holds, so the <tt>TrueTemplate</tt> renders. The running version is
+compared against 4.0.0, without naming the current version anywhere:
+</td><td class="sampleaction">
+<com:TConditional Condition="version_compare(Prado::getVersion(), '4.0.0', '>=')">
 <prop:TrueTemplate>
-  <com:TLabel Text="You are using PRADO 3.2.3" />
+  <com:TLabel Text="This application runs PRADO 4.0.0 or later." />
 </prop:TrueTemplate>
 <prop:FalseTemplate>
-  <com:TLabel Text="You are using PRADO <%= Prado::getVersion() %>" />
+  <com:TLabel Text="This application runs a PRADO release older than 4.0.0." />
 </prop:FalseTemplate>
 </com:TConditional>
+</td></tr>
+
+<tr><td class="samplenote">
+The same control with a condition that fails, so the <tt>FalseTemplate</tt> renders
+instead. The running version is reported by <tt>Prado::getVersion()</tt>:
+</td><td class="sampleaction">
+<com:TConditional Condition="version_compare(Prado::getVersion(), '99.0.0', '>=')">
+<prop:TrueTemplate>
+  <com:TLabel Text="This application runs PRADO 99.0.0 or later." />
+</prop:TrueTemplate>
+<prop:FalseTemplate>
+  <com:TLabel Text="<%= 'This application runs PRADO ' . Prado::getVersion() . ', which is older than 99.0.0.' %>" />
+</prop:FalseTemplate>
+</com:TConditional>
+</td></tr>
+
+<tr><td class="samplenote">
+A control with no <tt>FalseTemplate</tt>. When the condition fails, the control renders
+nothing at all:
+</td><td class="sampleaction">
+<com:TConditional Condition="false">
+<prop:TrueTemplate>
+  <com:TLabel Text="You will not see this." />
+</prop:TrueTemplate>
+</com:TConditional>
+(nothing renders above this line)
+</td></tr>
+
+</table>
 
 </com:TContent>
