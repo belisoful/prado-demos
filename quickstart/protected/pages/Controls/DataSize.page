@@ -1,0 +1,81 @@
+<com:TContent ID="body" >
+
+<h1>TDataSize</h1>
+<com:SinceVersion Version="4.2.0" />
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TDataSize" />
+
+<p class="block-content">
+<tt>TDataSize</tt> displays a byte count in the unit a reader expects. The <tt>Size</tt>
+property holds the count in bytes, and the control picks the largest unit that leaves a
+number above one.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TDataSize Size="475837458" UseMarketingSize="true" Abbreviate="true" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+That tag renders <tt>476 MB</tt>. The control extends <tt>TLabel</tt> and renders a
+<tt>&lt;span&gt;</tt>, so <tt>CssClass</tt> and <tt>Style</tt> apply. The control replaces
+the label's <tt>Text</tt> with the formatted size.
+</p>
+
+<h2>Properties</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Default</th><th>Description</th></tr>
+<tr>
+	<td><tt>Size</tt></td>
+	<td>0</td>
+	<td>The number of bytes to display. A negative value raises a <tt>TInvalidDataValueException</tt>.</td>
+</tr>
+<tr>
+	<td><tt>UseMarketingSize</tt></td>
+	<td>true</td>
+	<td>True divides by 1000 and names decimal units. False divides by 1024 and names binary units.</td>
+</tr>
+<tr>
+	<td><tt>Abbreviate</tt></td>
+	<td>true</td>
+	<td>True writes the unit symbol. False writes the unit name, singular or plural to match the number.</td>
+</tr>
+</table>
+
+<h2>Units</h2>
+
+<p class="block-content">
+The two boolean properties combine into four outputs. The table shows each one for a
+<tt>Size</tt> of 1500000 bytes under the <tt>en</tt> culture.
+</p>
+
+<table class="parameters">
+<tr><th>UseMarketingSize</th><th>Abbreviate</th><th>Output</th></tr>
+<tr><td>true</td><td>true</td><td><tt>1.5 MB</tt></td></tr>
+<tr><td>true</td><td>false</td><td><tt>1.5 megabytes</tt></td></tr>
+<tr><td>false</td><td>true</td><td><tt>1.43 MiB</tt></td></tr>
+<tr><td>false</td><td>false</td><td><tt>1.43 mebibytes</tt></td></tr>
+</table>
+
+<p class="block-content">
+The decimal units run B, KB, MB, GB, TB, PB, EB, ZB, YB, RB, and QB. The binary units run
+B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB, RiB, and QiB. The spelled-out names run byte,
+kilobyte, megabyte, and so on for the decimal scale, and byte, kibibyte, mebibyte, and so
+on for the binary scale. A size above the largest unit stays in that unit.
+</p>
+
+<h2>Localization</h2>
+
+<p class="block-content">
+The unit symbols and names pass through <tt>Prado::localize()</tt>, so a translated
+application supplies its own wording. The number itself follows the culture of the control.
+The <tt>Culture</tt> property overrides the application culture for one control, and the
+<tt>Charset</tt> property sets the character set of the output.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TDataSize Size="1500000" Culture="de_DE" Abbreviate="false" /&gt;
+</com:TTextHighlighter>
+
+<com:RunBar PagePath="Controls.Samples.TDataSize.Home" />
+
+</com:TContent>

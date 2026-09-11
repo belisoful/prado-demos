@@ -40,6 +40,31 @@ Table with rows and customized font, background image, etc.:
 </td></tr>
 
 <tr><td class="samplenote">
+A table with a header section, a body section, and a footer section. The rows render
+inside <tt>&lt;thead&gt;</tt>, <tt>&lt;tbody&gt;</tt>, and <tt>&lt;tfoot&gt;</tt>
+elements:
+</td><td class="sampleaction">
+<com:TTable GridLines="Both" CellPadding="3">
+  <com:TTableHeaderRow BackColor="gray" ForeColor="white">
+    <com:TTableHeaderCell Scope="Column">Product</com:TTableHeaderCell>
+    <com:TTableHeaderCell Scope="Column" AbbreviatedText="Units">Units sold</com:TTableHeaderCell>
+  </com:TTableHeaderRow>
+  <com:TTableRow>
+    <com:TTableCell>Widget</com:TTableCell>
+    <com:TTableCell>120</com:TTableCell>
+  </com:TTableRow>
+  <com:TTableRow>
+    <com:TTableCell>Sprocket</com:TTableCell>
+    <com:TTableCell>45</com:TTableCell>
+  </com:TTableRow>
+  <com:TTableFooterRow BackColor="#eeeeee">
+    <com:TTableCell>Total</com:TTableCell>
+    <com:TTableCell>165</com:TTableCell>
+  </com:TTableFooterRow>
+</com:TTable>
+</td></tr>
+
+<tr><td class="samplenote">
 A dynamically created table:
 </td><td class="sampleaction">
 <com:TTable ID="Table" />

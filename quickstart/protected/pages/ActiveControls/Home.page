@@ -194,6 +194,11 @@ TActiveButton</a> control. See also the later part of the <a href="?page=Tutoria
 	</li>
 
 	<li>
+	<a href="?page=ActiveControls.ActiveClientScript">TActiveClientScript</a>
+	carries javascript code or a javascript file into the page, and works inside a callback response.
+	</li>
+
+	<li>
 	<a href="?page=ActiveControls.EventTriggeredCallback">TEventTriggeredCallback</a>
 	triggers a callback request based on HTML DOM events.
 	</li>
@@ -310,6 +315,12 @@ if Javascript was disabled on the client's browser.</p>
 
   <tr><td>
   <a href="?page=ActiveControls.CallbackOptions">TCallbackOptions</a>
+	</td>
+	<td>No</td><td>N/A</td>
+  </tr>
+
+  <tr><td>
+  <a href="?page=ActiveControls.ActiveClientScript">TActiveClientScript</a>
 	</td>
 	<td>No</td><td>N/A</td>
   </tr>

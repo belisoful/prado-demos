@@ -160,6 +160,43 @@ function ValidationFunctionName(sender, parameter)
 </com:TTextHighlighter>
 <com:RunBar PagePath="Controls.Samples.TCustomValidator.Home" />
 
+<a name="TListControlValidator"></a>
+<h2>TListControlValidator</h2>
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TListControlValidator" />
+
+<p class="block-content">
+TListControlValidator checks how many items a user selected in a list control, and which
+items those are. The validator targets a <tt>TListControl</tt> that allows multiple
+selections, such as a <tt>TListBox</tt> in <tt>Multiple</tt> selection mode or a
+<tt>TCheckBoxList</tt>. A <tt>ControlToValidate</tt> that names another kind of control
+raises a <tt>TConfigurationException</tt>.
+</p>
+<p class="block-content">
+Three properties state the requirement. <tt>MinSelection</tt> sets the fewest items the
+user must select. <tt>MaxSelection</tt> sets the most. <tt>RequiredSelections</tt> holds a
+comma separated list of item values that the user must select. Each property is optional,
+and the validator applies every property that is set.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TListBox ID="Toppings" SelectionMode="Multiple"&gt;
+	&lt;com:TListItem Text="Cheese" Value="cheese" /&gt;
+	&lt;com:TListItem Text="Olives" Value="olives" /&gt;
+	&lt;com:TListItem Text="Peppers" Value="peppers" /&gt;
+&lt;/com:TListBox&gt;
+
+&lt;com:TListControlValidator
+	ControlToValidate="Toppings"
+	RequiredSelections="cheese"
+	MinSelection="2"
+	MaxSelection="3"
+	ErrorMessage="Select cheese and at least one other topping." /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+That validator accepts a selection that contains <tt>cheese</tt>, holds at least two
+items, and holds at most three.
+</p>
+<com:RunBar PagePath="Controls.Samples.TListControlValidator.Home" />
+
 <a name="TValidationSummary"></a>
 <h2>TValidationSummary</h2>
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TValidationSummary" />

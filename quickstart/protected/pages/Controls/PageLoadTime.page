@@ -1,0 +1,50 @@
+<com:TContent ID="body" >
+
+<h1>TPageLoadTime</h1>
+<com:SinceVersion Version="4.2.0" />
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TPageLoadTime" />
+
+<p class="block-content">
+<tt>TPageLoadTime</tt> displays the time the server spent on the current request. The
+control measures from the moment the web server received the request to the moment the
+control renders, and writes the result in seconds with five decimal places.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TPageLoadTime /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The control extends <tt>TLabel</tt> and renders a <tt>&lt;span&gt;</tt>, so
+<tt>CssClass</tt>, <tt>Style</tt>, and the other label properties apply. The control
+replaces the label's <tt>Text</tt> with the measured time, so setting <tt>Text</tt> has no
+effect.
+</p>
+
+<h2>Placement</h2>
+
+<p class="block-content">
+The reported time covers the work done before the control renders. A control near the end
+of the page template therefore reports a longer time than one near the top. Place the
+control at the foot of a layout to measure as much of the page as possible.
+</p>
+
+<h2>Naming the unit</h2>
+
+<p class="block-content">
+The control appends the <tt>SecondSuffix</tt> property to the number. The property
+defaults to <tt>s</tt>.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TPageLoadTime SecondSuffix=" seconds" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The suffix passes through <tt>Prado::localize()</tt>, so a translated application takes
+the suffix from its message catalogue.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.TPageLoadTime.Home" />
+
+</com:TContent>

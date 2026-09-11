@@ -1,0 +1,42 @@
+<com:TContent ID="body">
+
+<h1>TActiveClientScript Sample</h1>
+
+<p>The script block on this page is hidden, so it does not run when the page first loads.
+The button sends it in a callback response.</p>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+Send the script block in a callback response:
+</td><td class="sampleaction">
+<com:TActiveButton ID="Button1" Text="Send the script" OnCallback="sendScript" />
+</td></tr>
+
+<tr><td class="samplenote">
+Times the script block has run:
+</td><td class="sampleaction">
+<span id="activecount">0</span>
+</td></tr>
+
+<tr><td class="samplenote">
+Call the function that the script block declares. The button runs on the client and sends
+no request:
+</td><td class="sampleaction">
+<input type="button" value="Call the function" onclick="document.getElementById('fnresult').innerHTML = (typeof window.quickstartGreeting === 'function') ? window.quickstartGreeting() : 'The function is not declared yet.';" />
+<span id="fnresult">The function is not declared yet.</span>
+</td></tr>
+
+</table>
+
+<com:TActiveClientScript ID="Script1" Visible="false">
+	window.quickstartGreeting = function () {
+		return 'The script block declared this function.';
+	};
+	(function () {
+		var el = document.getElementById('activecount');
+		el.innerHTML = parseInt(el.innerHTML, 10) + 1;
+	})();
+</com:TActiveClientScript>
+
+</com:TContent>

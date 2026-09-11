@@ -6,6 +6,67 @@
 <p class="block-content">
 <tt>TTable</tt> displays an HTML table on a page. It is used together with <tt>TTableRow</tt> and <tt>TTableCell</tt> to allow programmatically manipulating HTML tables. The rows of the table is stored in <tt>Rows</tt> property. You may set the table cellspacing and cellpadding via the <tt>CellSpacing</tt> and <tt>CellPadding</tt> properties, respectively. The table caption can be specified via <tt>Caption</tt> whose alignment is specified by <tt>CaptionAlign</tt>. The <tt>GridLines</tt> property indicates how the table should display its borders, and the <tt>BackImageUrl</tt> allows the table to have a background image.
 </p>
+<h2>Table sections</h2>
+<com:SinceVersion Version="3.0.1" />
+
+<p class="block-content">
+A row states which part of the table it belongs to. <tt>TTableRow</tt> carries a
+<tt>TableSection</tt> property that takes <tt>Header</tt>, <tt>Body</tt>, or
+<tt>Footer</tt>, and defaults to <tt>Body</tt>. <tt>TTable</tt> groups consecutive rows of
+the same section into a <tt>&lt;thead&gt;</tt>, a <tt>&lt;tbody&gt;</tt>, or a
+<tt>&lt;tfoot&gt;</tt> element.
+</p>
+
+<p class="block-content">
+Two subclasses fix the section instead of leaving it to a property.
+<tt>TTableHeaderRow</tt> always reports <tt>Header</tt>, and <tt>TTableFooterRow</tt>
+always reports <tt>Footer</tt>. Assigning <tt>TableSection</tt> on either one raises a
+<tt>TInvalidOperationException</tt>.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TTable&gt;
+  &lt;com:TTableHeaderRow&gt;
+    &lt;com:TTableHeaderCell Scope="Column"&gt;Product&lt;/com:TTableHeaderCell&gt;
+    &lt;com:TTableHeaderCell Scope="Column"&gt;Units&lt;/com:TTableHeaderCell&gt;
+  &lt;/com:TTableHeaderRow&gt;
+  &lt;com:TTableRow&gt;
+    &lt;com:TTableCell&gt;Widget&lt;/com:TTableCell&gt;
+    &lt;com:TTableCell&gt;120&lt;/com:TTableCell&gt;
+  &lt;/com:TTableRow&gt;
+  &lt;com:TTableFooterRow&gt;
+    &lt;com:TTableCell&gt;Total&lt;/com:TTableCell&gt;
+    &lt;com:TTableCell&gt;120&lt;/com:TTableCell&gt;
+  &lt;/com:TTableFooterRow&gt;
+&lt;/com:TTable&gt;
+</com:TTextHighlighter>
+
+<h2>Header cells</h2>
+
+<p class="block-content">
+<tt>TTableHeaderCell</tt> renders a <tt>&lt;th&gt;</tt> element and adds three properties
+that describe the cell to assistive technology.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Renders</th><th>Purpose</th></tr>
+<tr>
+	<td><tt>Scope</tt></td>
+	<td><tt>scope</tt></td>
+	<td>States what the header labels. It takes <tt>Row</tt>, <tt>Column</tt>, or <tt>NotSet</tt>.</td>
+</tr>
+<tr>
+	<td><tt>AbbreviatedText</tt></td>
+	<td><tt>abbr</tt></td>
+	<td>A short form of the header text.</td>
+</tr>
+<tr>
+	<td><tt>CategoryText</tt></td>
+	<td><tt>axis</tt></td>
+	<td>A comma separated list of categories the cell belongs to.</td>
+</tr>
+</table>
+
 <com:RunBar PagePath="Controls.Samples.TTable.Home" />
 
 </com:TContent>

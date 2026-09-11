@@ -1,0 +1,29 @@
+<com:TContent ID="body">
+
+<h1>TXmlTransform Sample</h1>
+
+<p>Each block below applies the same stylesheet, <tt>books.xsl</tt>, to XML data from a
+different source.</p>
+
+<h2>XML from a file</h2>
+<com:TXmlTransform
+	TransformPath="Application.pages.Controls.Samples.TXmlTransform.books"
+	DocumentPath="Application.pages.Controls.Samples.TXmlTransform.books" />
+
+<h2>XML from the control's body</h2>
+<com:TXmlTransform TransformPath="Application.pages.Controls.Samples.TXmlTransform.books">
+<books>
+	<book year="1968">
+		<title>The Art of Computer Programming</title>
+		<author>Donald Knuth</author>
+	</book>
+</books>
+</com:TXmlTransform>
+
+<h2>A parameter passed to the stylesheet</h2>
+<com:TXmlTransform
+	TransformPath="Application.pages.Controls.Samples.TXmlTransform.books"
+	DocumentPath="Application.pages.Controls.Samples.TXmlTransform.books"
+	Parameters.heading="Recommended reading" />
+
+</com:TContent>

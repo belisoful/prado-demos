@@ -27,6 +27,30 @@ so it holds other controls and markup as its body content.
 <tr><td><tt>TMark</tt></td><td><tt>&lt;mark&gt;</tt></td><td>A run of text highlighted for reference, such as a search match.</td></tr>
 </table>
 
+<h2>Heading controls</h2>
+<com:SinceVersion Version="3.2a" />
+<p class="block-content">
+Six further controls render the HTML heading elements. <tt>THeader1</tt> renders
+<tt>&lt;h1&gt;</tt>, <tt>THeader2</tt> renders <tt>&lt;h2&gt;</tt>, and so on through
+<tt>THeader6</tt> and <tt>&lt;h6&gt;</tt>. Each one holds its heading text as body
+content.
+</p>
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:THeader2&gt;Release notes&lt;/com:THeader2&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+A plain <tt>&lt;h2&gt;</tt> tag produces the same markup. The control earns its place when
+something other than the template decides the heading level. A skin sets <tt>TagName</tt>
+for every heading in a theme, so one theme renders a region's headings as
+<tt>&lt;h2&gt;</tt> and another renders them as <tt>&lt;h3&gt;</tt>. The control also
+gives a heading the <tt>CssClass</tt>, <tt>Style</tt>, and <tt>Visible</tt> properties of a
+web control, and it accepts the decoration that <tt>TWebControlDecorator</tt> applies from
+a theme.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$this->SectionHeading->TagName = 'h3';
+</com:TTextHighlighter>
+
 <h2>Using a semantic control</h2>
 <p class="block-content">
 A semantic control is written as a component tag, and its body content sits between the

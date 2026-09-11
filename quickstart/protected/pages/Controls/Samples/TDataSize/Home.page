@@ -1,0 +1,63 @@
+<com:TContent ID="body">
+
+<h1>TDataSize Sample</h1>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+<tt>Size="1500000"</tt>, decimal units, abbreviated:
+</td><td class="sampleaction">
+<com:TDataSize Size="1500000" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="1500000"</tt>, decimal units, spelled out:
+</td><td class="sampleaction">
+<com:TDataSize Size="1500000" Abbreviate="false" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="1500000"</tt>, binary units, abbreviated:
+</td><td class="sampleaction">
+<com:TDataSize Size="1500000" UseMarketingSize="false" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="1500000"</tt>, binary units, spelled out:
+</td><td class="sampleaction">
+<com:TDataSize Size="1500000" UseMarketingSize="false" Abbreviate="false" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="1"</tt>, spelled out. The unit name is singular:
+</td><td class="sampleaction">
+<com:TDataSize Size="1" Abbreviate="false" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="475837458"</tt>, decimal units:
+</td><td class="sampleaction">
+<com:TDataSize Size="475837458" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="987654321098"</tt>, decimal units:
+</td><td class="sampleaction">
+<com:TDataSize Size="987654321098" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>Size="1500000"</tt>, spelled out, under the <tt>de_DE</tt> culture:
+</td><td class="sampleaction">
+<com:TDataSize Size="1500000" Abbreviate="false" Culture="de_DE" />
+</td></tr>
+
+<tr><td class="samplenote">
+The size of this page's template file, taken from the file system:
+</td><td class="sampleaction">
+<com:TDataSize ID="TemplateSize" />
+</td></tr>
+
+</table>
+
+</com:TContent>

@@ -1,0 +1,42 @@
+<com:TContent ID="body">
+
+<h1>TGravatar Sample</h1>
+
+<p>Each image below uses the same email address and a different default image style. The
+images come from the Gravatar service, so they need an internet connection.</p>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+Default settings:
+</td><td class="sampleaction">
+<com:TGravatar Email="prado-quickstart@example.com" AlternateText="Gravatar, default style" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>DefaultImageStyle="identicon"</tt>, <tt>Size="64"</tt>:
+</td><td class="sampleaction">
+<com:TGravatar Email="prado-quickstart@example.com" Size="64" DefaultImageStyle="identicon" AlternateText="Gravatar, identicon style" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>DefaultImageStyle="retro"</tt>, <tt>Size="64"</tt>:
+</td><td class="sampleaction">
+<com:TGravatar Email="prado-quickstart@example.com" Size="64" DefaultImageStyle="retro" AlternateText="Gravatar, retro style" />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>DefaultImageStyle="robohash"</tt>, <tt>Size="64"</tt>:
+</td><td class="sampleaction">
+<com:TGravatar ID="Robot" Email="prado-quickstart@example.com" Size="64" DefaultImageStyle="robohash" AlternateText="Gravatar, robohash style" />
+</td></tr>
+
+<tr><td class="samplenote">
+The generated URL of the image above:
+</td><td class="sampleaction">
+<tt><com:TExpression Expression="$this->Page->Robot->ImageUrl" /></tt>
+</td></tr>
+
+</table>
+
+</com:TContent>

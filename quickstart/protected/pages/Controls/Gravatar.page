@@ -1,0 +1,104 @@
+<com:TContent ID="body" >
+
+<h1>TGravatar</h1>
+<com:SinceVersion Version="4.2.0" />
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TGravatar" />
+
+<p class="block-content">
+<tt>TGravatar</tt> displays the avatar that the Gravatar service publishes for an email
+address. The control extends <tt>TImage</tt> and renders an <tt>&lt;img&gt;</tt> element.
+It builds the image URL from its own properties, so a page sets an email address instead of
+an image URL.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TGravatar Email="someone@example.com" Size="80" DefaultImageStyle="identicon" /&gt;
+</com:TTextHighlighter>
+
+<h2>Properties</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Default</th><th>Description</th></tr>
+<tr>
+	<td><tt>Email</tt></td>
+	<td>empty</td>
+	<td>The email address that identifies the avatar. The control trims the address, lowercases it, and hashes it with MD5 to form the URL.</td>
+</tr>
+<tr>
+	<td><tt>Size</tt></td>
+	<td>null</td>
+	<td>The edge length of the square image in pixels, from 1 to 512. The service returns 80 pixels when the property is null.</td>
+</tr>
+<tr>
+	<td><tt>Rating</tt></td>
+	<td>null</td>
+	<td>The highest audience rating to return, one of <tt>g</tt>, <tt>pg</tt>, <tt>r</tt>, or <tt>x</tt>.</td>
+</tr>
+<tr>
+	<td><tt>DefaultImageStyle</tt></td>
+	<td>null</td>
+	<td>The image the service returns when the address has no avatar. See the table below.</td>
+</tr>
+<tr>
+	<td><tt>UseSecureUrl</tt></td>
+	<td>the current connection</td>
+	<td>True requests the image over HTTPS. The property defaults to true on a secure request and false otherwise.</td>
+</tr>
+<tr>
+	<td><tt>ImageUrl</tt></td>
+	<td>computed</td>
+	<td>The generated URL. The control computes this property from the others, so a page reads it rather than sets it.</td>
+</tr>
+</table>
+
+<p class="block-content">
+<tt>TGravatar</tt> inherits the properties of <tt>TImage</tt>, so <tt>AlternateText</tt>,
+<tt>CssClass</tt>, and <tt>Style</tt> apply as usual. Set <tt>AlternateText</tt> to give the
+image an accessible name.
+</p>
+
+<h2>Default image styles</h2>
+
+<p class="block-content">
+An address without a registered avatar returns the image named by
+<tt>DefaultImageStyle</tt>. Each keyword names a generated image, except the two noted
+below.
+</p>
+
+<table class="parameters">
+<tr><th>Value</th><th>Result</th></tr>
+<tr><td><tt>mp</tt></td><td>A generic silhouette, the same for every address.</td></tr>
+<tr><td><tt>identicon</tt></td><td>A geometric pattern generated from the hash.</td></tr>
+<tr><td><tt>monsterid</tt></td><td>A generated monster face.</td></tr>
+<tr><td><tt>wavatar</tt></td><td>A generated cartoon face.</td></tr>
+<tr><td><tt>retro</tt></td><td>A generated pixel-art face.</td></tr>
+<tr><td><tt>robohash</tt></td><td>A generated robot.</td></tr>
+<tr><td><tt>blank</tt></td><td>A transparent image.</td></tr>
+<tr><td><tt>404</tt></td><td>An HTTP 404 response instead of an image.</td></tr>
+<tr><td>an <tt>http</tt> or <tt>https</tt> URL</td><td>The image at that URL. The control encodes the URL.</td></tr>
+</table>
+
+<p class="block-content">
+Any other value raises a <tt>TInvalidDataValueException</tt>. A <tt>Size</tt> outside the
+range 1 to 512 raises the same exception.
+</p>
+
+<h2>Supplying defaults</h2>
+
+<p class="block-content">
+A page that shows many avatars repeats the same style, size, and rating. A skin sets those
+values once for every <tt>TGravatar</tt> in a theme.
+</p>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;com:TGravatar Size="48" Rating="g" DefaultImageStyle="identicon" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>TParameterizeBehavior</tt> attaches to the control and fills a property from an
+application parameter, which moves the default into the application configuration.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.TGravatar.Home" />
+
+</com:TContent>

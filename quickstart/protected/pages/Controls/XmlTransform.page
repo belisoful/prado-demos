@@ -1,0 +1,105 @@
+<com:TContent ID="body" >
+
+<h1>TXmlTransform</h1>
+<com:SinceVersion Version="3.1" />
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TXmlTransform" />
+
+<p class="block-content">
+<tt>TXmlTransform</tt> applies an XSL stylesheet to an XML document and writes the result
+into the page. The control uses the PHP XSL extension. An application that lacks the
+extension raises a <tt>TConfigurationException</tt> when the control is created.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TXmlTransform
+	TransformPath="Application.data.books-stylesheet"
+	DocumentPath="Application.data.books" /&gt;
+</com:TTextHighlighter>
+
+<h2>Naming the stylesheet</h2>
+
+<p class="block-content">
+The stylesheet comes from one of two properties.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Value</th></tr>
+<tr>
+	<td><tt>TransformPath</tt></td>
+	<td>A file path, or a namespace path that resolves to a file with the <tt>.xsl</tt> extension. A path that resolves to nothing raises a <tt>TInvalidDataValueException</tt>.</td>
+</tr>
+<tr>
+	<td><tt>TransformContent</tt></td>
+	<td>The stylesheet itself as a string. This property takes precedence over <tt>TransformPath</tt>.</td>
+</tr>
+</table>
+
+<p class="block-content">
+A control with neither property set raises a <tt>TConfigurationException</tt> when it
+renders.
+</p>
+
+<h2>Naming the document</h2>
+
+<p class="block-content">
+The XML document comes from one of three sources, in this order.
+</p>
+
+<table class="parameters">
+<tr><th>Source</th><th>Result</th></tr>
+<tr>
+	<td><tt>DocumentContent</tt></td>
+	<td>The control transforms this string.</td>
+</tr>
+<tr>
+	<td><tt>DocumentPath</tt></td>
+	<td>The control transforms the file at this path. The property accepts a file path or a namespace path that resolves to a file with the <tt>.xml</tt> extension.</td>
+</tr>
+<tr>
+	<td>the control's body</td>
+	<td>The control renders its own children and transforms the result. This applies when neither property is set.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The third source lets a template hold the XML inline. The body must be a well-formed XML
+document.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TXmlTransform TransformPath="Application.data.books-stylesheet"&gt;
+&lt;books&gt;
+	&lt;book year="1968"&gt;
+		&lt;title&gt;The Art of Computer Programming&lt;/title&gt;
+	&lt;/book&gt;
+&lt;/books&gt;
+&lt;/com:TXmlTransform&gt;
+</com:TTextHighlighter>
+
+<h2>Passing parameters</h2>
+
+<p class="block-content">
+The <tt>Parameters</tt> collection supplies values to the <tt>xsl:param</tt> elements of
+the stylesheet. A template adds a parameter with a subproperty, and PHP code adds one
+through the collection.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TXmlTransform TransformPath="Application.data.books-stylesheet" Parameters.heading="Recommended reading" /&gt;
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$this->BookList->Parameters['heading'] = 'Recommended reading';
+</com:TTextHighlighter>
+
+<h2>Output</h2>
+
+<p class="block-content">
+The control writes the transformation result without escaping it, so the stylesheet
+controls the markup that reaches the page. An <tt>xsl:output</tt> element with
+<tt>method="html"</tt> produces markup that fits inside a page body.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.TXmlTransform.Home" />
+
+</com:TContent>

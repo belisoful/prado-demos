@@ -37,6 +37,10 @@
   </li>
 
   <li>
+  <a href="?page=Controls.DataSize">TDataSize</a> displays a number of bytes in the largest unit that fits, such as <tt>476 MB</tt>.
+  </li>
+
+  <li>
   <a href="?page=Controls.DatePicker">TDatePicker</a> represents an input field taking date values via a calendar dialog.
   </li>
 
@@ -50,6 +54,10 @@
 
   <li>
   <a href="?page=Controls.FlushOutput">TFlushOutput</a> enables forced flushing of the current output buffer at (a) certain point(s) in the page.
+  </li>
+
+  <li>
+  <a href="?page=Controls.Gravatar">TGravatar</a> displays the avatar that the Gravatar service publishes for an email address.
   </li>
 
   <li>
@@ -129,6 +137,10 @@
   </li>
 
   <li>
+  <a href="?page=Controls.PageLoadTime">TPageLoadTime</a> displays the time the server spent on the current request.
+  </li>
+
+  <li>
   <a href="?page=Controls.Panel">TPanel</a> represents a container for other controls on a Web page. In HTML, it is displayed as a &lt;div&gt; element.
   </li>
 
@@ -173,6 +185,10 @@
 
   <li>
   <a href="?page=Controls.TextHighlighter">TTextHighlighter</a> highlights its body content according to the specified syntax highlighter, such as PHP, XML, PRADO, etc.
+  </li>
+
+  <li>
+  <a href="?page=Controls.XmlTransform">TXmlTransform</a> applies an XSL stylesheet to an XML document and writes the result into the page.
   </li>
 
   <li>

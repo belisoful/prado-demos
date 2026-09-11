@@ -1,0 +1,29 @@
+<com:TContent ID="body">
+
+<h1>TPageLoadTime Sample</h1>
+
+<table class="sampletable">
+
+<tr><td class="samplenote">
+Default suffix:
+</td><td class="sampleaction">
+<com:TPageLoadTime />
+</td></tr>
+
+<tr><td class="samplenote">
+<tt>SecondSuffix=" seconds"</tt>:
+</td><td class="sampleaction">
+<com:TPageLoadTime SecondSuffix=" seconds" />
+</td></tr>
+
+<tr><td class="samplenote">
+The same control after a loop of one million additions. The reported time grows because
+the control renders later in the request:
+</td><td class="sampleaction">
+<com:TExpression Expression="array_sum(range(1, 1000000)) ? '' : ''" />
+<com:TPageLoadTime />
+</td></tr>
+
+</table>
+
+</com:TContent>

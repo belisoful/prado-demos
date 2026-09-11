@@ -34,6 +34,14 @@ shown here with a light border.
 </td></tr>
 
 <tr><td class="samplenote">
+The heading controls, <tt>THeader1</tt> through <tt>THeader6</tt>:
+</td><td class="sampleaction">
+<com:THeader3>THeader3 renders an h3 element</com:THeader3>
+<com:THeader4>THeader4 renders an h4 element</com:THeader4>
+<com:THeader5 TagName="h6">THeader5 with TagName="h6" renders an h6 element</com:THeader5>
+</td></tr>
+
+<tr><td class="samplenote">
 Highlighted text with <tt>TMark</tt>:
 </td><td class="sampleaction">
 The report found a match on the word <com:TMark>revenue</com:TMark> in the third paragraph.

@@ -1,0 +1,88 @@
+<com:TContent ID="body">
+
+<h1>TListControlValidator Samples</h1>
+
+<table class="sampletable">
+
+<tr>
+<td class="samplenote">
+A list box that requires at least two selections:
+</td>
+<td class="sampleaction">
+<com:TListBox ID="ListBox1" SelectionMode="Multiple" Rows="3">
+	<com:TListItem Text="item1" Value="value1" />
+	<com:TListItem Text="item2" Value="value2" />
+	<com:TListItem Text="item3" Value="value3" />
+</com:TListBox>
+<com:TListControlValidator
+	ControlToValidate="ListBox1"
+	ValidationGroup="Group1"
+	MinSelection="2"
+	Text="Please select at least 2 items." />
+<com:TButton Text="Submit" ValidationGroup="Group1" />
+</td>
+</tr>
+
+<tr>
+<td class="samplenote">
+A check box list that requires <tt>item1</tt> and at least one other:
+</td>
+<td class="sampleaction">
+<com:TCheckBoxList ID="CheckBoxList1">
+	<com:TListItem Text="item1" Value="value1" />
+	<com:TListItem Text="item2" Value="value2" />
+	<com:TListItem Text="item3" Value="value3" />
+</com:TCheckBoxList>
+<com:TListControlValidator
+	ControlToValidate="CheckBoxList1"
+	ValidationGroup="Group2"
+	RequiredSelections="value1"
+	MinSelection="2"
+	Text="Please select 'item1' and at least 1 other." />
+<com:TButton Text="Submit" ValidationGroup="Group2" />
+</td>
+</tr>
+
+<tr>
+<td class="samplenote">
+A check box list that accepts at most two selections:
+</td>
+<td class="sampleaction">
+<com:TCheckBoxList ID="CheckBoxList2">
+	<com:TListItem Text="item1" Value="value1" />
+	<com:TListItem Text="item2" Value="value2" />
+	<com:TListItem Text="item3" Value="value3" />
+</com:TCheckBoxList>
+<com:TListControlValidator
+	ControlToValidate="CheckBoxList2"
+	ValidationGroup="Group3"
+	MaxSelection="2"
+	Text="Please select no more than 2 items." />
+<com:TButton Text="Submit" ValidationGroup="Group3" />
+</td>
+</tr>
+
+<tr>
+<td class="samplenote">
+The same rule with client-side validation disabled. The page posts back before the
+message appears:
+</td>
+<td class="sampleaction">
+<com:TCheckBoxList ID="CheckBoxList3">
+	<com:TListItem Text="item1" Value="value1" />
+	<com:TListItem Text="item2" Value="value2" />
+	<com:TListItem Text="item3" Value="value3" />
+</com:TCheckBoxList>
+<com:TListControlValidator
+	ControlToValidate="CheckBoxList3"
+	ValidationGroup="Group4"
+	EnableClientScript="false"
+	MaxSelection="2"
+	Text="Please select no more than 2 items." />
+<com:TButton Text="Submit" ValidationGroup="Group4" />
+</td>
+</tr>
+
+</table>
+
+</com:TContent>

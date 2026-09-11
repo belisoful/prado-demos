@@ -1,0 +1,80 @@
+<com:TContent ID="body" >
+
+<h1>TActiveClientScript</h1>
+<com:SinceVersion Version="3.2" />
+<com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveClientScript" />
+
+<p class="block-content">
+<tt>TActiveClientScript</tt> is the active control counterpart of
+<a href="?page=Controls.ClientScript"><tt>TClientScript</tt></a>. It carries JavaScript
+code or a JavaScript file into the page, and it works inside a callback response. The
+functions and variables that the code declares stay available to the page after the
+callback finishes.
+</p>
+
+<p class="block-content">
+The control takes the properties of <tt>TClientScript</tt>. The body of the tag holds the
+code, and the <tt>ScriptUrl</tt> property names a file instead.
+</p>
+
+<com:TTextHighlighter CssClass="source block-content">
+&lt;com:TActiveClientScript ID="Script1" Visible="false"&gt;
+	window.refreshChart = function (data) {
+		// ...
+	};
+&lt;/com:TActiveClientScript&gt;
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function buttonCallback($sender, $param)
+{
+	$this->Script1->render($param->getNewWriter());
+}
+</com:TTextHighlighter>
+
+<h2>How a callback delivers the script</h2>
+
+<p class="block-content">
+The control renders differently in the two kinds of request.
+</p>
+
+<table class="parameters">
+<tr><th>Request</th><th>Result</th></tr>
+<tr>
+	<td>a normal request or a postback</td>
+	<td>The control writes a <tt>&lt;script&gt;</tt> element in place. The browser runs the code at that point in the document.</td>
+</tr>
+<tr>
+	<td>a callback</td>
+	<td>The control hands the code to the callback client rather than to the writer. PRADO runs the code after it applies the DOM updates of the response.</td>
+</tr>
+</table>
+
+<p class="block-content">
+A <tt>ScriptUrl</tt> follows the same split. A normal request renders a
+<tt>&lt;script src&gt;</tt> element, and a callback registers the file with the client
+script manager under the control's client ID.
+</p>
+
+<h2>Timing</h2>
+
+<p class="block-content">
+Code that arrives in a callback runs at a different moment than the same code in a normal
+response. A normal response runs each block where it sits in the document, in order, while
+the browser parses. A callback response runs its blocks together, after every DOM update
+lands and after any dynamically included script file loads. Code that depends on running
+next to the markup around it behaves differently in the two cases.
+</p>
+
+<h2>Rendering the control</h2>
+
+<p class="block-content">
+The control writes its script when it renders. A control declared with
+<tt>Visible="false"</tt> skips the initial page render, and a callback handler renders it
+by calling <tt>render</tt> with a new writer. A control that sits inside an active
+container renders whenever that container renders.
+</p>
+
+<com:RunBar PagePath="ActiveControls.Samples.TActiveClientScript.Home" />
+
+</com:TContent>
