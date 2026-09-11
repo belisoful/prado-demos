@@ -152,6 +152,7 @@ CREATE TABLE users
 </p>
 <p class="block-content">Next we define our plain <tt>User</tt> class as follows. Notice that
     the <tt>User</tt> is very simple.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class User
 {
@@ -159,10 +160,8 @@ class User
     public $email;
 }
 </com:TTextHighlighter>
-</p>
-</p>
 
-<p class="block-content">Next, we need to define a SqlMap XMl configuration file, lets name
+<p class="block-content">Next, we need to define a SqlMap XML configuration file, lets name
     the file as <tt>my-sqlmap.xml</tt>
 <com:TTextHighlighter Language="xml" CssClass="source block-content">
 <?xml version="1.0" encoding="utf-8" ?>

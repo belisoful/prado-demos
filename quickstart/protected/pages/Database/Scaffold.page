@@ -26,9 +26,30 @@ the following builtin functionality:
 	<li>Presents specialized controls such as date pickers.</li>
 </ul>
 
-<p class="block-content">Scaffold views are dependent on Active Records and currently supports
-the following databases: Mysql, Sqlite and Postgres SQL. Support for other databases
-can be considered when there are sufficient demand.</p>
+<p class="block-content">A scaffold view builds its input controls from the column types of
+the table, so it needs an input builder for the database in question, chosen from the PDO
+driver name. This is a shorter list than the one
+<a href="?page=Database.ActiveRecord">Active Record</a> itself supports.</p>
+
+<table class="parameters">
+<tr><th>Database</th><th>PDO driver name</th><th>Added</th></tr>
+<tr><td>MySQL and MariaDB</td><td><tt>mysql</tt>, <tt>mysqli</tt></td><td></td></tr>
+<tr><td>SQLite 3 and 2</td><td><tt>sqlite</tt>, <tt>sqlite2</tt></td><td></td></tr>
+<tr><td>PostgreSQL</td><td><tt>pgsql</tt></td><td></td></tr>
+<tr><td>Microsoft SQL Server</td><td><tt>mssql</tt></td><td></td></tr>
+<tr><td>IBM DB2</td><td><tt>ibm</tt></td><td>4.3.3</td></tr>
+<tr><td>Firebird and Interbase</td><td><tt>firebird</tt>, <tt>interbase</tt></td><td>4.3.3</td></tr>
+</table>
+
+<p class="block-content">Note that SQL Server is covered here only through the older
+<tt>mssql</tt> extension. A connection made with <tt>sqlsrv</tt> or <tt>dblib</tt> works
+with Active Record but has no scaffold input builder, and the scaffold raises a
+<tt>TConfigurationException</tt> for it.</p>
+
+<p class="block-content">A driver outside the list raises that same exception, unless
+something answers for it. Before failing, the connection raises the global event
+<tt>fxActiveRecordScaffoldInputClass</tt> with the driver name, and a handler that returns
+a class implementing <tt>IScaffoldInput</tt> supplies the builder.</p>
 
 <h2>Setting up a Scaffold View</h2>
 <p class="block-content">To use the scaffold view, we first define an <a href="?page=Database.ActiveRecord">Active Record</a>

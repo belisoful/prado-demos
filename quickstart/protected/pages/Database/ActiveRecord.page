@@ -57,7 +57,8 @@ a particular customer and get back a <tt>Customer</tt> object, the next time you
 that customer you get back another instance of a <tt>Customer</tt> object. This implies that a strict
 comparison (i.e., using <tt>===</tt>) will return false, while loose comparison (i.e., using <tt>==</tt>) will
 return true if the object values are equal by loose comparison.
-<p class="block-content">
+</p>
+
 <p class="block-content">
 This is design implication related to the following question.
 <i>"Do you think of the customer as an object, of which there's only one,
@@ -69,19 +70,36 @@ And if two people update the customer on two copies of the object, whoever updat
 or maybe last, wins."</i> [A. Hejlsberg 2003]
 </p>
 
-<h2>Database Supported</h2>
+<h2>Databases supported</h2>
 <p id="p1" class="block-content">
-The Active Record implementation utilizes the <a href="?page=Database.DAO">Prado DAO</a> classes for data access.
-The current Active Record implementation supports the following database.
+Active Record reads a table through the <a href="?page=Database.DAO">PRADO DAO</a> classes,
+and it needs a metadata reader for the database in question. The reader is chosen from the
+PDO driver name in the connection string.
 </p>
-<ul>
-    <li><a href="https://www.mysql.com">MySQL 4.1 or later</a></li>
-    <li><a href="https://www.postgresql.org">PostgreSQL 7.3 or later</a></li>
-    <li><a href="https://www.sqlite.org">SQLite 2 and 3</a></li>
-    <li><a href="#">MS SQL 2000 or later</a></li>
-    <li><a href="https://www.oracle.com">Oracle Database (alpha)</a></li>
-</ul>
-<p class="block-content">Support for other databases can be provided when there are sufficient demands.</p>
+
+<table class="parameters">
+<tr><th>Database</th><th>PDO driver name</th><th>Added</th></tr>
+<tr><td><a href="https://www.mysql.com">MySQL and MariaDB</a></td><td><tt>mysql</tt>, <tt>mysqli</tt></td><td></td></tr>
+<tr><td><a href="https://www.postgresql.org">PostgreSQL</a></td><td><tt>pgsql</tt></td><td></td></tr>
+<tr><td><a href="https://www.sqlite.org">SQLite 3 and 2</a></td><td><tt>sqlite</tt>, <tt>sqlite2</tt></td><td></td></tr>
+<tr><td>Microsoft SQL Server and Sybase</td><td><tt>sqlsrv</tt>, <tt>dblib</tt>, <tt>mssql</tt></td><td></td></tr>
+<tr><td><a href="https://www.oracle.com">Oracle</a></td><td><tt>oci</tt></td><td></td></tr>
+<tr><td>IBM DB2</td><td><tt>ibm</tt></td><td>4.3.3</td></tr>
+<tr><td>Firebird and Interbase</td><td><tt>firebird</tt>, <tt>interbase</tt></td><td>4.3.3</td></tr>
+</table>
+
+<h3>Supporting another database</h3>
+<com:SinceVersion Version="4.3.3" />
+
+<p class="block-content">
+A driver name outside that list raises a <tt>TDbException</tt>, unless something answers
+for it. Before failing, the connection raises the global event
+<tt>fxDataGetMetaDataClass</tt> with the driver name. A handler that returns a class
+implementing <tt>IDataMetaData</tt> supplies the reader for that database, and Active
+Record then works against it like any other. This is how a database the framework does not
+ship support for is added from outside it, without patching the framework. The interfaces
+involved are described under <a href="?page=Database.DAO">Data Access Objects</a>.
+</p>
 
 <h1>Defining an Active Record</h1>
 <p class="block-content">Let us
@@ -128,8 +146,9 @@ class UserRecord extends TActiveRecord
 You may specify qualified table names. E.g. for MySQL, <tt>TABLE = "`database1`.`table1`"</tt>.
 </div>
 
+<com:SinceVersion Version="3.1.3" />
 <div class="note"><b class="note">Note:</b>
-Since version <b>3.1.3</b> you can also use a method <tt>table()</tt> to define the table name.
+A <tt>table()</tt> method can define the table name instead.
 This allows you to dynamically specify which table should be used by the ActiveRecord.
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 class TeamRecord extends TActiveRecord
@@ -218,7 +237,6 @@ class MyDb2Record extends TActiveRecord
 }
 </com:TTextHighlighter>
 
-
 <h3 class="prado-specific">Using <tt>application.xml</tt> within the Prado Framework</h3>
 <div class="prado-specific">
 <p class="block-content">
@@ -306,7 +324,6 @@ $record = $finder->findAllByPks(array($key1, $key2), array($key3, $key4), ...);
 $keys = array(  array($key1, $key2), array($key3, $key4), ... );
 $record = $finder->findAllByPks($keys);
 </com:TTextHighlighter>
-
 
 <h3><tt>find()</tt></h3>
 <p class="block-content">Finds <b>one single record</b> that matches the criteria. The criteria
@@ -499,6 +516,7 @@ $finder->deleteBy_Username_And_Password($name,$pass);
 <h2>Transactions</h2>
 <p class="block-content">All Active Record objects contain the property <tt>DbConnection</tt>
     that can be used to obtain a transaction object.
+</p>
 <com:TTextHighlighter Language="php" CssClass="source block-content">
 $finder = UserRecord::finder();
 $finder->DbConnection->Active=true; //open if necessary
@@ -580,7 +598,6 @@ In the following sections we will consider the following table relationships bet
 </p>
 <img src=<%~ ar_relations.png %> class="figure" />
 
-
 <p class="block-content">The goal is to obtain object models that represent to some degree the entity
 relationships in the above figure.
 </p>
@@ -624,6 +641,13 @@ object relationships, we say that a <tt>TeamRecord</tt> object <b>has many</b> <
 (Notice the reversal of the direction of relationships between tables and objects.)
 </p>
 
+<div class="note"><b class="tip">Note:</b>
+Do not declare the relationship member as a property of the class. A record resolves
+relationship names through its magic accessors, which is what triggers the fetch. A
+declared property is read and written directly, PHP never calls those accessors, and the
+related objects are never loaded. Declare the foreign key columns, and leave the
+relationship names to the <tt>$RELATIONS</tt> array alone.</div>
+
 <h3>Has Many Relationship</h3>
 <p class="block-content">
 We model the <tt>Team</tt> object as the following Active Record classes.
@@ -634,8 +658,6 @@ class TeamRecord extends TActiveRecord
     const TABLE='Teams';
     public $name;
     public $location;
-
-    public $players=array();  // this declaration is no longer needed since v3.1.2
 
     //define the $player member having has many relationship with PlayerRecord
     public static $RELATIONS=array
@@ -679,8 +701,9 @@ The foreign key constraint of the <tt>Players</tt> table is used to determine th
 in Active Record by inspecting the <tt>Players</tt> and <tt>Teams</tt> table definitions.
 </p>
 
+<com:SinceVersion Version="3.1.2" />
 <div class="info"><b class="note">Info:</b>
-Since version <b>3.1.2</b>, Active Record supports multiple foreign key
+Active Record supports multiple foreign key
 references of the same table. Ambiguity between multiple foreign key references to the same table is
 resolved by providing the foreign key column name as the 3rd parameter in the relationship array.
 For example, both of the following foreign keys <tt>owner_id</tt> and <tt>reporter_id</tt>
@@ -690,9 +713,6 @@ class TicketRecord extends TActiveRecord
 {
      public $owner_id;
 	 public $reporter_id;
-
-     public $owner;     // this declaration is no longer needed since v3.1.2
-	 public $reporter;  // this declaration is no longer needed since v3.1.2
 
 	 public static $RELATION=array
 	 (
@@ -766,10 +786,6 @@ class PlayerRecord extends TActiveRecord
     public $age;
     public $team_name;
 
-    public $team;              // this declaration is no longer needed since v3.1.2
-    public $skills=array();    // this declaration is no longer needed since v3.1.2
-    public $profile;           // this declaration is no longer needed since v3.1.2
-
     public static $RELATIONS=array
     (
         'team' => array(self::BELONGS_TO, 'TeamRecord', 'team_name'),
@@ -826,8 +842,6 @@ class ProfileRecord extends TActiveRecord
     public $player_id;
     public $salary;
 
-    public $player;  // this declaration is no longer needed since v3.1.2
-
     public static $RELATIONS=array
     (
         'player' => array(self::BELONGS_TO, 'PlayerRecord'),
@@ -864,9 +878,6 @@ class Category extends TActiveRecord
     public $category_name;
     public $parent_cat_id;
 
-    public $parent_category;            // this declaration is no longer needed since v3.1.2
-    public $child_categories=array();   // this declaration is no longer needed since v3.1.2
-
     public static $RELATIONS=array
     (
         'parent_category' => array(self::BELONGS_TO, 'Category', 'parent_cat_id'),
@@ -889,7 +900,6 @@ If we want to obtain players whose age is smaller than 30, we could use
 <tt>array(self::HAS_MANY, 'PlayerRecord', 'team_name', 'age<:age', array(':age'=>30))</tt>. In general,
 these two additional elements are similar as the parameters passed to the <tt>find()</tt> method in AR.
 </p>
-
 
 
 <h2>Association Table Mapping</h2>
@@ -934,8 +944,6 @@ class SkillRecord extends TActiveRecord
     const TABLE='Skills';
     public $skill_id;
     public $name;
-
-    public $players=array();    // this declaration is no longer needed since v3.1.2
 
     public static $RELATIONS=array
     (
@@ -986,6 +994,7 @@ table. For example, consider the <tt>items</tt> table with M-N related
 item via the <tt>related_items</tt> association table. The syntax in the following
 example is valid for a PostgreSQL database. For other database, consult their respective documentation for
 defining the foreign key constraints.
+</p>
 <com:TTextHighlighter Language="sql" CssClass="source block-content">
 CREATE TABLE items
 (
@@ -1025,7 +1034,6 @@ class Item extends TActiveRecord
 
     //additional foreign item id defined in the association table
     public $related_item_id;
-    public $related_items=array();    // this declaration is no longer needed since v3.1.2
 
     public static $RELATIONS=array
     (
@@ -1147,8 +1155,9 @@ will be thrown.
 </p>
 
 <h2>Column Mapping</h2>
+<com:SinceVersion Version="3.1.1" />
 <p class="block-content">
-Since v3.1.1, Active Record starts to support column mapping. Column mapping allows developers
+Active Record supports column mapping. Column mapping allows developers
 to address columns in Active Record using a more consistent naming convention. In particular,
 using column mapping, one can access a column using whatever name he likes, rather than limited by
 the name defined in the database schema.

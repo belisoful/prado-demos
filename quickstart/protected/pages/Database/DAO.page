@@ -5,7 +5,7 @@
 Data Access Objects (DAO) separates a data resource's client interface from its data access mechanisms. It adapts a specific data resource's access API to a generic client interface. As a result, data access mechanisms can be changed independently of the code that uses the data.
 </p>
 <p class="block-content">
-Since version 3.1, PRADO starts to provide a DAO that is a thin wrap around <a href="https://www.php.net/manual/en/book.pdo.php">PHP Data Objects (PDO)</a>. Although PDO has a nice feature set and good APIs, we choose to implement the PRADO DAO on top of PDO because the PRADO DAO classes are component classes and are thus configurable in a PRADO application. Users can use these DAO classes in a more PRADO-preferred way.
+PRADO provides a DAO that is a thin wrap around <a href="https://www.php.net/manual/en/book.pdo.php">PHP Data Objects (PDO)</a>. Although PDO has a nice feature set and good APIs, we choose to implement the PRADO DAO on top of PDO because the PRADO DAO classes are component classes and are thus configurable in a PRADO application. Users can use these DAO classes in a more PRADO-preferred way.
 </p>
 <div class="note"><b class="tip">Note:</b>
 Since the PRADO DAO is based on PDO, the PDO PHP extension needs to be installed. In addition, you need to install the corresponding PDO driver for the database to be used in your application. See more details in the <a href="https://www.php.net/manual/en/book.pdo.php">PHP Manual</a>.
@@ -207,6 +207,23 @@ metadata for these drivers, so an application reads a table's columns and keys.
 <tt>TDbPropertiesTrait</tt> adds connection management to a class through a
 <tt>ConnectionID</tt>, and it creates a SQLite database in the runtime directory when no
 connection is configured.
+</p>
+
+<h3>Supplying metadata for another database</h3>
+
+<p class="block-content">
+Reading a table's structure is the job of a metadata reader, one per database, chosen from
+the PDO driver name. <tt>IDataMetaData</tt> is the interface such a reader implements, and
+<tt>IDataTableInfo</tt> and <tt>IDataCommandBuilder</tt> are the table description and the
+statement builder that go with it.
+</p>
+
+<p class="block-content">
+A driver name the framework does not recognize does not fail immediately. The connection
+first raises the global event <tt>fxDataGetMetaDataClass</tt>, passing the driver name. A
+handler that returns the name of a class implementing <tt>IDataMetaData</tt> supplies the
+reader, and a <tt>TDbException</tt> follows only when nothing answers. An extension adds
+support for a database this way, without changing the framework.
 </p>
 
 </com:TContent>
