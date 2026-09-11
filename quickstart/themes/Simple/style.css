@@ -196,3 +196,29 @@ td.sampleaction {
 	padding: 5px;
 	vertical-align: top;
 }
+
+table.parameters, table.parameters td, table.parameters th
+{
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	padding: 0.3em;
+}
+
+table.parameters
+{
+	margin: 1em auto;
+	width: 90%;
+}
+
+table.parameters th
+{
+	background-color: #f2f2f2;
+	text-align: left;
+}
+
+table.parameters td
+{
+	padding: 0.5em;
+	vertical-align: top;
+}
+
