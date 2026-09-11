@@ -4,7 +4,52 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TLabel" />
 
 <p class="block-content">
-<tt>TLabel</tt> displays a piece of text on a Web page. The text to be displayed is set via its <tt>Text</tt> property. If <tt>Text</tt> is empty, content enclosed within the <tt>TLabel</tt> component tag will be displayed. <tt>TLabel</tt> may also be used as a form label associated with some control on the form. Since <tt>Text</tt> is not HTML-encoded when being rendered, make sure it does not contain dangerous characters that you want to avoid.
+<tt>TLabel</tt> displays a piece of text on a Web page. The text to be displayed is set via its <tt>Text</tt> property. If <tt>Text</tt> is empty, content enclosed within the <tt>TLabel</tt> component tag will be displayed. Since <tt>Text</tt> is not HTML-encoded when being rendered, make sure it does not contain dangerous characters that you want to avoid.
+</p>
+
+<h2>Labeling a control</h2>
+
+<p class="block-content">
+<tt>ForControl</tt> holds the id of the control the label describes. Setting it changes
+the element the control renders. A label with no <tt>ForControl</tt> renders a
+<tt>&lt;span&gt;</tt>. A label with one renders a <tt>&lt;label&gt;</tt> whose
+<tt>for</tt> attribute carries the client id of the target, so clicking the caption moves
+focus into the field.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TLabel ForControl="Name" Text="Your name" /&gt;
+&lt;com:TTextBox ID="Name" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The label looks the control up inside its own naming container. The lookup has three
+outcomes.
+</p>
+
+<table class="parameters">
+<tr><th>Condition</th><th>Result</th></tr>
+<tr>
+	<td>The control is found and visible</td>
+	<td>The label renders, and <tt>for</tt> carries the control's client id.</td>
+</tr>
+<tr>
+	<td>The control is found and hidden</td>
+	<td>The label renders nothing. A caption for a field that is not there would confuse a reader.</td>
+</tr>
+<tr>
+	<td>The control is not found</td>
+	<td>The label raises a <tt>TInvalidDataValueException</tt>.</td>
+</tr>
+</table>
+
+<h2>Text and body content</h2>
+
+<p class="block-content">
+A label with an empty <tt>Text</tt> renders its body content instead, so a template
+places markup and other controls inside the label tag. Setting <tt>Text</tt> replaces
+that body content. <tt>Data</tt> is another name for <tt>Text</tt>, which lets a label
+serve as the data renderer of a templated control.
 </p>
 <com:RunBar PagePath="Controls.Samples.TLabel.Home" />
 

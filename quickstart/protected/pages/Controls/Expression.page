@@ -18,6 +18,38 @@ The context of the expression in a <tt>TExpression</tt> control is the control i
 Be aware, since <tt>TExpression</tt> allows execution of arbitrary PHP code, in general you should not use it to evaluate expressions submitted by your application users.
 </p>
 
+<h2>Choosing between the expression forms</h2>
+
+<p class="block-content">
+A template has three ways to put the result of PHP into a page. They differ in when they
+run and in what they can reach.
+</p>
+
+<table class="parameters">
+<tr><th>Form</th><th>Runs</th><th>Notes</th></tr>
+<tr>
+	<td><tt>&lt;%= $expr %&gt;</tt></td>
+	<td>On every render</td>
+	<td>The shortest form. <tt>$this</tt> is the template control rather than a separate control object.</td>
+</tr>
+<tr>
+	<td><tt>&lt;%# $expr %&gt;</tt></td>
+	<td>Once, when the control is data bound</td>
+	<td>A databind expression. The result is kept in view state. It sets a control property rather than standing in free text.</td>
+</tr>
+<tr>
+	<td><tt>&lt;com:TExpression&gt;</tt></td>
+	<td>On every render</td>
+	<td>A control, so it takes an id, holds view state, and is shown or hidden through <tt>Visible</tt>.</td>
+</tr>
+</table>
+
+<p class="block-content">
+<a href="?page=Controls.Statements">TStatements</a> is the matching control for several
+statements. It captures whatever the statements print rather than evaluating a single
+expression.
+</p>
+
 <com:RunBar PagePath="Controls.Samples.TExpression.Home" />
 
 </com:TContent>

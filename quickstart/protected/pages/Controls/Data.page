@@ -22,4 +22,46 @@ The process of assigning a DataSource to a Data control and render the template 
   </li>
 </ul>
 
+<p class="block-content">
+The three controls share the data binding cycle and differ in the markup they produce. A
+repeater writes only what its templates say. A data list adds a layout of rows and
+columns. A data grid builds a table from a set of column definitions.
+</p>
+
+<table class="parameters">
+<tr><th>Control</th><th>Produces</th><th>Choose it when</th></tr>
+<tr>
+	<td><tt>TRepeater</tt></td>
+	<td>Whatever its templates contain, with no wrapper of its own</td>
+	<td>The markup has to be exact, such as a list or a run of cards.</td>
+</tr>
+<tr>
+	<td><tt>TDataList</tt></td>
+	<td>A table or a run of items, arranged by <tt>RepeatColumns</tt> and <tt>RepeatDirection</tt></td>
+	<td>The items need a multi-column layout, selection, or in-place editing.</td>
+</tr>
+<tr>
+	<td><tt>TDataGrid</tt></td>
+	<td>A table whose columns come from column controls</td>
+	<td>The data is tabular and needs sorting, paging, or editing per row.</td>
+</tr>
+</table>
+
+<h2>Item renderers</h2>
+
+<p class="block-content">
+Each control repeats a template for every item. A template written inline covers the
+simple case. An <tt>ItemRenderer</tt> moves that template into its own file with a class
+beside it, so the same item appearance is reused across pages and its logic lives in PHP
+rather than in expressions. The <a href="?page=Controls.DataList">TDataList</a> and
+<a href="?page=Controls.DataGrid">TDataGrid</a> pages each show one.
+</p>
+
+<h2>Paging</h2>
+
+<p class="block-content">
+<a href="?page=Controls.Pager">TPager</a> provides the page navigation for a data bound
+control. A data grid also carries pagers of its own, at the top, the bottom, or both.
+</p>
+
 </com:TContent>

@@ -19,11 +19,29 @@ previous <tt>TFlushOutput</tt>) and the <tt>TFlushOutput</tt> will be sent to th
 &lt;com:TFlushOutput /&gt;
 </com:TTextHighlighter>
 
+<h2>Buffering after the flush</h2>
+
 <p class="block-content">
-You can specify whether you want to keep buffering of the output
-(if it was enabled) till the next occourence of a <tt><com: TFlushOutput /></tt>
-or the end of the page rendering, or stop buffering, by using the
-<tt>ContinueBuffering</tt> property.
+<tt>ContinueBuffering</tt> decides what happens to buffering once the flush has run. It
+defaults to true.
+</p>
+
+<table class="parameters">
+<tr><th>Value</th><th>Result</th></tr>
+<tr>
+	<td>true</td>
+	<td>Buffering resumes. The next <tt>TFlushOutput</tt>, or the end of the page, sends what has collected since.</td>
+</tr>
+<tr>
+	<td>false</td>
+	<td>Buffering stops. Everything after this point goes to the browser as it renders.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Flushing early lets a browser start on the top of a long page while the server still works
+on the rest. The cost is that the response headers are already sent, so nothing after the
+flush can change them, and no later code can redirect the request.
 </p>
 
 </com:TContent>

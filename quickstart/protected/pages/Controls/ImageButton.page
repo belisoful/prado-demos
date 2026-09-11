@@ -4,7 +4,42 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TImageButton" />
 
 <p class="block-content">
-<tt>TImageButton</tt> is also similar to <tt>TButton</tt>, except that <tt>TImageButton</tt> displays the button as an image. The image is specified via <tt>ImageUrl</tt>, and the alternate text is specified by <tt>Text</tt>. In addition, it is possible to obtain the coordinate of the point where the image is clicked. The coordinate information is contained in the event parameter of the <tt>OnClick</tt> event (not <tt>OnCommand</tt>).
+<tt>TImageButton</tt> extends <a href="?page=Controls.Image">TImage</a> and posts back
+when the user clicks the image. It renders an <tt>&lt;input type="image"&gt;</tt> element.
+<tt>ImageUrl</tt> names the image, and <tt>Text</tt> sets its alternate text.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TImageButton ImageUrl="search.png" Text="Search" OnClick="runSearch" /&gt;
+</com:TTextHighlighter>
+
+<h2>The click coordinate</h2>
+
+<p class="block-content">
+A browser posts the point inside the image where the click landed. The control passes it
+to the <tt>OnClick</tt> handler as a <tt>TImageClickEventParameter</tt>, which carries
+<tt>X</tt> and <tt>Y</tt> in pixels measured from the top left corner of the image. The
+<tt>OnCommand</tt> event carries a command parameter instead, so a handler that needs the
+coordinate uses <tt>OnClick</tt>.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function runSearch($sender, $param)
+{
+    $this-&gt;Result-&gt;Text = "You clicked at {$param-&gt;X}, {$param-&gt;Y}.";
+}
+</com:TTextHighlighter>
+
+<h2>Shared behavior</h2>
+
+<p class="block-content">
+The control raises <tt>OnClick</tt> and <tt>OnCommand</tt>, honors <tt>CommandName</tt>
+and <tt>CommandParameter</tt>, triggers validation through <tt>CausesValidation</tt> and
+<tt>ValidationGroup</tt>, and answers the return key when <tt>IsDefaultButton</tt> is
+true. It inherits <tt>ImageAlign</tt> and <tt>DescriptionUrl</tt> from <tt>TImage</tt>,
+and both are deprecated for the reasons given on that page. An image map that responds
+differently to different regions of one image is
+<a href="?page=Controls.ImageMap">TImageMap</a>.
 </p>
 <com:RunBar PagePath="Controls.Samples.TImageButton.Home" />
 

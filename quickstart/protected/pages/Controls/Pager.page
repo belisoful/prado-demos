@@ -29,8 +29,12 @@ These user interfaces may be further customized by configuring the following pro
 <li><tt>ButtonType</tt> - type of page buttons, either <tt>PushButton</tt> meaning normal form submission buttons, or <tt>LinkButton</tt> meaning hyperlink buttons.</li>
 </ul>
 
+<h2>Styling the buttons</h2>
+<com:SinceVersion Version="3.2.1" />
+
 <p class="block-content">
-Since Prado 3.2.1, you can use the <tt>ButtonCssClass</tt> property to specify a css class that will be applied to each button created by the pager in NextPrev or Numeric mode.
+<tt>ButtonCssClass</tt> names a CSS class that the pager applies to every button it
+creates in <tt>NextPrev</tt> or <tt>Numeric</tt> mode.
 </p>
 
 <p class="block-content">

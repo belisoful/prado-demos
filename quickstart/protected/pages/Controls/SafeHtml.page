@@ -4,10 +4,45 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TSafeHtml" />
 
 <p class="block-content">
-<tt>TSafeHtml</tt> is a control that strips down all potentially dangerous HTML content. It is mainly a wrapper of the <a href="https://htmlpurifier.org/">HTMLPurifier</a> project.
+<tt>TSafeHtml</tt> strips potentially dangerous HTML from its body content. It wraps the
+<a href="https://htmlpurifier.org/">HTML Purifier</a> project.
+</p>
 
 <p class="block-content">
 To use <tt>TSafeHtml</tt>, simply enclose the content to be secured within the <tt>TSafeHtml</tt> component tag in a template. The content may consist of both static text and PRADO controls. If the latter, the rendering result of the controls will be secured.
+</p>
+
+<h2>How it works</h2>
+
+<p class="block-content">
+The control renders its body content into a buffer rather than straight to the page. It
+passes the result through HTML Purifier, and writes what comes back. Child controls are
+therefore purified along with the static text, because purification happens after they
+render.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TSafeHtml&gt;
+  &lt;com:TLiteral Text=&lt;%= $this-&gt;Page-&gt;Comment %&gt; /&gt;
+&lt;/com:TSafeHtml&gt;
+</com:TTextHighlighter>
+
+<h2>Purifier configuration</h2>
+<com:SinceVersion Version="4.0.0" />
+
+<p class="block-content">
+The <tt>Config</tt> property holds an <tt>HTMLPurifier_Config</tt> object that decides
+what survives purification. Leaving it unset gives the default configuration, which
+caches its serialized definitions under the application's <tt>runtime/htmlpurifier</tt>
+directory. That directory must be writable by the web server. The
+<a href="https://htmlpurifier.org/docs">HTML Purifier documentation</a> lists the
+available settings.
+</p>
+
+<p class="block-content">
+<a href="?page=Controls.TextBox">TTextBox</a> carries the same property and applies it to
+its <tt>SafeText</tt> value, so an application purifies input on the way in or output on
+the way out.
 </p>
 
 <com:RunBar PagePath="Controls.Samples.TSafeHtml.Home" />

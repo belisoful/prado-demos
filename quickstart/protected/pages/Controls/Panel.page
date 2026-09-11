@@ -4,8 +4,84 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TPanel" />
 
 <p class="block-content">
-<tt>TPanel</tt> acts as a presentational container for other control. It displays a &lt;div&gt; element on a page. The property <tt>Wrap</tt> specifies whether the panel's body content should wrap or not, while <tt>HorizontalAlign</tt> governs how the content is aligned horizontally and <tt>Direction</tt> indicates the content direction (left to right or right to left). You can set <tt>BackImageUrl</tt> to give a background image to the panel, and you can set <tt>GroupingText</tt> so that the panel is displayed as a field set with a legend text. Finally, you can specify a default button to be fired when users press 'return' key within the panel by setting the <tt>DefaultButton</tt> property.
+<tt>TPanel</tt> is a presentational container for other controls. It renders a
+<tt>&lt;div&gt;</tt> element holding its body content.
 </p>
+
+<h2>Laying out the content</h2>
+
+<p class="block-content">
+Five properties shape the panel. Each one writes a CSS declaration into the element's
+style attribute rather than an HTML attribute, so the result behaves like any other
+styling.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Values</th><th>Writes</th></tr>
+<tr>
+	<td><tt>Wrap</tt></td>
+	<td>true or false. Defaults to true.</td>
+	<td><tt>white-space: nowrap</tt> when false.</td>
+</tr>
+<tr>
+	<td><tt>HorizontalAlign</tt></td>
+	<td><tt>NotSet</tt>, <tt>Left</tt>, <tt>Center</tt>, <tt>Right</tt>, <tt>Justify</tt></td>
+	<td><tt>text-align</tt>.</td>
+</tr>
+<tr>
+	<td><tt>Direction</tt></td>
+	<td><tt>NotSet</tt>, <tt>LeftToRight</tt>, <tt>RightToLeft</tt></td>
+	<td><tt>direction</tt>, which suits a right to left language.</td>
+</tr>
+<tr>
+	<td><tt>ScrollBars</tt></td>
+	<td><tt>None</tt>, <tt>Auto</tt>, <tt>Horizontal</tt>, <tt>Vertical</tt>, <tt>Both</tt></td>
+	<td><tt>overflow</tt>, or one of its single-axis forms. A scrolling panel needs a <tt>Height</tt> or a <tt>Width</tt> for the overflow to have an effect.</td>
+</tr>
+<tr>
+	<td><tt>BackImageUrl</tt></td>
+	<td>A URL</td>
+	<td><tt>background-image</tt>.</td>
+</tr>
+</table>
+
+<h2>Grouping with a legend</h2>
+
+<p class="block-content">
+Setting <tt>GroupingText</tt> puts a <tt>&lt;fieldset&gt;</tt> inside the panel's
+<tt>&lt;div&gt;</tt>, with the text as its <tt>&lt;legend&gt;</tt>. The body content then
+sits inside that fieldset. A group of related form fields under one caption is the case
+this serves.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TPanel GroupingText="Delivery address"&gt;
+  &lt;com:TTextBox ID="Street" /&gt;
+  &lt;com:TTextBox ID="City" /&gt;
+&lt;/com:TPanel&gt;
+</com:TTextHighlighter>
+
+<h2>The default button</h2>
+
+<p class="block-content">
+<tt>DefaultButton</tt> takes the id of a button inside the panel. Pressing the return key
+while the focus is within the panel then clicks that button. The panel looks the control
+up in its own naming container, and raises a <tt>TInvalidDataValueException</tt> when the
+id names no control at all. An id that names a control which is not a button is ignored,
+and the return key then does nothing.
+</p>
+
+<h2>Shadow</h2>
+<com:SinceVersion Version="4.2.0" />
+
+<p class="block-content">
+<tt>Style.BoxShadow</tt> writes a <tt>box-shadow</tt> declaration. It takes the CSS value
+as written.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TPanel Style.BoxShadow="2px 2px 4px #888" /&gt;
+</com:TTextHighlighter>
 <com:RunBar PagePath="Controls.Samples.TPanel.Home" />
 
 </com:TContent>

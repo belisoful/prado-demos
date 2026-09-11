@@ -4,8 +4,83 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TRadioButton" />
 
 <p class="block-content">
-<tt>TRadioButton</tt> is similar to <tt>TCheckBox</tt> in every aspect, except that <tt>TRadioButton</tt> displays a radio button on a Web page. The radio button can belong to a specific group specified by <tt>GroupName</tt> such that only one radio button within that group can be selected at most.
+<tt>TRadioButton</tt> extends <a href="?page=Controls.CheckBox">TCheckBox</a> and displays
+a radio button on a Web page. It inherits the caption, layout, attribute, and validation
+properties of a check box, and it raises the same <tt>OnCheckedChanged</tt> event. It adds
+grouping, so that at most one button in a group is selected.
 </p>
+
+<h2>Grouping</h2>
+
+<p class="block-content">
+<tt>GroupName</tt> names the group a button belongs to. A browser allows one selection
+among the input elements that share a <tt>name</tt> attribute, so the group is what the
+control writes into that attribute.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TRadioButton GroupName="size" Text="Small" /&gt;
+&lt;com:TRadioButton GroupName="size" Text="Medium" /&gt;
+&lt;com:TRadioButton GroupName="size" Text="Large" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The rendered name is not <tt>GroupName</tt> by itself. The control prefixes it with the
+path of its naming container, and <tt>UniqueGroupName</tt> returns the result. Two
+repeater items that each hold a <tt>size</tt> group therefore render two separate groups,
+and a selection in one item leaves the other item alone.
+</p>
+
+<table class="parameters">
+<tr><th>Condition</th><th>Rendered name</th></tr>
+<tr>
+	<td><tt>GroupName</tt> is set</td>
+	<td>The naming container path followed by <tt>GroupName</tt>.</td>
+</tr>
+<tr>
+	<td><tt>GroupName</tt> is empty</td>
+	<td>The unique id of the button, so the button stands alone in its own group.</td>
+</tr>
+<tr>
+	<td>The button sits in a <tt>TRadioButtonList</tt></td>
+	<td>The unique id of the list, so the list forms one group.</td>
+</tr>
+<tr>
+	<td><tt>UniqueGroupName</tt> is set</td>
+	<td>That value, with no prefix.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Setting <tt>UniqueGroupName</tt> directly overrides the whole calculation. That is how
+buttons in different naming containers join one group, which <tt>GroupName</tt> cannot
+express.
+</p>
+
+<h2>Reading a group</h2>
+
+<p class="block-content">
+<tt>RadioButtonsInGroup</tt> returns an array of the buttons that share this button's
+rendered group name. Only buttons present in the current page hierarchy appear in it. A
+handler uses the array to find which button the user chose.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+foreach ($this-&gt;Small-&gt;RadioButtonsInGroup as $button) {
+    if ($button-&gt;Checked) {
+        $this-&gt;Result-&gt;Text = $button-&gt;Text;
+    }
+}
+</com:TTextHighlighter>
+
+<h2>The posted value</h2>
+
+<p class="block-content">
+Every button in a group posts the same name, so the value attribute is what tells them
+apart. <tt>Value</tt> sets it. A button that leaves <tt>Value</tt> empty posts its own
+unique id instead, which keeps the buttons distinct without any configuration.
+</p>
+
 <com:RunBar PagePath="Controls.Samples.TRadioButton.Home" />
 
 </com:TContent>

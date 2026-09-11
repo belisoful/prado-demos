@@ -4,7 +4,49 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TPlaceHolder" />
 
 <p class="block-content">
-<tt>TPlaceHolder</tt> reserves a place on a template, where static texts or controls may be dynamically inserted.
+<tt>TPlaceHolder</tt> reserves a spot in a template. It renders no element of its own, and
+it has no style properties, because it extends <tt>TControl</tt> rather than
+<tt>TWebControl</tt>. What it renders is its child controls, in the place where the
+control sits.
+</p>
+
+<h2>Filling a placeholder</h2>
+
+<p class="block-content">
+A placeholder written with no body content marks a position that code fills later. A
+handler adds controls to its <tt>Controls</tt> collection, and they render at that
+position.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TPlaceHolder ID="Messages" /&gt;
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$label = new TLabel();
+$label-&gt;Text = 'Saved.';
+$this-&gt;Messages-&gt;Controls[] = $label;
+</com:TTextHighlighter>
+
+<h2>Showing and hiding a region</h2>
+
+<p class="block-content">
+A placeholder written with body content groups that content without adding markup around
+it. Setting <tt>Visible</tt> to false then removes the whole group from the output. A
+<a href="?page=Controls.Panel">TPanel</a> does the same, except that a panel renders a
+<tt>&lt;div&gt;</tt> element around the group.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TPlaceHolder ID="AdminTools" Visible="false"&gt;
+  &lt;com:TButton Text="Delete" OnClick="deleteItem" /&gt;
+  &lt;com:TButton Text="Publish" OnClick="publishItem" /&gt;
+&lt;/com:TPlaceHolder&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+A hidden control renders nothing, and PRADO skips its children as well. It still takes
+part in the page lifecycle, so its state survives a postback.
 </p>
 
 <com:RunBar PagePath="Controls.Samples.TPlaceHolder.Home" />

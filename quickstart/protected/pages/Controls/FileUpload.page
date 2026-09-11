@@ -22,6 +22,103 @@ The following properties give the information about the uploaded file:
 If the file upload is unsuccessful, the property <tt>ErrorCode</tt> gives the error code describing the cause of failure. See <a href="https://www.php.net/manual/en/features.file-upload.errors.php">PHP documentation</a> for a complete explanation of the possible error codes.
 </p>
 
+<h2>Saving the file</h2>
+
+<p class="block-content">
+<tt>LocalName</tt> points at a temporary file that PHP deletes when the request ends.
+A handler that needs to keep the upload calls <tt>saveAs()</tt> with a destination path.
+The method moves the temporary file by default. Passing false as its second argument
+copies it instead and leaves the temporary file in place.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function fileUploaded($sender, $param)
+{
+    if ($sender-&gt;HasFile) {
+        $sender-&gt;saveAs($this-&gt;Application-&gt;RuntimePath . '/' . $sender-&gt;FileName);
+    }
+}
+</com:TTextHighlighter>
+
+<h2>The form encoding</h2>
+
+<p class="block-content">
+A browser sends files only when the form encoding is <tt>multipart/form-data</tt>. The
+control sets that encoding on the page's form during pre-render, so a template needs no
+change of its own. The control does the same during a callback by setting the attribute
+on the client.
+</p>
+
+<h2>Size limits</h2>
+
+<p class="block-content">
+<tt>MaxFileSize</tt> gives the browser an advisory limit in bytes, rendered as a
+<tt>MAX_FILE_SIZE</tt> hidden field. It defaults to 1048576, which is one megabyte. The
+value is advice rather than enforcement. The limits that actually hold are PHP's
+<tt>upload_max_filesize</tt> and <tt>post_max_size</tt> settings, and a file that exceeds
+them arrives with an <tt>ErrorCode</tt> instead of content.
+</p>
+
+<h2>Uploading several files at once</h2>
+<com:SinceVersion Version="4.0.0" />
+
+<p class="block-content">
+Setting <tt>Multiple</tt> to true renders the HTML5 <tt>multiple</tt> attribute and adds
+square brackets to the field name, so one field accepts a set of files.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TFileUpload ID="Upload" Multiple="true" OnFileUpload="filesUploaded" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>Files</tt> returns an array of <tt>TFileUploadItem</tt> objects, one for each file.
+An item carries the same members as the control itself, so a loop reads
+<tt>FileName</tt>, <tt>FileSize</tt>, <tt>FileType</tt>, <tt>LocalName</tt>,
+<tt>ErrorCode</tt>, and <tt>HasFile</tt>, and calls <tt>saveAs()</tt>.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function filesUploaded($sender, $param)
+{
+    foreach ($sender-&gt;Files as $file) {
+        if ($file-&gt;HasFile) {
+            $file-&gt;saveAs($this-&gt;Application-&gt;RuntimePath . '/' . $file-&gt;FileName);
+        }
+    }
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+The single-file members still work when several files arrive. Each of them takes an
+optional index that selects the file to report on, and the index defaults to zero.
+</p>
+
+<table class="parameters">
+<tr><th>Member</th><th>Behavior with several files</th></tr>
+<tr>
+	<td><tt>getHasFile($index)</tt></td>
+	<td>Reports on one file. <tt>HasAllFiles</tt> reports on the whole set at once.</td>
+</tr>
+<tr>
+	<td><tt>getFileName($index)</tt>, <tt>getFileSize($index)</tt>, <tt>getFileType($index)</tt></td>
+	<td>Report on one file.</td>
+</tr>
+<tr>
+	<td><tt>saveAs($path, $delete, $index)</tt></td>
+	<td>Saves one file.</td>
+</tr>
+<tr>
+	<td><tt>ValidationPropertyValue</tt></td>
+	<td>Returns the original file names as a comma separated list, so a validator sees every file.</td>
+</tr>
+</table>
+
+<p class="block-content">
+<tt>OnFileUpload</tt> fires once for the request, whether one file arrived or several,
+and whether the transfers succeeded or failed.
+</p>
+
 <com:RunBar PagePath="Controls.Samples.TFileUpload.Home" />
 
 </com:TContent>

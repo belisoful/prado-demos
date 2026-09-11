@@ -20,6 +20,105 @@ Hotspots can be added to <tt>TImageMap</tt> via its <tt>HotSpots</tt> property o
 &lt;/com:TImageMap&gt;
 </com:TTextHighlighter>
 
+<h2>Hotspot shapes</h2>
+
+<p class="block-content">
+Three shapes are available. Each one describes its region with its own properties.
+</p>
+
+<table class="parameters">
+<tr><th>Control</th><th>Region</th><th>Properties</th></tr>
+<tr>
+	<td><tt>TCircleHotSpot</tt></td>
+	<td>A circle</td>
+	<td><tt>X</tt>, <tt>Y</tt>, <tt>Radius</tt></td>
+</tr>
+<tr>
+	<td><tt>TRectangleHotSpot</tt></td>
+	<td>A rectangle</td>
+	<td><tt>Left</tt>, <tt>Top</tt>, <tt>Right</tt>, <tt>Bottom</tt></td>
+</tr>
+<tr>
+	<td><tt>TPolygonHotSpot</tt></td>
+	<td>An arbitrary outline</td>
+	<td><tt>Coordinates</tt>, a comma separated list of x and y pairs</td>
+</tr>
+</table>
+
+<h2>What a click does</h2>
+
+<p class="block-content">
+<tt>HotSpotMode</tt> decides the response. A hotspot carries its own
+<tt>HotSpotMode</tt>, and the image map carries one that applies to every hotspot that
+leaves its own unset.
+</p>
+
+<table class="parameters">
+<tr><th>Mode</th><th>Result</th></tr>
+<tr>
+	<td><tt>Navigate</tt></td>
+	<td>The browser follows the hotspot's <tt>NavigateUrl</tt>, in the window named by <tt>Target</tt>.</td>
+</tr>
+<tr>
+	<td><tt>PostBack</tt></td>
+	<td>The page posts back and raises <tt>OnClick</tt> on the image map.</td>
+</tr>
+<tr>
+	<td><tt>Inactive</tt></td>
+	<td>The region does nothing. It marks an area that should not react.</td>
+</tr>
+<tr>
+	<td><tt>NotSet</tt></td>
+	<td>The hotspot takes the mode from the image map. The default there is <tt>Navigate</tt>.</td>
+</tr>
+</table>
+
+<p class="block-content">
+An <tt>OnClick</tt> handler receives a <tt>TImageMapEventParameter</tt>, whose
+<tt>PostBackValue</tt> is the <tt>PostBackValue</tt> of the hotspot that was clicked.
+That value is how the handler tells the regions apart.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TImageMap ImageUrl="map.png" AlternateText="Regional map"
+    HotSpotMode="PostBack" OnClick="regionClicked"&gt;
+  &lt;com:TCircleHotSpot X="60" Y="40" Radius="25"
+      PostBackValue="north" AlternateText="North" /&gt;
+  &lt;com:TRectangleHotSpot Left="10" Top="80" Right="120" Bottom="140"
+      PostBackValue="south" AlternateText="South" /&gt;
+&lt;/com:TImageMap&gt;
+</com:TTextHighlighter>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function regionClicked($sender, $param)
+{
+    $this-&gt;Result-&gt;Text = 'You clicked ' . $param-&gt;PostBackValue . '.';
+}
+</com:TTextHighlighter>
+
+<h2>Hotspot properties</h2>
+
+<p class="block-content">
+Every hotspot shares a set of properties, whatever its shape.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr><td><tt>AlternateText</tt></td><td>The <tt>alt</tt> text of the region. A screen reader reads it, so each region should carry one.</td></tr>
+<tr><td><tt>NavigateUrl</tt></td><td>The destination in <tt>Navigate</tt> mode.</td></tr>
+<tr><td><tt>Target</tt></td><td>The window the destination opens in. A hotspot that leaves it empty takes the <tt>Target</tt> of the image map.</td></tr>
+<tr><td><tt>PostBackValue</tt></td><td>The value the <tt>OnClick</tt> handler receives in <tt>PostBack</tt> mode.</td></tr>
+<tr><td><tt>AccessKey</tt>, <tt>TabIndex</tt></td><td>Keyboard access to the region.</td></tr>
+<tr><td><tt>CausesValidation</tt>, <tt>ValidationGroup</tt></td><td>Validation on postback, as on a button.</td></tr>
+</table>
+
+<p class="block-content">
+The control renders an <tt>&lt;img&gt;</tt> element with a <tt>usemap</tt> attribute and a
+matching <tt>&lt;map&gt;</tt> element holding one <tt>&lt;area&gt;</tt> per hotspot. It
+inherits <tt>ImageAlign</tt> and <tt>DescriptionUrl</tt> from
+<a href="?page=Controls.Image">TImage</a>, and both are deprecated.
+</p>
+
 <com:RunBar PagePath="Controls.Samples.TImageMap.Home" />
 
 </com:TContent>

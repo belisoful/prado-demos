@@ -4,7 +4,58 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.THyperLink" />
 
 <p class="block-content">
-<tt>THyperLink</tt> displays a hyperlink on a page. The hyperlink URL is specified via the <tt>NavigateUrl</tt> property, and link text is via the <tt>Text</tt> property. The link target is specified via the <tt>Target</tt> property. It is also possible to display an image by setting the <tt>ImageUrl</tt> property. In this case, <tt>Text</tt> is displayed as the alternate text of the image. If both <tt>ImageUrl</tt> and <tt>Text</tt> are empty, the content enclosed within the control tag will be rendered.
+<tt>THyperLink</tt> displays a hyperlink on a page. It renders an <tt>&lt;a&gt;</tt>
+element. <tt>NavigateUrl</tt> becomes the <tt>href</tt> attribute, and <tt>Target</tt>
+becomes the <tt>target</tt> attribute.
+</p>
+
+<h2>What the link shows</h2>
+
+<p class="block-content">
+Three properties compete to fill the link, and the control picks one of them in order.
+</p>
+
+<table class="parameters">
+<tr><th>Condition</th><th>The link contains</th></tr>
+<tr>
+	<td><tt>ImageUrl</tt> is set</td>
+	<td>An image. <tt>Text</tt> becomes the alternate text of that image rather than the link text.</td>
+</tr>
+<tr>
+	<td><tt>ImageUrl</tt> is empty and <tt>Text</tt> is set</td>
+	<td>The text of <tt>Text</tt>.</td>
+</tr>
+<tr>
+	<td>Both are empty</td>
+	<td>The body content written between the control's tags.</td>
+</tr>
+</table>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:THyperLink NavigateUrl="?page=Home" Text="Home" /&gt;
+&lt;com:THyperLink NavigateUrl="?page=Home"&gt;
+  &lt;com:TImage ImageUrl="home.png" AlternateText="" /&gt; Home
+&lt;/com:THyperLink&gt;
+</com:TTextHighlighter>
+
+<h2>Styling the image</h2>
+
+<p class="block-content">
+<tt>ImageStyle</tt> holds the style of the image the link renders, separately from the
+style of the link itself. Three older properties set parts of that style and are now
+deprecated, because the HTML attributes behind them are obsolete.
+</p>
+
+<table class="parameters">
+<tr><th>Deprecated property</th><th>Use instead</th></tr>
+<tr><td><tt>ImageAlign</tt></td><td><tt>ImageStyle</tt>, with the CSS <tt>float</tt> or <tt>vertical-align</tt> declaration.</td></tr>
+<tr><td><tt>ImageHeight</tt></td><td><tt>ImageStyle.Height</tt>.</td></tr>
+<tr><td><tt>ImageWidth</tt></td><td><tt>ImageStyle.Width</tt>.</td></tr>
+</table>
+
+<p class="block-content">
+A link that posts back to the server rather than navigating is a
+<a href="?page=Controls.LinkButton">TLinkButton</a>.
 </p>
 <com:RunBar PagePath="Controls.Samples.THyperLink.Home" />
 

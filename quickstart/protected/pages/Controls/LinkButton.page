@@ -4,7 +4,43 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TLinkButton" />
 
 <p class="block-content">
-<tt>TLinkButton</tt> is similar to <tt>TButton</tt> in every aspect except that <tt>TLinkButton</tt> is displayed as a hyperlink. The link text is determined by its <tt>Text</tt> property. If the <tt>Text</tt> property is empty, then the body content of the button is displayed (therefore, you can enclose a &lt;img&gt; tag within the button body and get an image button.
+<tt>TLinkButton</tt> matches <a href="?page=Controls.Button">TButton</a> in behavior and
+differs in appearance. It renders an <tt>&lt;a&gt;</tt> element, so it looks like a link
+and acts like a button. <tt>Text</tt> holds the link text. A button with an empty
+<tt>Text</tt> renders its body content instead, so a template nests an image or styled
+markup inside the tag.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TLinkButton Text="Delete" OnClick="deleteRow" /&gt;
+&lt;com:TLinkButton OnClick="deleteRow"&gt;
+  &lt;com:TImage ImageUrl="trash.png" AlternateText="" /&gt; Delete
+&lt;/com:TLinkButton&gt;
+</com:TTextHighlighter>
+
+<h2>Events and commands</h2>
+
+<p class="block-content">
+The control raises <tt>OnClick</tt> and <tt>OnCommand</tt>, as a button does.
+<tt>OnCommand</tt> bubbles to the ancestor controls, and carries <tt>CommandName</tt> and
+<tt>CommandParameter</tt> in its event parameter. That is how a repeater or a data grid
+tells apart the link buttons its items render. Clicking triggers validation when
+<tt>CausesValidation</tt> is true, restricted to a <tt>ValidationGroup</tt>.
+</p>
+
+<h2>The control needs client script</h2>
+
+<p class="block-content">
+A link has no way of its own to post a form, so the control writes an <tt>href</tt> that
+calls into the PRADO client script. Setting <tt>EnableClientScript</tt> to false leaves it
+with no way to submit, and the control then renders itself as <tt>disabled</tt>. A page
+that must work without JavaScript uses <a href="?page=Controls.Button">TButton</a>
+instead.
+</p>
+
+<p class="block-content">
+<tt>IsDefaultButton</tt> makes the button respond to the return key inside the panel that
+holds it.
 </p>
 <com:RunBar PagePath="Controls.Samples.TLinkButton.Home" />
 

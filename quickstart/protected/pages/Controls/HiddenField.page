@@ -10,4 +10,57 @@
 <tt>THiddenField</tt> raises an <tt>OnValueChanged</tt> event if its value is changed during postback.
 </p>
 
+<h2>Reading and writing the value</h2>
+
+<p class="block-content">
+<tt>Value</tt> holds a string. The control renders it as the <tt>value</tt> attribute of
+an <tt>&lt;input type="hidden"&gt;</tt> element, and reads it back from the posted form.
+Client script reaches the same element through <tt>ClientID</tt>, so a page carries a
+value from the browser to the server without showing it to the user.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:THiddenField ID="Selection" Value="none" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>Data</tt> is another name for <tt>Value</tt>. It exists so that a hidden field works
+as the data renderer of a templated control.
+</p>
+
+<h2>What the control does not have</h2>
+
+<p class="block-content">
+<tt>THiddenField</tt> extends <tt>TControl</tt> rather than <tt>TWebControl</tt>, because
+a hidden input has nothing to present. It therefore carries none of the style properties
+of a web control, and three members raise a <tt>TNotSupportedException</tt> when a page
+uses them.
+</p>
+
+<table class="parameters">
+<tr><th>Member</th><th>Result</th></tr>
+<tr>
+	<td><tt>focus()</tt></td>
+	<td>Raises an exception. A hidden element takes no focus.</td>
+</tr>
+<tr>
+	<td><tt>EnableTheming</tt></td>
+	<td>Raises an exception on assignment. A theme has nothing to style.</td>
+</tr>
+<tr>
+	<td><tt>SkinID</tt></td>
+	<td>Raises an exception on assignment, for the same reason.</td>
+</tr>
+</table>
+
+<h2>Validation</h2>
+
+<p class="block-content">
+A hidden field is a validation target. A validator points <tt>ControlToValidate</tt> at
+it, and reads <tt>Value</tt>. This validates a value that client script writes, such as a
+coordinate or a selection made outside the form.
+</p>
+
+<com:RunBar PagePath="Controls.Samples.THiddenField.Home" />
+
 </com:TContent>

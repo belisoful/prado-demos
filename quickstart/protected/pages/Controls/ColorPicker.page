@@ -8,7 +8,13 @@
 Next to the textbox there's a button filled with the current chosen color.
 Users can write a color name directly in the text box as an hex triplet (also known as HTML notation, eg: #FF00FF).
 <br/>Alternatively, if the <tt>ShowColorPicker</tt> property is enabled (it is by default), users can click the button
-to have a color picker UI appear. A color chan be chosen directly by clicking on the color picker.
+to have a color picker UI appear. A color can be chosen directly by clicking on the color picker.
+</p>
+
+<p class="block-content">
+The control extends <a href="?page=Controls.TextBox">TTextBox</a>, so the value it
+collects reaches the server through <tt>Text</tt>, and the text box properties for
+validation, posting back, and read-only display all apply.
 </p>
 
 <p class="block-content">

@@ -7,17 +7,66 @@
 <tt>TInlineFrame</tt> displays an inline frame (&lt;iframe&gt;) on a Web page. The location of the frame content is specified by the <tt>FrameUrl</tt> property.
 </p>
 <p class="block-content">
-The appearance of a <tt>TInlineFrame</tt> may be customized with the following properties, in addition to those inherited from <tt>TWebControl</tt>.
+<tt>Width</tt> and <tt>Height</tt> size the frame in pixels and render the attributes of
+the same name. The control also carries the <tt>CssClass</tt> and <tt>Style</tt>
+properties of a web control, and its <tt>Attributes</tt> collection reaches any other
+attribute an <tt>&lt;iframe&gt;</tt> accepts.
 </p>
-<ul id="u1" class="block-content">
-  <li><tt>Align</tt> - the alignment of the frame.</li>
-  <li><tt>DescriptionUrl</tt> - the URI of a long description of the frame's contents.</li>
-  <li><tt>MarginWidth</tt> and <tt>MarginHeight</tt> - the number of pixels to use as the left/right margins and top/bottom margins, respectively.</li>
-  <li><tt>ScrollBars</tt> - whether scrollbars are provided for the inline frame. By default, it is <tt>Auto</tt>, meaning the scroll bars appear as needed. Setting it as <tt>None</tt> or <tt>Both</tt> to explicitly hide or show the scroll bars.</li>
-</ul>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TInlineFrame FrameUrl="?page=Home" Width="600" Height="400"
+    Attributes.loading="lazy" Attributes.title="Embedded home page" /&gt;
+</com:TTextHighlighter>
+
+<h2>Six properties to avoid</h2>
 
 <p class="block-content">
-The following samples show <tt>TInlineFrame</tt> with different property settings. The Google homepage is used as the frame content.
+The control predates HTML5, which dropped the presentational attributes of the
+<tt>&lt;iframe&gt;</tt> element. Six properties still write those attributes, and the
+framework marks all six deprecated. They continue to render, so existing pages keep
+working, and CSS replaces every one of them.
+</p>
+
+<table class="parameters">
+<tr><th>Deprecated property</th><th>Writes</th><th>Use instead</th></tr>
+<tr>
+	<td><tt>Align</tt></td>
+	<td><tt>align</tt></td>
+	<td>The CSS <tt>float</tt> or <tt>vertical-align</tt> declaration.</td>
+</tr>
+<tr>
+	<td><tt>ScrollBars</tt></td>
+	<td><tt>scrolling</tt></td>
+	<td>The CSS <tt>overflow</tt> declaration inside the framed document.</td>
+</tr>
+<tr>
+	<td><tt>ShowBorder</tt></td>
+	<td><tt>frameborder</tt></td>
+	<td>The CSS <tt>border</tt> declaration, set to <tt>none</tt>.</td>
+</tr>
+<tr>
+	<td><tt>MarginWidth</tt>, <tt>MarginHeight</tt></td>
+	<td><tt>marginwidth</tt>, <tt>marginheight</tt></td>
+	<td>The CSS <tt>margin</tt> or <tt>padding</tt> declaration inside the framed document.</td>
+</tr>
+<tr>
+	<td><tt>DescriptionUrl</tt></td>
+	<td><tt>longdesc</tt></td>
+	<td>An ARIA attribute such as <tt>aria-describedby</tt>.</td>
+</tr>
+</table>
+
+<h2>Framing another site</h2>
+
+<p class="block-content">
+A frame that loads a document from elsewhere gives that document a place in the page. The
+<tt>sandbox</tt> attribute limits what the framed document may do, and the
+<tt>Attributes</tt> collection sets it. A frame with no <tt>title</tt> attribute is
+unlabeled for a screen reader, so a page that frames content should set one.
+</p>
+
+<p class="block-content">
+The following samples show <tt>TInlineFrame</tt> with different property settings.
 </p>
 <com:RunBar PagePath="Controls.Samples.TInlineFrame.Home" />
 

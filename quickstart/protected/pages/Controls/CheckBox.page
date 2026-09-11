@@ -7,8 +7,66 @@
 <tt>TCheckBox</tt> displays a check box on a Web page. A caption can be specified via <tt>Text</tt> and displayed beside the check box. It can appear either on the right or left of the check box, which is determined by <tt>TextAlign</tt>. You may further specify attributes applied to the text by using <tt>LabelAttributes</tt>.
 </p>
 <p class="block-content">
-To determine whether the check box is checked, test the <tt>Checked</tt> property. A <tt>CheckedChanged</tt> event is raised if the state of <tt>Checked</tt> is changed between posts to the server. If <tt>AutoPostBack</tt> is true, changing the check box state will cause postback action. And if <tt>CausesValidation</tt> is also true, upon postback validation will be performed for validators within the specified <tt>ValidationGroup</tt>.
+To determine whether the check box is checked, test the <tt>Checked</tt> property. An <tt>OnCheckedChanged</tt> event is raised if the state of <tt>Checked</tt> is changed between posts to the server. If <tt>AutoPostBack</tt> is true, changing the check box state will cause postback action. And if <tt>CausesValidation</tt> is also true, upon postback validation will be performed for validators within the specified <tt>ValidationGroup</tt>.
 </p>
+<h2>Caption and layout</h2>
+
+<p class="block-content">
+<tt>Text</tt> holds the caption. <tt>TextAlign</tt> places it, and takes <tt>Left</tt> or
+<tt>Right</tt>. It defaults to <tt>Right</tt>.
+</p>
+
+<p class="block-content">
+The control renders an <tt>&lt;input type="checkbox"&gt;</tt> element. A caption adds a
+<tt>&lt;label&gt;</tt> element whose <tt>for</tt> attribute carries the client id of the
+input, so clicking the caption toggles the box. The control wraps the pair in a
+<tt>&lt;span&gt;</tt> element. A checkbox with no caption renders the input alone.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TCheckBox Text="Send me mail" TextAlign="Left" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>Text</tt> renders as written. A caption that comes from user input needs escaping
+before it reaches the property.
+</p>
+
+<h2>Attributes on the input and the caption</h2>
+
+<p class="block-content">
+A checkbox renders two elements, so an attribute set on the control alone does not say
+which one it belongs to. <tt>InputAttributes</tt> carries attributes for the
+<tt>&lt;input&gt;</tt> element. <tt>LabelAttributes</tt> carries attributes for the
+<tt>&lt;label&gt;</tt> element.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TCheckBox Text="Subscribe"
+  InputAttributes.value="yes"
+  LabelAttributes.class="field-caption" /&gt;
+</com:TTextHighlighter>
+
+<h2>The posted value</h2>
+
+<p class="block-content">
+A browser posts a checked box as its name paired with its value attribute. The
+<tt>Value</tt> property sets that value attribute. Leaving <tt>Value</tt> empty makes the
+control look for a <tt>value</tt> entry in <tt>InputAttributes</tt>, and then for one in
+the control's own <tt>Attributes</tt> collection.
+</p>
+
+<h2>The surrounding tag</h2>
+<com:SinceVersion Version="3.1.2" />
+
+<p class="block-content">
+<tt>SurroundingTag</tt> returns the name of the element that wraps the input and the
+caption, which is <tt>span</tt>. <tt>SurroundingTagID</tt> returns the id of that
+wrapper. A checkbox with no caption renders no wrapper, and <tt>SurroundingTagID</tt>
+then returns the client id of the input itself. Client script that replaces a whole
+checkbox targets <tt>SurroundingTagID</tt> rather than <tt>ClientID</tt>.
+</p>
+
 <com:RunBar PagePath="Controls.Samples.TCheckBox.Home" />
 
 </com:TContent>

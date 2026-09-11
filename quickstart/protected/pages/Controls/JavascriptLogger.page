@@ -24,8 +24,23 @@ Logger.error('This is an error');
 Logger.debug('debug information');
 </com:TTextHighlighter>
 
+<h2>Showing the console</h2>
+
 <p class="block-content">
-To toggle the visibility of the logger and console on the browser window, press ALT-D (or CTRL-D on OS X).
+The console is hidden until a key combination opens it. That combination is the Alt key,
+which is Option on a Mac, together with the key named by <tt>ToggleKey</tt>.
+<tt>ToggleKey</tt> defaults to <tt>j</tt>, so the default combination is Alt and J. Only
+letters and digits are accepted, and a value outside that set falls back to <tt>j</tt>.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TJavascriptLogger ToggleKey="l" /&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The control renders a <tt>&lt;div&gt;</tt> element and registers the logger script during
+pre-render. A page meant for production should leave the control out, since the script
+ships to every visitor.
 </p>
 
 </com:TContent>

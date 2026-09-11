@@ -4,8 +4,7 @@
 <com:DocLink ClassPath="Prado.Web.UI.WebControls.TLiteral" />
 
 <p class="block-content">
-<tt>TLiteral</tt> displays a static text on a Web page. <tt>TLiteral</tt> is similar to the <tt>TLabel</tt> control, except that the <tt>TLiteral</tt>
- * control has no style properties, such as <tt>BackColor</tt>, <tt>Font</tt>, etc.
+<tt>TLiteral</tt> displays static text on a Web page. It resembles <a href="?page=Controls.Label">TLabel</a>, except that <tt>TLiteral</tt> extends <tt>TControl</tt> rather than <tt>TWebControl</tt>. It therefore has no style properties such as <tt>BackColor</tt> or <tt>Font</tt>, and it renders no element of its own. The text appears exactly where the control sits.
 </p>
 
 <p class="block-content">
@@ -18,6 +17,30 @@ The text displayed by <tt>TLiteral</tt> can be programmatically controlled by se
 
 <p class="block-content">
 Be aware, if <tt>Encode</tt> is false, make sure <tt>Text</tt> does not contain unwanted characters that may bring security vulnerabilities.
+</p>
+
+<h2>Encoding</h2>
+
+<p class="block-content">
+<tt>Encode</tt> decides how the text reaches the page.
+</p>
+
+<table class="parameters">
+<tr><th>Value</th><th>Result</th></tr>
+<tr>
+	<td>false</td>
+	<td>The text renders as written, markup included. This is the default.</td>
+</tr>
+<tr>
+	<td>true</td>
+	<td>The control HTML-encodes the text, so markup shows as characters rather than acting as markup.</td>
+</tr>
+</table>
+
+<p class="block-content">
+Text that comes from a user belongs in a literal with <tt>Encode</tt> set to true.
+<tt>Data</tt> is another name for <tt>Text</tt>, which lets a literal serve as the data
+renderer of a templated control.
 </p>
 
 <com:RunBar PagePath="Controls.Samples.TLiteral.Home" />

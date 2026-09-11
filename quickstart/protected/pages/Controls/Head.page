@@ -9,22 +9,58 @@ enclosed in its body and the page title set by the <tt>Title</tt> property.
 </p>
 
 <p class="block-content">
-In addition, stylesheets and JavaScripts registered via
-<ul>
-  <li><tt>TClientScriptManager::registerStyleSheet</tt>,</li>
-  <li><tt>TClientScriptManager::registerStyleSheetFile</tt>,</li>
-  <li><tt>TClientScriptManager::registerHeadJavaScript</tt> and</li>
-  <li><tt>TClientScriptManager::registerHeadJavaScriptFile</tt></li>
+The control also renders the stylesheets and scripts that controls registered during the
+request. Four methods of <tt>TClientScriptManager</tt> put content there.
+</p>
+<ul id="u1" class="block-content">
+  <li><tt>registerStyleSheet</tt></li>
+  <li><tt>registerStyleSheetFile</tt></li>
+  <li><tt>registerHeadJavaScript</tt></li>
+  <li><tt>registerHeadJavaScriptFile</tt></li>
 </ul>
-will also be displayed in the head.</p>
-
 <p class="block-content">
-THead also manages and displays meta tags through its <tt>MetaTags</tt>
-property. You can add a meta object to the collection in code dynamically,
-or add it in template using the following syntax
+Scripts render only when the client supports JavaScript. This is why a control such as
+<a href="?page=Controls.TextHighlighter">TTextHighlighter</a>, which registers a
+stylesheet of its own, needs a <tt>THead</tt> on the page to look right.
 </p>
 
-<com:TTextHighlighter Language="text" CssClass="source block-content">
+<h2>What the head holds</h2>
+
+<table class="parameters">
+<tr><th>Property</th><th>Renders</th></tr>
+<tr>
+	<td><tt>Title</tt></td>
+	<td>The <tt>&lt;title&gt;</tt> element. The control HTML-encodes the value.</td>
+</tr>
+<tr>
+	<td><tt>BaseUrl</tt></td>
+	<td>A <tt>&lt;base&gt;</tt> element, which sets the URL that relative links on the page resolve against.</td>
+</tr>
+<tr>
+	<td><tt>ShortcutIcon</tt></td>
+	<td>A <tt>&lt;link rel="shortcut icon"&gt;</tt> element, the icon a browser shows for the page.</td>
+</tr>
+<tr>
+	<td><tt>MetaTags</tt></td>
+	<td>One <tt>&lt;meta&gt;</tt> element per entry.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The body content of the control renders last, after everything above.
+</p>
+
+<h2>Meta tags</h2>
+
+<p class="block-content">
+<tt>MetaTags</tt> is a collection of <tt>TMetaTag</tt> objects. A template adds them as
+child tags, and code adds them to the collection at any point before rendering. A meta tag
+carries either <tt>Name</tt> or <tt>HttpEquiv</tt> together with <tt>Content</tt>, and
+<tt>Charset</tt> renders a character set declaration instead. Its <tt>Scheme</tt> property
+is deprecated, because HTML5 dropped the attribute behind it.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:THead&gt;
   &lt;com:TMetaTag HttpEquiv="Pragma" Content="no-cache" /&gt;
   &lt;com:TMetaTag Name="keywords" Content="Prado" /&gt;
