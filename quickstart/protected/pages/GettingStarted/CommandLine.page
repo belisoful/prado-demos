@@ -157,6 +157,20 @@ IPv6.
 prado-cli http/serve --address=localhost --port=8777
 </com:TTextHighlighter>
 
+<h2>Commands from modules and extensions</h2>
+
+<p class="block-content">
+The commands listed above are what the tool offers on its own. A module adds more by
+registering an action class on the shell application, so the available commands depend on
+what the application has configured. The cron, permissions and database parameter commands
+all arrive this way, which is why they appear only when those modules are loaded.
+</p>
+
+<p class="block-content">
+An <a href="?page=Advanced.Plugins">extension</a> registers its commands the same way, and
+that page shows the registration.
+</p>
+
 <h2>Interactive Shell</h2>
 <p class="block-content">
 The interactive shell allows you to evaluate PHP statements from the command line.

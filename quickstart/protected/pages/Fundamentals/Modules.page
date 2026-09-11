@@ -122,6 +122,9 @@ series.
 </table>
 
 <h3>Caching</h3>
+<p class="block-content">
+Described under <a href="?page=Advanced.Caching">Caching</a>.
+</p>
 <table class="parameters">
 <tr><th>Module</th><th>Purpose</th><th>Added</th></tr>
 <tr><td><tt>TDbCache</tt></td><td>Cache in a database table.</td><td>3.1.0</td></tr>

@@ -89,16 +89,99 @@ class TMyPluginModule extends \Prado\Util\TPluginModule
     // pages under the package's Pages/ directory are served automatically
 }
 </com:TTextHighlighter>
+<h3>Where the pages live</h3>
+
 <p class="block-content">
-A plugin page sets its content id from the <tt>PluginContentId</tt> application
-parameter, so the page adapts to the application's master template. The application sets
-the parameter, and the plugin page reads it.
+The module finds its own directory by reflecting on its class file, and looks for a
+<tt>Pages</tt> directory beside it. A lowercase <tt>pages</tt> is accepted as well. Three
+properties control this.
 </p>
-<com:TTextHighlighter CssClass="source block-content">
+
+<table class="parameters">
+<tr><th>Property</th><th>Meaning</th></tr>
+<tr>
+	<td><tt>PluginPath</tt></td>
+	<td>The package's directory. It defaults to the directory holding the bootstrap class, which is right for a package laid out in the usual way.</td>
+</tr>
+<tr>
+	<td><tt>RelativePagesPath</tt></td>
+	<td>Where the pages sit relative to that, defaulting to <tt>Pages</tt>.</td>
+</tr>
+<tr>
+	<td><tt>PluginPagesPath</tt></td>
+	<td>The resolved absolute path. Setting it directly overrides the other two.</td>
+</tr>
+</table>
+
+<h3>How a plugin page becomes reachable</h3>
+
+<p class="block-content">
+Plugin pages are not copied into the application's page tree. On each request the module
+attaches a handler to the page service's <tt>onAdditionalPagePaths</tt> event, and that
+handler offers the package's own pages directory as another place to look. A page the
+application does not have is then found in the package.
+</p>
+
+<p class="block-content">
+Because the page renders inside the application's own layout, it cannot name a content
+placeholder of its own. It reads the id from an application parameter instead, so one
+setting adapts every plugin page to whatever the application's master template calls its
+main region.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
 &lt;com:TContent ID=&lt;%$ PluginContentId %&gt;&gt;
   ...
 &lt;/com:TContent&gt;
 </com:TTextHighlighter>
+
+<p class="block-content">
+The application declares the parameter once, naming the placeholder its layout uses.
+</p>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;parameters&gt;
+  &lt;parameter id="PluginContentId" value="Main" /&gt;
+&lt;/parameters&gt;
+</com:TTextHighlighter>
+
+<h3>Error messages</h3>
+
+<p class="block-content">
+An <tt>errorMessages.txt</tt> file at the root of the package is registered with the
+exception system when the module initializes, so the extension raises exceptions carrying
+its own messages. The file is optional and is ignored when absent.
+</p>
+
+<h2>Command line actions</h2>
+
+<p class="block-content">
+An extension adds commands to the <a href="?page=GettingStarted.CommandLine">command line
+tool</a> by registering an action class on the shell application. The registration happens
+only when the application is a shell application, so the same module works unchanged under
+a web request.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function registerShellAction($sender, $param)
+{
+    $app = $this-&gt;getApplication();
+    if ($app instanceof \Prado\Shell\TShellApplication) {
+        $app-&gt;addShellActionClass([
+            'class' =&gt; MyPluginAction::class,
+            'PluginModule' =&gt; $this,
+        ]);
+    }
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+The array form names the action class and sets properties on it, which is how the action
+reaches back to the module that registered it. The action class extends
+<tt>TShellAction</tt> and declares the commands it answers to. Several shipped modules use
+this route, including the ones behind the cron, permissions and database parameter
+commands.
+</p>
 
 <h2>Database extensions</h2>
 <p class="block-content">

@@ -100,6 +100,7 @@
     <li><a href="?page=Advanced.MasterContent">Master and Content</a></li>
     <li><a href="?page=Advanced.Themes">Themes and Skins</a></li>
     <li><a href="?page=Advanced.State">Persistent State</a></li>
+    <li><a href="?page=Advanced.Caching">Caching</a></li>
     <li><a href="?page=Advanced.Logging">Logging</a></li>
     <li><a href="?page=Advanced.Cron">Scheduled Tasks (Cron)</a></li>
     <li><a href="?page=Advanced.Plugins">Extensions (Plugins)</a></li>

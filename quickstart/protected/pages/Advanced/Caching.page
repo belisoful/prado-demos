@@ -1,0 +1,220 @@
+<com:TContent ID="body" >
+
+<h1>Caching</h1>
+<com:DocLink ClassPath="Prado.Caching.ICache" />
+
+<p class="block-content">
+A cache stores a value under a key so that later requests can read it back instead of
+computing it again. PRADO uses one internally, for compiled templates and for
+<a href="?page=Configurations.AppConfig">configuration</a> parsing, and an application uses
+the same one for its own data.
+</p>
+
+<p class="block-content">
+Caching is off until a cache module is declared. Declaring one is all the framework needs
+to start using it for its own work.
+</p>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="cache" class="Prado\Caching\TDbCache" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+<h2>Reading and writing</h2>
+
+<p class="block-content">
+The <tt>Cache</tt> property of the application returns the cache module, or null when none
+is configured, so code that may run either way checks first. Every cache module implements
+the same five methods.
+</p>
+
+<table class="parameters">
+<tr><th>Method</th><th>Does</th></tr>
+<tr>
+	<td><tt>get($id)</tt></td>
+	<td>Returns the value, or false when the key is absent or expired. A cached value of false is indistinguishable from a miss, so store something else.</td>
+</tr>
+<tr>
+	<td><tt>set($id, $value, $expire, $dependency)</tt></td>
+	<td>Stores a value, replacing any existing one. <tt>$expire</tt> is seconds, and 0 means no expiry.</td>
+</tr>
+<tr>
+	<td><tt>add($id, $value, $expire, $dependency)</tt></td>
+	<td>The same, except it does nothing when the key already exists. Use it when the first writer should win.</td>
+</tr>
+<tr>
+	<td><tt>delete($id)</tt></td>
+	<td>Removes one key.</td>
+</tr>
+<tr>
+	<td><tt>flush()</tt></td>
+	<td>Removes everything. A cache shared by more than one application loses the other application's entries too.</td>
+</tr>
+</table>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$cache = $this-&gt;Application-&gt;Cache;
+if ($cache !== null) {
+    $rows = $cache-&gt;get('report.monthly');
+    if ($rows === false) {
+        $rows = $this-&gt;buildReport();
+        $cache-&gt;set('report.monthly', $rows, 3600);
+    }
+}
+</com:TTextHighlighter>
+
+<h2>Keys and shared stores</h2>
+
+<p class="block-content">
+Every key is written with a prefix, so two applications sharing one store do not read each
+other's values. <tt>KeyPrefix</tt> sets it, and it defaults to the application's unique id.
+Set it explicitly when several applications must share entries, or when the same
+application runs from more than one directory.
+</p>
+
+<p class="block-content">
+<tt>PrimaryCache</tt> marks a module as the one the framework itself uses for templates and
+configuration. It defaults to false. An application that declares more than one cache marks
+exactly one as primary and reaches the others by module id.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+$sessions = $this-&gt;Application-&gt;getModule('sessioncache');
+</com:TTextHighlighter>
+
+<h2>The cache modules</h2>
+
+<p class="block-content">
+Five modules ship with the framework. They differ in where the data lives and in what the
+server must provide.
+</p>
+
+<h3>TDbCache</h3>
+<com:SinceVersion Version="3.1.0" />
+<p class="block-content">
+Stores entries in a database table. It needs no extension beyond PDO, which makes it the
+one that works almost anywhere, and it survives a restart. <tt>ConnectionID</tt> names a
+<a href="?page=Database.DAO">TDataSourceConfig</a> module, or the connection properties are
+given directly. With neither, it creates a SQLite database in the runtime directory.
+</p>
+
+<table class="parameters">
+<tr><th>Property</th><th>Purpose</th></tr>
+<tr><td><tt>ConnectionID</tt></td><td>The data source module holding the connection.</td></tr>
+<tr><td><tt>CacheTableName</tt></td><td>The table to use.</td></tr>
+<tr><td><tt>AutoCreateCacheTable</tt></td><td>Whether the table is created when missing.</td></tr>
+<tr><td><tt>FlushInterval</tt></td><td>How often expired rows are cleared out, in seconds.</td></tr>
+</table>
+
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+&lt;modules&gt;
+  &lt;module id="db" class="Prado\Data\TDataSourceConfig"&gt;
+    &lt;database ConnectionString="mysql:host=localhost;dbname=mydb"
+              Username="dbuser" Password="dbpass" /&gt;
+  &lt;/module&gt;
+  &lt;module id="cache" class="Prado\Caching\TDbCache"
+          ConnectionID="db" CacheTableName="pradocache" /&gt;
+&lt;/modules&gt;
+</com:TTextHighlighter>
+
+<h3>TMemCache</h3>
+<p class="block-content">
+Stores entries in a memcached server, shared across the machines that connect to it and
+lost when it restarts. It needs the <tt>memcached</tt> extension and raises a
+<tt>TConfigurationException</tt> when that is missing. <tt>Host</tt> and <tt>Port</tt> name
+the server, <tt>PersistentID</tt> reuses a connection between requests, and
+<tt>Options</tt> passes client options through. More than one server is declared as
+<tt>&lt;server&gt;</tt> elements inside the module.
+</p>
+
+<h3>TRedisCache</h3>
+<com:SinceVersion Version="4.0" />
+<p class="block-content">
+Stores entries in Redis. It needs the <tt>redis</tt> extension and raises a
+<tt>TConfigurationException</tt> without it. <tt>Host</tt> and <tt>Port</tt> name the
+server, <tt>Socket</tt> connects over a unix socket instead, and <tt>Index</tt> selects the
+numbered database within the server.
+</p>
+
+<h3>TEtcdCache</h3>
+<com:SinceVersion Version="4.0" />
+<p class="block-content">
+Stores entries in an etcd key-value store over its HTTP interface, which suits a
+distributed deployment that already runs one. <tt>Host</tt> and <tt>Port</tt> name the
+server and <tt>Dir</tt> is the key directory the module writes under.
+</p>
+
+<h3>TAPCCache</h3>
+<p class="block-content">
+Stores entries in the APC user cache, in the memory of the PHP process itself. It is the
+fastest of the five and the least shareable: entries belong to one server, and in some
+deployments to one process pool. It needs the <tt>apcu</tt> extension.
+</p>
+
+<h2>Dependencies</h2>
+
+<p class="block-content">
+An expiry time says how long a value may be stale. A dependency says what makes it stale.
+Passing one to <tt>set</tt> or <tt>add</tt> records it alongside the value, and the cache
+checks it on every read: when the dependency has changed, the read returns false as though
+the entry had expired.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Caching\TFileCacheDependency;
+
+$cache-&gt;set('parsed.rates', $rates, 0,
+    new TFileCacheDependency($this-&gt;Application-&gt;BasePath . '/data/rates.xml'));
+</com:TTextHighlighter>
+
+<p class="block-content">
+That entry never expires on time. It is discarded when, and only when, the file it was
+built from changes.
+</p>
+
+<table class="parameters">
+<tr><th>Dependency</th><th>Reports a change when</th></tr>
+<tr>
+	<td><tt>TFileCacheDependency</tt></td>
+	<td>The file named by <tt>FileName</tt> has a new modification time.</td>
+</tr>
+<tr>
+	<td><tt>TDirectoryCacheDependency</tt></td>
+	<td>Any file under <tt>Directory</tt> changes. <tt>RecursiveCheck</tt> decides whether subdirectories count, and <tt>RecursiveLevel</tt> how deep to look.</td>
+</tr>
+<tr>
+	<td><tt>TGlobalStateCacheDependency</tt></td>
+	<td>The <a href="?page=Advanced.State">global state</a> named by <tt>StateName</tt> changes.</td>
+</tr>
+<tr>
+	<td><tt>TApplicationStateCacheDependency</tt></td>
+	<td>The application is not running in performance mode. Chain it so that caching only holds firm once the application is deployed.</td>
+</tr>
+<tr>
+	<td><tt>TChainedCacheDependency</tt></td>
+	<td>Any dependency in its <tt>Dependencies</tt> list reports a change.</td>
+</tr>
+</table>
+
+<p class="block-content">
+A dependency of your own implements <tt>ICacheDependency</tt>. Checking happens on every
+read of the entry, so keep the check cheap: a directory dependency over a large tree costs
+more than the value it protects.
+</p>
+
+<h2>Caching part of a page</h2>
+
+<p class="block-content">
+<a href="?page=Controls.OutputCache">TOutputCache</a> caches the rendered output of a
+region of a page rather than a value, and the controls inside a cached region are not
+created at all. It uses whichever cache module is configured, and has its own key
+variation and dependency handling.
+</p>
+
+<p class="block-content">
+<a href="?page=Advanced.Performance">Performance tuning</a> covers where caching fits
+among the other ways to make an application faster.
+</p>
+
+</com:TContent>

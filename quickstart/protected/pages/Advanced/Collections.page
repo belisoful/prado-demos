@@ -180,6 +180,97 @@ TNull::is_null($nothing);   // true for a TNull instance or PHP null
 TNull::empty($nothing);     // true for TNull, null, false, 0, '', or []
 </com:TTextHighlighter>
 
+<h2>Priority collections</h2>
+<com:SinceVersion Version="3.2" />
+
+<p class="block-content">
+<tt>TPriorityList</tt> and <tt>TPriorityMap</tt> keep their items in priority order rather
+than insertion order. A priority is a number, and a lower number comes first, so -10
+precedes 0 precedes 10. The default priority is 10, and items added without one keep their
+insertion order among themselves. A priority list used without priorities behaves exactly
+like a <tt>TList</tt>.
+</p>
+
+<p class="block-content">
+This is how the framework orders things that several parties contribute to.
+<a href="?page=Fundamentals.Behaviors">Behaviors</a> attach their event handlers at the
+behavior's priority, and an <a href="?page=Advanced.Auth">authorization rule</a> uses a
+priority so that a deny-everything rule stays last however many rules are added after it.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Collections\TPriorityList;
+
+$list = new TPriorityList();
+$list-&gt;add('middle');           // the default priority, 10
+$list-&gt;add('first', 5);
+$list-&gt;add('last', 20);
+
+foreach ($list as $item) {
+    echo $item;                 // first, middle, last
+}
+</com:TTextHighlighter>
+
+<table class="parameters">
+<tr><th>Method</th><th>Purpose</th></tr>
+<tr><td><tt>add($item, $priority)</tt></td><td>Adds an item at a priority, or at the default when none is given.</td></tr>
+<tr><td><tt>priorityOf($item)</tt></td><td>The priority an item was added at.</td></tr>
+<tr><td><tt>priorityAt($index)</tt></td><td>The priority of the item at a flattened index.</td></tr>
+<tr><td><tt>itemsAtPriority($priority)</tt></td><td>Just the items at one priority.</td></tr>
+<tr><td><tt>insertBefore($target, $item)</tt>, <tt>insertAfter($target, $item)</tt></td><td>Places an item next to another one, taking that item's priority.</td></tr>
+</table>
+
+<p class="block-content">
+Priorities are rounded to a precision, eight decimal places by default, so a priority can
+be adjusted finely without colliding with a neighbour. Reading the collection as a plain
+array flattens it in priority order and caches the result, which is why iteration is no
+more costly than over an ordinary list.
+</p>
+
+<p class="block-content">
+<tt>TPriorityMap</tt> applies the same ordering to keyed items. A class that wants its
+instances placed automatically implements <tt>IPriorityItem</tt>, and the collection reads
+the priority from the item instead of from the call.
+</p>
+
+<h2>Stacks and queues</h2>
+
+<p class="block-content">
+<tt>TStack</tt> is last in, first out. <tt>TQueue</tt> is first in, first out. Both wrap a
+plain array, count with <tt>getCount</tt>, test membership with <tt>contains</tt>, read the
+next item without removing it with <tt>peek</tt>, empty themselves with <tt>clear</tt>, and
+can be iterated and converted with <tt>toArray</tt>.
+</p>
+
+<table class="parameters">
+<tr><th><tt>TStack</tt></th><th><tt>TQueue</tt></th></tr>
+<tr><td><tt>push($item)</tt></td><td><tt>enqueue($item)</tt></td></tr>
+<tr><td><tt>pop()</tt></td><td><tt>dequeue()</tt></td></tr>
+</table>
+
+<p class="block-content">
+Taking from an empty one raises a <tt>TInvalidOperationException</tt>, so check
+<tt>getCount</tt> first.
+</p>
+
+<h2>Paged lists</h2>
+
+<p class="block-content">
+<tt>TPagedList</tt> presents one page of a larger list. <tt>PageSize</tt> sets how many
+items a page holds and <tt>CurrentPageIndex</tt> selects the page, with <tt>gotoPage</tt>,
+<tt>nextPage</tt> and <tt>previousPage</tt> to move between them. <tt>PageCount</tt>,
+<tt>IsFirstPage</tt> and <tt>IsLastPage</tt> describe where the list currently is.
+</p>
+
+<p class="block-content">
+With <tt>CustomPaging</tt> set, the list no longer holds every item. It raises
+<tt>OnFetchData</tt> when it needs a page, the handler supplies just that page, and
+<tt>VirtualCount</tt> tells the list how many items exist in total. <tt>OnPageIndexChanged</tt>
+reports a move. This is the same division of labour as the custom paging described under
+<a href="?page=Controls.Data">Data Controls</a>, at the collection level rather than the
+control level.
+</p>
+
 <h2>Subscriptions</h2>
 <com:SinceVersion Version="4.3.0" />
 <p class="block-content">
