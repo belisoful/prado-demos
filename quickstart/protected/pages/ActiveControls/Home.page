@@ -108,6 +108,18 @@ TActiveButton</a> control. See also the later part of the <a href="?page=Tutoria
   </li>
 
   <li>
+  <a href="?page=ActiveControls.ActiveTableRow">TActiveTableCell</a>
+  represents a table cell that can be clicked to trigger a callback request.
+  Its content can be replaced during that callback.
+  </li>
+
+  <li>
+  <a href="?page=ActiveControls.ActiveTableRow">TActiveTableRow</a>
+  represents a table row that can be clicked to trigger a callback request.
+  Its content can be replaced during that callback.
+  </li>
+
+  <li>
   <a href="?page=ActiveControls.ActiveTextBox">TActiveTextBox</a>
   represents a text input field on a Web page.
   It can collect single-line, multi-line or password text input from users.
@@ -276,6 +288,18 @@ if Javascript was disabled on the client's browser.</p>
   <a href="?page=ActiveControls.ActiveRadioButton">TActiveRadioButton</a>
   </td>
   <td>Yes</td><td>Yes</td>
+  </tr>
+
+  <tr><td>
+  <a href="?page=ActiveControls.ActiveTableRow">TActiveTableCell</a>
+	</td>
+	<td>Yes</td><td>No</td>
+  </tr>
+
+  <tr><td>
+  <a href="?page=ActiveControls.ActiveTableRow">TActiveTableRow</a>
+	</td>
+	<td>Yes</td><td>No</td>
   </tr>
 
   <tr><td>

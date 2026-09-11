@@ -1,0 +1,112 @@
+<com:TContent ID="body" >
+
+<h1>TActiveTableRow and TActiveTableCell</h1>
+<com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveTableRow" Text="TActiveTableRow API Manual" />
+<com:DocLink ClassPath="Prado.Web.UI.ActiveControls.TActiveTableCell" Text="TActiveTableCell API Manual" />
+<com:SinceVersion Version="3.1.9" />
+
+<p class="block-content">
+<tt>TActiveTableRow</tt> is the active control counterpart of <tt>TTableRow</tt>.
+<tt>TActiveTableCell</tt> is the active control counterpart of <tt>TTableCell</tt>.
+Both controls appear inside a <tt>TTable</tt> and accept the properties of their regular
+counterparts, such as <tt>HorizontalAlign</tt>, <tt>VerticalAlign</tt> and <tt>CssClass</tt>.
+Both controls add two abilities: they make the row or the cell clickable, and they replace
+their own client-side content during a callback response.
+</p>
+
+<h2>Responding to a Click</h2>
+
+<p class="block-content">
+A cell becomes clickable when you attach a handler to its <tt>OnCellSelected</tt> event.
+A row becomes clickable when you attach a handler to its <tt>OnRowSelected</tt> event.
+A control without a handler renders as a plain table row or cell and registers no client script.
+</p>
+
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TTable&gt;
+  &lt;com:TActiveTableRow ID="row1"&gt;
+    &lt;com:TActiveTableCell ID="cell1" OnCellSelected="cellSelected"&gt;Click me&lt;/com:TActiveTableCell&gt;
+  &lt;/com:TActiveTableRow&gt;
+  &lt;com:TActiveTableRow ID="row2" OnRowSelected="rowSelected"&gt;
+    &lt;com:TActiveTableCell ID="cell2"&gt;Click anywhere in this row&lt;/com:TActiveTableCell&gt;
+  &lt;/com:TActiveTableRow&gt;
+&lt;/com:TTable&gt;
+</com:TTextHighlighter>
+
+<p class="block-content">
+The handler receives an event parameter that carries the position of the clicked element.
+</p>
+
+<!-- tabular: align=|l|l|, width=(0.4 0.4) -->
+<table class="tabular">
+	<tr>
+		<th>Event</th>
+		<th>Event parameter property</th>
+	</tr>
+	<tr>
+		<td><tt>OnCellSelected</tt></td>
+		<td><tt>SelectedCellIndex</tt>, the zero-based index of the cell within its row</td>
+	</tr>
+	<tr>
+		<td><tt>OnRowSelected</tt></td>
+		<td><tt>SelectedRowIndex</tt>, the zero-based index of the row within its table</td>
+	</tr>
+</table>
+
+<p class="block-content">
+A cell click also bubbles up to the containing row. When both handlers are present, PRADO raises
+<tt>OnCellSelected</tt> first and then raises <tt>OnRowSelected</tt> on the parent row. Attaching
+both handlers along the same click path also makes the row and the cell each issue their own
+callback request, so <tt>OnRowSelected</tt> runs more than once for a single click. Keep the row
+handler on rows whose cells carry no handler of their own.
+</p>
+
+<h2>Updating Content on Callback</h2>
+
+<p class="block-content">
+Both controls replace their client-side content the way <tt>TActivePanel</tt> does. Call
+<tt>render</tt> with a new writer obtained from the event parameter.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+public function cellSelected($sender, $param)
+{
+	$sender->Text = 'Cell ' . $param->SelectedCellIndex . ' was clicked';
+	$sender->render($param->NewWriter);
+}
+</com:TTextHighlighter>
+
+<p class="block-content">
+Rendering a row replaces every cell in that row. PRADO therefore disables the individual updates
+of the active controls inside the rendered row, because the parent already carries their new content.
+</p>
+
+<h2>Placement Requirements</h2>
+
+<!-- tabular: align=|l|l|, width=(0.4 0.4) -->
+<table class="tabular">
+	<tr>
+		<th>Condition</th>
+		<th>Result</th>
+	</tr>
+	<tr>
+		<td>The row has a <tt>TTable</tt> ancestor</td>
+		<td><tt>RowIndex</tt> returns the position of the row</td>
+	</tr>
+	<tr>
+		<td>The row has no <tt>TTable</tt> ancestor</td>
+		<td>PRADO throws a <tt>TConfigurationException</tt></td>
+	</tr>
+	<tr>
+		<td>The cell has a <tt>TTableRow</tt> parent</td>
+		<td><tt>CellIndex</tt> returns the position of the cell</td>
+	</tr>
+	<tr>
+		<td>The cell has no <tt>TTableRow</tt> parent</td>
+		<td>PRADO throws a <tt>TConfigurationException</tt></td>
+	</tr>
+</table>
+
+<com:RunBar PagePath="ActiveControls.Samples.TActiveTableRow.Home" />
+
+</com:TContent>

@@ -1,20 +1,18 @@
 <?php
-
-// $Id: Home.php 1405 2006-09-10 01:03:56Z wei $
 class Home extends TPage
 {
 
-	public function clickCell ($sender, $param)
+	public function clickCell($sender, $param)
 	{
-		$sender->Text .= "<br/>Clicked";
-		$this->lblResult->Text='You clicked on cell #'.$param->SelectedCellIndex.' with id='.$sender->id;
+		$sender->Text = 'Clicked cell #' . $param->SelectedCellIndex;
+		$this->lblResult->Text = 'You clicked on cell #'.$param->SelectedCellIndex.' with id='.$sender->ID;
 		$sender->render($param->NewWriter);
 	}
 
-	public function clickRow ($sender, $param)
+	public function clickRow($sender, $param)
 	{
 		$sender->BackColor="yellow";
-		$this->lblResult->Text='You clicked on row #'.$param->SelectedRowIndex.' with id='.$sender->id;
+		$this->lblResult->Text = 'You clicked on row #'.$param->SelectedRowIndex.' with id='.$sender->ID;
 		$sender->render($param->NewWriter);
 	}
 }
