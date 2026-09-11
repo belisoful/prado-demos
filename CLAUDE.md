@@ -88,12 +88,28 @@ evidence, and the correction in `local/framework-agents-kb-inaccuracies.md`.
   quickstart included, plus `sqlmap/protected/pages/Manual/config.xml`) and 5
   `blog-tutorial` `.page` files. The `README.md` config example shows the same.
   Quickstart prose is done and uses `Prado\…` paths.
-- Two hardcoded prose version strings remain: `Controls/Pager.page` ("Since Prado
-  3.2.1", should become a `<com:SinceVersion>` badge) and
-  `Controls/Samples/TConditional/Home.page` ("PRADO 3.2.3"). `<com:CurrentVersion />`
-  single-sources the running version. The `Upgrading*.page` mentions are historical
-  and stay.
-- Most pages are 3.1/3.2-era and need a correctness pass, not only additive pages.
+- Version-string drift is resolved in `Controls/` only. 34 prose mentions in the form
+  "since v3.1.1" or "Since version 3.1" remain in 14 other files, mostly
+  `Configurations/`, `Advanced/`, `Database/ActiveRecord.page` (10 of them in code
+  comments) and `GettingStarted/AboutPrado.page`, plus `Controls/List.page` and
+  `ActiveControls/InPlaceTextBox.page`. Convert them to `<com:SinceVersion>` badges as
+  each chapter is revised. The `Upgrading*.page` mentions are historical and stay. Use
+  `<com:CurrentVersion />` when a page must show the running version.
+- Deprecated properties are a recurring trap. HTML5 obsoleted the attributes behind
+  `TImage.ImageAlign`/`DescriptionUrl`, `THyperLink.ImageAlign`/`ImageHeight`/`ImageWidth`,
+  `TTable.CellSpacing`/`CellPadding`/`GridLines`, `TTableHeaderCell.CategoryText`,
+  `TDataList.CaptionAlign`, six `TInlineFrame` properties, and `TMetaTag.Scheme`. Grep
+  `@deprecated` in `framework/Web/UI/**` before documenting a property as the way to do
+  something.
+
+### Dating a `SinceVersion` badge
+
+`../prado.prado-4.3` has full history to 2005, but its tags are sparse (no 3.1.1, 3.1.3,
+3.1.6-3.1.10, 3.2.1 and others). Resolve a version by finding the introducing commit with
+`git log -S<symbol> --reverse --all`, then taking the earliest release in `HISTORY.md`
+dated after it whose tag, if the repo has one, contains that commit. Tag-only lookups
+under-report; date-only lookups over-report on maintenance branches. Cross-check the
+class's `@since` docblock.
 
 ## PRADO Naming Conventions
 

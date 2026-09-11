@@ -219,14 +219,49 @@ When Working Knowledge is found inaccurate:
   `Day5/Performance`). The README config example shows the same. Quickstart prose is
   done and uses namespaced `Prado\…` paths. Modernize the rest as part of the demos
   audit.
-- **Version-string drift:** two hardcoded prose versions remain. `Controls/Pager.page`
-  says "Since Prado 3.2.1", which should become a `<com:SinceVersion Version="3.2.1"/>`
-  badge, and `Controls/Samples/TConditional/Home.page` prints "PRADO 3.2.3" as sample
-  text. The `<com:CurrentVersion />` control single-sources the running version from
-  `Prado::getVersion()`. The mentions in `GettingStarted/Upgrading32.page` and
-  `Upgrading33.page` are historical statements and stay as written.
-- **3.1/3.2-era body:** most pages predate 4.x and need a correctness pass, not just
-  additive new pages (see the update plan, Workstream C).
+- **Version-string drift:** resolved inside `Controls/` only. `Controls/Pager.page` now
+  carries a `<com:SinceVersion Version="3.2.1"/>` badge, and the `TConditional` sample
+  compares `Prado::getVersion()` against a target instead of naming the current release.
+  Elsewhere 34 prose mentions remain, in the form "since v3.1.1" or "Since version 3.1",
+  across 14 files: `Configurations/Templates1`, `Templates3`, `AppConfig`, `PageConfig`,
+  `UrlMapping`; `Advanced/Auth`, `I18N`, `MasterContent`, `Performance`;
+  `Database/DAO` and `ActiveRecord` (10 of them inside code comments);
+  `GettingStarted/AboutPrado`; `Controls/List`; and
+  `ActiveControls/InPlaceTextBox`. Convert each to a `<com:SinceVersion>` badge as its
+  chapter is revised. The mentions in `GettingStarted/Upgrading32.page` and
+  `Upgrading33.page` are historical statements and stay as written. Use
+  `<com:CurrentVersion />` when a page must show the running version.
+- **3.1/3.2-era body:** `Controls/` has had its correctness pass. Every stub page is
+  expanded against the class API, badges are dated from framework history, and the
+  deprecated HTML4-era properties are flagged where the prose used to recommend them.
+  `ActiveControls/` has not had that pass: 28 of its 39 pages are still one-paragraph
+  stubs, and only 3 of them carry a version badge. Several non-stub `Controls/` pages
+  still have real gaps, listed below.
+- **Deprecated properties are a recurring trap.** HTML5 obsoleted the attributes behind
+  `TImage.ImageAlign` and `DescriptionUrl`, `THyperLink.ImageAlign`/`ImageHeight`/
+  `ImageWidth`, `TTable.CellSpacing`/`CellPadding`/`GridLines`,
+  `TTableHeaderCell.CategoryText`, `TDataList.CaptionAlign`, six `TInlineFrame`
+  properties, and `TMetaTag.Scheme`. Older prose presented several of them as the way to
+  do the job. Grep `@deprecated` under `framework/Web/UI/**` before documenting a property
+  as the recommended approach, and name the CSS or ARIA replacement.
+
+### Dating a `SinceVersion` badge
+
+`../prado.prado-4.3` carries full history back to 2005, but its tags are sparse: there is
+no tag for 3.1.1, 3.1.3, 3.1.6 through 3.1.10, 3.2.1 and others. Resolve a version in
+three steps.
+
+1. Find the introducing commit: `git log -S'<symbol>' --reverse --all`, scoping with a
+   path when the symbol is common. Watch for the 2015 one-class-per-file split, which can
+   mask an older origin; search the pre-split file as well.
+2. Take the earliest release in `HISTORY.md` dated after that commit whose tag, when the
+   repo has one, contains the commit. A tagged release that does not contain the commit is
+   a maintenance branch and must be skipped.
+3. Cross-check the class `@since` docblock. Where the two disagree, check whether
+   `HISTORY.md` lists the feature under that release.
+
+Tag-only lookups under-report, because of the missing tags. Date-only lookups over-report,
+because maintenance releases are cut from older branches.
 
 ## Development Environment
 
