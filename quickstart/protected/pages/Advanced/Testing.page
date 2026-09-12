@@ -1,0 +1,414 @@
+<com:TContent ID="body" >
+<h1>Testing and Continuous Integration</h1>
+
+<p class="block-content">
+PRADO carries its own test suites. They live in the <tt>tests</tt> directory of the
+<tt>pradosoft/prado</tt> package, and Composer installs that directory together with the
+framework. PHPUnit and PHPStan cover the PHP source. Vitest and Playwright cover the
+client-side scripts and the pages those scripts drive. A GitHub Actions workflow runs all
+of them on every push and pull request.
+</p>
+
+<p class="block-content">
+The suites need the development dependencies, which the published package does not install.
+Clone the framework repository and run <tt>composer devtools</tt> to get a complete
+development setup.
+</p>
+
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+git clone https://github.com/pradosoft/prado
+cd prado
+composer devtools
+</com:TTextHighlighter>
+
+<p class="block-content">
+<tt>composer devtools</tt> performs four steps. It updates the Composer dependencies.
+It installs the npm packages. It downloads the Playwright browsers. It clones
+<tt>prado-demos</tt> into <tt>vendor/pradosoft/prado-demos</tt>, which the functional
+tests drive.
+</p>
+
+<h2>The tools</h2>
+
+<p class="block-content">
+Each tool keeps its configuration in a file at the repository root, and each has a Composer
+script that runs it with the right arguments.
+</p>
+
+<table class="parameters">
+<tr><th>Tool</th><th>Covers</th><th>Configuration</th><th>Command</th></tr>
+<tr>
+	<td>PHPUnit</td>
+	<td>PHP unit tests</td>
+	<td><tt>phpunit.xml</tt></td>
+	<td><tt>composer unittest</tt></td>
+</tr>
+<tr>
+	<td>PHPStan</td>
+	<td>PHP static analysis</td>
+	<td><tt>phpstan.neon.dist</tt></td>
+	<td><tt>composer stan</tt></td>
+</tr>
+<tr>
+	<td>PHP-CS-Fixer</td>
+	<td>PHP coding standard</td>
+	<td><tt>.php-cs-fixer.dist.php</tt></td>
+	<td><tt>composer fix</tt></td>
+</tr>
+<tr>
+	<td>Vitest</td>
+	<td>JavaScript unit tests</td>
+	<td><tt>vitest.config.js</tt></td>
+	<td><tt>composer jstest</tt></td>
+</tr>
+<tr>
+	<td>ESLint</td>
+	<td>JavaScript lint</td>
+	<td><tt>eslint.config.js</tt></td>
+	<td><tt>composer jslint</tt></td>
+</tr>
+<tr>
+	<td>Playwright</td>
+	<td>Browser functional tests</td>
+	<td><tt>playwright.config.js</tt></td>
+	<td><tt>composer functionaltest</tt></td>
+</tr>
+</table>
+
+<p class="block-content">
+Two commands chain the others. <tt>composer fulltest</tt> runs PHP-CS-Fixer, then PHPStan,
+then the unit tests. <tt>composer jsfull</tt> runs the ESLint fixer and then the JavaScript
+tests.
+</p>
+
+<h2>PHPUnit</h2>
+
+<p class="block-content">
+The PHP tests live under <tt>tests/unit</tt> and end in <tt>Test.php</tt>. <tt>phpunit.xml</tt>
+bootstraps them through <tt>tests/test_tools/phpunit_bootstrap.php</tt>, which constructs a
+<tt>TApplication</tt> without running it so that every test has an application singleton
+available. The bootstrap defines the constant <tt>PRADO_TEST_RUN</tt>. Each run writes a
+testdox report to <tt>build/tests/index.html</tt>.
+</p>
+
+<p class="block-content">
+<tt>phpunit.xml</tt> declares four named suites.
+</p>
+
+<table class="parameters">
+<tr><th>Suite</th><th>Contains</th><th>Command</th></tr>
+<tr>
+	<td><tt>unit</tt></td>
+	<td>Everything under <tt>tests/unit</tt> except the PHPStan extension tests.</td>
+	<td><tt>composer unittest</tt></td>
+</tr>
+<tr>
+	<td><tt>phpstan</tt></td>
+	<td>The tests that verify the PHPStan extensions against fixture files.</td>
+	<td><tt>composer stantest</tt></td>
+</tr>
+<tr>
+	<td><tt>selenium</tt></td>
+	<td>The Selenium functional tests under <tt>tests/FunctionalTests</tt>.</td>
+	<td><tt>composer seleniumtest</tt></td>
+</tr>
+<tr>
+	<td><tt>functional</tt></td>
+	<td>Superseded by Playwright. Run the Playwright suite instead.</td>
+	<td><tt>composer functionaltest</tt></td>
+</tr>
+</table>
+
+<h3>Database tests</h3>
+
+<p class="block-content">
+The data-layer tests run against real database servers. The <tt>tests</tt> directory holds
+one schema script per server, named <tt>initdb_mysql.sql</tt>, <tt>initdb_pgsql.sql</tt>,
+<tt>initdb_mssql.sql</tt>, <tt>initdb_oracle.sql</tt>, <tt>initdb_firebird.sql</tt> and
+<tt>initdb_ibm.sql</tt>. Load the script into a database named <tt>prado_unitest</tt> before
+running the suite.
+</p>
+
+<p class="block-content">
+A developer without those servers sets the environment variable
+<tt>PRADO_UNITTEST_SKIP_DB=1</tt>. The variable appends a marker to each connection error, so
+a missing server reads as expected rather than as a regression. A test calls
+<tt>PradoUnit::skipDatabaseTests()</tt> to decide whether to skip itself.
+</p>
+
+<com:SinceVersion Version="4.3.3" />
+<h3>PradoUnit and TTestApplication</h3>
+
+<p class="block-content">
+<tt>PradoUnit</tt> is the shared helper class for the suite, at
+<tt>tests/unit/PradoUnit.php</tt>. It reads and writes instance and static properties at
+every level of a class hierarchy, including private properties declared in ancestors. That
+lets a test snapshot global state such as <tt>Prado::$_aliases</tt> before it mutates it and
+restore the state afterwards. It also opens the driver-specific connections the data-layer
+tests use, and classifies a connection failure as a missing server, a missing database, or a
+missing table.
+</p>
+
+<p class="block-content">
+<tt>TTestApplication</tt> extends <tt>TApplication</tt> for use inside a test. Its base path
+defaults to the system temporary directory, and it resolves paths without looking for an
+application configuration file, so a bare <tt>new TTestApplication()</tt> works with no setup.
+Its <tt>exit()</tt> records the exit code in <tt>capturedExitCode</tt> instead of ending the
+process, which lets a test assert on a <tt>TExitException</tt> path. <tt>restoreApplication()</tt>
+puts the global state back and belongs in <tt>tearDown()</tt>.
+</p>
+
+<p class="block-content">
+Neither class carries a namespace, and neither is autoloaded. Requiring
+<tt>PradoUnit.php</tt> loads both.
+</p>
+
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+require 'vendor/pradosoft/prado/tests/unit/PradoUnit.php';
+
+class MyTest extends PHPUnit\Framework\TestCase
+{
+    private TTestApplication $app;
+
+    protected function setUp(): void
+    {
+        $this-&gt;app = new TTestApplication();
+    }
+
+    protected function tearDown(): void
+    {
+        $this-&gt;app-&gt;restoreApplication();
+    }
+}
+</com:TTextHighlighter>
+
+<h2>PHPStan</h2>
+
+<p class="block-content">
+PHPStan analyzes the <tt>framework</tt> directory at level 2, targeting PHP 8.3.
+<tt>composer stan</tt> runs the analysis with a 512 MB memory limit.
+</p>
+
+<com:SinceVersion Version="4.2.2" />
+<h3>Extensions for the dynamic API</h3>
+
+<p class="block-content">
+PRADO resolves many method and property names at run time, which a static analyzer cannot
+see. A plain PHPStan run therefore reports a component's virtual properties and its
+<tt>dy</tt> and <tt>fx</tt> methods as undefined. The framework answers that with its own
+extensions under <tt>framework/PHPStan</tt>, registered in the <tt>services</tt> section of
+<tt>phpstan.neon.dist</tt>.
+</p>
+
+<table class="parameters">
+<tr><th>Extension</th><th>Teaches PHPStan</th></tr>
+<tr>
+	<td><tt>DynamicMethodsClassReflectionExtension</tt></td>
+	<td>Any method name on a <tt>TComponent</tt> starting with <tt>dy</tt> or <tt>fx</tt> is a valid call.</td>
+</tr>
+<tr>
+	<td><tt>TComponentPropertiesReflectionExtension</tt></td>
+	<td>Every <tt>getX()</tt> and <tt>setX()</tt> pair is the virtual property <tt>X</tt>, typed from the accessor.</td>
+</tr>
+<tr>
+	<td><tt>TComponentHasMethodTypeSpecifyingExtension</tt></td>
+	<td>A true <tt>hasMethod()</tt> guard narrows the subject so the guarded call is valid.</td>
+</tr>
+<tr>
+	<td><tt>TComponentCanGetPropertyTypeSpecifyingExtension</tt></td>
+	<td>A true <tt>canGetProperty()</tt> guard admits the getter and the property read.</td>
+</tr>
+<tr>
+	<td><tt>TComponentCanSetPropertyTypeSpecifyingExtension</tt></td>
+	<td>A true <tt>canSetProperty()</tt> guard admits the setter and the property write.</td>
+</tr>
+<tr>
+	<td><tt>TComponentIsaTypeSpecifyingExtension</tt></td>
+	<td><tt>isa()</tt> narrows a type the way <tt>instanceof</tt> does, across interfaces and class constants.</td>
+</tr>
+<tr>
+	<td><tt>PradoMethodVisibleStaticMethodTypeSpecifyingExtension</tt></td>
+	<td>A true <tt>Prado::method_visible()</tt> guard narrows the subject to have that method.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The extensions have tests of their own under <tt>tests/unit/PHPStan</tt>, which
+<tt>composer stantest</tt> runs. Each extension gets a pair of cases against a fixture file.
+One case runs PHPStan without the extensions and requires errors. The other runs it with the
+extensions and requires none.
+</p>
+
+<com:SinceVersion Version="4.3.3" />
+<h2>Vitest</h2>
+
+<p class="block-content">
+The <a href="?page=Advanced.Scripts">client-side scripts</a> under
+<tt>framework/Web/Javascripts/source</tt> have unit tests under
+<tt>tests/js</tt>, in files ending in <tt>.test.js</tt>. Vitest runs them in a jsdom
+environment, so a test gets a real <tt>document</tt> and <tt>window</tt> for jQuery to work
+against. The <tt>globals</tt> option injects <tt>describe</tt>, <tt>it</tt> and
+<tt>expect</tt>, which matches the Jest API.
+</p>
+
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+composer jstest     # one run
+composer jswatch    # re-run on change
+composer jslint     # ESLint over the source scripts
+composer jsfix      # ESLint with --fix
+</com:TTextHighlighter>
+
+<p class="block-content">
+The framework scripts load as plain <tt>script</tt> tags rather than as modules, so a test
+cannot import them directly. Each test imports from an adapter under
+<tt>tests/js/adapters</tt> instead, and the adapter is the only file that knows how the
+source is loaded. Converting a script to an ES module changes its adapter and leaves the
+tests alone.
+</p>
+
+<p class="block-content">
+ESLint reads the same source directory. Its configuration declares the PRADO globals,
+including <tt>Prado</tt>, <tt>Logger</tt> and <tt>jQuery</tt>. Rules that the legacy code
+breaks widely, such as <tt>no-undef</tt> and <tt>no-unused-vars</tt>, are set to warn so the
+lint report surfaces them without failing the build.
+</p>
+
+<com:SinceVersion Version="4.3.3" />
+<h2>Playwright</h2>
+
+<p class="block-content">
+The functional tests drive a real browser against real pages. They live under
+<tt>tests/playwright</tt> in files ending in <tt>.spec.js</tt>. Playwright starts a PHP
+built-in server on <tt>127.0.0.1:8037</tt> for the run and stops it afterwards, so nothing
+needs to be running first. The server serves the whole repository tree, and the two groups of
+tests reach their pages through different URL prefixes.
+</p>
+
+<table class="parameters">
+<tr><th>Directory</th><th>Drives</th></tr>
+<tr>
+	<td><tt>active-controls</tt></td>
+	<td>The AJAX active controls, under <tt>tests/harness</tt>.</td>
+</tr>
+<tr>
+	<td><tt>validators</tt></td>
+	<td>The validation controls, under <tt>tests/harness</tt>.</td>
+</tr>
+<tr>
+	<td><tt>features</tt></td>
+	<td>Individual framework features, under <tt>tests/harness</tt>.</td>
+</tr>
+<tr>
+	<td><tt>tickets</tt></td>
+	<td>Regression pages for closed tickets, under <tt>tests/harness</tt>.</td>
+</tr>
+<tr>
+	<td><tt>issues</tt></td>
+	<td>Regression pages for closed issues, under <tt>tests/harness</tt>.</td>
+</tr>
+<tr>
+	<td><tt>quickstart</tt></td>
+	<td>The quickstart sample pages, under <tt>vendor/pradosoft/prado-demos</tt>.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The quickstart specs need the demo applications, which <tt>tests/setup-demos.sh</tt> installs.
+The script clones <tt>prado-demos</tt> into <tt>vendor/pradosoft/prado-demos</tt>, installs its
+own dependencies, and then replaces its copy of <tt>pradosoft/prado</tt> with a symlink to the
+working tree. The demos therefore run against the code under test. Both functional test
+commands call the script before Playwright starts.
+</p>
+
+<com:TTextHighlighter Language="cli" CssClass="source block-content cli">
+composer functest                       # Chromium only
+composer functionaltest                 # Chromium, Firefox and WebKit
+npx playwright test --project=firefox   # one browser
+npx playwright test active-controls     # one directory
+npm run playwright:headed               # watch the browser work
+</com:TTextHighlighter>
+
+<p class="block-content">
+The run is deliberately sequential. One worker executes the specs in order and no test is
+retried, which reproduces the behavior of the Selenium suite that these tests replaced. A
+failing test keeps a screenshot and a video. The HTML report lands in
+<tt>build/playwright-report</tt> and the raw artifacts in <tt>build/playwright-results</tt>.
+</p>
+
+<p class="block-content">
+Each spec wraps its Playwright page in <tt>PradoTestHelper</tt> from
+<tt>tests/playwright/helpers.js</tt>. The helper exposes the method names the PHP Selenium
+base class used, such as <tt>byId()</tt>, <tt>assertText()</tt> and <tt>waitForAjaxCalls()</tt>,
+so a converted spec reads like its original. The Selenium suite still ships under
+<tt>tests/FunctionalTests</tt>. <tt>composer seleniumtest</tt> runs it, which needs
+<tt>geckodriver</tt> on port 4444.
+</p>
+
+<h2>Continuous integration</h2>
+
+<p class="block-content">
+The workflow at <tt>.github/workflows/prado.yml</tt> runs on every push and every pull
+request. It is split into jobs that run in parallel. Each matrix sets <tt>fail-fast</tt> to
+off, so one broken combination does not cancel the others. The jobs that do not sweep a
+matrix pin PHP to
+the version in the workflow's <tt>PHP_VERSION</tt> variable. The Node version comes from
+<tt>.nvmrc</tt>.
+</p>
+
+<table class="parameters">
+<tr><th>Job</th><th>Runs on</th><th>Does</th></tr>
+<tr>
+	<td>Prado</td>
+	<td>Ubuntu, PHP 8.1, 8.2 and 8.3</td>
+	<td>Validates <tt>composer.json</tt>, checks the coding standard, runs PHPStan, runs the unit tests, and runs the Selenium functional tests. MySQL, PostgreSQL and Memcached are provided as services.</td>
+</tr>
+<tr>
+	<td>Prado JS</td>
+	<td>Ubuntu, Node from <tt>.nvmrc</tt></td>
+	<td>Runs ESLint and the Vitest suite.</td>
+</tr>
+<tr>
+	<td>Prado Playwright</td>
+	<td>Ubuntu, one job per browser</td>
+	<td>Installs the browser, sets up the demos, and runs the Playwright suite. The HTML report is uploaded as an artifact and kept for 30 days.</td>
+</tr>
+<tr>
+	<td>Prado OS (macOS)</td>
+	<td>macOS</td>
+	<td>Checks the coding standard, runs PHPStan, and runs the unit tests against Homebrew MySQL, PostgreSQL and Memcached.</td>
+</tr>
+<tr>
+	<td>Prado OS (Windows)</td>
+	<td>Windows</td>
+	<td>The same checks against MySQL and PostgreSQL. The Memcached extension is omitted because libmemcached is unavailable there.</td>
+</tr>
+<tr>
+	<td>Prado Data</td>
+	<td>Ubuntu, one job per server</td>
+	<td>Loads the schema into a containerized Microsoft SQL Server, Firebird, Oracle or IBM DB2, then runs the matching suite under <tt>tests/unit/Data/DbSpecific</tt>.</td>
+</tr>
+</table>
+
+<p class="block-content">
+The coding-standard step reports through <tt>cs2pr</tt> and the PHPStan step does the same, so
+a violation appears as an annotation on the changed line in the pull request rather than only
+in the log.
+</p>
+
+<h2>Testing an application</h2>
+
+<p class="block-content">
+An application tests itself with PHPUnit directly, and needs nothing from the framework to do
+it. The framework's helpers are useful when a test has to construct an application object.
+The published package includes the <tt>tests</tt> directory, so
+<tt>vendor/pradosoft/prado/tests/unit/PradoUnit.php</tt> is present after a normal install.
+Requiring it makes <tt>PradoUnit</tt> and <tt>TTestApplication</tt> available, as shown above.
+</p>
+
+<p class="block-content">
+For an end-to-end test of an application's pages, use Playwright against the application's own
+web server. The quickstart specs under <tt>tests/playwright/quickstart</tt> are a worked
+example of driving a PRADO application that way.
+</p>
+
+</com:TContent>

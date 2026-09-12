@@ -109,6 +109,7 @@
     <li><a href="?page=Advanced.I18N">Internationalization</a></li>
     <li><a href="?page=Advanced.Utilities">Utilities</a></li>
     <li><a href="?page=Advanced.Performance">Performance Tuning</a></li>
+    <li><a href="?page=Advanced.Testing">Testing and Continuous Integration</a></li>
 </ul>
 </div>
 
