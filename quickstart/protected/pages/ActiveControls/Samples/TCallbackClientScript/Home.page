@@ -2,8 +2,7 @@
 <h1>TCallbackClientScript Samples</h1>
 
 <p>
-  Choose an action from the list and click the button; the server-side php code will get the selected value and
-  force the execution of some clientside js code in the callback response.
+  Select an action and click the button. The server-side code reads the selected value. The callback response runs the matching client-side script.
 </p>
 
 <h2>Actions</h2>
@@ -68,6 +67,6 @@
 </table>
 
 <div style="height:900px">
-Thw following space is intentionally left blank for the scrolling test
+The page reserves this space for the scrolling test
 </div>
 </com:TContent>

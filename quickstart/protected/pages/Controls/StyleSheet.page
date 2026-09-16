@@ -1,0 +1,62 @@
+<com:TContent ID="body" >
+
+<h1>TStyleSheet</h1>
+<com:DocLink ClassPath="Prado.Web.UI.WebControls.TStyleSheet" />
+<p class="block-content">
+<tt>TStyleSheet</tt> links a CSS file to the page, imports a CSS library bundled with PRADO,
+or carries a block of CSS code. It is the stylesheet counterpart of
+<a href="?page=Controls.ClientScript">TClientScript</a>.
+</p>
+
+<h2>Linking a Stylesheet File</h2>
+<p class="block-content">
+The <tt>StyleSheetUrl</tt> property names the CSS file to link. The property value is a
+<a href="?page=Configurations.Templates3">dynamic asset tag</a>, so a file relative to the
+current template is published to the assets directory automatically.
+</p>
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TStyleSheet StyleSheetUrl=&lt;%~ style.css %&gt; /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+A full URL string links a stylesheet from another server. When only a file URL is specified,
+you may place the control anywhere on the page, and the <tt>&lt;link&gt;</tt> element renders
+in the correct position.
+</p>
+
+<h2>Restricting the Media Type</h2>
+<p class="block-content">
+The <tt>MediaType</tt> property sets the media the stylesheet applies to, such as
+<tt>print</tt> or <tt>screen</tt>. An empty value applies the stylesheet to all media types.
+</p>
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TStyleSheet StyleSheetUrl=&lt;%~ print.css %&gt; MediaType="print" /&gt;
+</com:TTextHighlighter>
+
+<com:SinceVersion Version="3.3.1" />
+<h2>Importing Bundled CSS Libraries</h2>
+<p class="block-content">
+The <tt>PradoStyles</tt> property imports a CSS library bundled with PRADO. Multiple libraries
+are specified as a comma delimited string. The following example imports the jQuery UI dialog
+and progressbar styles.
+</p>
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TStyleSheet PradoStyles="jquery.ui.dialog, jquery.ui.progressbar" /&gt;
+</com:TTextHighlighter>
+<p class="block-content">
+The supported libraries are <tt>jquery-ui</tt> and the individual
+<tt>jquery.ui.<i>componentname</i></tt> libraries.
+</p>
+
+<h2>Including a CSS Code Block</h2>
+<p class="block-content">
+Any content inside the <tt>TStyleSheet</tt> control tag is treated as CSS code and renders
+within a <tt>&lt;style&gt;</tt> element. Place the control in the <tt>&lt;head&gt;</tt> section
+of the page when it carries a code block, so the output conforms to the HTML standard.
+</p>
+<com:TTextHighlighter Language="prado" CssClass="source block-content">
+&lt;com:TStyleSheet&gt;
+  .highlight { background-color: yellow; }
+&lt;/com:TStyleSheet&gt;
+</com:TTextHighlighter>
+
+</com:TContent>

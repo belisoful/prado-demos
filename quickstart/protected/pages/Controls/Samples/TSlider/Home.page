@@ -12,7 +12,7 @@ Simple horizontal slider, with no progress indicator, with no events handler att
 	<com:TLabel id="slider1Result"/>
 </td></tr>
 <tr><td class="samplenote">
-Horizontal slider from -50 to 50,  Javascript 'onSlide' handler, ServerSide 'onSliderChanged' handler, initial value and autopostback=true
+Horizontal slider from -50 to 50,  Javascript 'onSlide' handler, server-side <tt>OnValueChanged</tt> handler, initial value and autopostback=true
 </td><td class="sampleaction">
 <com:TSlider id="slider2" AutoPostBack="true"  Direction="Horizontal" Value="0" Enabled="true" MinValue="-50" MaxValue="50" OnValueChanged="slider2Changed">
 	<prop:ClientSide.onSlide>
@@ -24,7 +24,7 @@ Value  : <span id="slider2value"><%=$this->slider2->value%></span>
 <com:TLabel id="slider2Result"/>
 </td></tr>
 <tr><td class="samplenote">
-Vertical slider from 0 to 1, Javascript 'onSlide' handler, ServerSide 'onSliderChanged' handler, StepSize, and no autopostback
+Vertical slider from 0 to 1, Javascript 'onSlide' handler, server-side <tt>OnValueChanged</tt> handler, StepSize, and no autopostback
 </td><td class="sampleaction">
 <com:TSlider id="slider3" AutoPostBack="false" Direction="Vertical" Enabled="true" MinValue="0" MaxValue="1" StepSize="0.1" OnValueChanged="slider3Changed">
 	<prop:ClientSide.onSlide>

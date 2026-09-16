@@ -1,7 +1,8 @@
 <?php
 
-Prado::using('System.Data.ActiveRecord.TActiveRecord');
-Prado::using('System.Data.ActiveRecord.Scaffold.TScaffoldView');
+use Prado\Data\TDbConnection;
+use Prado\Data\ActiveRecord\TActiveRecord;
+use Prado\Data\ActiveRecord\Scaffold\TScaffoldView;
 
 class AddressRecord extends TActiveRecord
 {

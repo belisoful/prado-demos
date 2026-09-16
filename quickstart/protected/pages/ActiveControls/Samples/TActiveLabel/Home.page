@@ -17,7 +17,7 @@ An active label text being set as the result of a callback:
 </td></tr>
 
 <tr><td class="samplenote">
-Upon button click, the textbox contents will be set on the label. Note that text needs to be properly escaped to avoid html injections:
+The button copies the textbox contents to the label. The sample escapes the text before it renders:
 </td><td class="sampleaction">
 <com:TActiveTextBox ID="txt2"
 />

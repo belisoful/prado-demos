@@ -5,7 +5,7 @@
 <table class="sampletable">
 
 <tr><td class="samplenote">
-  A callback will be executed when the textbox text changes
+  A change to the textbox text triggers a callback
 </td><td class="sampleaction">
   <com:TTextBox ID="txt1" />
   <com:TValueTriggeredCallback ControlID="txt1" PropertyName="value" OnCallback="checkTxtValue" />

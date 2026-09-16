@@ -2,10 +2,10 @@
 
 <h1>TDataList Sample 1</h1>
 <p>
-TDataList is good at displaying tabular data in a non-tabular format. The following example displays a list of computer product information in 3 columns.
+TDataList displays tabular data in a non-tabular format. This example shows computer product information in three columns.
 </p>
 <p>
-Since the page is mainly for display and does not require user interactions, the viewstate of TDataList is disabled to reduce page size.
+The page only displays data. The TDataList view state is disabled to reduce the page size.
 </p>
 
 <com:TDataList

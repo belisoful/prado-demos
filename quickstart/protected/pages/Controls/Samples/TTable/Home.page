@@ -11,12 +11,10 @@ Table with default settings (looks empty):
 </td></tr>
 
 <tr><td class="samplenote">
-Table with rows and customized font, background image, etc.:
+Table with rows, a custom font, and a background image:
 </td><td class="sampleaction">
 <com:TTable
-	GridLines="Both"
-	CellSpacing="0"
-	CellPadding="2"
+	CssClass="tabular"
 	BackImageUrl=<%~backimage.gif%>
 	Caption="This is table caption"
 	CaptionAlign="Bottom">
@@ -44,7 +42,7 @@ A table with a header section, a body section, and a footer section. The rows re
 inside <tt>&lt;thead&gt;</tt>, <tt>&lt;tbody&gt;</tt>, and <tt>&lt;tfoot&gt;</tt>
 elements:
 </td><td class="sampleaction">
-<com:TTable GridLines="Both" CellPadding="3">
+<com:TTable CssClass="tabular">
   <com:TTableHeaderRow BackColor="gray" ForeColor="white">
     <com:TTableHeaderCell Scope="Column">Product</com:TTableHeaderCell>
     <com:TTableHeaderCell Scope="Column" AbbreviatedText="Units">Units sold</com:TTableHeaderCell>

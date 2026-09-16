@@ -2,8 +2,7 @@
 
 <h1>TRegularExpressionValidator Samples</h1>
 <p>
-<strong>Note:</strong> TRegularExpressionValidator will start
-to validate only if the input is not empty.
+<strong>Note:</strong> TRegularExpressionValidator validates only when the input contains a value.
 </p>
 
 <table class="sampletable">

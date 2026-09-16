@@ -1,6 +1,6 @@
 <?php
 
-Prado::using('System.Web.UI.TCommandEventParameter');
+use Prado\Web\UI\TCommandEventParameter;
 
 
 class Home extends TPage

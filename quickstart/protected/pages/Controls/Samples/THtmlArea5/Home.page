@@ -39,7 +39,7 @@ THtmlArea5 with visual editing disabled:
 </td></tr>
 
 <tr><td class="samplenote">
-Read-only THtmlArea:
+Read-only THtmlArea5:
 </td><td class="sampleaction">
 <com:THtmlArea5 ID="HtmlArea4" ReadOnly="true" Text="Sample html text: <b>bold</b> <i>italic</i>" />
 </td></tr>

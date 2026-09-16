@@ -101,7 +101,7 @@ Validating if a selection has been made in a dropdown list:
 
 <tr>
 <td class="samplenote">
-Validating if a selection has been made in a dropdown list:
+Validating if a selection has been made in a list box:
 </td>
 <td class="sampleaction">
 <com:TListBox ID="ListBox">

@@ -11,7 +11,7 @@ Image with only <tt>ImageUrl</tt> being set:
 </td></tr>
 
 <tr><td class="samplenote">
-Image with <tt>AlterantiveText</tt> being set:
+Image with <tt>AlternateText</tt> being set:
 </td><td class="sampleaction">
 <com:TImage
 	ImageUrl=<%~hello_world.gif%>
@@ -19,17 +19,17 @@ Image with <tt>AlterantiveText</tt> being set:
 </td></tr>
 
 <tr><td class="samplenote">
-Image with <tt>baseline</tt> alignment:
+Image with <tt>baseline</tt> alignment through the <tt>Style</tt> property:
 </td><td class="sampleaction">
 Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!
 Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!
 Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!
 Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!
-<com:TImage ImageUrl=<%~hello_world.gif%> ImageAlign="baseline" />
+<com:TImage ImageUrl=<%~hello_world.gif%> Style="vertical-align:baseline" />
 </td></tr>
 
 <tr><td class="samplenote">
-Image with <tt>DescriptionUrl</tt>:
+The deprecated <tt>DescriptionUrl</tt> property still renders the <tt>longdesc</tt> attribute, which HTML5 dropped. A WAI-ARIA attribute such as <tt>aria-describedby</tt>, set from code through the <tt>Attributes</tt> collection, replaces it:
 </td><td class="sampleaction">
 <com:TImage
 	ImageUrl=<%~hello_world.gif%>

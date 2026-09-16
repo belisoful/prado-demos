@@ -1,8 +1,7 @@
 <com:TContent ID="body">
 
 <h1>TCompareValidator Samples</h1>
-<p><strong>Note:</strong> TCompareValidator will start
-to validate only if both inputs are not empty.</p>
+<p><strong>Note:</strong> TCompareValidator validates only when both inputs contain a value.</p>
 
 <table class="sampletable">
 

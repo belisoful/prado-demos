@@ -4,8 +4,7 @@
 <table class="sampletable">
 
 <tr><td class="samplenote">
-A condition that holds, so the <tt>TrueTemplate</tt> renders. The running version is
-compared against 4.0.0, without naming the current version anywhere:
+A condition that holds, so the <tt>TrueTemplate</tt> renders. The condition compares the running version against 4.0.0:
 </td><td class="sampleaction">
 <com:TConditional Condition="version_compare(Prado::getVersion(), '4.0.0', '>=')">
 <prop:TrueTemplate>

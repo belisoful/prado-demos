@@ -6,7 +6,6 @@
 <com:TDataGrid
 	ID="DataGrid"
 	EnableViewState="false"
-	CellPadding="2"
 	HeaderStyle.BackColor="black"
 	HeaderStyle.ForeColor="white"
 	ItemStyle.BackColor="#BFCFFF"

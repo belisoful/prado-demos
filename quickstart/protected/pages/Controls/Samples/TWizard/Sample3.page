@@ -3,7 +3,7 @@
 <h2>Nonlinear Wizard Navigation Sample</h2>
 
 <p>
-In the following survey, if you are a college student, you will be asked which major you are in. Otherwise, the question is skipped to your favorite sport. This demo also shows unidrectional navigation.
+In the following survey, if you are a college student, you will be asked which major you are in. Otherwise, the question is skipped to your favorite sport. This demo also shows unidirectional navigation.
 </p>
 
 <com:TWizard ID="Wizard3"

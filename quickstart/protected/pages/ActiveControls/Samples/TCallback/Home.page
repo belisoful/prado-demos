@@ -27,10 +27,10 @@ An active label text being set as the result of a callback:
 </td></tr>
 
 <tr><td class="samplenote">
-A TCallback with a 3-items array as parameter.
-The first parameter is defined in the onclick() attribute of the red div;
-The second parameter is defined in the body of the javascript function;
-The third parameter is taken from the textbox;
+A TCallback that sends an object with three named parameters.
+The onclick attribute of the red div supplies the first parameter.
+The JavaScript function body supplies the second parameter.
+The textbox supplies the third parameter.
 </td><td class="sampleaction">
 
 <com:TCallback ID="callback2" OnCallback="callback2_Requested" />

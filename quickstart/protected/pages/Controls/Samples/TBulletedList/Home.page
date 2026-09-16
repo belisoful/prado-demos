@@ -56,11 +56,12 @@ Bulleted list of hyperlinks:
 </td>
 <td class="sampleaction">
 <com:TBulletedList DisplayMode="HyperLink" Target="_blank">
-  <com:TListItem Value="http://www.google.com/" Text="google" />
-  <com:TListItem Value="http://www.yahoo.com/" Text="yahoo" />
-  <com:TListItem Value="http://www.amazon.com/" Text="amazon" />
+  <com:TListItem Value="https://www.google.com/" Text="google" />
+  <com:TListItem Value="https://www.yahoo.com/" Text="yahoo" />
+  <com:TListItem Value="https://www.amazon.com/" Text="amazon" />
 </com:TBulletedList>
 </td>
+</tr>
 
 <tr>
 <td class="samplenote">
@@ -68,9 +69,9 @@ Bulleted list of link buttons (click on them to see the result):
 </td>
 <td class="sampleaction">
 <com:TBulletedList DisplayMode="LinkButton" OnClick="buttonClicked">
-  <com:TListItem Value="http://www.google.com/" Text="google" />
-  <com:TListItem Value="http://www.yahoo.com/" Text="yahoo" />
-  <com:TListItem Value="http://www.amazon.com/" Text="amazon" />
+  <com:TListItem Value="https://www.google.com/" Text="google" />
+  <com:TListItem Value="https://www.yahoo.com/" Text="yahoo" />
+  <com:TListItem Value="https://www.amazon.com/" Text="amazon" />
 </com:TBulletedList>
 <com:TLabel ID="Result" ForeColor="red" />
 </td>

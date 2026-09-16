@@ -1,8 +1,7 @@
 <com:TContent ID="body">
 
 <h1>TRangeValidator Samples</h1>
-<p><strong>Note:</strong> TRangeValidator will start
-to validate only if both inputs are not empty.</p>
+<p><strong>Note:</strong> TRangeValidator validates only when the input contains a value.</p>
 
 <table class="sampletable">
 

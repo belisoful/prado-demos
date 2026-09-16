@@ -21,41 +21,37 @@
 			<p>
 				En plus du support de la culture dans les gabarits, le&nbsp;contenu peut être 
 				localisé en utilisant différentes sources de traduction. PRADO permet 
-				d'utiliser gettext, XML, SQLite et MySQL pour enregistrer les traductions des 
+				d'utiliser XLIFF, PHP, gettext et une base de données pour enregistrer les traductions des 
 				messages. L'exemple suivant montre comment le texte peut être localisé en 
 				utilisant le composant TTranslate. 
 			</p>
-			<hr>
+			<hr />
 			<h2>Introduction
 			</h2>
 			<p>
 				Développer et mettre à jour un site multi-langues est un problème classique 
 				pour les développeurs de sites Web.</p>
 			<dl>
-				<dt><strong>Internationalisation (I18N)</strong>
-					<dd>
-						Processus de développement d'un produit de telle manière qu'il fonctionne avec 
-						des données dans différentes langues et puisse être adapté à 
-						diverses&nbsp;cibles culturelles sans changement technique. <dt><strong>Localisation 
-								(L10N)</strong>
-							<dd>
-								Processus ultérieur de traduction et d'adaptation d'un produit aux conventions 
-								culturelles d'un marché donné.
-							</dd>
+				<dt><strong>Internationalisation (I18N)</strong></dt>
+				<dd>
+					Processus de développement d'un produit de telle manière qu'il fonctionne avec
+					des données dans différentes langues et puisse être adapté à
+					diverses&nbsp;cibles culturelles sans changement technique.
+				</dd>
+				<dt><strong>Localisation (L10N)</strong></dt>
+				<dd>
+					Processus ultérieur de traduction et d'adaptation d'un produit aux conventions
+					culturelles d'un marché donné.
+				</dd>
 			</dl>
 			<p>
 				PRADO offrent les fonctionnalités suivantes&nbsp; :
 			</p>
 			<ul id="u1" class="block-content">
-				<li>
-				Traduction de contenu
-				<li>
-				Traduction des attributs (à faire)
-				<li>
-				Substitution des paramètres (avec traduction si nécessaire)
-				<li>
-					Date, nombre et formatage des devises
-				</li>
+				<li>Traduction de contenu</li>
+				<li>Traduction des attributs (à faire)</li>
+				<li>Substitution des paramètres (avec traduction si nécessaire)</li>
+				<li>Date, nombre et formatage des devises</li>
 			</ul>
 			<h2>Exemples</h2>
 			<h3>Date : format long, culture en_GB</h3>
@@ -67,8 +63,8 @@
 			<h4>Résultat :
 			</h4>
 			<com:TDateFormat ID="Time1" Pattern="full" Culture="en_GB" />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Date : format court
 			</h3>
 			<h4>Exemple :
@@ -79,8 +75,8 @@
 			<h4>Résultat :
 			</h4>
 			<com:TDateFormat ID="Time2" Pattern="short" />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Format par défaut d'une date pour la culture
 				<%= $this->Page->CurrentCulture %>
 			</h3>
@@ -92,8 +88,8 @@
 			<h4>Résultat :
 			</h4>
 <com:TDateFormat ID="Time3" Value="2004/12/06" /> <br />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Format par défaut d'une devise
 			</h3>
 			<h4>Exemple :
@@ -104,8 +100,8 @@
 			<h4>Résultat :
 			</h4>
 <com:TNumberFormat Type="currency" Value="12.4" /> <br />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Devise :&nbsp;culture de_DE avec devise Euro
 			</h3>
 			<h4>Exemple :
@@ -116,8 +112,8 @@
 			<h4>Résultat :
 			</h4>
 			<com:TNumberFormat ID="Number2" Type="currency" Culture="de_DE" Currency="EUR" />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Devise :&nbsp;culture en_US avec devise Euro
 			</h3>
 			<h4>Exemple :
@@ -128,8 +124,8 @@
 			<h4>Résultat
 			</h4>
 			<com:TNumberFormat Type="currency" Culture="en_US" Currency="EUR" Value="100" />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Exemples de traduction
 			</h3>
 			<h4>Exemple :
@@ -140,7 +136,7 @@
 			<h4>Résultat :
 			</h4>
 			<com:TTranslate>Hello</com:TTranslate>
-			<br>
+			<br />
 			<h4>Exemple :
 			</h4>
 <com:TTextHighlighter Language="prado" CssClass="source">
@@ -149,7 +145,7 @@
 			<h4>Résultat :
 			</h4>
 			<com:TTranslate Text="Goodbye" />
-			<br>
+			<br />
 
 <hr />
 <h3>Using localization tag</h3>
@@ -163,7 +159,7 @@
 <br />
 
 
-			<hr>
+			<hr />
 			<h3>Traduction en utilisant un catalogue différent</h3>
 			<h4>Exemple :
 			</h4>
@@ -173,8 +169,8 @@
 			<h4>Résultat :
 			</h4>
 <com:TTranslate Text="Goodbye" Catalogue="tests" />
-			<br>
-			<hr>
+			<br />
+			<hr />
 			<h3>Traduction avec substitution de paramètres
 			</h3>
 			<h4>Exemple :

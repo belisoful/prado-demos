@@ -173,6 +173,10 @@
   </li>
 
   <li>
+  <a href="?page=Controls.StyleSheet">TStyleSheet</a> links a stylesheet file, imports a bundled CSS library, or carries a block of CSS code.
+  </li>
+
+  <li>
   <a href="?page=Controls.Table">TTable</a> represents an HTML table on a Web page. It is used together with <tt>TTableRow</tt> and <tt>TTableCell</tt>.
   </li>
 

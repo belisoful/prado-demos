@@ -2,7 +2,7 @@
 
 <h1>TTextBox Samples</h1>
 
-<h2>SingeLine Text Boxes</h2>
+<h2>SingleLine Text Boxes</h2>
 
 <table class="sampletable">
 
@@ -272,7 +272,7 @@ Time picker textbox
 </td></tr>
 
 <tr><td class="samplenote">
-Textbox optimized to input an URL address
+Textbox optimized for a URL
 </td>
 <td class="sampleaction">
 <com:TTextBox TextMode="Url" />

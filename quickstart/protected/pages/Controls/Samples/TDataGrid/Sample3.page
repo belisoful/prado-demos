@@ -5,7 +5,6 @@
 
 <com:TDataGrid
 	Width="800px"
-	CellPadding="2"
 	ID="DataGrid"
 	DataKeyField="ISBN"
 	AutoGenerateColumns="false"
@@ -36,7 +35,7 @@
 		/>
 	<com:TBoundColumn
 		ID="PriceColumn"
-		ItemStyle.HorizontalAlign="Right"
+		ItemStyle.Style="text-align:right"
 		ItemStyle.Wrap="false"
 		ItemStyle.Font.Italic="false"
 		ItemStyle.ForeColor="green"
@@ -66,14 +65,14 @@
 		HeaderText="Edit"
 		HeaderStyle.Width="100px"
 		UpdateText="Save"
-		ItemStyle.HorizontalAlign="Center"
+		ItemStyle.Style="text-align:center"
 		ItemStyle.Font.Italic="false"
 		/>
 	<com:TButtonColumn
 		ID="DeleteColumn"
 		HeaderText="Delete"
 		HeaderStyle.Width="50px"
-		ItemStyle.HorizontalAlign="Center"
+		ItemStyle.Style="text-align:center"
 		ItemStyle.Font.Italic="false"
 		Text="Delete"
 		CommandName="delete"

@@ -20,12 +20,11 @@ Check box list with default settings:
 
 <tr>
 <td class="samplenote">
-Check box list with customized cellpadding, cellspacing, color and text alignment:
+Check box list with customized spacing, color, and text alignment:
 </td>
 <td class="sampleaction">
 <com:TCheckBoxList
-	CellPadding="5"
-	CellSpacing="1"
+	Style="border-spacing:1px"
 	BackColor="silver"
 	TextAlign="Left">
   <com:TListItem Value="value 1" Text="item 1" />

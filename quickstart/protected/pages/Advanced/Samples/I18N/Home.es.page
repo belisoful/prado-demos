@@ -1,7 +1,7 @@
-<%@ Title="Internationlization en PRADO "
+<%@ Title="Internacionalización en PRADO"
 	Page.Application.Globalization.TranslationCatalogue="index" %>
 <com:TContent ID="body">
-<h1>Internationlization en PRADO </h1>
+<h1>Internacionalización en PRADO</h1>
 <p> Esta versión parcial de programa muestra los componentes básicos disponibles en PRADO para el proceso de internacionalizar y de localizar aplicaciones del Web. Esta paginación utiliza modelos enterados múltiples del locale (o cultura) para mostrar la paginación localizada apropiada. Para visión una diversa versión localizada, cambie por favor sus configuraciones del lenguaje en su browser. </p>
 
 <p>
@@ -14,7 +14,7 @@
 </div>
 
 <p>
- Además de modelo enterado de la cultura. El texto se puede localizar usando muchas diversas fuentes de la traducción. PRADO proporciona al gettext, al envase de XML, de SQLite, y de MySQL para salvar traducciones del mensaje. El ejemplo en la conexión siguiente demuestra cómo el texto se puede localizar usando el componente de TTranslate. 
+ Además de modelo enterado de la cultura. El texto se puede localizar usando muchas diversas fuentes de la traducción. PRADO proporciona XLIFF, PHP, gettext y bases de datos para salvar traducciones del mensaje. El ejemplo siguiente demuestra cómo el texto se puede localizar usando el componente TTranslate. 
 </p>
 <hr />
 <h2>Introducción </h2>

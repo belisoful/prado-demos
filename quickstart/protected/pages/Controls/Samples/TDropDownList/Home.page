@@ -29,7 +29,7 @@ Dropdown list with initial items:
 
 <tr>
 <td class="samplenote">
-List box with customized row number, color and font:
+Dropdown list with customized color and font:
 </td>
 <td class="sampleaction">
 <com:TDropDownList ForeColor="blue" Font.Size="14pt">
@@ -136,7 +136,7 @@ Databind with DataTextField and DataValueField specified:
 </table>
 
 
-<h2>List Boxes with Validation</h2>
+<h2>DropDown Lists with Validation</h2>
 
 <table class="sampletable">
 

@@ -1,10 +1,9 @@
 <com:TContent ID="body">
-<h1>TReCaptcha Samples</h1>
+<h1>TReCaptcha2 Samples</h1>
 
 <h2>Validating ReCAPTCHA v2</h2>
 
-In order to make TReCaptcha work, you need to provide a valid private/public key to use the ReCAPTCHA service.
-<br/>Please note that this sample is using some fake keys and it could not work as expected.
+TReCaptcha2 needs a site key and a secret key from the reCAPTCHA service. This sample uses Google's test keys, so the widget renders and verification always passes.
 
 <!-- Keys taken here: https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha-v2-what-should-i-do -->
 <com:TReCaptcha2 ID="Captcha"

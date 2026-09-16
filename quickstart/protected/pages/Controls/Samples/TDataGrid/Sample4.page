@@ -5,7 +5,6 @@
 
 <com:TDataGrid
 	Width="700px"
-	CellPadding="2"
 	ID="DataGrid"
 	AutoGenerateColumns="false"
 	HeaderStyle.BackColor="black"
@@ -21,7 +20,7 @@
 		HeaderText="Book Title"
 		DataTextField="title"
 		DataNavigateUrlField="ISBN"
-		DataNavigateUrlFormatString="http://www.amazon.com/gp/product/%s"
+		DataNavigateUrlFormatString="https://www.amazon.com/gp/product/%s"
 		Target="_blank"
 		/>
 	<com:TBoundColumn
@@ -31,7 +30,7 @@
 		/>
 	<com:TBoundColumn
 		SortExpression="price"
-		ItemStyle.HorizontalAlign="Right"
+		ItemStyle.Style="text-align:right"
 		ItemStyle.Wrap="false"
 		ItemStyle.Font.Italic="false"
 		ItemStyle.ForeColor="green"

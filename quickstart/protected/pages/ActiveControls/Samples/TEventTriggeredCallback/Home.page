@@ -5,7 +5,7 @@
 <table class="sampletable">
 
 <tr><td class="samplenote">
-  A callback will be executed when the textbox receives and loses focus
+  The textbox triggers a callback when it gains focus and a second callback when it loses focus
 </td><td class="sampleaction">
   <com:TTextBox ID="txt1" />
   <com:TEventTriggeredCallback ControlID="txt1" EventName="focus" OnCallback="txtFocused" />

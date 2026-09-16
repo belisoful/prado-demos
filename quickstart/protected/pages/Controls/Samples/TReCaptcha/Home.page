@@ -3,8 +3,7 @@
 
 <h2>Validating ReCAPTCHA v1</h2>
 
-In order to make TReCaptcha work, you need to provide a valid private/public key to use the ReCAPTCHA service.
-<br/>Please note that this sample is using some fake keys and it could not work as expected.
+Google has retired reCAPTCHA v1, so this sample cannot verify a response. Use <tt>TReCaptcha2</tt> instead; see the <a href="?page=Controls.Samples.TReCaptcha2.Home">TReCaptcha2 sample</a>.
 
 <!-- Keys taken here: https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha-v2-what-should-i-do -->
 

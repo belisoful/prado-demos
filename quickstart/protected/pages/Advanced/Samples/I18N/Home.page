@@ -1,9 +1,9 @@
-<%@ Title="Internationlization  in PRADO"
+<%@ Title="Internationalization in PRADO"
 	Page.Application.Globalization.TranslationCatalogue="index" %>
 <com:TContent ID="body">
 
-<h1>Internationlization  in PRADO</h1>
-<p>This demo shows the basic components available in PRADO for the process of Internationalizing and Localizing web applications. This page utilize multiple locale (or culture) aware templates to show the appropriate localized page. To view a different localized version, please change your language settings in your browser.</p>
+<h1>Internationalization in PRADO</h1>
+<p>This demo shows the basic components available in PRADO for the process of Internationalizing and Localizing web applications. This page uses one culture-aware template per locale, and PRADO selects the template that matches the request culture. To view a different localized version, change the language settings in your browser.</p>
 
 <p>
 Your current culture is <%= $this->Page->CurrentCulture %>.
@@ -14,7 +14,7 @@ Your current culture is <%= $this->Page->CurrentCulture %>.
 </div>
 
 <p>
-	In addition to culture aware template. Text can be localized using many different translation sources. PRADO provides gettext, XML, SQLite, and Database container for storing message translations. The example in the following link demonstrates how text can be localized using the TTranslate component.
+	Culture-aware templates are one localization mechanism. PRADO also translates text from a message source, stored as XLIFF, PHP, gettext, or in a database.
 </p>
 <hr />
 <h2>Introduction</h2>

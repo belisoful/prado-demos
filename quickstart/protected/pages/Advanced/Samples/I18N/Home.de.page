@@ -14,7 +14,7 @@
 </div>
 
 <p>
-Weiter mit dem Thema kulturell angepasster Templates. Text kann unter Zuhilfenahme vieler unterschiedlicher Übersetzungsquellen lokalisiert werden. PRADO stellt gettext-, XML-, SQLite- und MySQL-Container für die Speicherung von Nachrichtenübersetzungen zur Verfügung. Das Beispiel im folgenden Link zeigt, wie Text mit der TTranslate-Komponente lokalisiert werden kann.
+Weiter mit dem Thema kulturell angepasster Templates. Text kann unter Zuhilfenahme vieler unterschiedlicher Übersetzungsquellen lokalisiert werden. PRADO stellt XLIFF-, PHP-, gettext- und Datenbank-Quellen für die Speicherung von Nachrichtenübersetzungen zur Verfügung.
 </p>
 <hr />
 <h2>Einleitung </h2>

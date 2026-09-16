@@ -52,7 +52,7 @@ A checkbox validated by a required field validator:
 </td></tr>
 
 <tr><td class="samplenote">
-A checkbox validated by a required field validator:
+A pre-checked checkbox validated by a required field validator:
 </td><td class="sampleaction">
 <com:TActiveCheckBox
 	ID="CheckBox2"

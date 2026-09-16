@@ -3,6 +3,7 @@ class Home extends TPage
 {
 	public function onLoad($param)
 	{
+		parent::onLoad($param);
 		if (!$this->IsPostBack)
 			$this->GameMultiView->ActiveView=$this->IntroView;
 	}

@@ -1,8 +1,7 @@
 <com:TContent ID="body">
 
 <h1>TEmailAddressValidator Samples</h1>
-<p><strong>Note:</strong> TEmailAddressValidator will start
-to validate only if the input is not empty.</p>
+<p><strong>Note:</strong> TEmailAddressValidator validates only when the input contains a value.</p>
 
 <table class="sampletable">
 

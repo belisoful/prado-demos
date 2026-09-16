@@ -6,8 +6,7 @@
   <com:TTabView ID="View1" Caption="View 1" Height="200px">
     <h2>View 1</h2>
     <p>
-    This shows a nested tab panel. To ensure the proper display, we explicitly
-    set the height of the outer view to be 200px.
+    This shows a nested tab panel. The outer view sets Height to 200px so the nested panel displays correctly.
     </p>
 	<com:TTabPanel ActiveViewIndex="1"
 			Width="50%"
@@ -34,7 +33,7 @@
   <com:TTabView Caption="View 3">
     <h2>View 3</h2>
     <p>
-    Click on the following button to see if we keep your input after postback.
+    The button posts the page back. The view keeps its input across the postback.
     </p>
     <com:TButton Text="Submit" />
   </com:TTabView>

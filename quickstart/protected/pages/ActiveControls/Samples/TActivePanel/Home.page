@@ -15,8 +15,7 @@ This is panel content
 <br/><com:TActiveButton ID="button1" Text="click me" OnCallback="buttonClicked" />
 <br/>
 When you press the button, the panel contents will change. Note that out of the
-panel and the button, all the other controls are not active but gets updated
-anyway since they are placed inside the active panel.
+panel and the button, the other controls are not active controls. The callback updates them because they sit inside the active panel.
 </com:TActivePanel>
 </td></tr>
 </table>

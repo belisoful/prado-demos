@@ -3,7 +3,7 @@
 <h1>TActiveRepeater Sample</h1>
 
 <p>
-The following example allows users to modify the existing tabular data using a <tt>TActiveRepeater</tt>. Two validators are used in the repeater to ensure the validity of user inputs. One is to ensure product names are not empty, the other ensures product prices are valid numeric format. After clicking on the <tt>save</tt> button, the input data is displayed in a table at the bottom of the page.
+The following example allows users to modify the existing tabular data using a <tt>TActiveRepeater</tt>. Two validators are used in the repeater to ensure the validity of user inputs. One is to ensure product names are not empty, the other requires a numeric product price. After clicking on the <tt>save</tt> button, the input data is displayed in a table at the bottom of the page.
 </p>
 
 <com:TActiveRepeater ID="Repeater" OnItemDataBound="repeaterDataBound">

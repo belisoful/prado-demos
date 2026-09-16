@@ -14,7 +14,7 @@ Twoim obecnym językiem jest: <%= $this->Page->CurrentCulture %>.
 </div>
 
 <p>
-	Nawiązanie do szablonów kulturowo-językowych. Tekst może zostać zlokalizowany przy użyciu wielu źródeł tłumaczeń. PRADO umożliwia przechowywanie tłumaczeń przy pomocy następujących modułów: gettext, XML, SQLite oraz MySQL. Przykład do którego prowadzi poniższy odnośnik pokazuje jak można zlokalizować treść używając kontrolki TTranslate.
+	Nawiązanie do szablonów kulturowo-językowych. Tekst może zostać zlokalizowany przy użyciu wielu źródeł tłumaczeń. PRADO umożliwia przechowywanie tłumaczeń przy pomocy następujących źródeł: XLIFF, PHP, gettext oraz bazy danych.
 </p>
 <hr />
 <h2>Wstęp</h2>

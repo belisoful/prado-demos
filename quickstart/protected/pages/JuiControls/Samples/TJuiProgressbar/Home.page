@@ -21,7 +21,7 @@ Undefined progressbar, Value=false:
 </td></tr>
 
 <tr><td class="samplenote">
-Undefined progresbar, value changed from javascript:
+Undefined progressbar, value changed from JavaScript:
 </td><td class="sampleaction">
 	<com:TJuiProgressbar
 		ID="pbar1"
@@ -47,7 +47,7 @@ Undefined progresbar, value changed from javascript:
 		$('#<%= $this->pbar1->ClientID %>').progressbar('value', false)
 		progress();
 	}
-	</com:TClientScript/>
+	</com:TClientScript>
 </td></tr>
 
 <tr><td class="samplenote">

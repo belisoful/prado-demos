@@ -17,8 +17,7 @@ An active textbox being set as the result of a callback:
 </td></tr>
 
 <tr><td class="samplenote">
-An active textbox with AutoPostBack="true"; Pressing Enter/Return, the textbox contents will be set on the label.
-Note that text needs to be properly escaped to avoid html injections:
+An active textbox with AutoPostBack set to true. Enter in the textbox copies the contents to the label. The sample escapes the text before it renders:
 </td><td class="sampleaction">
 <com:TActiveTextBox ID="txt2" AutoPostBack="true" OnTextChanged="textChanged"
 />

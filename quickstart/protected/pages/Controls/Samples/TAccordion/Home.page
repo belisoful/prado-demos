@@ -25,7 +25,7 @@ A simple TAccordion populated with other controls:
   <com:TAccordionView Caption="View 3">
     <h2>View 3</h2>
     <p>
-    Click on the following button to see if we keep your input after postback.
+    The button posts the page back. The view keeps its input across the postback.
     </p>
     <com:TButton Text="Submit" />
   </com:TAccordionView>
@@ -34,7 +34,7 @@ A simple TAccordion populated with other controls:
 </td></tr>
 
 <tr><td class="samplenote">
-Two nested TAccordion; the external one has AnimationDuration=0, while the internal one has a fixed ViewHeight=100
+Two nested TAccordion controls. The outer control sets AnimationDuration to 0. The inner control sets ViewHeight to 100
 </td><td class="sampleaction">
 
 <com:TAccordion AnimationDuration="0" >
@@ -76,6 +76,8 @@ Two nested TAccordion; the external one has AnimationDuration=0, while the inter
 	</com:TAccordionView>
 
 </com:TAccordion>
+</td></tr>
+</table>
 <br />
 A label to check postback/callback results: <com:TActiveLabel ID="lab1" />
 

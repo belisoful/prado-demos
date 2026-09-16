@@ -51,7 +51,7 @@ An image hyperlink:
 </tr>
 
 <tr><td class="samplenote">
-A hyerplink with body contents as link text:
+A hyperlink with body contents as link text:
 </td><td class="sampleaction">
 <com:TActiveHyperLink
 	ID="link4"

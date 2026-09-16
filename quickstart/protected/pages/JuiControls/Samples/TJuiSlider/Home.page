@@ -27,7 +27,7 @@ OnStart and OnStop callbacks report position:
 
 <tr><td class="samplenote">
 Horizontal slider, Min=0, Max=100, Step=10.
-OnChange callback fires on every keyboard/programmatic value change:
+The OnChange callback fires after the value changes, including at the end of a drag:
 </td><td class="sampleaction">
 <div class="slider-wrap">
 	<com:TJuiSlider

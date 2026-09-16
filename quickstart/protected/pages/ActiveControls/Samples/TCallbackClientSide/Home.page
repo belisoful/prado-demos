@@ -42,9 +42,7 @@ A callback button logging all callback events (5 seconds delay):
 </td></tr>
 
 <tr><td class="samplenote">
-A callback with RequestTimeout="3000" (3 seconds). Since the callback will take 5 seconds to complete, the clientside will timeout.
-This will cause a "missing page state" error; note that the callback is not considered failed, since no
-connection error has occured.
+A callback with RequestTimeout="3000" (3 seconds). The callback takes 5 seconds, so the client times out first. The timeout produces a "missing page state" error. The callback does not count as failed, because no connection error occurs.
 </td><td class="sampleaction">
 <com:TActiveButton
 	Text="click me"

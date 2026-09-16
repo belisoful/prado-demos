@@ -8,7 +8,7 @@
 TActiveHtmlArea5 with default settings:
 </td><td class="sampleaction">
 <com:TActiveHtmlArea5 ID="HtmlArea1" />
-<div><com:TActiveButton Text="Submit" OnClick="button1Clicked" /> Submit your input an show it below.</div>
+<div><com:TActiveButton Text="Submit" OnClick="button1Clicked" /> Submit your input and show it below.</div>
 <div><com:TActiveButton Text="Insert" OnClick="button1bClicked" /> Insert some sample HTML into the editor.</div>
 <br/>
 <com:TActiveLabel ID="Result1" />
@@ -24,7 +24,7 @@ TActiveHtmlArea5 with manually set options
     toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code charmap | ",
   </prop:Options>
 </com:TActiveHtmlArea5>
-<div><com:TActiveButton Text="Submit" OnClick="button2Clicked" /> Submit your input an show it below.</div>
+<div><com:TActiveButton Text="Submit" OnClick="button2Clicked" /> Submit your input and show it below.</div>
 <div><com:TActiveButton Text="Insert" OnClick="button2bClicked" /> Insert some sample HTML into the editor.</div>
 <br/>
 <com:TActiveLabel ID="Result2" />
@@ -35,7 +35,7 @@ TActiveHtmlArea5 with visual editing disabled:
 </td><td class="sampleaction">
 <com:TActiveHtmlArea5 ID="HtmlArea3" EnableVisualEdit="false" />
 <br/>
-<div><com:TActiveButton Text="Submit" OnClick="button3Clicked" /> Submit your input an show it below.</div>
+<div><com:TActiveButton Text="Submit" OnClick="button3Clicked" /> Submit your input and show it below.</div>
 <div><com:TActiveButton Text="Insert" OnClick="button3bClicked" /> Insert some sample HTML into the editor.</div>
 <br/>
 <com:TActiveLabel ID="Result3" />

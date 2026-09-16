@@ -4,7 +4,7 @@ class Home extends TPage
 {
 	function button1_clicked($sender, $param)
 	{
-		$this->link1->NavigateUrl = 'http://www.google.com';
+		$this->link1->NavigateUrl = 'https://www.google.com';
 	}
 
 	function button2_clicked($sender, $param)

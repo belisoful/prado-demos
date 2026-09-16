@@ -1,6 +1,6 @@
 <?php
 
-Prado::using('System.Collections.TDummyDataSource');
+use Prado\Collections\TDummyDataSource;
 
 class Sample4 extends TPage
 {

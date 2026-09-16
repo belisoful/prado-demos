@@ -1,5 +1,7 @@
 <?php
 
+use Prado\I18N\core\CultureInfo;
+
 class Home extends TPage
 {
 	/**
@@ -11,15 +13,14 @@ class Home extends TPage
 		$lang = $this->Request['lang'];
 		if(is_string($lang))
 		{
-			$info = new CultureInfo();
-			if($info->validCulture($lang)) //only valid lang is permitted
+			if(CultureInfo::validCulture($lang)) //only valid lang is permitted
 				$this->getApplication()->getGlobalization()->setCulture($lang);
 		}
 	}
 
 	/**
-	 * Initialize the page with some arbituary data.
-	 * @param TEventParameter event parameter.
+	 * Initialize the page with some arbitrary data.
+	 * @param \Prado\TEventParameter $param event parameter.
 	 */
 	public function onLoad($param)
 	{
@@ -35,7 +36,7 @@ class Home extends TPage
 
 	/**
 	 * Get the localized current culture name.
-	 * @return string localized curreny culture name.
+	 * @return string localized current culture name.
 	 */
 	public function getCurrentCulture()
 	{

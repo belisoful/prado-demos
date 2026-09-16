@@ -1,8 +1,7 @@
 <com:TContent ID="body">
 
 <h1>TDataTypeValidator Samples</h1>
-<p><strong>Note:</strong> TDataTypeValidator will start
-to validate only if both inputs are not empty.</p>
+<p><strong>Note:</strong> TDataTypeValidator validates only when the input contains a value.</p>
 
 <table class="sampletable">
 

@@ -10,7 +10,6 @@ template.</p>
 <com:TDataGrid
 	ID="DataGrid"
 	AutoGenerateColumns="false"
-	CellPadding="2"
 	HeaderStyle.BackColor="black"
 	HeaderStyle.ForeColor="white"
 	ItemStyle.BackColor="#BFCFFF"

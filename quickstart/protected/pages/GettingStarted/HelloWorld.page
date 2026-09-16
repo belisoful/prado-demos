@@ -5,7 +5,7 @@
 In this section, we guide you through creating your first PRADO application, the famous "Hello World" application.
 </p>
 <p>
-"Hello World" perhaps is the simplest <i>interactive</i> PRADO application that you can create. It displays to end-users a page with a submit button whose caption is <tt>Click Me</tt>. After the user clicks on the button, its caption is changed to <tt>Hello World</tt>.
+"Hello World" is the simplest <i>interactive</i> PRADO application. It displays to end-users a page with a submit button whose caption is <tt>Click Me</tt>. After the user clicks on the button, its caption is changed to <tt>Hello World</tt>.
 </p>
 <p>
 There are many approaches that can achieve the above goal. One can submit the page to the server, examine the POST variable, and generate a new page with the button caption updated. Or one can simply use JavaScript to update the button caption upon its <tt>onclick</tt> client event.
@@ -13,7 +13,7 @@ There are many approaches that can achieve the above goal. One can submit the pa
 </div>
 <p class="block-content">
 PRADO promotes component-based and event-driven Web programming. The button is represented by a <tt>TButton</tt> object. It encapsulates the button caption as the <tt>Text</tt> property and associates the user button click action with a server-side <tt>OnClick</tt> event. To respond to the user clicking on the button, one simply needs to attach a function to the button's <tt>OnClick</tt> event. Within the function, the button's <tt>Text</tt> property is modified as "Hello World". The following diagram shows the above sequence,
-<img src="<%~sequence.svg%>" class="figure"/>
+<img src="<%~sequence.svg%>" class="figure" alt="Sequence diagram of the Hello World postback: the browser posts the click, the TButton raises OnClick, the page handler buttonClicked sets the button Text to Hello World, and the page renders the updated caption."/>
 </p>
 <p class="block-content">
 Our PRADO application consists of three files, <tt>index.php</tt>, <tt>Home.page</tt> and <tt>Home.php</tt>, which are organized as follows,
