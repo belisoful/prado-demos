@@ -5,6 +5,39 @@
 <p class="block-content">
 This page summarizes the main new features that are introduced in each PRADO release.
 </p>
+
+<h2>The 4.x subsystems</h2>
+<p class="block-content">
+PRADO 4 keeps the programming model of PRADO 3: components, controls, pages, modules,
+and services. Each 4.x release adds a subsystem to that model. The table lists each
+subsystem, the release that introduced it, and the page that documents it. The release
+history below is the full record.
+</p>
+<table class="parameters">
+<tr><th>Subsystem</th><th>Since</th><th>Page</th></tr>
+<tr><td>Namespaces, Composer, and PSR-4 autoloading</td><td><tt>4.0.0</tt></td><td><a href="?page=GettingStarted.Upgrading33">Upgrading from v3.3</a></td></tr>
+<tr><td>Behaviors: object and class behaviors, <tt>TCallChain</tt>; expanded through 4.3.0</td><td><tt>3.2.3</tt></td><td><a href="?page=Fundamentals.Behaviors">Behaviors</a></td></tr>
+<tr><td>Behaviors from configuration: <tt>TBehaviorsModule</tt>, <tt>TParameterizeBehavior</tt></td><td><tt>4.2.0</tt></td><td><a href="?page=Configurations.BehaviorsConfig">Behaviors Configuration</a></td></tr>
+<tr><td>Application parameters in a database table: <tt>TDbParameterModule</tt></td><td><tt>4.2.0</tt></td><td><a href="?page=Configurations.Parameters">Database Parameters</a></td></tr>
+<tr><td>Permissions and role-based access control: <tt>TPermissionsManager</tt></td><td><tt>4.2.0</tt></td><td><a href="?page=Advanced.Permissions">Permissions (RBAC)</a></td></tr>
+<tr><td>Scheduled tasks with cron expressions: <tt>TCronModule</tt>, <tt>TDbCronModule</tt></td><td><tt>4.2.0</tt></td><td><a href="?page=Advanced.Cron">Scheduled Tasks (Cron)</a></td></tr>
+<tr><td>Extensions as Composer packages: <tt>TPluginModule</tt></td><td><tt>4.2.0</tt></td><td><a href="?page=Advanced.Plugins">Extensions (Plugins)</a></td></tr>
+<tr><td>Command line tool with shell routes and actions; the embedded development server in 4.3.0</td><td><tt>4.2.0</tt></td><td><a href="?page=GettingStarted.CommandLine">Command Line Tool</a></td></tr>
+<tr><td>Web Site Administration Tool moved to the <tt>pradosoft/prado-wsat</tt> package</td><td><tt>4.2.0</tt></td><td><a href="?page=Advanced.Wsat">Web Site Administration Tool</a></td></tr>
+<tr><td>Weak collections: <tt>TWeakCallableCollection</tt>; <tt>TWeakMap</tt> and <tt>TNull</tt> in 4.3.3</td><td><tt>4.2.0</tt></td><td><a href="?page=Advanced.Collections">Collections</a></td></tr>
+<tr><td>Utilities: <tt>TDataSize</tt> and <tt>TGravatar</tt>; <tt>TProcessHelper</tt> and <tt>TSignalsDispatcher</tt> in 4.3.0; <tt>TSimpleDateFormatter</tt> patterns and ICU units in 4.3.3</td><td><tt>4.2.0</tt></td><td><a href="?page=Advanced.Utilities">Utilities</a></td></tr>
+<tr><td>Component events: closures as handlers, <tt>TEventHandler</tt>, <tt>TEventSubscription</tt>, reverse raising; event parameter lifecycle and <tt>ReadOnly</tt> in 4.3.3</td><td><tt>4.3.0</tt></td><td><a href="?page=Fundamentals.Components2">Components: Events</a></td></tr>
+<tr><td>Logging: profiling, tracing, and flushing of long logs</td><td><tt>4.3.0</tt></td><td><a href="?page=Advanced.Logging">Logging</a></td></tr>
+<tr><td>HTML5 semantic controls: <tt>TArticle</tt>, <tt>TSection</tt>, <tt>TNav</tt>, <tt>TMain</tt>, and the others</td><td><tt>4.3.3</tt></td><td><a href="?page=Controls.Html5Semantic">HTML5 Semantic Controls</a></td></tr>
+<tr><td>Module-conditional rendering: <tt>TModuleView</tt></td><td><tt>4.3.3</tt></td><td><a href="?page=Controls.ModuleView">Module View</a></td></tr>
+<tr><td>Render filters: the <tt>OnRenderFilter</tt> pipeline on every control</td><td><tt>4.3.3</tt></td><td><a href="?page=Controls.RenderFilters">Render Filters</a></td></tr>
+<tr><td>Database layer interfaces for third-party drivers, IBM DB2 and Firebird metadata</td><td><tt>4.3.3</tt></td><td><a href="?page=Database.DAO">Data Access Objects</a></td></tr>
+<tr><td>Assets: symlink publishing, timestamp cache busting, <tt>Only</tt> and <tt>Except</tt> filters</td><td><tt>4.3.3</tt></td><td><a href="?page=Advanced.Assets">Assets</a></td></tr>
+<tr><td>Security: authenticated encryption with <tt>UseEncryptionHmac</tt>, configurable key derivation</td><td><tt>4.3.3</tt></td><td><a href="?page=Advanced.Security">Security</a></td></tr>
+<tr><td>Testing: <tt>TTestApplication</tt> and PradoUnit</td><td><tt>4.3.3</tt></td><td><a href="?page=Advanced.Testing">Testing and Continuous Integration</a></td></tr>
+</table>
+
+<h2>Release history</h2>
 <p>
 A summary of notable changes is included in the <tt>HISTORY.md</tt> file inside the PRADO package.
 <br/>
