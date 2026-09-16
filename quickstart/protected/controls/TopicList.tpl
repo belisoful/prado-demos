@@ -76,6 +76,8 @@
     <li><a href="?page=Fundamentals.Services">Page Service</a></li>
     <li><a href="?page=Services.SoapService">SOAP Service</a></li>
     <li><a href="?page=Services.RpcService">RPC Service</a></li>
+    <li><a href="?page=Services.JsonService">JSON Service</a></li>
+    <li><a href="?page=Services.FeedService">Feed Service</a></li>
 </ul>
 </div>
 

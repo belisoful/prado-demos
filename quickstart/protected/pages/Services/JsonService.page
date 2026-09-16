@@ -1,0 +1,91 @@
+<com:TContent ID="body" >
+
+<h1>JSON Service</h1>
+<com:SinceVersion Version="3.1" />
+<com:DocLink ClassPath="Prado.Web.Services.TJsonService" />
+
+<p class="block-content">
+<tt>TJsonService</tt> answers a request with JSON. The service holds a set of responses.
+Each response has an ID and a class that extends <tt>TJsonResponse</tt>. The service
+parameter in the URL names the response, so <tt>index.php?json=get_article</tt> runs the
+response registered as <tt>get_article</tt>. No page takes part in the request.
+</p>
+
+<h2>Configuration</h2>
+<p class="block-content">
+The service is declared in the <a href="?page=Configurations.AppConfig">application
+configuration</a>. Each <tt>&lt;json&gt;</tt> element names a response by its <tt>id</tt>
+and its <tt>class</tt>. Every other attribute is set as a property of the response object
+before the response runs.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+<services>
+  <service id="json" class="Prado\Web\Services\TJsonService">
+    <json id="get_article" class="Application.Json.ArticleResponse" Limit="5" />
+  </service>
+</services>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'services' => [
+    'json' => [
+        'class' => 'Prado\Web\Services\TJsonService',
+        'json' => [
+            'get_article' => [
+                'class' => 'Application.Json.ArticleResponse',
+                'properties' => ['Limit' => '5'],
+            ],
+        ],
+    ],
+],
+</com:TTextHighlighter>
+<p class="block-content">
+In the PHP form the responses sit under a <tt>json</tt> key of the service entry, and the
+initial values of a response sit under its <tt>properties</tt> key. The service reads the
+<tt>json</tt> key only, so a response placed directly in the service entry is not
+registered.
+</p>
+
+<h2>Writing a response</h2>
+<p class="block-content">
+A response class extends <tt>TJsonResponse</tt> and implements <tt>getJsonContent</tt>,
+which returns the value to send. The service sets the configured properties, calls
+<tt>init</tt> with the response's own configuration, and then calls
+<tt>getJsonContent</tt>.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Web\Services\TJsonResponse;
+
+class ArticleResponse extends TJsonResponse
+{
+    private $_limit = 10;
+
+    public function getLimit()
+    {
+        return $this->_limit;
+    }
+
+    public function setLimit($value)
+    {
+        $this->_limit = (int) $value;
+    }
+
+    public function getJsonContent()
+    {
+        return [
+            'limit' => $this->getLimit(),
+            'articles' => [
+                ['id' => 1, 'title' => 'Hello world'],
+            ],
+        ];
+    }
+}
+</com:TTextHighlighter>
+<p class="block-content">
+The service encodes the returned value with <tt>TJavaScript::jsonEncode</tt> and sends it
+with the <tt>application/json</tt> content type in UTF-8. A response that returns
+<tt>null</tt> sends nothing. A request that names a response the service does not know
+receives a 404 error.
+</p>
+
+</com:TContent>

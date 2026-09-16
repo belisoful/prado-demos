@@ -1,0 +1,110 @@
+<com:TContent ID="body" >
+
+<h1>Feed Service</h1>
+<com:SinceVersion Version="3.1" />
+<com:DocLink ClassPath="Prado.Web.Services.TFeedService" />
+
+<p class="block-content">
+<tt>TFeedService</tt> serves feed content, such as an RSS or an Atom feed. The service
+holds a set of feeds. Each feed has an ID and a class that implements
+<tt>IFeedContentProvider</tt>. The service parameter in the URL names the feed, so
+<tt>index.php?feed=news</tt> serves the feed registered as <tt>news</tt>. No page takes
+part in the request.
+</p>
+
+<h2>Configuration</h2>
+<p class="block-content">
+The service is declared in the <a href="?page=Configurations.AppConfig">application
+configuration</a>. Each <tt>&lt;feed&gt;</tt> element names a feed by its <tt>id</tt> and
+its <tt>class</tt>. Every other attribute is set as a property of the feed object before
+the feed runs.
+</p>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+<services>
+  <service id="feed" class="Prado\Web\Services\TFeedService">
+    <feed id="news" class="Application.Feeds.NewsFeed" Limit="20" />
+  </service>
+</services>
+</com:TTextHighlighter>
+<p class="block-content">The same configuration in the PHP format:</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+'services' => [
+    'feed' => [
+        'class' => 'Prado\Web\Services\TFeedService',
+        'news' => [
+            'class' => 'Application.Feeds.NewsFeed',
+            'properties' => ['Limit' => '20'],
+        ],
+    ],
+],
+</com:TTextHighlighter>
+<p class="block-content">
+In the PHP form each feed is a key of the service entry itself, beside the service's
+<tt>class</tt> key, and the initial values of a feed sit under its <tt>properties</tt> key.
+The service reads every key of its entry as a feed, so the entry carries the
+<tt>class</tt> key and the feeds only. A feed nested under a separate <tt>feed</tt> key is
+not found.
+</p>
+
+<h2>Writing a feed provider</h2>
+<p class="block-content">
+A feed class implements <tt>IFeedContentProvider</tt>. It extends
+<tt>TApplicationComponent</tt>, or another <tt>TComponent</tt>, so the service can set its
+properties. The interface has three methods. <tt>init</tt> receives the feed's own
+configuration. <tt>getContentType</tt> returns the content type of the feed.
+<tt>getFeedContent</tt> returns the feed as an XML string.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\TApplicationComponent;
+use Prado\Web\Services\IFeedContentProvider;
+
+class NewsFeed extends TApplicationComponent implements IFeedContentProvider
+{
+    private $_limit = 10;
+
+    public function getLimit()
+    {
+        return $this->_limit;
+    }
+
+    public function setLimit($value)
+    {
+        $this->_limit = (int) $value;
+    }
+
+    public function init($config)
+    {
+    }
+
+    public function getContentType()
+    {
+        return 'application/rss+xml';
+    }
+
+    public function getFeedContent()
+    {
+        $items = '';
+        // build one <item> element per entry, at most Limit of them
+        return '<?xml version="1.0" encoding="utf-8"?>'
+            . '<rss version="2.0"><channel><title>News</title>'
+            . $items
+            . '</channel></rss>';
+    }
+}
+</com:TTextHighlighter>
+<p class="block-content">
+The content type tells the client which feed format it receives.
+</p>
+<table class="parameters">
+<tr><th>Feed format</th><th>Content type</th></tr>
+<tr><td>RSS 2.0</td><td><tt>application/rss+xml</tt></td></tr>
+<tr><td>RSS 1.0</td><td><tt>application/rdf+xml</tt></td></tr>
+<tr><td>Atom</td><td><tt>application/atom+xml</tt></td></tr>
+</table>
+<p class="block-content">
+The service calls <tt>init</tt>, then <tt>getFeedContent</tt>, and writes the content
+with the content type from <tt>getContentType</tt>. A request that names a feed the
+service does not know receives a 404 error.
+</p>
+
+</com:TContent>

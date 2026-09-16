@@ -238,4 +238,98 @@ public function setConnectionID($value)
 }
 </com:TTextHighlighter>
 
+<h2>Bit and byte operations</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TBitHelper</tt> provides static methods for bit-level work: counting bits, mirroring
+bit order, reversing byte order, shifting a color channel between bit depths, and
+converting a float to and from the half-precision and 8-bit float formats. The class
+adjusts itself to 32-bit and 64-bit PHP.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Util\Helpers\TBitHelper;
+
+TBitHelper::bitCount(255);                // 8, the bits needed to hold 255
+TBitHelper::bitCount(256);                // 9
+TBitHelper::mirrorByte(1);                // 128, the bit order of each byte reversed
+TBitHelper::flipEndianShort(0x1234);      // 0x3412
+TBitHelper::flipEndianLong(0x12345678);   // 0x78563412
+TBitHelper::colorBitShift(0xF, 4, 8);     // 0xFF, a 4-bit channel widened to 8 bits
+TBitHelper::unsignedShift(-1, 60);        // 15, a logical right shift
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>colorBitShift</tt> repeats the existing bits into the new width, so a full 4-bit
+channel becomes a full 8-bit channel.
+</p>
+<p class="block-content">
+The float conversions pack a PHP float into a smaller format and unpack it again.
+<tt>floatToFp16</tt> and <tt>fp16ToFloat</tt> handle the IEEE half float,
+<tt>floatToBf16</tt> and <tt>bf16ToFloat</tt> the bfloat16 format, and
+<tt>floatToFp8Range</tt> and <tt>floatToFp8Precision</tt> the two 8-bit formats, e5m2 and
+e4m3. <tt>floatToFpXX</tt> and <tt>fpXXToFloat</tt> take the exponent and mantissa widths
+as arguments for any other layout.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+TBitHelper::floatToFp16(1.5);             // 0x3E00
+TBitHelper::fp16ToFloat(0x3E00);          // 1.5
+TBitHelper::floatToBf16(1.5);             // 0x3FC0
+TBitHelper::isNegativeZero(-0.0);         // true
+</com:TTextHighlighter>
+<p class="block-content">
+<tt>isNegativeFloat</tt> reports the sign bit of any float, including negative zero, and
+<tt>isNegativeZero</tt> tests for negative zero itself. A PHP comparison treats
+<tt>-0.0</tt> and <tt>0.0</tt> as equal, so these methods are the way to tell them apart.
+</p>
+
+<h2>Array lists</h2>
+<com:SinceVersion Version="4.3.0" />
+<p class="block-content">
+<tt>TArrayHelper::array_is_list</tt> reports whether the keys of an array are the
+consecutive integers from zero. It calls PHP's own <tt>array_is_list</tt> when that
+function exists, and it also accepts a <tt>Traversable</tt> object, which the PHP function
+does not.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Util\Helpers\TArrayHelper;
+
+TArrayHelper::array_is_list([1, 2, 3]);                  // true
+TArrayHelper::array_is_list(['a' => 1]);                 // false
+TArrayHelper::array_is_list(new ArrayIterator([1, 2]));  // true
+</com:TTextHighlighter>
+
+<h2>XML documents</h2>
+<p class="block-content">
+<tt>TXmlDocument</tt> reads and writes XML through a small DOM. It extends
+<tt>TXmlElement</tt>, so a document is an element with a <tt>Version</tt> and an
+<tt>Encoding</tt>. <tt>loadFromString</tt> and <tt>loadFromFile</tt> parse XML, and
+<tt>saveToString</tt> and <tt>saveToFile</tt> write it. An element has a <tt>TagName</tt>,
+an <tt>Attributes</tt> map, an <tt>Elements</tt> list of child elements, and a
+<tt>Value</tt> for its text. <tt>getElementByTagName</tt> returns the first matching
+descendant, and <tt>getElementsByTagName</tt> returns all of them. The application and
+page configuration loaders read XML through these classes.
+</p>
+<com:TTextHighlighter Language="php" CssClass="source block-content">
+use Prado\Xml\TXmlDocument;
+use Prado\Xml\TXmlElement;
+
+$doc = new TXmlDocument();
+$doc-&gt;loadFromString('&lt;config&gt;&lt;module id="log" class="TLogRouter" /&gt;&lt;/config&gt;');
+$module = $doc-&gt;getElementByTagName('module');
+$module-&gt;getAttribute('id');      // 'log'
+$module-&gt;getAttribute('class');   // 'TLogRouter'
+
+$doc = new TXmlDocument('1.0', 'utf-8');
+$doc-&gt;setTagName('root');
+$item = new TXmlElement('item');
+$item-&gt;setAttribute('name', 'x');
+$doc-&gt;getElements()-&gt;add($item);
+echo $doc-&gt;saveToString();
+</com:TTextHighlighter>
+<com:TTextHighlighter Language="xml" CssClass="source block-content">
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <item name="x" />
+</root>
+</com:TTextHighlighter>
+
 </com:TContent>
