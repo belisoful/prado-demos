@@ -4,12 +4,12 @@
 <p class="block-content">
 PRADO is primarily a presentational framework, although it is not limited to be so. The framework focuses on making Web programming, which deals most of the time with user interactions, to be component-based and event-driven so that developers can be more productive. The following class tree depicts some of the major classes provided by PRADO:
 </p>
-<img src="<%~classtree.gif%>" />
+<img src="<%~classtree.svg%>" class="figure" alt="Inheritance tree of major PRADO classes rooted at TComponent. TApplicationComponent leads to TControl (the web control and validator hierarchy, the data-bound controls, and TCompositeControl to TTemplateControl and TPage), to TModule (module subclasses such as THttpResponse, TErrorHandler, TCache, TUserManager, TAuthManager), and to TService (TPageService). TApplication and the TList and TMap collections descend from TComponent directly."/>
 
 <p class="block-content">
 When a PRADO application is processing a page request, its static object diagram can be shown as follows:
 </p>
-<img src="<%~objectdiagram.gif%>" />
+<img src="<%~objectdiagram.svg%>" class="figure" alt="Static object diagram of a page request. The Application owns the Request, Response, Session, Error Handler, and Asset Manager modules, its Parameters, and any Custom Modules. It hands the request to the Page Service, which uses the Theme Manager and Template Manager to build the Page. The Page is a composition of Controls, with one parent and many children."/>
 
 <p class="block-content">
 Once the main <tt>Application</tt> object gets created, it loads the <a href="?page=Configurations.AppConfig">application configuration</a>. The stages it then runs through, and the events each stage raises, are set out under <a href="?page=Fundamentals.Applications">Applications</a>.
