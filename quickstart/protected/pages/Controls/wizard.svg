@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 260" width="350" height="260" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.6" dy="0.9" stdDeviation="0.7" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="350" height="260" fill="#fff"/>
+  <rect x="6.0" y="8.0" width="338.0" height="246.0" rx="9" fill="none" stroke="#b7b7b7" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <rect x="14.0" y="1.5" width="49.8" height="13" fill="#fff"/>
+  <text x="38.9" y="8.0" font-size="11" font-weight="700" fill="#666" text-anchor="middle" dominant-baseline="central">Wizard</text>
+  <rect x="12.0" y="16.0" width="96.0" height="232.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.3"/>
+  <text x="60.0" y="126.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Side Bar</text>
+  <text x="60.0" y="141.0" font-size="8.6" fill="#666" font-style="italic" text-anchor="middle" dominant-baseline="central">SideBarStyle</text>
+  <rect x="114.0" y="16.0" width="224.0" height="46.0" rx="6" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.3"/>
+  <text x="226.0" y="33.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Header</text>
+  <text x="226.0" y="48.0" font-size="8.6" fill="#666" font-style="italic" text-anchor="middle" dominant-baseline="central">HeaderStyle</text>
+  <rect x="114.0" y="68.0" width="224.0" height="128.0" rx="6" fill="#eef4fb" stroke="#6b8fb0" stroke-width="1.3"/>
+  <text x="226.0" y="126.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Step Content</text>
+  <text x="226.0" y="141.0" font-size="8.6" fill="#666" font-style="italic" text-anchor="middle" dominant-baseline="central">StepStyle</text>
+  <rect x="114.0" y="202.0" width="224.0" height="46.0" rx="6" fill="#dcecd6" stroke="#5a8f45" stroke-width="1.3"/>
+  <text x="226.0" y="219.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Navigation</text>
+  <text x="226.0" y="234.0" font-size="8.6" fill="#666" font-style="italic" text-anchor="middle" dominant-baseline="central">NavigationStyle</text>
+</svg>

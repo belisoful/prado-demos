@@ -7,7 +7,7 @@
 <p class="block-content">
 <tt>TWizard</tt> is analogous to the installation wizard commonly used to install software on Windows. It splits a large form and presents the user with a series of smaller forms, called wizard steps, to complete. The following figure shows how a wizard is composed of when presented to users, where <tt>step content</tt> is the main content of a wizard step for users to complete, <tt>header</tt> refers to header content common to all steps, <tt>navigation</tt> contains buttons that allow users to navigate step by step, and <tt>side bar</tt> contains a list of hyperlinks by which users can reach to any step with one click. The visibility of the side bar can be toggled by setting <tt>ShowSideBar</tt>.
 </p>
-<img src="<%~wizard.gif%>" alt="components of wizard" />
+<img src="<%~wizard.svg%>" class="figure" alt="Region layout of a TWizard. The side bar runs down the left, and the header, step content, and navigation stack on the right. Each region is customized by a style property: SideBarStyle, HeaderStyle, StepStyle, and NavigationStyle."/>
 
 <p class="block-content">
 By default, <tt>TWizard</tt> embeds the above components in an HTML table so that the side bar is displayed on the left while the rest on the right. If <tt>UseDefaultLayout</tt> is set to false, no HTML table will be used, and developers should use pure CSS techniques to position the wizard components. Note, each component is displayed as a &lt;div&gt; and the wizard itself is also a &lt;div&gt; that encloses its components' &lt;div&gt;.
