@@ -17,6 +17,7 @@ be used to decompose the URL into request parameters (accessible via
 construct customized URLs. In this case, the parameters in an applied
 pattern will be replaced with the corresponding GET variable values.
 </p>
+<img src="<%~urlmapping.svg%>" class="figure" alt="TUrlMapping works in both directions over one ordered list of URL patterns. To recognize a request, the request path is tested against the patterns top-down and the first match decomposes the URL into the service parameter and named parameters; for example post/123 matches the post/{id} pattern and yields page=Posts.ViewPost and id=123. To construct a URL, constructUrl() uses the first pattern whose service and named parameters match, then fills the placeholders; for example constructUrl('Posts.ListPost', {cat:2}) uses the category/{cat} pattern and yields /index.php/category/2. Pattern 2 (archive/{time}) also maps to Posts.ListPost but needs a time parameter, so it is skipped."/>
 
 <p class="block-content">
 To use <tt>TUrlMapping</tt>, one must set the <tt>UrlManager</tt> property of the <tt>THttpRequest</tt> module as the <tt>TUrlMapping</tt> module ID. See following for an example,

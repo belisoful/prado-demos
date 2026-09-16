@@ -9,6 +9,7 @@ Validation controls, called validators, perform validation on user-entered data 
 <p class="block-content">
 Validation is always performed on server side. If <tt>EnableClientScript</tt> is true and the client browser supports JavaScript, validators may also perform client-side validation. Client-side validation will validate user input before it is sent to the server. The form data will not be submitted if any error is detected. This avoids the round-trip of information necessary for server-side validation.
 </p>
+<img src="<%~validation-flow.svg%>" class="figure" alt="The PRADO validation lifecycle. A postback control with CausesValidation set to true selects the validators in its ValidationGroup. If EnableClientScript is true and the browser runs JavaScript, those validators run in the browser first; if any fails the submit is blocked with no round-trip, and the messages plus the TValidationSummary are shown. Otherwise, or once the client side passes, the request is submitted and the validators run again on the server, which sets Page.IsValid. The event handler runs its work only when Page.IsValid is true; otherwise it skips its work and the messages plus the TValidationSummary are shown."/>
 
 <p class="block-content">
 Validators share a common set of properties, which are defined in the base class <tt>TBaseValidator</tt> class and listed as follows,

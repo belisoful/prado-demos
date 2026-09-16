@@ -1,11 +1,11 @@
 <com:TContent ID="body">
 	<h1>Building an AJAX Chat Application</h1>
-	<com:RequiresVersion Version="3.1a" />
+	<com:RequiresVersion Version="3.1" />
 	<p class="block-content">This tutorial introduces the Prado web application framework's
 	<a href="?page=Database.ActiveRecord">ActiveRecord</a>
 	and <a href="?page=ActiveControls.Home">Active Controls</a> to build a Chat
 	web application. It is assumed that you
-	are familiar with PHP and you have access to a web server that is able to serve PHP5 scripts.
+	are familiar with PHP and you have access to a web server that is able to serve PHP scripts.
 	This basic chat application will utilize the following ideas/components in Prado.
 	</p>
 	<ul id="u1" class="block-content">
@@ -198,13 +198,13 @@ to the <tt>index.php</tt> you will be redirected to the <tt>Login</tt> page.
 </p>
 
 <h1>Active Record for <tt>chat_users</tt> table</h1>
-<p class="block-content">The <com:DocLink ClassPath="Prado.Secutity.TUserManager" Text="TUserManager" />
+<p class="block-content">The <com:DocLink ClassPath="Prado.Security.TUserManager" Text="TUserManager" />
 class only provides a read-only list of users. We need to be able to add or
 login new users dynamically. So we need to create our own user manager class.
 First, we shall setup a database with a <tt>chat_users</tt> table and create an ActiveRecord
 that can work with the <tt>chat_users</tt> table with ease. For the demo, we
 use <tt>sqlite</tt> as our database for ease of distributing the demo. The demo
-can be extended to use other databases such as MySQL or Postgres SQL easily.
+can be extended to use other databases such as MySQL or PostgreSQL easily.
 We define the <tt>chat_users</tt> table as follows.
 </p>
 <com:TTextHighlighter Language="text" CssClass="source block-content">

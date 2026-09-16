@@ -31,6 +31,7 @@ Each control has a naming container which is a control creating a unique namespa
 <p class="block-content">
 A control can serve as a naming container if it implements the <tt>INamingContainer</tt> interface.
 </p>
+<img src="<%~controls-tree.svg%>" class="figure" alt="A control tree with naming containers marked. A TPage holds a TForm, which holds a TRepeater (ID Repeater1). The repeater has two TRepeaterItem naming containers (Item0 and Item1), each holding a TButton (ID Button1) and a TLabel (ID Label1) with the same IDs. For the second item's button, the UniqueID is Repeater1$Item1$Button1, built by joining the naming-container IDs with a dollar sign, and the ClientID is Repeater1_Item1_Button1, the same with underscores. findControl(&quot;Repeater1.Item1.Button1&quot;) converts the dots to dollar signs and walks the naming containers Page, Repeater1, Item1, and Button1 to reach the control."/>
 
 <h2>ViewState and ControlState</h2>
 <p class="block-content">

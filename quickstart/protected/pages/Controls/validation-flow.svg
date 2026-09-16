@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624 642" width="624" height="642" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.7" dy="1.0" stdDeviation="0.8" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a4a4a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="624" height="642" fill="#fff"/>
+  <rect x="56.0" y="232.0" width="514.0" height="156.0" rx="10" fill="#f4f7fb" stroke="#9fb6cf" stroke-width="1.1" stroke-dasharray="6 4"/>
+  <text x="68" y="246.0" font-size="9.4" font-weight="700" fill="#3f668c" dominant-baseline="central">Client side</text>
+  <rect x="56.0" y="410.0" width="514.0" height="156.0" rx="10" fill="#f3f6ee" stroke="#a7bd8f" stroke-width="1.1" stroke-dasharray="6 4"/>
+  <text x="68" y="424.0" font-size="9.4" font-weight="700" fill="#4d7238" dominant-baseline="central">Server side</text>
+  <polyline points="196.0,56.0 196.0,87.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,129.0 196.0,157.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,215.0 196.0,257.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,291.0 196.0,317.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,369.0 196.0,435.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,469.0 196.0,495.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,547.0 196.0,590.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="90.0,186.0 36.0,186.0 36.0,452.0 70.0,452.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="256.0,343.0 304.0,343.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="261.0,521.0 304.0,521.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="207.0" y="220.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">yes</text>
+  <text x="207.0" y="374.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">yes · submit</text>
+  <text x="207.0" y="552.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">yes</text>
+  <text x="63.0" y="176.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central" font-style="italic">no</text>
+  <text x="43.0" y="200.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">client script off</text>
+  <text x="277.0" y="333.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central" font-style="italic">no</text>
+  <text x="279.5" y="511.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central" font-style="italic">no</text>
+  <rect x="62.0" y="12.0" width="268.0" height="44.0" rx="22.0" fill="#eef1f5" stroke="#7a8a9a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="27.7" font-size="9.4" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">A postback control is clicked</text>
+  <text x="196.0" y="40.3" font-size="9.4" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">(CausesValidation = true)</text>
+  <rect x="70.0" y="87.0" width="252.0" height="42.0" rx="7" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="101.7" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">The validators in the trigger&#x27;s</text>
+  <text x="196.0" y="114.3" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">ValidationGroup are selected</text>
+  <path d="M196.0,157.0 L302.0,186.0 L196.0,215.0 L90.0,186.0 Z" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="179.7" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">EnableClientScript</text>
+  <text x="196.0" y="192.3" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">and JavaScript?</text>
+  <rect x="70.0" y="257.0" width="252.0" height="34.0" rx="7" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="274.0" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Validators run in the browser</text>
+  <path d="M196.0,317.0 L256.0,343.0 L196.0,369.0 L136.0,343.0 Z" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="336.7" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">all</text>
+  <text x="196.0" y="349.3" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">valid?</text>
+  <rect x="70.0" y="435.0" width="252.0" height="34.0" rx="7" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="452.0" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Validators run on the server → Page.IsValid</text>
+  <path d="M196.0,495.0 L261.0,521.0 L196.0,547.0 L131.0,521.0 Z" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="521.0" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Page.IsValid?</text>
+  <rect x="76.0" y="590.0" width="240.0" height="40.0" rx="20.0" fill="#dcecd6" stroke="#5a8f45" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="610.0" font-size="9.4" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">the event handler runs its work</text>
+  <rect x="304.0" y="320.0" width="252.0" height="46.0" rx="23.0" fill="#f3ddd0" stroke="#c0663a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="430.0" y="336.7" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">submit blocked — no round-trip;</text>
+  <text x="430.0" y="349.3" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">messages + TValidationSummary show</text>
+  <rect x="304.0" y="498.0" width="252.0" height="46.0" rx="23.0" fill="#f3ddd0" stroke="#c0663a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="430.0" y="514.7" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">the handler skips its work;</text>
+  <text x="430.0" y="527.3" font-size="9.4" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">messages + TValidationSummary show</text>
+</svg>

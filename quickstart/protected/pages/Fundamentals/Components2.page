@@ -170,6 +170,7 @@ With the addition of behaviors, a more expansive event model is needed.  There
 are two new event types (global and dynamic events) as well as a more comprehensive
 behavior model that includes class wide behaviors.
 </p>
+<img src="<%~events-model.svg%>" class="figure" alt="Three event families, selected by the method-name prefix. on: an event of one object. The event exists only when the object defines an onX method; handlers attach to that object's own list, $this->_e[name]; raiseEvent calls the handlers in priority order; raiseEvent on an undefined on-event throws an exception. fx: an event shared by every object. Every fx name is a valid event and no method needs to define it; all objects share one handler list per name, self::$_ue[name]; listen() adds an object's fx methods to those lists; raiseEvent on any object calls every registered handler; with no handler, a direct fx call returns its first argument, or null. dy: an event from an object to its behaviors. Every dy name is a valid event; the call goes to the object's attached, enabled behaviors; a TCallChain calls those behaviors in priority order; each behavior receives the value and calls $chain->dyX() to pass it on; with no behavior, the call returns its first argument, or null."/>
 <p class="block-content">
 A global event is defined by all events whose name starts with <tt>fx</tt>.
 The event name is potentially a method name and is thus case-insensitive. All <tt>fx</tt> events

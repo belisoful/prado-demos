@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 572" width="540" height="572" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.7" dy="1.0" stdDeviation="0.8" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a4a4a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="540" height="572" fill="#fff"/>
+  <polyline points="196.0,40.0 196.0,61.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,103.0 196.0,129.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,175.0 196.0,199.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,253.0 196.0,288.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,348.0 196.0,382.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="196.0,438.0 196.0,476.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="136.0,226.0 104.0,226.0 104.0,476.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="261.0,318.0 344.0,318.0 344.0,226.0 256.0,226.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <polyline points="262.0,410.0 298.5,410.0" fill="none" stroke="#4a4a4a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="207.0" y="262.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">yes</text>
+  <text x="207.0" y="357.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">yes</text>
+  <text x="207.0" y="447.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">allow</text>
+  <text x="120.0" y="218.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central" font-style="italic">no</text>
+  <text x="269.0" y="310.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central" font-style="italic">no · next rule</text>
+  <text x="280.2" y="401.0" font-size="8.6" fill="#555" text-anchor="middle" dominant-baseline="central" font-style="italic">deny</text>
+  <rect x="126.0" y="12.0" width="140.0" height="28.0" rx="14.0" fill="#eef1f5" stroke="#7a8a9a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="26.0" font-size="9.6" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Page request</text>
+  <rect x="35.0" y="61.0" width="322.0" height="42.0" rx="7" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="75.7" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Authentication — TAuthManager restores the</text>
+  <text x="196.0" y="88.3" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">user from the session (otherwise a guest)</text>
+  <rect x="35.0" y="129.0" width="322.0" height="46.0" rx="7" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="145.7" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">Authorization — gather the page&#x27;s rules,</text>
+  <text x="196.0" y="158.3" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">bottom-up: current folder, then parent folders</text>
+  <path d="M196.0,199.0 L256.0,226.0 L196.0,253.0 L136.0,226.0 Z" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="219.7" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">more</text>
+  <text x="196.0" y="232.3" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">rules?</text>
+  <path d="M196.0,288.0 L261.0,318.0 L196.0,348.0 L131.0,318.0 Z" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="311.7" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">rule</text>
+  <text x="196.0" y="324.3" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">applies?</text>
+  <path d="M196.0,382.0 L262.0,410.0 L196.0,438.0 L130.0,410.0 Z" fill="#f6e6c8" stroke="#b8862a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="196.0" y="403.7" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">rule</text>
+  <text x="196.0" y="416.3" font-size="9.6" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">action?</text>
+  <rect x="66.0" y="476.0" width="248.0" height="40.0" rx="20.0" fill="#dcecd6" stroke="#5a8f45" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="190.0" y="496.0" font-size="9.6" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">AUTHORIZED — run the page</text>
+  <rect x="298.5" y="391.0" width="211.0" height="38.0" rx="19.0" fill="#f3d3d3" stroke="#c05a3a" stroke-width="1.2" filter="url(#ds)"/>
+  <text x="404.0" y="410.0" font-size="9.6" font-weight="700" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">DENIED — redirect to LoginPage</text>
+  <text x="270.0" y="544.0" font-size="8.8" fill="#666" text-anchor="middle" font-style="italic">A rule applies when  verb ∧ ip ∧ user ∧ role  all match (each unset dimension matches all), for a page the rule lists.</text>
+  <text x="270.0" y="558.0" font-size="8.8" fill="#666" text-anchor="middle" font-style="italic">The first applicable rule decides; if none applies, the user is authorized.</text>
+</svg>

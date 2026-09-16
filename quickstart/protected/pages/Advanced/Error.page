@@ -19,18 +19,17 @@ Exceptions raised due to improper usage of the PRADO framework inherit from <tt>
 <li><tt>TConfigurationException</tt> - improper configuration, such as error in application configuration, control templates, etc.</li>
 <li><tt>TInvalidDataValueException</tt> - data value is incorrect or unexpected.</li>
 <li><tt>TInvalidDataTypeException</tt> - data type is incorrect or unexpected.</li>
-<li><tt>TInvalidDataFormatException</tt> - format of data is incorrect.</li>
 <li><tt>TInvalidOperationException</tt> - invalid operation request.</li>
 <li><tt>TPhpErrorException</tt> - catchable PHP errors, warnings, notices, etc.</li>
-<li><tt>TSecurityException</tt> - errors related with security.</li>
 <li><tt>TIOException</tt> - IO operation error, such as file open failure.</li>
-<li><tt>TDBException</tt> - errors related with database operations.</li>
+<li><tt>TDbException</tt> - errors related with database operations.</li>
 <li><tt>TNotSupportedException</tt> - errors caused by requesting for unsupported feature.</li>
 <li><tt>THttpException</tt> - errors to be displayed to Web client users.</li>
 </ul>
 <p class="block-content">
 Errors due to improper usage of the Web application by client users inherit from <tt>TApplicationException</tt>.
 </p>
+<img src="<%~error-handling.svg%>" class="figure" alt="Left: the PRADO exception hierarchy. TException is the base. TSystemException extends it and covers framework-usage errors, with subclasses TConfigurationException, TInvalidDataValueException, TInvalidDataTypeException, TInvalidOperationException, TPhpErrorException, TIOException, TDbException, TNotSupportedException, and THttpException. TApplicationException extends TException as a separate branch for client-application errors. Right: TErrorHandler selects an output template. If the exception is a THttpException it tries error<code>-<lang>.html and falls back to error<code>.html; otherwise it tries exception-<lang>.html and falls back to exception.html. The client's preferred language is tried first, then the version with no language, resolved under ErrorTemplatePath (default framework/Exceptions/templates)."/>
 
 <h2>Raising Exceptions</h2>
 <p class="block-content">

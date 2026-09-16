@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 593 462" width="593" height="462" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <rect x="0" y="0" width="593" height="462" fill="#fff"/>
+  <text x="126.5" y="24.0" font-size="13" font-weight="700" fill="#333" text-anchor="middle" dominant-baseline="central">Control Tree</text>
+  <line x1="86.0" y1="33" x2="167.0" y2="33" stroke="#333" stroke-width="1.1"/>
+  <line x1="27.0" y1="96.5" x2="38.0" y2="96.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="27.0" y1="75.0" x2="27.0" y2="96.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="49.0" y1="129.5" x2="60.0" y2="129.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="49.0" y1="108.0" x2="49.0" y2="129.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="71.0" y1="162.5" x2="82.0" y2="162.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="71.0" y1="141.0" x2="71.0" y2="162.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="93.0" y1="195.5" x2="104.0" y2="195.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="93.0" y1="174.0" x2="93.0" y2="195.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="93.0" y1="228.5" x2="104.0" y2="228.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="93.0" y1="174.0" x2="93.0" y2="228.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="71.0" y1="261.5" x2="82.0" y2="261.5" stroke="#c0512e" stroke-width="1.6"/>
+  <line x1="71.0" y1="141.0" x2="71.0" y2="261.5" stroke="#c0512e" stroke-width="1.6"/>
+  <line x1="93.0" y1="294.5" x2="104.0" y2="294.5" stroke="#c0512e" stroke-width="1.6"/>
+  <line x1="93.0" y1="273.0" x2="93.0" y2="294.5" stroke="#c0512e" stroke-width="1.6"/>
+  <line x1="93.0" y1="327.5" x2="104.0" y2="327.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <line x1="93.0" y1="273.0" x2="93.0" y2="327.5" stroke="#9aa0a6" stroke-width="1.0"/>
+  <rect x="16.0" y="52.0" width="48.9" height="23.0" rx="6" fill="#e7ddf2" stroke="#7a4fb5" stroke-width="1.1"/>
+  <rect x="14.5" y="50.5" width="51.9" height="26.0" rx="7" fill="none" stroke="#c0512e" stroke-width="2.0"/>
+  <text x="25.0" y="63.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TPage</tspan></text>
+  <rect x="38.0" y="85.0" width="50.5" height="23.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.1"/>
+  <text x="47.0" y="96.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TForm</tspan></text>
+  <rect x="60.0" y="118.0" width="151.4" height="23.0" rx="6" fill="#e7ddf2" stroke="#7a4fb5" stroke-width="1.1"/>
+  <rect x="58.5" y="116.5" width="154.4" height="26.0" rx="7" fill="none" stroke="#c0512e" stroke-width="2.0"/>
+  <text x="69.0" y="129.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TRepeater</tspan><tspan fill="#555"> ID=&quot;Repeater1&quot;</tspan></text>
+  <rect x="82.0" y="151.0" width="155.1" height="23.0" rx="6" fill="#e7ddf2" stroke="#7a4fb5" stroke-width="1.1"/>
+  <text x="91.0" y="162.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TRepeaterItem</tspan><tspan fill="#555"> ID=&quot;Item0&quot;</tspan></text>
+  <rect x="104.0" y="184.0" width="128.1" height="23.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.1"/>
+  <text x="113.0" y="195.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TButton</tspan><tspan fill="#555"> ID=&quot;Button1&quot;</tspan></text>
+  <rect x="104.0" y="217.0" width="114.3" height="23.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.1"/>
+  <text x="113.0" y="228.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TLabel</tspan><tspan fill="#555"> ID=&quot;Label1&quot;</tspan></text>
+  <rect x="82.0" y="250.0" width="155.1" height="23.0" rx="6" fill="#e7ddf2" stroke="#7a4fb5" stroke-width="1.1"/>
+  <rect x="80.5" y="248.5" width="158.1" height="26.0" rx="7" fill="none" stroke="#c0512e" stroke-width="2.0"/>
+  <text x="91.0" y="261.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TRepeaterItem</tspan><tspan fill="#555"> ID=&quot;Item1&quot;</tspan></text>
+  <rect x="104.0" y="283.0" width="128.1" height="23.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.1"/>
+  <rect x="102.5" y="281.5" width="131.1" height="26.0" rx="7" fill="none" stroke="#c0512e" stroke-width="2.0"/>
+  <text x="113.0" y="294.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TButton</tspan><tspan fill="#555"> ID=&quot;Button1&quot;</tspan></text>
+  <rect x="104.0" y="316.0" width="114.3" height="23.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.1"/>
+  <text x="113.0" y="327.5" font-size="9.6" fill="#1a1a1a" text-anchor="start" dominant-baseline="central"><tspan font-weight="700">TLabel</tspan><tspan fill="#555"> ID=&quot;Label1&quot;</tspan></text>
+  <rect x="16.0" y="363.0" width="210.9" height="87.5" rx="7" fill="#fbfbf9" stroke="#c4c4c4" stroke-width="1"/>
+  <text x="28.0" y="380.0" font-size="9.5" font-weight="700" fill="#444" text-anchor="start" dominant-baseline="central">Legend</text>
+  <rect x="28.0" y="391.5" width="15.0" height="13.0" rx="6" fill="#e7ddf2" stroke="#7a4fb5" stroke-width="1.1"/>
+  <text x="50.0" y="398.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central">naming container (INamingContainer)</text>
+  <rect x="28.0" y="408.5" width="15.0" height="13.0" rx="6" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.1"/>
+  <text x="50.0" y="415.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central">ordinary control</text>
+  <rect x="28.0" y="425.5" width="15" height="13" rx="4" fill="none" stroke="#c0512e" stroke-width="2"/>
+  <text x="50.0" y="432.0" font-size="8.6" fill="#555" text-anchor="start" dominant-baseline="central">the highlighted target path</text>
+  <rect x="277.0" y="40.0" width="300.0" height="156.0" rx="8" fill="#fbfbf9" stroke="#c4c4c4" stroke-width="1"/>
+  <text x="291.0" y="58.0" font-size="10" font-weight="700" fill="#333" text-anchor="start" dominant-baseline="central">Identifiers of the highlighted</text>
+  <text x="291.0" y="72.0" font-size="10" font-weight="700" fill="#333" text-anchor="start" dominant-baseline="central">TButton  (Item1 → Button1)</text>
+  <text x="291.0" y="96.0" font-size="9" font-weight="700" fill="#555" text-anchor="start" dominant-baseline="central">ID</text>
+  <text x="369.0" y="96.0" font-size="9.2" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#1a1a1a" text-anchor="start" dominant-baseline="central">Button1</text>
+  <text x="291.0" y="114.0" font-size="9" font-weight="700" fill="#555" text-anchor="start" dominant-baseline="central">UniqueID</text>
+  <text x="369.0" y="114.0" font-size="9.2" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#c0512e" text-anchor="start" dominant-baseline="central">Repeater1 $ Item1 $ Button1</text>
+  <text x="291.0" y="132.0" font-size="9" font-weight="700" fill="#555" text-anchor="start" dominant-baseline="central">ClientID</text>
+  <text x="369.0" y="132.0" font-size="9.2" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#2f6f4f" text-anchor="start" dominant-baseline="central">Repeater1 _ Item1 _ Button1</text>
+  <line x1="291.0" y1="148" x2="563.0" y2="148" stroke="#ddd" stroke-width="1"/>
+  <text x="291.0" y="162.0" font-size="8.5" font-style="italic" fill="#666" text-anchor="start" dominant-baseline="central">UniqueID joins the naming-container IDs</text>
+  <text x="291.0" y="174.0" font-size="8.5" font-style="italic" fill="#666" text-anchor="start" dominant-baseline="central">with $ ; ClientID replaces $ with _ .</text>
+  <text x="291.0" y="186.0" font-size="8.5" font-style="italic" fill="#666" text-anchor="start" dominant-baseline="central">Treat the format as internal.</text>
+  <rect x="277.0" y="210.0" width="300.0" height="92.0" rx="8" fill="#f4f7fb" stroke="#9fb6cf" stroke-width="1"/>
+  <text x="291.0" y="226.0" font-size="9" font-weight="700" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#2f5a86" text-anchor="start" dominant-baseline="central">findControl(&quot;Repeater1.Item1.Button1&quot;)</text>
+  <text x="291.0" y="244.0" font-size="8.8" fill="#555" text-anchor="start" dominant-baseline="central">dots become $ ; the search walks the</text>
+  <text x="291.0" y="256.0" font-size="8.8" fill="#555" text-anchor="start" dominant-baseline="central">naming containers, step by step:</text>
+  <text x="291.0" y="274.0" font-size="9.2" font-weight="700" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#c0512e" text-anchor="start" dominant-baseline="central">Page ▸ Repeater1 ▸ Item1 ▸ Button1</text>
+  <text x="291.0" y="292.0" font-size="8.6" font-style="italic" fill="#777" text-anchor="start" dominant-baseline="central">null if nothing matches; error if two</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 296" width="810" height="296" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.6" dy="0.9" stdDeviation="0.7" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5a5a5a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="810" height="296" fill="#fff"/>
+  <text x="16.0" y="20.0" font-size="10" font-weight="700" fill="#4a78a8" text-anchor="start" dominant-baseline="central">Recognize a request  —  incoming URL → parameters</text>
+  <rect x="16.0" y="58.0" width="168.0" height="44.0" rx="6" fill="#eef1f5" stroke="#7a8a9a" stroke-width="1.1" filter="url(#ds)"/>
+  <text x="100.0" y="74.0" font-size="8.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">request path</text>
+  <text x="100.0" y="86.0" font-size="8.8" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">post/123</text>
+  <rect x="290.0" y="37.0" width="214.0" height="86.0" rx="7" fill="#fbfbf9" stroke="#c4c4c4" stroke-width="1.1" filter="url(#ds)"/>
+  <text x="397.0" y="49.0" font-size="8.4" font-weight="700" fill="#555" text-anchor="middle" dominant-baseline="central">URL patterns · evaluated in order</text>
+  <rect x="296.0" y="58.5" width="202.0" height="17.0" rx="4" fill="#dbe9f6" stroke="#4a78a8" stroke-width="1.2"/>
+  <text x="303.0" y="67.0" font-size="9.6" font-weight="700" fill="#4a78a8" text-anchor="start" dominant-baseline="central">✓</text>
+  <text x="316.0" y="67.0" font-size="8.4" font-weight="700" fill="#4a78a8" text-anchor="start" dominant-baseline="central">1</text>
+  <text x="330.0" y="67.0" font-size="8.6" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#4a78a8" text-anchor="start" dominant-baseline="central">post/{id}</text>
+  <text x="412.0" y="67.0" font-size="8.2" fill="#4a78a8" text-anchor="start" dominant-baseline="central">→ Posts.ViewPost</text>
+  <text x="316.0" y="86.0" font-size="8.4" font-weight="700" fill="#888" text-anchor="start" dominant-baseline="central">2</text>
+  <text x="330.0" y="86.0" font-size="8.6" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#333" text-anchor="start" dominant-baseline="central">archive/{time}</text>
+  <text x="412.0" y="86.0" font-size="8.2" fill="#777" text-anchor="start" dominant-baseline="central">→ Posts.ListPost</text>
+  <text x="316.0" y="105.0" font-size="8.4" font-weight="700" fill="#888" text-anchor="start" dominant-baseline="central">3</text>
+  <text x="330.0" y="105.0" font-size="8.6" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#333" text-anchor="start" dominant-baseline="central">category/{cat}</text>
+  <text x="412.0" y="105.0" font-size="8.2" fill="#777" text-anchor="start" dominant-baseline="central">→ Posts.ListPost</text>
+  <rect x="626.0" y="58.0" width="168.0" height="44.0" rx="6" fill="#eef1f5" stroke="#7a8a9a" stroke-width="1.1" filter="url(#ds)"/>
+  <text x="710.0" y="74.0" font-size="8.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">page = Posts.ViewPost</text>
+  <text x="710.0" y="86.0" font-size="8.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">id = 123</text>
+  <line x1="184.0" y1="80.0" x2="290.0" y2="80.0" stroke="#5a5a5a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="237.0" y="72.0" font-size="7.6" font-style="italic" fill="#555" text-anchor="middle" dominant-baseline="central">tested top-down</text>
+  <line x1="504.0" y1="80.0" x2="626.0" y2="80.0" stroke="#5a5a5a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="565.0" y="72.0" font-size="7.6" font-style="italic" fill="#555" text-anchor="middle" dominant-baseline="central">first match → decompose</text>
+  <text x="16.0" y="165.0" font-size="10" font-weight="700" fill="#5a8f45" text-anchor="start" dominant-baseline="central">Construct a URL  —  constructUrl() → friendly URL</text>
+  <rect x="16.0" y="203.0" width="168.0" height="44.0" rx="6" fill="#eef1f5" stroke="#7a8a9a" stroke-width="1.1" filter="url(#ds)"/>
+  <text x="100.0" y="219.0" font-size="8.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">constructUrl(</text>
+  <text x="100.0" y="231.0" font-size="8.8" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">&#x27;Posts.ListPost&#x27;, {cat:2})</text>
+  <rect x="290.0" y="182.0" width="214.0" height="86.0" rx="7" fill="#fbfbf9" stroke="#c4c4c4" stroke-width="1.1" filter="url(#ds)"/>
+  <text x="397.0" y="194.0" font-size="8.4" font-weight="700" fill="#555" text-anchor="middle" dominant-baseline="central">URL patterns · evaluated in order</text>
+  <text x="316.0" y="212.0" font-size="8.4" font-weight="700" fill="#888" text-anchor="start" dominant-baseline="central">1</text>
+  <text x="330.0" y="212.0" font-size="8.6" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#333" text-anchor="start" dominant-baseline="central">post/{id}</text>
+  <text x="412.0" y="212.0" font-size="8.2" fill="#777" text-anchor="start" dominant-baseline="central">→ Posts.ViewPost</text>
+  <text x="316.0" y="231.0" font-size="8.4" font-weight="700" fill="#888" text-anchor="start" dominant-baseline="central">2</text>
+  <text x="330.0" y="231.0" font-size="8.6" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#333" text-anchor="start" dominant-baseline="central">archive/{time}</text>
+  <text x="412.0" y="231.0" font-size="8.2" fill="#777" text-anchor="start" dominant-baseline="central">→ Posts.ListPost</text>
+  <rect x="296.0" y="241.5" width="202.0" height="17.0" rx="4" fill="#dcecd6" stroke="#5a8f45" stroke-width="1.2"/>
+  <text x="303.0" y="250.0" font-size="9.6" font-weight="700" fill="#5a8f45" text-anchor="start" dominant-baseline="central">✓</text>
+  <text x="316.0" y="250.0" font-size="8.4" font-weight="700" fill="#5a8f45" text-anchor="start" dominant-baseline="central">3</text>
+  <text x="330.0" y="250.0" font-size="8.6" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#5a8f45" text-anchor="start" dominant-baseline="central">category/{cat}</text>
+  <text x="412.0" y="250.0" font-size="8.2" fill="#5a8f45" text-anchor="start" dominant-baseline="central">→ Posts.ListPost</text>
+  <rect x="626.0" y="209.0" width="168.0" height="32.0" rx="6" fill="#eef1f5" stroke="#7a8a9a" stroke-width="1.1" filter="url(#ds)"/>
+  <text x="710.0" y="225.0" font-size="8.8" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">/index.php/category/2</text>
+  <line x1="184.0" y1="225.0" x2="290.0" y2="225.0" stroke="#5a5a5a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="237.0" y="217.0" font-size="7.6" font-style="italic" fill="#555" text-anchor="middle" dominant-baseline="central">by service + params</text>
+  <line x1="504.0" y1="225.0" x2="626.0" y2="225.0" stroke="#5a5a5a" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="565.0" y="217.0" font-size="7.6" font-style="italic" fill="#555" text-anchor="middle" dominant-baseline="central">fill placeholders</text>
+  <text x="397.0" y="283.0" font-size="7.6" font-style="italic" fill="#8a8a8a" text-anchor="middle" dominant-baseline="central">pattern 2 also maps to Posts.ListPost but needs a time parameter, so it is skipped.</text>
+</svg>

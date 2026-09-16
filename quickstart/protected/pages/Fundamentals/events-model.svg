@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864 464" width="864" height="464" font-family="Verdana, 'Segoe UI', -apple-system, sans-serif">
+  <defs>
+    <filter id="ds" x="-25%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0.6" dy="0.9" stdDeviation="0.7" flood-color="#000" flood-opacity="0.16"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a4a4a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="864" height="464" fill="#fff"/>
+  <text x="432.0" y="26.0" font-size="13" font-weight="700" fill="#333" text-anchor="middle" dominant-baseline="central">The method-name prefix selects the event mechanism</text>
+  <rect x="14.0" y="50.0" width="268.0" height="398.0" rx="10" fill="#fff" stroke="#3f6f9f" stroke-width="1.3" filter="url(#ds)"/>
+  <rect x="14.0" y="50.0" width="268.0" height="42.0" rx="10" fill="#dbe9f6" stroke="#3f6f9f" stroke-width="1.3"/>
+  <rect x="14.0" y="80.0" width="268.0" height="12" fill="#dbe9f6"/>
+  <line x1="14.0" y1="92.0" x2="282.0" y2="92.0" stroke="#3f6f9f" stroke-width="1.3"/>
+  <text x="30.0" y="71.0" font-size="17" font-weight="700" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#3f6f9f" text-anchor="start" dominant-baseline="central">on…</text>
+  <text x="268.0" y="71.0" font-size="10.5" font-weight="700" fill="#3f6f9f" text-anchor="end" dominant-baseline="central">local</text>
+  <text x="30.0" y="84.0" font-size="8.6" font-style="italic" fill="#666" text-anchor="start" dominant-baseline="central">an event of one object</text>
+  <rect x="53.0" y="131.0" width="190.0" height="26.0" rx="6" fill="#fbfbfa" stroke="#3f6f9f" stroke-width="1.1"/>
+  <text x="148.0" y="144.0" font-size="9.2" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">component</text>
+  <rect x="107.0" y="172.0" width="118.0" height="16.0" rx="6" fill="#fff" stroke="#3f6f9f" stroke-width="1.1"/>
+  <text x="166.0" y="180.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">handler 1</text>
+  <rect x="107.0" y="192.0" width="118.0" height="16.0" rx="6" fill="#fff" stroke="#3f6f9f" stroke-width="1.1"/>
+  <text x="166.0" y="200.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">handler 2</text>
+  <rect x="107.0" y="212.0" width="118.0" height="16.0" rx="6" fill="#fff" stroke="#3f6f9f" stroke-width="1.1"/>
+  <text x="166.0" y="220.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">handler 3</text>
+  <line x1="96.0" y1="172.0" x2="96.0" y2="228.0" stroke="#4a4a4a" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <text x="90.0" y="172.0" font-size="7.6" font-style="italic" fill="#555" text-anchor="end" dominant-baseline="central">raiseEvent()</text>
+  <text x="90.0" y="228.0" font-size="7.2" font-style="italic" fill="#888" text-anchor="end" dominant-baseline="central">in priority order</text>
+  <line x1="166.0" y1="157.0" x2="166.0" y2="172.0" stroke="#3f6f9f" stroke-width="1.0"/>
+  <circle cx="30.0" cy="290.0" r="2.6" fill="#3f6f9f"/>
+  <text x="40.0" y="290.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">The event exists only when the object defines an</text>
+  <text x="40.0" y="302.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">onX method.</text>
+  <circle cx="30.0" cy="323.0" r="2.6" fill="#3f6f9f"/>
+  <text x="40.0" y="323.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">Handlers attach to that object&#x27;s own list,</text>
+  <text x="40.0" y="335.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">$this-&gt;_e[name].</text>
+  <circle cx="30.0" cy="356.0" r="2.6" fill="#3f6f9f"/>
+  <text x="40.0" y="356.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">raiseEvent calls the handlers in priority order.</text>
+  <circle cx="30.0" cy="376.5" r="2.6" fill="#3f6f9f"/>
+  <text x="40.0" y="376.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">raiseEvent on an undefined on-event throws an</text>
+  <text x="40.0" y="389.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">exception.</text>
+  <rect x="298.0" y="50.0" width="268.0" height="398.0" rx="10" fill="#fff" stroke="#4f8140" stroke-width="1.3" filter="url(#ds)"/>
+  <rect x="298.0" y="50.0" width="268.0" height="42.0" rx="10" fill="#dcecd6" stroke="#4f8140" stroke-width="1.3"/>
+  <rect x="298.0" y="80.0" width="268.0" height="12" fill="#dcecd6"/>
+  <line x1="298.0" y1="92.0" x2="566.0" y2="92.0" stroke="#4f8140" stroke-width="1.3"/>
+  <text x="314.0" y="71.0" font-size="17" font-weight="700" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#4f8140" text-anchor="start" dominant-baseline="central">fx…</text>
+  <text x="552.0" y="71.0" font-size="10.5" font-weight="700" fill="#4f8140" text-anchor="end" dominant-baseline="central">global</text>
+  <text x="314.0" y="84.0" font-size="8.6" font-style="italic" fill="#666" text-anchor="start" dominant-baseline="central">an event shared by every object</text>
+  <text x="432.0" y="105.0" font-size="7.4" font-style="italic" fill="#888" text-anchor="middle" dominant-baseline="central">one handler list per event name</text>
+  <rect x="316.0" y="112.0" width="232.0" height="22.0" rx="6" fill="#dcecd6" stroke="#4f8140" stroke-width="1.2"/>
+  <text x="432.0" y="123.0" font-size="8.4" font-weight="700" fill="#4f8140" text-anchor="middle" dominant-baseline="central">shared registry  ·  self::$_ue[name]</text>
+  <line x1="432.0" y1="134.0" x2="432.0" y2="153.0" stroke="#4f8140" stroke-width="1.0"/>
+  <text x="438.0" y="142.0" font-size="8.0" font-weight="700" fill="#4f8140" text-anchor="start" dominant-baseline="central">1</text>
+  <polygon points="432.0,152.0 437.0,157.0 432.0,162.0 427.0,157.0" fill="#4f8140"/>
+  <text x="441.0" y="157.0" font-size="7.6" font-style="italic" fill="#4f8140" text-anchor="start" dominant-baseline="central">many</text>
+  <rect x="363.0" y="168.0" width="150.0" height="24.0" rx="6" fill="#fbfbfa" stroke="#4f8140" stroke-width="1.0"/>
+  <rect x="360.0" y="165.0" width="150.0" height="24.0" rx="6" fill="#fbfbfa" stroke="#4f8140" stroke-width="1.0"/>
+  <rect x="357.0" y="162.0" width="150.0" height="24.0" rx="6" fill="#fbfbfa" stroke="#4f8140" stroke-width="1.1"/>
+  <text x="432.0" y="174.0" font-size="9.2" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">object X</text>
+  <line x1="432.0" y1="186.0" x2="432.0" y2="202.0" stroke="#4f8140" stroke-width="1.0"/>
+  <rect x="373.0" y="202.0" width="118.0" height="16.0" rx="6" fill="#fff" stroke="#4f8140" stroke-width="1.1"/>
+  <text x="432.0" y="210.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">fxMethod 1</text>
+  <rect x="373.0" y="222.0" width="118.0" height="16.0" rx="6" fill="#fff" stroke="#4f8140" stroke-width="1.1"/>
+  <text x="432.0" y="230.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">fxMethod 2</text>
+  <rect x="373.0" y="242.0" width="118.0" height="16.0" rx="6" fill="#fff" stroke="#4f8140" stroke-width="1.1"/>
+  <text x="432.0" y="250.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">fxMethod 3</text>
+  <text x="432.0" y="268.0" font-size="7.3" font-style="italic" fill="#888" text-anchor="middle" dominant-baseline="central">listen() registers each object&#x27;s fx methods</text>
+  <circle cx="314.0" cy="290.0" r="2.6" fill="#4f8140"/>
+  <text x="324.0" y="290.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">Every fx name is a valid event; no method needs to</text>
+  <text x="324.0" y="302.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">define it.</text>
+  <circle cx="314.0" cy="323.0" r="2.6" fill="#4f8140"/>
+  <text x="324.0" y="323.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">All objects share one handler list per name,</text>
+  <text x="324.0" y="335.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">self::$_ue[name].</text>
+  <circle cx="314.0" cy="356.0" r="2.6" fill="#4f8140"/>
+  <text x="324.0" y="356.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">listen() adds an object&#x27;s fx methods to those lists.</text>
+  <circle cx="314.0" cy="376.5" r="2.6" fill="#4f8140"/>
+  <text x="324.0" y="376.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">raiseEvent on any object calls every registered</text>
+  <text x="324.0" y="389.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">handler.</text>
+  <circle cx="314.0" cy="409.5" r="2.6" fill="#4f8140"/>
+  <text x="324.0" y="409.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">With no handler, a direct fx call returns its first</text>
+  <text x="324.0" y="422.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">argument, or null.</text>
+  <rect x="582.0" y="50.0" width="268.0" height="398.0" rx="10" fill="#fff" stroke="#b07f24" stroke-width="1.3" filter="url(#ds)"/>
+  <rect x="582.0" y="50.0" width="268.0" height="42.0" rx="10" fill="#f6e6c8" stroke="#b07f24" stroke-width="1.3"/>
+  <rect x="582.0" y="80.0" width="268.0" height="12" fill="#f6e6c8"/>
+  <line x1="582.0" y1="92.0" x2="850.0" y2="92.0" stroke="#b07f24" stroke-width="1.3"/>
+  <text x="598.0" y="71.0" font-size="17" font-weight="700" font-family="'DejaVu Sans Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#b07f24" text-anchor="start" dominant-baseline="central">dy…</text>
+  <text x="836.0" y="71.0" font-size="10.5" font-weight="700" fill="#b07f24" text-anchor="end" dominant-baseline="central">behaviors</text>
+  <text x="598.0" y="84.0" font-size="8.6" font-style="italic" fill="#666" text-anchor="start" dominant-baseline="central">an event from an object to its behaviors</text>
+  <rect x="592.0" y="110.0" width="116.0" height="24.0" rx="6" fill="#fbfbfa" stroke="#b07f24" stroke-width="1.1"/>
+  <text x="650.0" y="122.0" font-size="9.0" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">component</text>
+  <rect x="600.0" y="158.0" width="100.0" height="20.0" rx="6" fill="#f6e6c8" stroke="#b07f24" stroke-width="1.1"/>
+  <text x="650.0" y="168.0" font-size="8.2" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">TCallChain</text>
+  <line x1="650.0" y1="134.0" x2="650.0" y2="158.0" stroke="#b07f24" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <rect x="718.0" y="104.0" width="126.0" height="150.0" rx="7" fill="#fbfbfa" stroke="#b07f24" stroke-width="1.0" stroke-dasharray="3,2"/>
+  <text x="781.0" y="115.0" font-size="7.8" font-weight="700" fill="#b07f24" text-anchor="middle" dominant-baseline="central">Component Behaviors</text>
+  <rect x="729.0" y="158.0" width="104.0" height="20.0" rx="6" fill="#fff" stroke="#b07f24" stroke-width="1.1"/>
+  <text x="781.0" y="168.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">behavior 1</text>
+  <rect x="729.0" y="194.0" width="104.0" height="20.0" rx="6" fill="#fff" stroke="#b07f24" stroke-width="1.1"/>
+  <text x="781.0" y="204.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">behavior 2</text>
+  <line x1="781.0" y1="178.0" x2="781.0" y2="194.0" stroke="#b07f24" stroke-width="1.1" marker-end="url(#arrow)"/>
+  <rect x="729.0" y="230.0" width="104.0" height="20.0" rx="6" fill="#fff" stroke="#b07f24" stroke-width="1.1"/>
+  <text x="781.0" y="240.0" font-size="7.8" fill="#1a1a1a" text-anchor="middle" dominant-baseline="central">behavior 3</text>
+  <line x1="781.0" y1="214.0" x2="781.0" y2="230.0" stroke="#b07f24" stroke-width="1.1" marker-end="url(#arrow)"/>
+  <line x1="700.0" y1="168.0" x2="729.0" y2="168.0" stroke="#b07f24" stroke-width="1.1" marker-end="url(#arrow)"/>
+  <text x="716.0" y="268.0" font-size="7.3" font-style="italic" fill="#888" text-anchor="middle" dominant-baseline="central">$chain-&gt;dyX() passes the value to the next behavior</text>
+  <circle cx="598.0" cy="290.0" r="2.6" fill="#b07f24"/>
+  <text x="608.0" y="290.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">Every dy name is a valid event; no method needs</text>
+  <text x="608.0" y="302.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">to define it.</text>
+  <circle cx="598.0" cy="323.0" r="2.6" fill="#b07f24"/>
+  <text x="608.0" y="323.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">The call goes to the object&#x27;s attached, enabled</text>
+  <text x="608.0" y="335.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">behaviors.</text>
+  <circle cx="598.0" cy="356.0" r="2.6" fill="#b07f24"/>
+  <text x="608.0" y="356.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">A TCallChain calls those behaviors in priority order.</text>
+  <circle cx="598.0" cy="376.5" r="2.6" fill="#b07f24"/>
+  <text x="608.0" y="376.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">Each behavior receives the value and calls</text>
+  <text x="608.0" y="389.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">$chain-&gt;dyX() to pass it on.</text>
+  <circle cx="598.0" cy="409.5" r="2.6" fill="#b07f24"/>
+  <text x="608.0" y="409.5" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">With no behavior, the call returns its first</text>
+  <text x="608.0" y="422.0" font-size="8.7" fill="#2a2a2a" text-anchor="start" dominant-baseline="central">argument, or null.</text>
+</svg>

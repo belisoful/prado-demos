@@ -3,7 +3,7 @@
 	<p class="block-content">This tutorial introduces the Prado web application framework and teaches
 		you how to build a simple web application in a few simple steps. This
 		tutorial assumes that you are familiar with PHP and you have access
-		to a web server that is able to serve PHP5 scripts.
+		to a web server that is able to serve PHP scripts.
 	</p>
 
 	<p class="block-content">In this tutorial you will build a simple web application that converts
@@ -134,8 +134,8 @@ class Home extends TPage
 }
 </com:TTextHighlighter>
 	<p class="block-content">
-		Prado uses PHP's <tt>__autoload</tt> method to load classes. The convention
-		is to use the class name with ".php" extension as filename.
+		Prado autoloads classes on demand, following the convention that a class lives in
+		a file named after the class with the <tt>.php</tt> extension.
 	</p>
 
 	<p class="block-content">So far there is nothing interesting about Prado, we just declared some
@@ -296,7 +296,7 @@ public function convert_clicked($sender, $param)
 
 	<h1>Improve User Experience With Active Controls</h1>
 
-	<com:RequiresVersion Version="3.1a" />
+	<com:RequiresVersion Version="3.1" />
 
 	<p class="block-content">In this simple application we may further improve the user experience
 		by increasing the responsiveness of the application. One way to achieve
@@ -322,13 +322,9 @@ public function convert_clicked($sender, $param)
 </div>
 </com:TTextHighlighter>
 	<p class="block-content">
-		The server side logic remains the same, we just need to import the
-		Active Controls name space as they are not included by default. We
-		add the following line to the begin of "Home.php".
+		The server side logic remains the same. Prado autoloads the active controls on
+		demand, so no import is required.
 	</p>
-<com:TTextHighlighter Language="php" CssClass="source block-content" id="code12">
-Prado::using('System.Web.UI.ActiveControls.*');
-</com:TTextHighlighter>
 
 	<p class="block-content">If you try the application now, you may notice that the page no longer
 		needs to reload to calculate and display the converted total amount.

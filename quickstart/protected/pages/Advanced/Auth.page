@@ -99,9 +99,10 @@ When a page request is being processed, a list of authorization rules may be ava
 <ul id="u2" class="block-content">
 <li>Rules are ordered bottom-up, i.e., the rules contained in the configuration of current page folder go first. Rules in configurations of parent page folders go after.</li>
 <li>A rule is effective if the current page is in the listed pages of the rule AND the current user action (<tt>get</tt> or <tt>post</tt>) is in the listed actions.</li>
-<li>A rule matching occurs if the current user name is in the listed user names of an <i>effective</i> rule OR if the user's role is in the listed roles of that rule.</li>
+<li>A rule matches the user if the user name is among the listed user names of an <i>effective</i> rule and the user's role is among the listed roles of that rule. An empty or unset list matches every user or every role, so a rule that lists only users matches on the user and a rule that lists only roles matches on the role.</li>
 <li>If no rule matches, the user is authorized.</li>
 </ul>
+<img src="<%~auth-flow.svg%>" class="figure" alt="Flowchart of the PRADO authentication and authorization request path. TAuthManager restores the user from the session during authentication, otherwise the user is a guest. During authorization it gathers the page's rules bottom-up (current folder first, then parent folders) and walks them in order. Each rule applies only when its verb, ip, user, and role all match the request, where an unset dimension matches all, for a page the rule lists. The first applicable rule's action decides: allow authorizes the request and runs the page, deny redirects the browser to the LoginPage. If no rule applies, the user is authorized."/>
 <p class="block-content">
 In the above example, anonymous users will be denied from posting to <tt>PageID1</tt> and <tt>PageID2</tt>, while <tt>User1</tt> and <tt>User2</tt> and all users of role <tt>Role1</tt> can access the two pages (in both <tt>get</tt> and <tt>post</tt> methods).
 </p>
