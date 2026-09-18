@@ -40,6 +40,17 @@ Then, the contents are inserted into the master control according to the followi
 <img src=<%~ mastercontent.gif %> alt="Master and Content" />
 <img src=<%~ pcrelation.gif %> alt="Parent-child relationship between master and content" />
 
+<h2>Placing the Form</h2>
+<p class="block-content">
+A page that posts back needs a <tt>TForm</tt>, and a page may contain at most one of them. When pages share a master, the <tt>TForm</tt> belongs in the master template, wrapping the <tt>TContentPlaceHolder</tt> controls. A content template then holds input controls only, and those controls render inside the master's form.
+</p>
+<p class="block-content">
+A content template must not open a form of its own. A second <tt>&lt;com:TForm&gt;</tt> raises the error <tt>A page can contain at most one TForm</tt>. A plain HTML <tt>&lt;form&gt;</tt> tag fails silently instead. PRADO renders the hidden <tt>PRADO_PAGESTATE</tt> field at the end of the form, after the content. A browser discards the start tag of a nested <tt>&lt;form&gt;</tt> and honors its <tt>&lt;/form&gt;</tt>, so the closing tag ends the master's form early. The <tt>PRADO_PAGESTATE</tt> field falls outside the submitted data, and every postback from the page fails with <tt>Bad Request - Page state is corrupted</tt>.
+</p>
+<p class="block-content">
+A plain HTML form that posts to a different URL is still allowed. Place it outside the <tt>TForm</tt>, which means outside the region the master reserves for content.
+</p>
+
 <h2>Master vs. External Template</h2>
 <p class="block-content">
 Master is very similar to external templates which are introduced since version 3.0.5. A special <a href="?page=Configurations.Templates1">include tag</a> is used to include an external template file into a base template.
