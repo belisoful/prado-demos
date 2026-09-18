@@ -79,6 +79,10 @@ To use the newly created master control, we will modify <tt>Home.page</tt> and <
 </p>
 
 <p>
+We also remove the <tt>&lt;com:TForm&gt;</tt> and <tt>&lt;/com:TForm&gt;</tt> tags that we added to <tt>Contact.page</tt> in the previous section. <tt>MainLayout</tt> now carries the only <tt>TForm</tt> in the page, and the content of <tt>Contact.page</tt> is rendered inside it. The textboxes, the validators and the button stay where they are; only the two form tags go away.
+</p>
+
+<p>
 The following shows the content in <tt>Contact.page</tt> after the change:
 </p>
 
@@ -100,6 +104,10 @@ The following shows the content in <tt>Contact.page</tt> after the change:
 
 &lt;/com:TContent>
 </com:TTextHighlighter>
+
+<com:NoteBox>
+Do not replace the removed <tt>&lt;com:TForm&gt;</tt> with a plain HTML <tt>&lt;form&gt;</tt> tag. A page may contain at most one form, and the master already provides it. PRADO writes the hidden <tt>PRADO_PAGESTATE</tt> field at the end of that form, after the page content. A browser discards the start tag of a nested <tt>&lt;form&gt;</tt> but honors its <tt>&lt;/form&gt;</tt>, so the stray closing tag ends the master's form early and leaves <tt>PRADO_PAGESTATE</tt> outside the data that is submitted. Every postback from the page then fails with <tt>Bad Request - Page state is corrupted</tt>.
+</com:NoteBox>
 
 <p>
 Content enclosed within the <tt>&lt;com:TContent&gt;</tt> tag will be inserted into the place that is reserved by <tt>&lt;com:TContentPlaceHolder&gt;</tt> in the master template.
